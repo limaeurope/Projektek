@@ -23,13 +23,17 @@ HOTSPOT	0,	0,	gb_h_torzs,	hsID,	gb_h_torzs, 2	: hsID = hsID+1
 HOTSPOT	0,	0,	-1,			hsID,	gb_h_torzs, 3	: hsID = hsID+1
 
 addz gb_h_torzs
-	HOTSPOT	0,			0,	(zzyzx - gb_h_torzs) / 2,	hsID,	gb_r_lomb, 1	: hsID = hsID+1
-	HOTSPOT	gb_r_lomb,	0,	(zzyzx - gb_h_torzs) / 2,	hsID,	gb_r_lomb, 2	: hsID = hsID+1
-	HOTSPOT	-1,			0,	(zzyzx - gb_h_torzs) / 2,	hsID,	gb_r_lomb, 3	: hsID = hsID+1
-
 	if isEvergreen then
+		HOTSPOT	0,			0,	0,	hsID,	gb_r_lomb, 1	: hsID = hsID+1
+		HOTSPOT	gb_r_lomb,	0,	0,	hsID,	gb_r_lomb, 2	: hsID = hsID+1
+		HOTSPOT	-1,			0,	0,	hsID,	gb_r_lomb, 3	: hsID = hsID+1
+
 		CONE zzyzx-gb_h_torzs, gb_r_lomb, 0, 90, 90
 	else
+		HOTSPOT	0,			0,	(zzyzx - gb_h_torzs) / 2,	hsID,	gb_r_lomb, 1	: hsID = hsID+1
+		HOTSPOT	gb_r_lomb,	0,	(zzyzx - gb_h_torzs) / 2,	hsID,	gb_r_lomb, 2	: hsID = hsID+1
+		HOTSPOT	-1,			0,	(zzyzx - gb_h_torzs) / 2,	hsID,	gb_r_lomb, 3	: hsID = hsID+1
+
 		xform	1,	0,	0,										0,
 				0,	1,	0,										0,
 				0,	0,	(zzyzx - gb_h_torzs) / 2 / gb_r_lomb,	(zzyzx - gb_h_torzs) / 2
