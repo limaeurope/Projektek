@@ -227,9 +227,13 @@ TabulatorGUI()
 					_inText .= ","
 				}
 			}
-			if _iRow < nRows
+			if (_iRow < nRows)
 			{
-				_inText .= ",`n"
+				if (sCommands[_iRow] = "")
+				{
+					_inText .= ","
+				}
+				_inText .= "`n"
 			}
 		}
 		GuiControl,, inText, %_inText%
