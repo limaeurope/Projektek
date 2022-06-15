@@ -6,8 +6,8 @@
 <![CDATA[
 !hotspot2 0,0:circle2 0,0, .05:line2 0,0,1,0:line2 0,0,0,.5
 
-text2 0, 0, SYMB_MIRRORED
-text2 1, 0, turnLast
+!text2 0, 0, SYMB_MIRRORED
+!text2 1, 0, turnLast
 !text2 0, -0.1, onWallBeg
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -1347,6 +1347,9 @@ return
 		</Boolean>
 		<Boolean Name="isSymmetrical">
 			<Description><![CDATA["Symmetrical Skin Turning"]]></Description>
+			<Flags>
+				<ParFlg_Hidden/>
+			</Flags>
 			<Value>0</Value>
 		</Boolean>
 		<Integer Name="nTurnSkins">
@@ -1575,6 +1578,9 @@ return
 		</String>
 		<Length Name="yCorner">
 			<Description><![CDATA["Corner Point"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
 			<Value>0.001</Value>
 		</Length>
 	</Parameters>
@@ -2472,29 +2478,41 @@ then
 
 	add 0, yEnd, 0
 
-	for i = 1 to WALL_SKINS_NUMBER
-		yEnd = yEnd + WALL_SKINS_PARAMS[i][SKIN_THICKNESS] * tan(aCorner)
-
-		if i <= nTurnSkins then
-			yDiff = yDiff + WALL_SKINS_PARAMS[i][SKIN_THICKNESS] / cos(aCorner)
-		endif
-
-		if isSymmetrical then
-			if i > WALL_SKINS_NUMBER - nTurnSkins + 1 then
-				yDiff = yDiff - WALL_SKINS_PARAMS[i-1][SKIN_THICKNESS] / cos(aCorner)
+	if turnLast then
+		for i = 1 to WALL_SKINS_NUMBER
+			if bShowEntireWall or bShowTurnedSkin then
+				fill WALL_SKINS_PARAMS[i][SKIN_FILL]
+				fillType = 0
 			endif
-		endif
+		
+			yEnd = yEnd + WALL_SKINS_PARAMS[i][SKIN_THICKNESS] * tan(aCorner)
+		
+			if i <= nTurnSkins then
+				yDiff = yDiff + WALL_SKINS_PARAMS[i][SKIN_THICKNESS] / cos(aCorner)
+			endif
+		
+			if isSymmetrical then
+				if i > WALL_SKINS_NUMBER - nTurnSkins + 1 then
+					yDiff = yDiff - WALL_SKINS_PARAMS[WALL_SKINS_NUMBER-i+2][SKIN_THICKNESS] / cos(aCorner)
+				endif
+			else
+				if i > WALL_SKINS_NUMBER - nTurnSkins then
+					yDiff = yDiff - WALL_SKINS_PARAMS[i][SKIN_THICKNESS] / cos(aCorner)
+				endif
+			endif
+		
+			add -WALL_SKINS_PARAMS[i][SKIN_THICKNESS], 0, 0
+				if SYMB_MIRRORED then
+					_Start = 0
+					_yEnd =  yEnd - yDiff
 
-		if SYMB_MIRRORED then
-			_Start = 0
-			_yEnd =  yEnd - yDiff
-		else
-			_yStart = yEnd - yDiff
-			_yEnd = 0
-		endif
+					add 0, -yEnd + yDiff, 0
+				else
+					_Start = 0
+					_yEnd =  -yEnd + yDiff
 
-		add -WALL_SKINS_PARAMS[i][SKIN_THICKNESS], 0, 0
-			add 0, -yEnd + yDiff, 0
+					add 0, 0, 0
+				endif
 				call "SkinRect" parameters	trafo_array 	= trafo_array,
 											numTrafo		= numTrafo,
 											gs_useWallMat	= 1,
@@ -2544,8 +2562,172 @@ then
 											matVert			= WALL_SKINS_PARAMS[i][19],
 											matHoriz		= WALL_SKINS_PARAMS[i][19],
 											structureBMat	= _conectedWallSkinBmat[i]
-			del 1
-	next i
+				del 1
+		next i	
+	else
+		for i = WALL_SKINS_NUMBER to 1 step -1
+			if bShowEntireWall or bShowTurnedSkin then
+				fill WALL_SKINS_PARAMS[i][SKIN_FILL]
+				fillType = 0
+			endif
+		
+			yEnd = yEnd + WALL_SKINS_PARAMS[i][SKIN_THICKNESS] * tan(aCorner)
+		
+			if i < nTurnSkins - 1 then
+				yDiff = yDiff + WALL_SKINS_PARAMS[i+1][SKIN_THICKNESS] / cos(aCorner)
+			endif
+		
+			if isSymmetrical then
+				if i > WALL_SKINS_NUMBER - nTurnSkins + 1 then
+					yDiff = yDiff - WALL_SKINS_PARAMS[WALL_SKINS_NUMBER-i+1][SKIN_THICKNESS] / cos(aCorner)
+				endif
+			else
+				if i > WALL_SKINS_NUMBER - nTurnSkins then
+					yDiff = yDiff - WALL_SKINS_PARAMS[i][SKIN_THICKNESS] / cos(aCorner)
+				endif
+			endif
+
+			add -WALL_SKINS_PARAMS[i][SKIN_THICKNESS], 0, 0
+				if SYMB_MIRRORED then
+					_Start = 0
+					_yEnd =  yEnd + yDiff
+
+					add 0, -yEnd - yDiff, 0
+				else
+					_Start = 0
+					_yEnd =  -yEnd - yDiff
+
+					add 0, 0, 0
+				endif
+				call "SkinRect" parameters	trafo_array 	= trafo_array,
+											numTrafo		= numTrafo,
+											gs_useWallMat	= 1,
+											startX			= 0,
+											startY			= _yStart,
+											endX			= WALL_SKINS_PARAMS[i][SKIN_THICKNESS],
+											endY			= _yEnd,
+											innerRadius		= 0,
+											outerRadius		= 0,
+											incAngle		= aCorner,
+											trapType		= 1,
+											ac_wall_slant_angle1	= ac_wall_slant_angle1,
+											ac_wall_slant_angle2	= ac_wall_slant_angle2,
+											bDoCut			= 1,
+											height			= ZZYZX,
+											edge1			= 1 + 2 + 4 + 8,
+											edge2			= 1 + 2 + 4 + 8,
+											edge3			= 1 + 2 + 4 + 8,
+											edge4			= 1 + 2 + 4 + 8,
+											matLeft			= _matLeft,
+											matRight		= _matRight,
+											matVert			= _matVert,
+											matHoriz		= WALL_SKINS_PARAMS[i][19],
+											structureBMat	= _conectedWallSkinBmat[i]
+	
+				call "SkinRect" parameters	trafo_array 	= trafo_array,
+											numTrafo		= numTrafo,
+											gs_useWallMat	= 1,
+											startX			= 0,
+											startY			= _yStart,
+											endX			= WALL_SKINS_PARAMS[i][SKIN_THICKNESS],
+											endY			= _yEnd,
+											innerRadius		= 0,
+											outerRadius		= 0,
+											incAngle		= aCorner,
+											trapType		= 1,
+											ac_wall_slant_angle1	= ac_wall_slant_angle1,
+											ac_wall_slant_angle2	= ac_wall_slant_angle2,
+											bDoCut			= 0,
+											height			= ZZYZX,
+											edge1			= 0 + 2 + 0 + 8,
+											edge2			= 0 + 2 + 0 + 8,
+											edge3			= 1 + 2 + 0 + 8,
+											edge4			= 0 + 2 + 0 + 8,
+											matLeft			= WALL_SKINS_PARAMS[i][19],
+											matRight		= WALL_SKINS_PARAMS[i][19],
+											matVert			= WALL_SKINS_PARAMS[i][19],
+											matHoriz		= WALL_SKINS_PARAMS[i][19],
+											structureBMat	= _conectedWallSkinBmat[i]
+				del 1
+		next i
+	endif
+
+
+
+!!	for i = 1 to WALL_SKINS_NUMBER
+!!		yEnd = yEnd + WALL_SKINS_PARAMS[i][SKIN_THICKNESS] * tan(aCorner)
+!!
+!!		if i <= nTurnSkins then
+!!			yDiff = yDiff + WALL_SKINS_PARAMS[i][SKIN_THICKNESS] / cos(aCorner)
+!!		endif
+!!
+!!		if isSymmetrical then
+!!			if i > WALL_SKINS_NUMBER - nTurnSkins + 1 then
+!!				yDiff = yDiff - WALL_SKINS_PARAMS[i-1][SKIN_THICKNESS] / cos(aCorner)
+!!			endif
+!!		endif
+!!
+!!		if SYMB_MIRRORED then
+!!			_Start = 0
+!!			_yEnd =  yEnd - yDiff
+!!		else
+!!			_yStart = yEnd - yDiff
+!!			_yEnd = 0
+!!		endif
+!!
+!!		add -WALL_SKINS_PARAMS[i][SKIN_THICKNESS], 0, 0
+!!			add 0, -yEnd + yDiff, 0
+!!				call "SkinRect" parameters	trafo_array 	= trafo_array,
+!!											numTrafo		= numTrafo,
+!!											gs_useWallMat	= 1,
+!!											startX			= 0,
+!!											startY			= _yStart,
+!!											endX			= WALL_SKINS_PARAMS[i][SKIN_THICKNESS],
+!!											endY			= _yEnd,
+!!											innerRadius		= 0,
+!!											outerRadius		= 0,
+!!											incAngle		= aCorner,
+!!											trapType		= 1,
+!!											ac_wall_slant_angle1	= ac_wall_slant_angle1,
+!!											ac_wall_slant_angle2	= ac_wall_slant_angle2,
+!!											bDoCut			= 1,
+!!											height			= ZZYZX,
+!!											edge1			= 1 + 2 + 4 + 8,
+!!											edge2			= 1 + 2 + 4 + 8,
+!!											edge3			= 1 + 2 + 4 + 8,
+!!											edge4			= 1 + 2 + 4 + 8,
+!!											matLeft			= _matLeft,
+!!											matRight		= _matRight,
+!!											matVert			= _matVert,
+!!											matHoriz		= WALL_SKINS_PARAMS[i][19],
+!!											structureBMat	= _conectedWallSkinBmat[i]
+!!	
+!!				call "SkinRect" parameters	trafo_array 	= trafo_array,
+!!											numTrafo		= numTrafo,
+!!											gs_useWallMat	= 1,
+!!											startX			= 0,
+!!											startY			= _yStart,
+!!											endX			= WALL_SKINS_PARAMS[i][SKIN_THICKNESS],
+!!											endY			= _yEnd,
+!!											innerRadius		= 0,
+!!											outerRadius		= 0,
+!!											incAngle		= aCorner,
+!!											trapType		= 1,
+!!											ac_wall_slant_angle1	= ac_wall_slant_angle1,
+!!											ac_wall_slant_angle2	= ac_wall_slant_angle2,
+!!											bDoCut			= 0,
+!!											height			= ZZYZX,
+!!											edge1			= 0 + 2 + 0 + 8,
+!!											edge2			= 0 + 2 + 0 + 8,
+!!											edge3			= 1 + 2 + 0 + 8,
+!!											edge4			= 0 + 2 + 0 + 8,
+!!											matLeft			= WALL_SKINS_PARAMS[i][19],
+!!											matRight		= WALL_SKINS_PARAMS[i][19],
+!!											matVert			= WALL_SKINS_PARAMS[i][19],
+!!											matHoriz		= WALL_SKINS_PARAMS[i][19],
+!!											structureBMat	= _conectedWallSkinBmat[i]
+!!			del 1
+!!	next i
 endif
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
