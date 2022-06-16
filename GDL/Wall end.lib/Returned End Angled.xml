@@ -5,9 +5,14 @@
 <Script_2D SectVersion="20" SectionFlags="0" SubIdent="0">
 <![CDATA[
 !hotspot2 0,0:circle2 0,0, .05:line2 0,0,1,0:line2 0,0,0,.5
+define style "teszt" "Arial", .2, 1, 0
+set style "teszt"
 
-!text2 0, 0, SYMB_MIRRORED
-!text2 1, 0, turnLast
+!text2 0, 0, "SYMB_MIRRORED: " + str(SYMB_MIRRORED, 1, 0)
+!text2 0, .025, "turnLast: " + str(turnLast, 1, 0)
+!text2 0, .05, "isSymmetrical: " + str(isSymmetrical, 1, 0)
+!text2 0, .075, "bTurnRefSide: " + str(bTurnRefSide, 1, 0)
+
 !text2 0, -0.1, onWallBeg
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -977,15 +982,13 @@ del 1
 mul2 -1, -1
 add2 0, 0
 
-yDiff = 0
-
 if	aCorner < -EPS \
 |	aCorner > EPS \
 then
 	yEnd = 0
 
 	for i = 1 to nTurnSkins
-		yEnd = yEnd + WALL_SKINS_PARAMS[i][SKIN_THICKNESS] / cos(aCorner)
+		yEnd = yEnd + WALL_SKINS_PARAMS[i][SKIN_THICKNESS] / cos(aCorner)	
 	next i
 
 	if aCorner < 0 then
@@ -1009,145 +1012,78 @@ then
 
 	add2 0, yEnd
 
-	if turnLast then
-		for i = 1 to WALL_SKINS_NUMBER
-			if bShowEntireWall or bShowTurnedSkin then
-				fill WALL_SKINS_PARAMS[i][SKIN_FILL]
-				fillType = 0
-			endif
-		
-			yEnd = yEnd + WALL_SKINS_PARAMS[i][SKIN_THICKNESS] * tan(aCorner)
-		
-			if i <= nTurnSkins then
-				yDiff = yDiff + WALL_SKINS_PARAMS[i][SKIN_THICKNESS] / cos(aCorner)
-			endif
-		
-			if isSymmetrical then
-				if i > WALL_SKINS_NUMBER - nTurnSkins + 1 then
-					yDiff = yDiff - WALL_SKINS_PARAMS[WALL_SKINS_NUMBER-i+2][SKIN_THICKNESS] / cos(aCorner)
-				endif
-			else
-				if i > WALL_SKINS_NUMBER - nTurnSkins then
-					yDiff = yDiff - WALL_SKINS_PARAMS[i][SKIN_THICKNESS] / cos(aCorner)
-				endif
-			endif
-		
-			add2 -WALL_SKINS_PARAMS[i][SKIN_THICKNESS], 0
-				if SYMB_MIRRORED then
-					_Start = 0
-					_yEnd =  yEnd - yDiff
+	for i = 1 to WALL_SKINS_NUMBER
+		if turnLast then
+			_i = i
+		else
+			_i = WALL_SKINS_NUMBER - i + 1
+		endif
 
-					add2 0, -yEnd + yDiff 
-				else
-					_Start = 0
-					_yEnd =  -yEnd + yDiff
+!print WALL_SKINS_PARAMS[_i][SKIN_THICKNESS]
+		if bShowEntireWall or bShowTurnedSkin then
+			fill WALL_SKINS_PARAMS[_i][SKIN_FILL]
+			fillType = 0
+		endif
 
-					add2 0, 0 
-				endif
-					call "SkinRect" PARAMETERS \
-						startX = 0, 
-						startY = _yStart,
-						endX = WALL_SKINS_PARAMS[i][SKIN_THICKNESS],
-						endY = 	_yEnd,
-						innerRadius = 0, 
-						outerRadius = 0,
-						incAngle = aCorner, 
-						trapType = 1,
-						fillPen = WALL_SKINS_PARAMS[i][SKIN_FILL_PEN],
-						fillBGPen = WALL_SKINS_PARAMS[i][SKIN_FILL_BACK_PEN],
-						fillType = fillType,
-						bLocalFill = WALL_SKINS_PARAMS[i][SKIN_FILL_ORIENTATION],
-						bFitToSkinFill = WALL_SKINS_PARAMS[i][SKIN_FILL_FIT_TO_SKIN],
-						bChangeFitToSkinFillOrient = 0,
-						bCircularDistortion	= 0,
-			
-						startLinePen = (iMode > 1) * midPen * (bShowEntireWall or ((contourState > CONT_BEFORE_FIRST_LINE) and (contourState < CONT_AFTER_LAST_LINE))),
-						startLineLineType = midLT,
-						startLineCont = ((contourState = CONT_LAST_LINE) or (contourState = CONT_FIRST_LINE)),
-		
-						endLinePen = (iMode > 1) * midPen * (bShowEntireWall or ((contourState > CONT_BEFORE_FIRST_LINE) and (contourState < CONT_AFTER_LAST_LINE))),
-						endLineLineType = midLT,
-						endLineCont = ((contourState = CONT_LAST_LINE) or (contourState = CONT_FIRST_LINE)),
-			
-						bottomLinePen = 0,
-						bottomLineLineType = 0,
-						bottomLineCont = 0,
-			
-						topLinePen = 0,
-						topLineLineType = 0,
-						topLineCont = 0
-				del 1
-		next i	
-	else
-		for i = WALL_SKINS_NUMBER to 1 step -1
-			if bShowEntireWall or bShowTurnedSkin then
-				fill WALL_SKINS_PARAMS[i][SKIN_FILL]
-				fillType = 0
-			endif
-		
-			yEnd = yEnd + WALL_SKINS_PARAMS[i][SKIN_THICKNESS] * tan(aCorner)
-		
-			if i < nTurnSkins - 1 then
-				yDiff = yDiff + WALL_SKINS_PARAMS[i+1][SKIN_THICKNESS] / cos(aCorner)
-			endif
-		
-			if isSymmetrical then
-				if i > WALL_SKINS_NUMBER - nTurnSkins + 1 then
-					yDiff = yDiff - WALL_SKINS_PARAMS[WALL_SKINS_NUMBER-i+1][SKIN_THICKNESS] / cos(aCorner)
-				endif
-			else
-				if i > WALL_SKINS_NUMBER - nTurnSkins then
-					yDiff = yDiff - WALL_SKINS_PARAMS[i][SKIN_THICKNESS] / cos(aCorner)
-				endif
-			endif
+		yEnd = yEnd + WALL_SKINS_PARAMS[_i][SKIN_THICKNESS] * tan(aCorner)
 
-			add2 -WALL_SKINS_PARAMS[i][SKIN_THICKNESS], 0
-				if SYMB_MIRRORED then
-					_Start = 0
-					_yEnd =  yEnd + yDiff
+		yDiff = 0
 
-					add2 0, -yEnd - yDiff
-				else
-					_Start = 0
-					_yEnd =  -yEnd - yDiff
+		for j = 1 to min(_i, nTurnSkins)
+			yDiff = yDiff + WALL_SKINS_PARAMS[j][SKIN_THICKNESS] / cos(aCorner)
+		next j
 
-					add2 0, 0 
-				endif
-					call "SkinRect" PARAMETERS \
-						startX = 0, 
-						startY = _yStart,
-						endX = WALL_SKINS_PARAMS[i][SKIN_THICKNESS],
-						endY = 	_yEnd,
-						innerRadius = 0, 
-						outerRadius = 0,
-						incAngle = aCorner, 
-						trapType = 1,
-						fillPen = WALL_SKINS_PARAMS[i][SKIN_FILL_PEN],
-						fillBGPen = WALL_SKINS_PARAMS[i][SKIN_FILL_BACK_PEN],
-						fillType = fillType,
-						bLocalFill = WALL_SKINS_PARAMS[i][SKIN_FILL_ORIENTATION],
-						bFitToSkinFill = WALL_SKINS_PARAMS[i][SKIN_FILL_FIT_TO_SKIN],
-						bChangeFitToSkinFillOrient = 0,
-						bCircularDistortion	= 0,
-			
-						startLinePen = (iMode > 1) * midPen * (bShowEntireWall or ((contourState > CONT_BEFORE_FIRST_LINE) and (contourState < CONT_AFTER_LAST_LINE))),
-						startLineLineType = midLT,
-						startLineCont = ((contourState = CONT_LAST_LINE) or (contourState = CONT_FIRST_LINE)),
+		if _i > WALL_SKINS_NUMBER - nTurnSkins + 1 then
+			for j = max(WALL_SKINS_NUMBER - _i - 2 + nTurnSkins, 1) to nTurnSkins
+				yDiff = yDiff - WALL_SKINS_PARAMS[j][SKIN_THICKNESS] / cos(aCorner)
+			next j
+		endif
+
+		if SYMB_MIRRORED then
+			_yStart = 0
+			_yEnd = yEnd - yDiff
+		else
+			_yStart = yEnd - yDiff
+			_yEnd = 0
+		endif
+	
+		add2 -WALL_SKINS_PARAMS[_i][SKIN_THICKNESS], 0
+			add2 0, -yEnd + yDiff
+!hotspot2 0,0:circle2 0,0, .05:line2 0,0,1,0:line2 0,0,0,.5
+				call "SkinRect" PARAMETERS \
+					startX = 0, 
+					startY = _yStart,
+					endX = WALL_SKINS_PARAMS[_i][SKIN_THICKNESS],
+					endY = 	_yEnd,
+					innerRadius = 0, 
+					outerRadius = 0,
+					incAngle = aCorner, 
+					trapType = 1,
+					fillPen = WALL_SKINS_PARAMS[_i][SKIN_FILL_PEN],
+					fillBGPen = WALL_SKINS_PARAMS[_i][SKIN_FILL_BACK_PEN],
+					fillType = fillType,
+					bLocalFill = WALL_SKINS_PARAMS[_i][SKIN_FILL_ORIENTATION],
+					bFitToSkinFill = WALL_SKINS_PARAMS[_i][SKIN_FILL_FIT_TO_SKIN],
+					bChangeFitToSkinFillOrient = 0,
+					bCircularDistortion	= 0,
 		
-						endLinePen = (iMode > 1) * midPen * (bShowEntireWall or ((contourState > CONT_BEFORE_FIRST_LINE) and (contourState < CONT_AFTER_LAST_LINE))),
-						endLineLineType = midLT,
-						endLineCont = ((contourState = CONT_LAST_LINE) or (contourState = CONT_FIRST_LINE)),
-			
-						bottomLinePen = 0,
-						bottomLineLineType = 0,
-						bottomLineCont = 0,
-			
-						topLinePen = 0,
-						topLineLineType = 0,
-						topLineCont = 0
-				del 1
-		next i
-	endif
+					startLinePen = (iMode > 1) * midPen * (bShowEntireWall or ((contourState > CONT_BEFORE_FIRST_LINE) and (contourState < CONT_AFTER_LAST_LINE))),
+					startLineLineType = midLT,
+					startLineCont = ((contourState = CONT_LAST_LINE) or (contourState = CONT_FIRST_LINE)),
+	
+					endLinePen = (iMode > 1) * midPen * (bShowEntireWall or ((contourState > CONT_BEFORE_FIRST_LINE) and (contourState < CONT_AFTER_LAST_LINE))),
+					endLineLineType = midLT,
+					endLineCont = ((contourState = CONT_LAST_LINE) or (contourState = CONT_FIRST_LINE)),
+		
+					bottomLinePen = 0,
+					bottomLineLineType = 0,
+					bottomLineCont = 0,
+		
+					topLinePen = 0,
+					topLineLineType = 0,
+					topLineCont = 0
+		del 1
+	next i	
 endif
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -1235,7 +1171,7 @@ return
 			<Flags>
 				<ParFlg_Hidden/>
 			</Flags>
-			<Value>0.175</Value>
+			<Value>0.15</Value>
 		</Length>
 		<Length Name="ZZYZX">
 			<Description><![CDATA[""]]></Description>
@@ -1306,7 +1242,7 @@ return
 			<Flags>
 				<ParFlg_Hidden/>
 			</Flags>
-			<Value>49.884385148206</Value>
+			<Value>42.758044412748</Value>
 		</Angle>
 		<Length Name="AC_CutWidth">
 			<Description><![CDATA["Cut Width"]]></Description>
@@ -1314,7 +1250,7 @@ return
 			<Flags>
 				<ParFlg_Hidden/>
 			</Flags>
-			<Value>0.175</Value>
+			<Value>0.15</Value>
 		</Length>
 		<Boolean Name="AC_fit_to_wall_height">
 			<Description><![CDATA["Fit to Wall Height"]]></Description>
@@ -1347,14 +1283,11 @@ return
 		</Boolean>
 		<Boolean Name="isSymmetrical">
 			<Description><![CDATA["Symmetrical Skin Turning"]]></Description>
-			<Flags>
-				<ParFlg_Hidden/>
-			</Flags>
-			<Value>0</Value>
+			<Value>1</Value>
 		</Boolean>
 		<Integer Name="nTurnSkins">
 			<Description><![CDATA["Number of Skins to Turn"]]></Description>
-			<Value>3</Value>
+			<Value>2</Value>
 		</Integer>
 		<Boolean Name="nExtendedSkins">
 			<Description><![CDATA["Extend Skin 1 on Inside Face"]]></Description>
@@ -2455,7 +2388,7 @@ then
 	yEnd = 0
 
 	for i = 1 to nTurnSkins
-		yEnd = yEnd + WALL_SKINS_PARAMS[i][SKIN_THICKNESS] / cos(aCorner)
+		yEnd = yEnd + WALL_SKINS_PARAMS[i][SKIN_THICKNESS] / cos(aCorner)	
 	next i
 
 	if aCorner < 0 then
@@ -2478,47 +2411,49 @@ then
 
 	add 0, yEnd, 0
 
-	if turnLast then
-		for i = 1 to WALL_SKINS_NUMBER
-			if bShowEntireWall or bShowTurnedSkin then
-				fill WALL_SKINS_PARAMS[i][SKIN_FILL]
-				fillType = 0
-			endif
-		
-			yEnd = yEnd + WALL_SKINS_PARAMS[i][SKIN_THICKNESS] * tan(aCorner)
-		
-			if i <= nTurnSkins then
-				yDiff = yDiff + WALL_SKINS_PARAMS[i][SKIN_THICKNESS] / cos(aCorner)
-			endif
-		
-			if isSymmetrical then
-				if i > WALL_SKINS_NUMBER - nTurnSkins + 1 then
-					yDiff = yDiff - WALL_SKINS_PARAMS[WALL_SKINS_NUMBER-i+2][SKIN_THICKNESS] / cos(aCorner)
-				endif
-			else
-				if i > WALL_SKINS_NUMBER - nTurnSkins then
-					yDiff = yDiff - WALL_SKINS_PARAMS[i][SKIN_THICKNESS] / cos(aCorner)
-				endif
-			endif
-		
-			add -WALL_SKINS_PARAMS[i][SKIN_THICKNESS], 0, 0
-				if SYMB_MIRRORED then
-					_Start = 0
-					_yEnd =  yEnd - yDiff
+	for i = 1 to WALL_SKINS_NUMBER
+		if turnLast then
+			_i = i
+		else
+			_i = WALL_SKINS_NUMBER - i + 1
+		endif
 
-					add 0, -yEnd + yDiff, 0
-				else
-					_Start = 0
-					_yEnd =  -yEnd + yDiff
+!print WALL_SKINS_PARAMS[_i][SKIN_THICKNESS]
+		if bShowEntireWall or bShowTurnedSkin then
+			fill WALL_SKINS_PARAMS[_i][SKIN_FILL]
+			fillType = 0
+		endif
 
-					add 0, 0, 0
-				endif
+		yEnd = yEnd + WALL_SKINS_PARAMS[_i][SKIN_THICKNESS] * tan(aCorner)
+
+		yDiff = 0
+
+		for j = 1 to min(_i, nTurnSkins)
+			yDiff = yDiff + WALL_SKINS_PARAMS[j][SKIN_THICKNESS] / cos(aCorner)
+		next j
+
+		if _i > WALL_SKINS_NUMBER - nTurnSkins + 1 then
+			for j = max(WALL_SKINS_NUMBER - _i - 2 + nTurnSkins, 1) to nTurnSkins
+				yDiff = yDiff - WALL_SKINS_PARAMS[j][SKIN_THICKNESS] / cos(aCorner)
+			next j
+		endif
+
+		if SYMB_MIRRORED then
+			_yStart = 0
+			_yEnd = yEnd - yDiff
+		else
+			_yStart = yEnd - yDiff
+			_yEnd = 0
+		endif
+	
+		add -WALL_SKINS_PARAMS[_i][SKIN_THICKNESS], 0, 0
+			add 0, -yEnd + yDiff, 0
 				call "SkinRect" parameters	trafo_array 	= trafo_array,
 											numTrafo		= numTrafo,
 											gs_useWallMat	= 1,
 											startX			= 0,
 											startY			= _yStart,
-											endX			= WALL_SKINS_PARAMS[i][SKIN_THICKNESS],
+											endX			= WALL_SKINS_PARAMS[_i][SKIN_THICKNESS],
 											endY			= _yEnd,
 											innerRadius		= 0,
 											outerRadius		= 0,
@@ -2535,15 +2470,15 @@ then
 											matLeft			= _matLeft,
 											matRight		= _matRight,
 											matVert			= _matVert,
-											matHoriz		= WALL_SKINS_PARAMS[i][19],
-											structureBMat	= _conectedWallSkinBmat[i]
-	
+											matHoriz		= WALL_SKINS_PARAMS[_i][19],
+											structureBMat	= _conectedWallSkinBmat[_i]
+! Cutter:
 				call "SkinRect" parameters	trafo_array 	= trafo_array,
 											numTrafo		= numTrafo,
 											gs_useWallMat	= 1,
 											startX			= 0,
 											startY			= _yStart,
-											endX			= WALL_SKINS_PARAMS[i][SKIN_THICKNESS],
+											endX			= WALL_SKINS_PARAMS[_i][SKIN_THICKNESS],
 											endY			= _yEnd,
 											innerRadius		= 0,
 											outerRadius		= 0,
@@ -2557,177 +2492,13 @@ then
 											edge2			= 0 + 2 + 0 + 8,
 											edge3			= 1 + 2 + 0 + 8,
 											edge4			= 0 + 2 + 0 + 8,
-											matLeft			= WALL_SKINS_PARAMS[i][19],
-											matRight		= WALL_SKINS_PARAMS[i][19],
-											matVert			= WALL_SKINS_PARAMS[i][19],
-											matHoriz		= WALL_SKINS_PARAMS[i][19],
-											structureBMat	= _conectedWallSkinBmat[i]
-				del 1
-		next i	
-	else
-		for i = WALL_SKINS_NUMBER to 1 step -1
-			if bShowEntireWall or bShowTurnedSkin then
-				fill WALL_SKINS_PARAMS[i][SKIN_FILL]
-				fillType = 0
-			endif
-		
-			yEnd = yEnd + WALL_SKINS_PARAMS[i][SKIN_THICKNESS] * tan(aCorner)
-		
-			if i < nTurnSkins - 1 then
-				yDiff = yDiff + WALL_SKINS_PARAMS[i+1][SKIN_THICKNESS] / cos(aCorner)
-			endif
-		
-			if isSymmetrical then
-				if i > WALL_SKINS_NUMBER - nTurnSkins + 1 then
-					yDiff = yDiff - WALL_SKINS_PARAMS[WALL_SKINS_NUMBER-i+1][SKIN_THICKNESS] / cos(aCorner)
-				endif
-			else
-				if i > WALL_SKINS_NUMBER - nTurnSkins then
-					yDiff = yDiff - WALL_SKINS_PARAMS[i][SKIN_THICKNESS] / cos(aCorner)
-				endif
-			endif
-
-			add -WALL_SKINS_PARAMS[i][SKIN_THICKNESS], 0, 0
-				if SYMB_MIRRORED then
-					_Start = 0
-					_yEnd =  yEnd + yDiff
-
-					add 0, -yEnd - yDiff, 0
-				else
-					_Start = 0
-					_yEnd =  -yEnd - yDiff
-
-					add 0, 0, 0
-				endif
-				call "SkinRect" parameters	trafo_array 	= trafo_array,
-											numTrafo		= numTrafo,
-											gs_useWallMat	= 1,
-											startX			= 0,
-											startY			= _yStart,
-											endX			= WALL_SKINS_PARAMS[i][SKIN_THICKNESS],
-											endY			= _yEnd,
-											innerRadius		= 0,
-											outerRadius		= 0,
-											incAngle		= aCorner,
-											trapType		= 1,
-											ac_wall_slant_angle1	= ac_wall_slant_angle1,
-											ac_wall_slant_angle2	= ac_wall_slant_angle2,
-											bDoCut			= 1,
-											height			= ZZYZX,
-											edge1			= 1 + 2 + 4 + 8,
-											edge2			= 1 + 2 + 4 + 8,
-											edge3			= 1 + 2 + 4 + 8,
-											edge4			= 1 + 2 + 4 + 8,
-											matLeft			= _matLeft,
-											matRight		= _matRight,
-											matVert			= _matVert,
-											matHoriz		= WALL_SKINS_PARAMS[i][19],
-											structureBMat	= _conectedWallSkinBmat[i]
-	
-				call "SkinRect" parameters	trafo_array 	= trafo_array,
-											numTrafo		= numTrafo,
-											gs_useWallMat	= 1,
-											startX			= 0,
-											startY			= _yStart,
-											endX			= WALL_SKINS_PARAMS[i][SKIN_THICKNESS],
-											endY			= _yEnd,
-											innerRadius		= 0,
-											outerRadius		= 0,
-											incAngle		= aCorner,
-											trapType		= 1,
-											ac_wall_slant_angle1	= ac_wall_slant_angle1,
-											ac_wall_slant_angle2	= ac_wall_slant_angle2,
-											bDoCut			= 0,
-											height			= ZZYZX,
-											edge1			= 0 + 2 + 0 + 8,
-											edge2			= 0 + 2 + 0 + 8,
-											edge3			= 1 + 2 + 0 + 8,
-											edge4			= 0 + 2 + 0 + 8,
-											matLeft			= WALL_SKINS_PARAMS[i][19],
-											matRight		= WALL_SKINS_PARAMS[i][19],
-											matVert			= WALL_SKINS_PARAMS[i][19],
-											matHoriz		= WALL_SKINS_PARAMS[i][19],
-											structureBMat	= _conectedWallSkinBmat[i]
-				del 1
-		next i
-	endif
-
-
-
-!!	for i = 1 to WALL_SKINS_NUMBER
-!!		yEnd = yEnd + WALL_SKINS_PARAMS[i][SKIN_THICKNESS] * tan(aCorner)
-!!
-!!		if i <= nTurnSkins then
-!!			yDiff = yDiff + WALL_SKINS_PARAMS[i][SKIN_THICKNESS] / cos(aCorner)
-!!		endif
-!!
-!!		if isSymmetrical then
-!!			if i > WALL_SKINS_NUMBER - nTurnSkins + 1 then
-!!				yDiff = yDiff - WALL_SKINS_PARAMS[i-1][SKIN_THICKNESS] / cos(aCorner)
-!!			endif
-!!		endif
-!!
-!!		if SYMB_MIRRORED then
-!!			_Start = 0
-!!			_yEnd =  yEnd - yDiff
-!!		else
-!!			_yStart = yEnd - yDiff
-!!			_yEnd = 0
-!!		endif
-!!
-!!		add -WALL_SKINS_PARAMS[i][SKIN_THICKNESS], 0, 0
-!!			add 0, -yEnd + yDiff, 0
-!!				call "SkinRect" parameters	trafo_array 	= trafo_array,
-!!											numTrafo		= numTrafo,
-!!											gs_useWallMat	= 1,
-!!											startX			= 0,
-!!											startY			= _yStart,
-!!											endX			= WALL_SKINS_PARAMS[i][SKIN_THICKNESS],
-!!											endY			= _yEnd,
-!!											innerRadius		= 0,
-!!											outerRadius		= 0,
-!!											incAngle		= aCorner,
-!!											trapType		= 1,
-!!											ac_wall_slant_angle1	= ac_wall_slant_angle1,
-!!											ac_wall_slant_angle2	= ac_wall_slant_angle2,
-!!											bDoCut			= 1,
-!!											height			= ZZYZX,
-!!											edge1			= 1 + 2 + 4 + 8,
-!!											edge2			= 1 + 2 + 4 + 8,
-!!											edge3			= 1 + 2 + 4 + 8,
-!!											edge4			= 1 + 2 + 4 + 8,
-!!											matLeft			= _matLeft,
-!!											matRight		= _matRight,
-!!											matVert			= _matVert,
-!!											matHoriz		= WALL_SKINS_PARAMS[i][19],
-!!											structureBMat	= _conectedWallSkinBmat[i]
-!!	
-!!				call "SkinRect" parameters	trafo_array 	= trafo_array,
-!!											numTrafo		= numTrafo,
-!!											gs_useWallMat	= 1,
-!!											startX			= 0,
-!!											startY			= _yStart,
-!!											endX			= WALL_SKINS_PARAMS[i][SKIN_THICKNESS],
-!!											endY			= _yEnd,
-!!											innerRadius		= 0,
-!!											outerRadius		= 0,
-!!											incAngle		= aCorner,
-!!											trapType		= 1,
-!!											ac_wall_slant_angle1	= ac_wall_slant_angle1,
-!!											ac_wall_slant_angle2	= ac_wall_slant_angle2,
-!!											bDoCut			= 0,
-!!											height			= ZZYZX,
-!!											edge1			= 0 + 2 + 0 + 8,
-!!											edge2			= 0 + 2 + 0 + 8,
-!!											edge3			= 1 + 2 + 0 + 8,
-!!											edge4			= 0 + 2 + 0 + 8,
-!!											matLeft			= WALL_SKINS_PARAMS[i][19],
-!!											matRight		= WALL_SKINS_PARAMS[i][19],
-!!											matVert			= WALL_SKINS_PARAMS[i][19],
-!!											matHoriz		= WALL_SKINS_PARAMS[i][19],
-!!											structureBMat	= _conectedWallSkinBmat[i]
-!!			del 1
-!!	next i
+											matLeft			= WALL_SKINS_PARAMS[_i][19],
+											matRight		= WALL_SKINS_PARAMS[_i][19],
+											matVert			= WALL_SKINS_PARAMS[_i][19],
+											matHoriz		= WALL_SKINS_PARAMS[_i][19],
+											structureBMat	= _conectedWallSkinBmat[_i]
+			del 1
+	next i	
 endif
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -2968,6 +2739,8 @@ STRUCTURE_WITHOUT_FINISHES	= 2
 
 <Script_VL SectVersion="20" SectionFlags="0" SubIdent="0">
 <![CDATA[
+!parameters isSymmetrical = 1
+
 call "FM_types" parameters all
 
 if GLOB_MODPAR_NAME = "cutWidthAngle" then
