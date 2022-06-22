@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<Symbol IsArchivable="true" IsPlaceable="true" MainGUID="810334D9-DBB1-4C50-B0B0-C425D2B4C202" MigrationValue="Normal" Owner="1196638531" Signature="1196644685" Version="41">
+<Symbol IsArchivable="true" IsPlaceable="true" MainGUID="AFC11443-2CC1-4200-B046-A4F516E4D290" MigrationValue="Normal" Owner="1196638531" Signature="1196644685" Version="43">
 <Ancestry SectVersion="1" SectionFlags="0" SubIdent="0" Template="false">
 	<MainGUID>F938E33A-329D-4A36-BE3E-85E126820996</MainGUID>
 	<MainGUID>103E8D2C-8230-42E1-9597-46F84CCE28C0</MainGUID>
@@ -30,14 +30,16 @@ HOTSPOT  0, 		yCorner2,	0, UnID, corner2, 1+128	:UnID = UnID + 1
 HOTSPOT corner2, 	yCorner2,	0, UnID, corner2, 2		:UnID = UnID + 1
 HOTSPOT -1, 		yCorner2,	0, UnID, corner2, 3		:UnID = UnID + 1
 
+!
+!HOTSPOT corner3,  	 0, 		0, UnID, yCorner3, 1+128:UnID = UnID + 1
+!HOTSPOT corner3, 	yCorner3,	0, UnID, yCorner3, 2	:UnID = UnID + 1
+!HOTSPOT corner3, 	-1, 		0, UnID, yCorner3, 3	:UnID = UnID + 1
 
-HOTSPOT corner3,  	 0, 		0, UnID, yCorner3, 1+128:UnID = UnID + 1
-HOTSPOT corner3, 	yCorner3,	0, UnID, yCorner3, 2	:UnID = UnID + 1
-HOTSPOT corner3, 	-1, 		0, UnID, yCorner3, 3	:UnID = UnID + 1
+HOTSPOT 0, 			0,	0, UnID, corner3, 1+128	:UnID = UnID + 1
+HOTSPOT corner3,	0,	0, UnID, corner3, 2		:UnID = UnID + 1
+HOTSPOT -1,			0,	0, UnID, corner3, 3		:UnID = UnID + 1
 
-HOTSPOT 0, 			yCorner3,	0, UnID, corner3, 1+128	:UnID = UnID + 1
-HOTSPOT corner3,	yCorner3,	0, UnID, corner3, 2		:UnID = UnID + 1
-HOTSPOT -1,			yCorner3,	0, UnID, corner3, 3		:UnID = UnID + 1
+HOTSPOT 0, 			0,	0
 
 ! ==============================================================================
 ! 3D Detail Level
@@ -88,9 +90,9 @@ hotspot	corner2, yCorner2, 0, unID, zzyzx, 1+128 : unID=unID+1
 hotspot	corner2, yCorner2, zzyzx, unID, zzyzx, 2 : unID=unID+1
 hotspot	corner2, yCorner2, -1, unID, zzyzx, 3 : unID=unID+1
 
-hotspot	corner3, yCorner3, 0, unID, zzyzx, 1+128 : unID=unID+1
-hotspot	corner3, yCorner3, zzyzx, unID, zzyzx, 2 : unID=unID+1
-hotspot	corner3, yCorner3, -1, unID, zzyzx, 3: unID=unID+1
+hotspot	corner3, 0, 0, unID, zzyzx, 1+128 : unID=unID+1
+hotspot	corner3, 0, zzyzx, unID, zzyzx, 2 : unID=unID+1
+hotspot	corner3, 0, -1, unID, zzyzx, 3: unID=unID+1
 
 !!* Base Height - If bBase is off, only the base hotspot is visible, the movable isn't, hence + 128 * not (bBase)
 !
@@ -131,16 +133,19 @@ ELSE
 	legCorr = 0
 ENDIF
 
-put 0,0,
-	corner2, yCorner2,
-	corner1, yCorner1,
-	corner3, yCorner3,
-	0,0
+put 0,			0,
+	corner2, 	yCorner2,
+	corner1, 	yCorner1,
+	corner3, 	0,
+	0,			0
 
 GROUP "outerSolid"
 	material shmat
-	PRISM 5, ZZYZX-corniceCorr-legCorr, 
-		use(nsp)
+
+	addy thickness
+		PRISM 5, ZZYZX-corniceCorr-legCorr, 
+			use(nsp)
+	del 1
 ENDGROUP
 
 xSize = max(0, corner1, corner2, corner3) - min(0, yCorner1, yCorner2, yCorner3)
@@ -150,13 +155,13 @@ smallerSize = min(xSize, ySize)
 ratio = (smallerSize - 2*thickness) / smallerSize
 
 xCentroid = (0 + corner3) / 2
-yCentroid = (0 + yCorner3) / 2
+yCentroid = (0 + 0) / 2
 
 GROUP "inCutSolid"
 	material shmat
 	mulz -1
 	mul ratio, ratio, -1
-	add xCentroid * (1-ratio), yCentroid * (1-ratio), thickness
+	add xCentroid * (1-ratio), thickness, thickness
 		PRISM 5, ZZYZX-(2*thickness )-corniceCorr-legCorr, 
 			use(nsp)
 	del 2
@@ -321,10 +326,8 @@ DEL 1
 
 !* Leafs
 if DoorEnable = 1 THEN
-	aRot = atn(yCorner3 / corner3)
-
-	rotz aRot
-	mulx sqr(yCorner3 ** 2 + corner3 ** 2) / lffw2
+	addy thickness
+	mulx corner3 / lffw2
 		FOR i=1 TO dn
 			call "fa_warddoortyp" parameters all bNotMacro = 0,
 												gs_full_edit 		= 0,
@@ -360,12 +363,6 @@ ENDIF
 !* Knobs on leafs
 
 if bKnob & _bDrawKnob & DoorEnable then
-	aRot = atn(yCorner3 / corner3)
-
-	rotz aRot
-
-
-
 	valt=-a/2+side_overhang+thickness/2
 	if gs_lining_m = LINING_SIDE_LEFT then valt=-a/2+thickness/2
 	if gs_lining_m = LINING_SIDE_RIGHT then valt=-a/2+side_overhang+thickness/2
@@ -403,7 +400,7 @@ if bKnob & _bDrawKnob & DoorEnable then
 
 	_ratio = sqr(yCorner3 ** 2 + corner3 ** 2) / lffw2
 
-	add _ratio * lffw2/dn-(doorframe_w-fr_th1)/2*0,0,knob_pl_y
+	add _ratio * lffw2/dn-(doorframe_w-fr_th1)/2*0,	thickness,	knob_pl_y
 
 	for k=1 to INT(dn/2)
 		for s=1 to 2
@@ -436,7 +433,6 @@ if bKnob & _bDrawKnob & DoorEnable then
 	if dn/2-int(dn/2)<0.001 then del 1
 
 	if dn<>1 then del 1
-	del 1
 endif
 
 
@@ -452,7 +448,7 @@ end
 		material shmat
 
 		mul ratio, ratio, 1
-		add xCentroid * (1-ratio), yCentroid * (1-ratio), thickness
+		add xCentroid * (1-ratio), thickness, thickness
 			PRISM nsp/2, 0.015,
 				use(nsp)
 			del 2
@@ -496,13 +492,13 @@ HOTSPOT2 corner2, 	yCorner2,	UnID, corner2, 2		:UnID = UnID + 1
 HOTSPOT2 -1, 		yCorner2,	UnID, corner2, 3		:UnID = UnID + 1
 
 
-HOTSPOT2 corner3,  	 0, 		UnID, yCorner3, 1+128	:UnID = UnID + 1
-HOTSPOT2 corner3, 	yCorner3,	UnID, yCorner3, 2		:UnID = UnID + 1
-HOTSPOT2 corner3, 	-1, 		UnID, yCorner3, 3		:UnID = UnID + 1
+!HOTSPOT2 corner3,  	 0, 		UnID, yCorner3, 1+128	:UnID = UnID + 1
+!HOTSPOT2 corner3, 	yCorner3,	UnID, yCorner3, 2		:UnID = UnID + 1
+!HOTSPOT2 corner3, 	-1, 		UnID, yCorner3, 3		:UnID = UnID + 1
 
-HOTSPOT2 0, 		yCorner3,	UnID, corner3, 1+128	:UnID = UnID + 1
-HOTSPOT2 corner3,	yCorner3,	UnID, corner3, 2		:UnID = UnID + 1
-HOTSPOT2 -1,		yCorner3,	UnID, corner3, 3		:UnID = UnID + 1
+HOTSPOT2 0, 		0,	UnID, corner3, 1+128	:UnID = UnID + 1
+HOTSPOT2 corner3,	0,	UnID, corner3, 2		:UnID = UnID + 1
+HOTSPOT2 -1,		0,	UnID, corner3, 3		:UnID = UnID + 1
 
 
 if TopCross = 1 THEN
@@ -518,10 +514,8 @@ poly2 5, 3,
 	0,			0,
 	corner2,	yCorner2,
 	corner1,	yCorner1,
-	corner3,	yCorner3,
+	corner3,	0,
 	0,			0
-
-
 
 
 _iDetlevel2D	= iDetlevel2D
@@ -1412,10 +1406,6 @@ endif
 		<Length Name="corner3">
 			<Description><![CDATA[""]]></Description>
 			<Value>1.2</Value>
-		</Length>
-		<Length Name="yCorner3">
-			<Description><![CDATA[""]]></Description>
-			<Value>0</Value>
 		</Length>
 		<Length Name="wallThk">
 			<Description><![CDATA[""]]></Description>
