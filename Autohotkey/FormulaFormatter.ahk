@@ -9,8 +9,8 @@ return
 
 ClipChanged(Type)
 {
-	;~ IfWinActive Expression Editor
-	;~ {
+	IfWinActive Expression Editor
+	{
 		sRegexIncTab := "(?:[a-zA-Z]+)\s*\("
 		sRegex := "(?:" . sRegexIncTab . "|\)\s*\;?|\;" . ")"
 
@@ -70,5 +70,5 @@ ClipChanged(Type)
 			Clipboard := _msg
 			OnClipboardChange("ClipChanged", 1)
 		}
-	;~ }
+	}
 }
