@@ -9,25 +9,42 @@ return
 
 ClipChanged(Type)
 {
-	IfWinActive Expression Editor
-	{
-		FoundPos := RegExMatch(Clipboard, "(?:IFS|AND|OR)\s*\(.*\)")
+	;~ IfWinActive Expression Editor
+	;~ {
+		sRegexIncTab := "(?:[a-zA-Z]+)\s*\("
+		sRegex := "(?:" . sRegexIncTab . "|\)\s*\;?|\;" . ")"
+
+		FoundPos := RegExMatch(Clipboard, sRegex)
 		if FoundPos
 		{
 			sOriginal := Clipboard
+			;~ sOriginal := "CONCAT ( "" ) ""; "" 2 "")"
 			sResult := ""
 			iPrevPos = 1
+			iPrevPrevPos := iPrevPos
 			iTabs = 0
-			sRegexIncTab := "(?:[a-zA-Z]+)\s*\("
-			sRegex := "(?:" . sRegexIncTab . "|\)\s*\;?|\;" . ")"
+
 
 			while pos := RegExMatch(sOriginal, sRegex, matched, A_Index=1?1: iPrevPos)
 			{
+
+
+				_btwn := SubStr(sOriginal, iPrevPrevPos, pos - iPrevPrevPos)
+
+				RegExReplace(_btwn, """" , "", iFound)
+
+				if Mod(iFound, 2) == 1
+				{
+					iPrevPrevPos := iPrevPos
+					iPrevPos := pos+StrLen(matched)
+					continue
+				}
+
 				Loop, %iTabs% {
 					_msg .= "`t"
 				}
 
-				_msg .= RegExReplace(SubStr(sOriginal, iPrevPos, pos - iPrevPos), "^\s*", "")
+				_msg .= RegExReplace(_btwn, "^\s*", "")
 
 				if RegExMatch(matched, "\)", _matched)
 				{
@@ -44,6 +61,7 @@ ClipChanged(Type)
 				}
 
 				iPrevPos := pos+StrLen(matched)
+				iPrevPrevPos := iPrevPos
 			}
 			_msg .= SubStr(sOriginal, iPrevPos, StrLen(sOriginal) - iPrevPos + 1)
 			;MsgBox %_msg%
@@ -52,5 +70,5 @@ ClipChanged(Type)
 			Clipboard := _msg
 			OnClipboardChange("ClipChanged", 1)
 		}
-	}
+	;~ }
 }
