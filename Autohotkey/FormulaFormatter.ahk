@@ -9,8 +9,8 @@ return
 
 ClipChanged(Type)
 {
-	;~ IfWinActive Expression Editor
-	;~ {
+	IfWinActive Expression Editor
+	{
 		sRegexIncTab := "(?:[a-zA-Z]+)\s*\("
 		sRegex := "(?:" . sRegexIncTab . "|\)\s*\;?|\;" . ")"
 
@@ -24,11 +24,8 @@ ClipChanged(Type)
 			iPrevPrevPos := iPrevPos
 			iTabs = 0
 
-
 			while pos := RegExMatch(sOriginal, sRegex, matched, A_Index=1?1: iPrevPos)
 			{
-
-
 				_btwn := SubStr(sOriginal, iPrevPrevPos, pos - iPrevPrevPos)
 
 				RegExReplace(_btwn, """" , "", iFound)
@@ -70,5 +67,5 @@ ClipChanged(Type)
 			Clipboard := _msg
 			OnClipboardChange("ClipChanged", 1)
 		}
-	;~ }
+	}
 }
