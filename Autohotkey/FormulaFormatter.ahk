@@ -11,7 +11,7 @@ ClipChanged(Type)
 {
 	IfWinActive Expression Editor
 	{
-		sRegexIncTab := "(?:[a-zA-Z]+)\s*\("
+		sRegexIncTab := "[a-zA-Z]+\s*\("
 		sRegex := "(?:" . sRegexIncTab . "|\)\s*\;?|\;" . ")"
 
 		FoundPos := RegExMatch(Clipboard, sRegex)
@@ -32,7 +32,16 @@ ClipChanged(Type)
 
 				if Mod(iFound, 2) == 1
 				{
-					iPrevPrevPos := iPrevPos
+					;iPrevPrevPos := iPrevPos
+					iPrevPos := pos+StrLen(matched)
+					continue
+				}
+
+				RegExReplace(_btwn, "\{Property\:" , "", iFound1)
+				RegExReplace(_btwn, "\}" , "", iFound2)
+
+				if (iFound1 == 1 and iFound2 == 0)
+				{
 					iPrevPos := pos+StrLen(matched)
 					continue
 				}
@@ -61,7 +70,7 @@ ClipChanged(Type)
 				iPrevPrevPos := iPrevPos
 			}
 			_msg .= SubStr(sOriginal, iPrevPos, StrLen(sOriginal) - iPrevPos + 1)
-			;MsgBox %_msg%
+			;~ MsgBox %_msg%
 
 			OnClipboardChange("ClipChanged", 0)
 			Clipboard := _msg
