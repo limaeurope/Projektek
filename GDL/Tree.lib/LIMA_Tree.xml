@@ -42,6 +42,35 @@ addz gb_h_torzs
 	endif
 del 1
 
+for i = 1 to iAdditionalTrunks
+	HOTSPOT	 0,							additionalTrunkS[i][_Y_],	0, hsID, additionalTrunkS[i][_X_],	1 + 128	: hsID = hsID+1
+	HOTSPOT	additionalTrunkS[i][_X_],	additionalTrunkS[i][_Y_],	0, hsID, additionalTrunkS[i][_X_],	2		: hsID = hsID+1
+	HOTSPOT	-1,							additionalTrunkS[i][_Y_],	0, hsID, additionalTrunkS[i][_X_],	3		: hsID = hsID+1
+
+	HOTSPOT	additionalTrunkS[i][_X_],	 0,							0, hsID, additionalTrunkS[i][_Y_],	1 + 128	: hsID = hsID+1
+	HOTSPOT	additionalTrunkS[i][_X_],	additionalTrunkS[i][_Y_],	0, hsID, additionalTrunkS[i][_Y_],	2		: hsID = hsID+1
+	HOTSPOT	additionalTrunkS[i][_X_],	-1,							0, hsID, additionalTrunkS[i][_Y_],	3		: hsID = hsID+1
+
+	_r = sqr(additionalTrunkS[i][_Y_] ** 2 + additionalTrunkS[i][_X_] ** 2)
+
+	if isEvergreen then
+		_z = zzyzx - _r / gb_r_lomb * (zzyzx - gb_h_torzs)
+	else
+		_z = (gb_h_torzs + zzyzx) / 2
+	endif
+
+	xform	1,	0,	0,	additionalTrunkS[i][_X_],
+			0,	1,	0,	additionalTrunkS[i][_Y_],
+			0,	0,	1,	0
+
+		HOTSPOT	 0,							0, 0, hsID,	additionalTrunkS[i][_R_], 1 + 128	: hsID = hsID+1
+		HOTSPOT	additionalTrunkS[i][_R_],	0, 0, hsID,	additionalTrunkS[i][_R_], 2			: hsID = hsID+1
+		HOTSPOT	-1,							0, 0, hsID,	additionalTrunkS[i][_R_], 3			: hsID = hsID+1
+
+		CONE _z, additionalTrunkS[i][_R_], 0, 90, 90
+	del 1
+next i
+
 ]]>
 </Script_3D>
 
@@ -127,6 +156,22 @@ IF gb_favedelmiKorYN = 1 THEN
 	endif
 ENDIF
 
+for i = 1 to iAdditionalTrunks
+	HOTSPOT2	 0,							additionalTrunkS[i][_Y_],	hsID, additionalTrunkS[i][_X_],	1 + 128	: hsID = hsID+1
+	HOTSPOT2	additionalTrunkS[i][_X_],	additionalTrunkS[i][_Y_],	hsID, additionalTrunkS[i][_X_],	2	: hsID = hsID+1
+	HOTSPOT2	-1,							additionalTrunkS[i][_Y_],	hsID, additionalTrunkS[i][_X_],	3	: hsID = hsID+1
+
+	HOTSPOT2	additionalTrunkS[i][_X_],	 0,							hsID, additionalTrunkS[i][_Y_],	1 + 128	: hsID = hsID+1
+	HOTSPOT2	additionalTrunkS[i][_X_],	additionalTrunkS[i][_Y_],	hsID, additionalTrunkS[i][_Y_],	2	: hsID = hsID+1
+	HOTSPOT2	additionalTrunkS[i][_X_],	-1,							hsID, additionalTrunkS[i][_Y_],	3	: hsID = hsID+1
+
+	HOTSPOT2	additionalTrunkS[i][_X_],								additionalTrunkS[i][_Y_], hsID,	additionalTrunkS[i][_R_], 1 + 128	: hsID = hsID+1
+	HOTSPOT2	additionalTrunkS[i][_X_] + additionalTrunkS[i][_R_],	additionalTrunkS[i][_Y_], hsID,	additionalTrunkS[i][_R_], 2	: hsID = hsID+1
+	HOTSPOT2	additionalTrunkS[i][_X_] - 1,							additionalTrunkS[i][_Y_], hsID,	additionalTrunkS[i][_R_], 3	: hsID = hsID+1
+
+	circle2 	additionalTrunkS[i][_X_], additionalTrunkS[i][_Y_], additionalTrunkS[i][_R_]
+next i
+
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -156,16 +201,26 @@ return
 	ENDIF
 	
 	FILL gb_fillType_lomb
-	
-	POLY2_B 4, 0+2+4,
-			gb_fillPen_lomb,
-			gb_fillBack_lomb,
 
-			0,	0,	900,
+	put 	0,	0,	900,
 			gb_d_lomb/2,	360,	4000+1,
 
 			0,	0,	900,
 			gb_r_torzs, 360, 4000+1
+
+	put		   0,		   0,				 900,
+			gb_r_torzs / gb_d_lomb,360,		4000+1
+
+	for i = 1 to iAdditionalTrunks
+		put additionalTrunkS[i][_X_],	additionalTrunkS[i][_Y_],	900,
+			additionalTrunkS[i][_R_],	360,						4000+1
+	next i
+	
+	POLY2_B nsp/3, 0+2+4,
+			gb_fillPen_lomb,
+			gb_fillBack_lomb,
+			get(nsp)
+
 return
 
 "ExistingEvergreenTree":
@@ -446,7 +501,17 @@ return
 		  -0.405,	  -0.29,	   1,
 		  -0.369,	  -0.326,	   1,
 		  -0.336,	  -0.362,	   1,
-		  -0.3,		  -0.378,	   1
+		  -0.3,		  -0.378,	  -1
+
+put		   0,		   0,				 900,
+		gb_r_torzs / gb_d_lomb,360,		4000+1
+
+		for i = 1 to iAdditionalTrunks
+			put additionalTrunkS[i][_X_] / gb_d_lomb,	additionalTrunkS[i][_Y_] / gb_d_lomb,	900,
+				additionalTrunkS[i][_R_] / gb_d_lomb,	360,						4000+1
+		next i
+
+
 
 		POLY2_B nsp/3, 1 * gb_lombContYN + 2 + 4,
 			gb_fillPen_lomb,
@@ -460,6 +525,11 @@ return
 
 <Script_1D SectVersion="20" SectionFlags="0" SubIdent="0">
 <![CDATA[
+_X_ = 1
+_Y_ = 2
+_R_ = 3
+rMinTrunk = 0.01
+
 goto "EndMaster"
 
 "DeciduousTreeContour":
@@ -1119,6 +1189,7 @@ values "gb_h_torzs" range (0, zzyzx ]
 values "gb_r_lomb" range [gb_r_torzs,]
 values "rProtect" range [gb_r_torzs,]
 values "rStatic" range [gb_r_torzs,]
+values "iAdditionalTrunks" range [0,]
 
 if not(gb_statikaiKorYN) then
 	hideparameter "bStatic"
@@ -1143,6 +1214,47 @@ endif
 if not(gb_favedelmiKorYN | gb_statikaiKorYN) then
 	hideparameter "overrides"
 endif
+
+v1 = vardim1(additionalTrunkS)
+
+_setAdditionalTrunkS = 0
+
+for i = 1 to v1 
+	if additionalTrunkS[i][_R_] < rMinTrunk then
+		additionalTrunkS[i][_R_] = rMinTrunk 
+	endif
+
+	_setAdditionalTrunkS = 1
+next i
+
+if GLOB_MODPAR_NAME = "iAdditionalTrunks" then
+	if iAdditionalTrunks > v1 then
+		for i = v1 to iAdditionalTrunks
+			additionalTrunkS[i][_R_] = 0.1
+		next i
+	endif
+
+	_setAdditionalTrunkS = 1
+endif
+
+if GLOB_MODPAR_NAME = "additionalTrunkS" then
+	for i = 1 to iAdditionalTrunks
+		_d = sqr(additionalTrunkS[i][_Y_] ** 2 + additionalTrunkS[i][_X_] ** 2)
+		_r = gb_d_lomb / 2 - additionalTrunkS[i][_R_]
+
+		if	_d > _r then
+			additionalTrunkS[i][_Y_] = additionalTrunkS[i][_Y_] * _r / _d
+			additionalTrunkS[i][_X_] = additionalTrunkS[i][_X_] * _r / _d
+		endif
+	next i
+
+	_setAdditionalTrunkS = 1
+endif
+
+if _setAdditionalTrunkS then
+	parameters additionalTrunkS = additionalTrunkS
+endif
+
 ]]>
 </Script_VL>
 
@@ -1604,6 +1716,22 @@ endif
 				<ParFlg_Child/>
 			</Flags>
 			<Value>3</Value>
+		</Length>
+		<Integer Name="iAdditionalTrunks">
+			<Description><![CDATA["További törzsek száma"]]></Description>
+			<Value>0</Value>
+		</Integer>
+		<Length Name="additionalTrunkS">
+			<Description><![CDATA["További törzsek adatai"]]></Description>
+			<ArrayValues FirstDimension="1" SecondDimension="3">
+				<AVal Column="1" Row="1">0</AVal>
+				<AVal Column="2" Row="1">0</AVal>
+				<AVal Column="3" Row="1">0.1</AVal>
+			</ArrayValues>
+		</Length>
+		<Length Name="xxx">
+			<Description><![CDATA[""]]></Description>
+			<Value>0</Value>
 		</Length>
 	</Parameters>
 </ParamSection>
