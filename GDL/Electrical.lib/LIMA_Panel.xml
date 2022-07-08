@@ -1,0 +1,1079 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Symbol IsArchivable="false" IsPlaceable="true" MainGUID="EB347D65-0DEE-48DD-A9AE-63419A4779D0" MigrationValue="Normal" Owner="1196638531" Signature="1196644685" Version="41">
+<Ancestry SectVersion="1" SectionFlags="0" SubIdent="0" Template="false">
+	<MainGUID>F938E33A-329D-4A36-BE3E-85E126820996</MainGUID>
+	<MainGUID>103E8D2C-8230-42E1-9597-46F84CCE28C0</MainGUID>
+</Ancestry>
+
+<!-- GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT -->
+
+<Script_2D SectVersion="20" SectionFlags="0" SubIdent="0">
+<![CDATA[
+!hotspot2 0,0:circle2 0,0, .05:line2 0,0,1,0:line2 0,0,0,.5
+
+hotspot2 	 0.1 + 0,     	 ySocket,	UnID, xSocket, 1 + 128	: UnID = UnID + 1
+hotspot2 	 0.1 + xSocket,	 ySocket,	UnID, xSocket, 2		: UnID = UnID + 1
+hotspot2	 0.1 - 1,     	 ySocket,	UnID, xSocket, 3		: UnID = UnID + 1
+
+hotspot2 	 0.1 + xSocket,	 0,			UnID, ySocket, 1 + 128	: UnID = UnID + 1
+hotspot2 	 0.1 + xSocket,	 ySocket,	UnID, ySocket, 2		: UnID = UnID + 1
+hotspot2	 0.1 + xSocket,	-1,			UnID, ySocket, 3		: UnID = UnID + 1
+
+hotspot2 	 0.1 + 0,     	 0,			UnID, xSocket, 1 + 128	: UnID = UnID + 1
+hotspot2 	 0.1 + xSocket,	 0,			UnID, xSocket, 2		: UnID = UnID + 1
+hotspot2	 0.1 - 1,     	 0,			UnID, xSocket, 3		: UnID = UnID + 1
+
+!hotspot2 	 0.1 + 0,		 0,			UnID, ySocket, 1 + 128	: UnID = UnID + 1
+!hotspot2 	 0.1 + 0,		 ySocket,	UnID, ySocket, 2		: UnID = UnID + 1
+!hotspot2	 0.1 + 0,		-1,			UnID, ySocket, 3		: UnID = UnID + 1
+
+
+hotspot2 	 0.1 - 0,     	 ySocket,	UnID, xSocket, 1 + 128	: UnID = UnID + 1
+hotspot2 	 0.1 - xSocket,	 ySocket,	UnID, xSocket, 2		: UnID = UnID + 1
+hotspot2	 0.1 + 1,     	 ySocket,	UnID, xSocket, 3		: UnID = UnID + 1
+
+hotspot2 	 0.1 - xSocket,	 0,			UnID, ySocket, 1 + 128	: UnID = UnID + 1
+hotspot2 	 0.1 - xSocket,	 ySocket,	UnID, ySocket, 2		: UnID = UnID + 1
+hotspot2	 0.1 - xSocket,	-1,			UnID, ySocket, 3		: UnID = UnID + 1
+
+hotspot2 	 0.1 - 0,     	 0,			UnID, xSocket, 1 + 128	: UnID = UnID + 1
+hotspot2 	 0.1 - xSocket,	 0,			UnID, xSocket, 2		: UnID = UnID + 1
+hotspot2	 0.1 + 1,     	 0,			UnID, xSocket, 3		: UnID = UnID + 1
+
+!hotspot2 	 0.1 - 0,		 0,			UnID, ySocket, 1 + 128	: UnID = UnID + 1
+!hotspot2 	 0.1 - 0,		 ySocket,	UnID, ySocket, 2		: UnID = UnID + 1
+!hotspot2	 0.1 - 0,		-1,			UnID, ySocket, 3		: UnID = UnID + 1
+
+drawindex      10
+
+add2              0.1, 0
+	mul2     A/0.200000, B/0.444314
+		if PanelType = "Okospanel" THEN
+			IF Direction = "Vízszintes" THEN
+				drawindex      10
+				fill fillAttribute_1
+				pen     penAttribute_5
+				poly2_b{5}       5,      2,      2,      8, penAttribute_1, penAttribute_2, 
+							  -0.075, 0,            1, 0, 0,            1,            0, 
+							  -0.125,        0.015,      1, 
+							  -0.125, 0,      1, 
+							   0.125, 0,      1, 
+							   0.125,        0.015,      1, 
+							  -0.125,        0.015,      1
+				
+				poly2_b{5}       2,      1,      0,      3,      1,      0, 
+								   0,            0,            1,            0,            0,            1,            0, 
+							  -0.125, 0,      1, 
+							  -0.125,        0.015,      1
+				poly2_b{5}       2,      1,      0,      3,      1,      0, 
+								   0,            0,            1,            0,            0,            1,            0, 
+							   0.125, 0,      1, 
+							  -0.125, 0,      1
+				poly2_b{5}       2,      1,      0,      3,      1,      0, 
+								   0,            0,            1,            0,            0,            1,            0, 
+							  -0.125,        0.015,      1, 
+							   0.125,        0.015,      1
+				poly2_b{5}       2,      1,      0,      3,      1,      0, 
+								   0,            0,            1,            0,            0,            1,            0, 
+							   0.125,        0.015,      1, 
+							   0.125, 0,      1
+			else
+				drawindex      10
+				pen     penAttribute_5
+				fill fillAttribute_1
+					poly2_b{5}       5,      2,      2,      8, penAttribute_1, penAttribute_2, 
+								  -0.075, 0,            1, 0, 0,            1,            0, 
+								  -0.085,        0.015,      1, 
+								  -0.085, 0,      1, 
+								   0.085, 0,      1, 
+								   0.085,        0.015,      1, 
+								  -0.085,        0.015,      1
+					
+					poly2_b{5}       2,      1,      0,      3,      1,      0, 
+									   0,            0,            1,            0,            0,            1,            0, 
+								  -0.085, 0,      1, 
+								  -0.085,        0.015,      1
+					poly2_b{5}       2,      1,      0,      3,      1,      0, 
+									   0,            0,            1,            0,            0,            1,            0, 
+								   0.085, 0,      1, 
+								  -0.085, 0,      1
+					poly2_b{5}       2,      1,      0,      3,      1,      0, 
+									   0,            0,            1,            0,            0,            1,            0, 
+								  -0.085,        0.015,      1, 
+								   0.085,        0.015,      1
+					poly2_b{5}       2,      1,      0,      3,      1,      0, 
+									   0,            0,            1,            0,            0,            1,            0, 
+								   0.085,        0.015,      1, 
+								   0.085, 0,      1
+			endif
+		else
+			pen     penAttribute_1
+			fill fillAttribute_1
+			poly2_b{5}       5,      2,      2,      8, penAttribute_1, penAttribute_2, 
+					29.01873666122, 20.24640796973,           -1, 0, 0,           -1,            0, 
+							0.05, 0,      1, 
+							0.05,        0.015,      1, 
+						   -0.05,        0.015,      1, 
+						   -0.05, 0,      1, 
+							0.05, 0,      1
+			
+			pen     penAttribute_5
+			poly2_b{5}       5,      1,      0,      3,      1,      0, 
+							   0,            0,            1,            0,            0,            1,            0, 
+						   -0.05,        0.015,      1, 
+							0.05,        0.015,      1, 
+							0.05, 0,      1, 
+						   -0.05, 0,      1, 
+						   -0.05,        0.015,      1
+		endif
+	del 1
+del 1
+
+!!!!!!!!!!! MOZGATÓ HOTSPOT MIND !!!!!!!!!!!
+
+add2 0.1, 0.016
+
+! . . . . . . . . . . . . . . . . . . . . . . . . . . . 
+
+HOTSPOT2	 0,		 sideY, UnID, sideX, 1+128	: UnID = UnID + 1
+HOTSPOT2	 sideX,	 sideY, UnID, sideX, 2		: UnID = UnID + 1
+HOTSPOT2 	-1,		 sideY, UnID, sideX, 3		: UnID = UnID + 1
+
+HOTSPOT2 	sideX,	 0,		UnID, sideY, 1+128	: UnID = UnID + 1
+HOTSPOT2 	sideX,	 sideY,	UnID, sideY, 2		: UnID = UnID + 1
+HOTSPOT2 	sideX, 	-1,		UnID, sideY, 3		: UnID = UnID + 1
+
+! . . . . . . . . . . . . . . . . . . . . . . . . . . . 
+
+add2 sideX, sideY
+rot2 SymRot
+add2 0,  -0.0682
+
+pen     LabelPen
+line_property       0
+
+line2  -0.1,	   0.2015, 0.1,	   0.0682
+line2  -0.1,	   0.0682, 0.1,	   0.2015
+poly2_b{5}       5,      1,      0,      3,      1,      0, 
+                 0,            0,            1,            0,            0,            1,            0, 
+		  -0.1,	   0.2015, 1,
+		   0.1,	   0.2015, 1,
+		   0.1,	   0.0682, 1,
+		  -0.1,	   0.0682, 1,
+		  -0.1,	   0.2015, 1
+define style{2}    "AC_STYLE_1" "Arial",            TextSize,      1
+
+paragraph		"AC_PRG_2"      2,            0,            0,            0,            1
+    pen     LabelPen
+    set style "AC_STYLE_1"
+        Label1
+endparagraph
+
+textblock		"AC_TEXTBLOCK_2"            0,      8,            0,            1,            1,            1, 
+        "AC_PRG_2"
+richtext2		0.0002171314125928, 0.2085990658334, "AC_TEXTBLOCK_2"
+
+
+]]>
+</Script_2D>
+
+<!-- GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT -->
+
+<Script_3D SectVersion="20" SectionFlags="0" SubIdent="0">
+<![CDATA[
+!hotspot 0,0,0:sphere .01:lin_ 0,0,0,1,0,0:lin_ 0,0,0,0,.5,0:lin_ 0,0,0,0,0,2
+
+
+hotspot 0.1 + xSocket,	0,	 		 zSocket,	UnID, ySocket, 1 + 128	: UnID = UnID + 1
+hotspot 0.1 + xSocket,	ySocket,	 zSocket,	UnID, ySocket, 2		: UnID = UnID + 1
+hotspot	0.1 + xSocket,	-1,			 zSocket,	UnID, ySocket, 3		: UnID = UnID + 1
+
+hotspot 0.1 + xSocket,	0,	 		-zSocket,	UnID, ySocket, 1 + 128	: UnID = UnID + 1
+hotspot 0.1 + xSocket,	ySocket,	-zSocket,	UnID, ySocket, 2		: UnID = UnID + 1
+hotspot	0.1 + xSocket,	-1,			-zSocket,	UnID, ySocket, 3		: UnID = UnID + 1
+
+hotspot 0.1 - xSocket,	0,	 		 zSocket,	UnID, ySocket, 1 + 128	: UnID = UnID + 1
+hotspot 0.1 - xSocket,	ySocket,	 zSocket,	UnID, ySocket, 2		: UnID = UnID + 1
+hotspot	0.1 - xSocket,	-1,			 zSocket,	UnID, ySocket, 3		: UnID = UnID + 1
+
+hotspot 0.1 - xSocket,	0,	 		-zSocket,	UnID, ySocket, 1 + 128	: UnID = UnID + 1
+hotspot 0.1 - xSocket,	ySocket,	-zSocket,	UnID, ySocket, 2		: UnID = UnID + 1
+hotspot	0.1 - xSocket,	-1,			-zSocket,	UnID, ySocket, 3		: UnID = UnID + 1
+
+
+hotspot 0.1 + 0,     	 ySocket,	 0,			UnID, xSocket, 1 + 128	: UnID = UnID + 1
+hotspot 0.1 + xSocket,	 ySocket,	 0,			UnID, xSocket, 2		: UnID = UnID + 1
+hotspot	0.1 - 1,     	 ySocket,	 0,			UnID, xSocket, 3		: UnID = UnID + 1
+
+hotspot 0.1 + 0,     	 ySocket,	 0,			UnID, xSocket, 1 + 128	: UnID = UnID + 1
+hotspot 0.1 - xSocket,	 ySocket,	 0,			UnID, xSocket, 2		: UnID = UnID + 1
+hotspot	0.1 +  1,     	 ySocket,	 0,			UnID, xSocket, 3		: UnID = UnID + 1
+
+hotspot 0.1 +  0,     	 ySocket,	 0,			UnID, zSocket, 1 + 128	: UnID = UnID + 1
+hotspot 0.1 +  0,	 	 ySocket,	 zSocket,	UnID, zSocket, 2		: UnID = UnID + 1
+hotspot	0.1 +  0,     	 ySocket,	-1,			UnID, zSocket, 3		: UnID = UnID + 1
+
+hotspot	0.1 +  0,     	 ySocket,	 0,			UnID, zSocket, 1 + 128	: UnID = UnID + 1
+hotspot	0.1 +  0,		 ySocket,	-zSocket,	UnID, zSocket, 2		: UnID = UnID + 1
+hotspot	0.1 +  0,     	 ySocket,	 1,			UnID, zSocket, 3		: UnID = UnID + 1
+
+
+bms_buildingMatAttribute_1 = 0
+r = REQUEST{2} ("Building_Material_info", buildingMatAttribute_1, "gs_bmat_surface", bms_buildingMatAttribute_1)
+
+add              0.1, 0,            0
+
+if PanelType <> "Okospanel" then
+	mulx	A/         0.2
+	muly	B/0.4443135658334
+	mulz	ZZYZX/        0.08
+endif
+
+body    -1
+model solid
+resol       36
+if (use_stored_environment) then
+GLOB_SCRIPT_TYPE =      3
+GLOB_CONTEXT =      3
+GLOB_VIEW_TYPE =      3
+GLOB_SCALE =    100
+GLOB_NORTH_DIR =           90
+GLOB_PROJECT_LONGITUDE =    19.054779
+GLOB_PROJECT_LATITUDE =    47.559708
+GLOB_DRAWING_BGD_PEN = penAttribute_6
+GLOB_FRAME_NR =     -1
+GLOB_EYEPOS_X = 4.548563990697
+GLOB_EYEPOS_Y = -0.8656694308675
+GLOB_EYEPOS_Z = 24.62095122455
+GLOB_TARGPOS_X = 4.865850148415
+GLOB_TARGPOS_Y = 4.725320346037
+GLOB_TARGPOS_Z = -7.138144524677
+GLOB_SUN_AZIMUTH =          240
+GLOB_SUN_ALTITUDE =           35
+endif
+
+!!MORPH-004 1F6D7D87-8FA7-4DFE-99DD-477D752A2D48
+group 	"group_A84ADB41_434D_4A19_9D69_960C02EF508B"
+    pen     penAttribute_3
+    set building_material buildingMatAttribute_1, DEFAULT, DEFAULT
+    sect_attrs{2} penAttribute_7, lineTypeAttribute_1
+
+vert{2}	       -0.02,       -0.015,            0, 1	!	#1   VertId=0
+vert{2}	     0.01625,       -0.015,        0.005, 1	!	#2   VertId=0
+vert{2}	       -0.02,       -0.015,         0.08, 1	!	#3   VertId=0
+vert{2}	     0.01625,       -0.015,         0.04, 1	!	#4   VertId=0
+vert{2}	     0.01625,       -0.015,        0.075, 1	!	#5   VertId=0
+vert{2}	       -0.02,            0,            0, 1	!	#6   VertId=0
+vert{2}	     0.02625,       -0.015,         0.04, 1	!	#7   VertId=0
+vert{2}	       -0.02,            0,         0.08, 1	!	#8   VertId=0
+vert{2}	     0.02625,       -0.015,        0.075, 1	!	#9   VertId=0
+vert	0.03294696006639,       -0.015, 0.04133210818105	!	#10  VertId=0
+vert	0.03862436867077,       -0.015, 0.04512563132924	!	#11  VertId=0
+vert{2}	        0.08,       -0.015,            0, 1	!	#12  VertId=0
+vert	0.04241789181895,       -0.015, 0.05080303993361	!	#13  VertId=0
+vert{2}	        0.08,       -0.015,         0.08, 1	!	#14  VertId=0
+vert	     0.04375,       -0.015,       0.0575	!	#15  VertId=0
+vert	0.04241789181895,       -0.015, 0.06419696006639	!	#16  VertId=0
+vert{2}	0.04363138707756,       -0.015,        0.005, 1	!	#17  VertId=0
+vert{2}	        0.08,            0,            0, 1	!	#18  VertId=0
+vert	0.03294696006639,       -0.015, 0.07366789181895	!	#19  VertId=0
+vert	0.03862436867077,       -0.015, 0.06987436867076	!	#20  VertId=0
+vert{2}	        0.08,            0,         0.08, 1	!	#21  VertId=0
+
+pen penAttribute_3
+edge	   3,    1,    2,    6, 262144			!	#1   EdgeId=0
+edge	   4,    2,    0,    0, 262144			!	#2   EdgeId=0
+edge	   5,    4,    1,    6, 262144			!	#3   EdgeId=0
+edge	   1,    6,    2,    5, 262144			!	#4   EdgeId=0
+edge	   7,    4,    1,    6, 262144			!	#5   EdgeId=0
+edge	   5,    9,    1,    6, 262144			!	#6   EdgeId=0
+edge	   3,    8,    2,    3, 262144			!	#7   EdgeId=0
+edge	   8,    6,    2,    4, 262144			!	#8   EdgeId=0
+edge	  12,    1,    5,    6, 262144			!	#9   EdgeId=0
+edge	  14,    3,    3,    6, 262144			!	#10  EdgeId=0
+edge	   6,   18,    4,    5, 262144			!	#11  EdgeId=0
+edge	   8,   21,    3,    4, 262144			!	#12  EdgeId=0
+edge	  10,    7,    1,    6, 262144			!	#13  EdgeId=0
+edge	  11,   10,    1,    6, 262144			!	#14  EdgeId=0
+edge	  13,   11,    1,    6, 262144			!	#15  EdgeId=0
+edge	  15,   13,    1,    6, 262144			!	#16  EdgeId=0
+edge	  20,   16,    1,    6, 262144			!	#17  EdgeId=0
+edge	  19,   20,    1,    6, 262144			!	#18  EdgeId=0
+edge	   9,   19,    1,    6, 262144			!	#19  EdgeId=0
+edge	  17,    7,    0,    0, 262144			!	#20  EdgeId=0
+edge	  16,   15,    1,    6, 262144			!	#21  EdgeId=0
+edge	  14,   12,    6,    7, 262144			!	#22  EdgeId=0
+edge	  18,   12,    5,    7, 262144			!	#23  EdgeId=0
+edge	  21,   14,    3,    7, 262144			!	#24  EdgeId=0
+edge	  21,   18,    4,    7, 262144			!	#25  EdgeId=0
+vect	7.593241446145E-14,           -1, -7.981351635156E-14	!	#1  
+vect	          -1,            0,            0	!	#2  
+vect	           0,            0,            1	!	#3  
+vect	           0,            1,            0	!	#4  
+vect	           0,            0,           -1	!	#5  
+vect	           0,           -1,            0	!	#6  
+vect	           1,            0,            0	!	#7  
+material materialAttribute_1
+pgon	  11,    1,      2,					!	#1   PolyId=0
+		   3,		  -5,		 -13,		 -14,		 -15,		 -16,		 -21,		 -17,
+		 -18,		 -19,		  -6
+material materialAttribute_1
+pgon	   4,    2,      2,					!	#2   PolyId=0
+		  -1,		   7,		   8,		  -4
+material materialAttribute_1
+pgon	   4,    3,      2,					!	#3   PolyId=0
+		  -7,		 -10,		 -24,		 -12
+material materialAttribute_1
+pgon	   4,    4,      2,					!	#4   PolyId=0
+		  -8,		  12,		  25,		 -11
+material materialAttribute_1
+pgon	   4,    5,      2,					!	#5   PolyId=0
+		   4,		  11,		  23,		   9
+material materialAttribute_1
+pgon	  16,    6,     98,					!	#6   PolyId=0
+		   1,		  -9,		 -22,		  10,		   0,		  -3,		   6,		  19,
+		  18,		  17,		  21,		  16,		  15,		  14,		  13,		   5
+
+material materialAttribute_1
+pgon	   4,    7,      2,					!	#7   PolyId=0
+		  22,		 -23,		 -25,		  24
+material bms_buildingMatAttribute_1
+coor{3}	   2,    0,
+	-28.98873666122, -20.24640796973,            0,
+	-27.98873666122, -20.24640796973,            0,
+	-28.98873666122, -19.24640796973,            0,
+	-28.98873666122, -20.24640796973,            1
+
+body	262182
+
+    material 0
+    body    -1
+endgroup
+group 	"group_93AE106D_8854_4517_B195_B12345B23801"
+    xform             -1, -1.224646799147E-16,            0,         0.03,
+            1.224646799147E-16,           -1,            0, -3.469446951954E-18,
+                       0,            0,            1,            0
+    placegroup ("group_A84ADB41_434D_4A19_9D69_960C02EF508B")
+    del          1
+endgroup
+!!MORPH-004 F50E034C-A8C9-4966-B891-7429A50CFFD3
+group 	"group_9580A771_BD04_44F5_9790_4BBEFA4ECB41"
+    set building_material buildingMatAttribute_1, DEFAULT, DEFAULT
+    sect_attrs{2} penAttribute_7, lineTypeAttribute_1
+vert{2}	       -0.02,       -0.015,            0, 1	!	#1   VertId=0
+vert{2}	0.004999999999999,       -0.015,            0, 1	!	#2   VertId=0
+vert{2}	       -0.02,       -0.015,         0.08, 1	!	#3   VertId=0
+vert{2}	0.009999999999998,       -0.015,         0.07, 1	!	#4   VertId=0
+vert{2}	       -0.02,            0,            0, 1	!	#5   VertId=0
+vert{2}	0.009999999999994,       -0.015,         0.01, 1	!	#6   VertId=0
+vert{2}	       -0.02,            0,         0.08, 1	!	#7   VertId=0
+vert{2}	     -0.0125,       -0.015,         0.07, 1	!	#8   VertId=0
+vert{2}	0.03249999999999,       -0.015,         0.07, 1	!	#9   VertId=0
+vert{2}	        0.04,       -0.015,         0.01, 1	!	#10  VertId=0
+vert{2}	        0.08,       -0.015,            0, 1	!	#11  VertId=0
+vert{2}	        0.04,       -0.015,         0.04, 1	!	#12  VertId=0
+vert{2}	        0.08,       -0.015,         0.08, 1	!	#13  VertId=0
+vert{2}	        0.04,       -0.015,         0.07, 1	!	#14  VertId=0
+vert{2}	        0.07,       -0.015,         0.01, 1	!	#15  VertId=0
+vert{2}	        0.08,            0,            0, 1	!	#16  VertId=0
+vert{2}	        0.07,       -0.015,         0.04, 1	!	#17  VertId=0
+vert{2}	        0.07,       -0.015,         0.07, 1	!	#18  VertId=0
+vert{2}	        0.08,            0,         0.08, 1	!	#19  VertId=0
+pen penAttribute_3
+edge	   3,    1,    1,    2, 262144			!	#1   EdgeId=0
+edge	   1,    2,    1,    4, 262144			!	#2   EdgeId=0
+edge	   1,    5,    2,    4, 262144			!	#3   EdgeId=0
+edge	   7,    5,    2,    3, 262144			!	#4   EdgeId=0
+edge	   3,    7,    2,    5, 262144			!	#5   EdgeId=0
+edge	   4,    8,    0,    0, 262144			!	#6   EdgeId=0
+edge	  11,    2,    1,    4, 262144			!	#7   EdgeId=0
+edge	  13,    3,    1,    5, 262144			!	#8   EdgeId=0
+edge	   5,   16,    3,    4, 262144			!	#9   EdgeId=0
+edge	   7,   19,    3,    5, 262144			!	#10  EdgeId=0
+edge	   6,    4,    0,    0, 262144			!	#11  EdgeId=0
+edge	  10,   12,    0,    0, 262144			!	#12  EdgeId=0
+edge	  14,   12,    0,    0, 262144			!	#13  EdgeId=0
+edge	  12,   17,    0,    0, 262144			!	#14  EdgeId=0
+edge	   4,    9,    0,    0, 262144			!	#15  EdgeId=0
+edge	  17,   18,    0,    0, 262144			!	#16  EdgeId=0
+edge	  16,   11,    4,    6, 262144			!	#17  EdgeId=0
+edge	  17,   15,    0,    0, 262144			!	#18  EdgeId=0
+edge	  13,   11,    1,    6, 262144			!	#19  EdgeId=0
+edge	  19,   16,    3,    6, 262144			!	#20  EdgeId=0
+edge	  19,   13,    5,    6, 262144			!	#21  EdgeId=0
+vect	           0,           -1,            0	!	#1  
+vect	          -1,            0,            0	!	#2  
+vect	           0,            1,            0	!	#3  
+vect	           0,            0,           -1	!	#4  
+vect	           0,            0,            1	!	#5  
+vect	           1,            0,            0	!	#6  
+material materialAttribute_1
+pgon	   5,    1,      2,					!	#1   PolyId=0
+		   1,		   2,		  -7,		 -19,		   8
+material materialAttribute_1
+pgon	   4,    2,      2,					!	#2   PolyId=0
+		  -1,		   5,		   4,		  -3
+material materialAttribute_1
+pgon	   4,    3,      2,					!	#3   PolyId=0
+		  -4,		  10,		  20,		  -9
+material materialAttribute_1
+pgon	   5,    4,      2,					!	#4   PolyId=0
+		  -2,		   3,		   9,		  17,		   7
+material materialAttribute_1
+pgon	   4,    5,      2,					!	#5   PolyId=0
+		  -5,		  -8,		 -21,		 -10
+material materialAttribute_1
+pgon	   4,    6,      2,					!	#6   PolyId=0
+		 -17,		 -20,		  21,		  19
+material bms_buildingMatAttribute_1
+coor{3}	   2,    0,
+	-28.98873666122, -20.24640796973,            0,
+	-27.98873666122, -20.24640796973,            0,
+	-28.98873666122, -19.24640796973,            0,
+	-28.98873666122, -20.24640796973,            1
+
+body	262182
+
+    material 0
+    body    -1
+endgroup
+group 	"group_450D7AFF_0312_4524_A168_5357AD9DA5AD"
+    xform             -1, -1.224646799147E-16,            0,         0.03,
+            1.224646799147E-16,           -1,            0,            0,
+                       0,            0,            1,            0
+    placegroup ("group_9580A771_BD04_44F5_9790_4BBEFA4ECB41")
+    del          1
+endgroup
+!!MORPH-004 5B76BAFE-C60C-408D-AFCB-03960613F0B7
+group 	"group_8A3D6D0D_B75A_4C40_9670_4CD7190E6F7B"
+    set building_material buildingMatAttribute_1, DEFAULT, DEFAULT
+    sect_attrs{2} penAttribute_7, lineTypeAttribute_1
+vert	0.01607547882184,       -0.015, 0.005608733956598	!	#1   VertId=0
+vert{2}	       -0.02,       -0.015,            0, 1	!	#2   VertId=0
+vert	0.0006428649749333,       -0.015, 0.01153968776107	!	#3   VertId=0
+vert{2}	      0.0325,       -0.015, 0.007500000000001, 1	!	#4   VertId=0
+vert	0.03961180524817,       -0.015, 0.01220043965252	!	#5   VertId=0
+vert{2}	0.03813019266371,       -0.015, 0.01421991403302, 1	!	#6   VertId=0
+vert{2}	       -0.02,       -0.015,         0.08, 1	!	#7   VertId=0
+vert	-0.01028772655439,       -0.015, 0.02394387866567	!	#8   VertId=0
+vert	-0.01423015611947,       -0.015,         0.04	!	#9   VertId=0
+vert	-0.01028772655439,       -0.015, 0.05605612133434	!	#10  VertId=0
+vert	0.0006428649749367,       -0.015, 0.06846031223893	!	#11  VertId=0
+vert	0.01607547882184,       -0.015, 0.07439126604341	!	#12  VertId=0
+vert	0.04326903630386,       -0.015, 0.008791553206254	!	#13  VertId=0
+vert{2}	       -0.02,            0,            0, 1	!	#14  VertId=0
+vert	0.04133371610743,       -0.015, 0.01038151809932	!	#15  VertId=0
+vert	0.04538754435199,       -0.015, 0.007455373475097	!	#16  VertId=0
+vert	0.04765615814975,       -0.015, 0.006393844360792	!	#17  VertId=0
+vert	0.04925974851452,       -0.015, 0.04614180701233	!	#18  VertId=0
+vert{2}	      0.0325,       -0.015,       0.0725, 1	!	#19  VertId=0
+vert	0.03999999999999,       -0.015,         0.06	!	#20  VertId=0
+vert{2}	       -0.02,            0,         0.08, 1	!	#21  VertId=0
+vert	0.04114180701232,       -0.015, 0.05425974851452	!	#22  VertId=0
+vert	0.04114180701232,       -0.015, 0.06574025148548	!	#23  VertId=0
+vert	0.04439339828219,       -0.015, 0.0493933982822	!	#24  VertId=0
+vert	0.04439339828219,       -0.015, 0.0706066017178	!	#25  VertId=0
+vert	0.05003945158054,       -0.015, 0.005623542441614	!	#26  VertId=0
+vert{2}	       0.055,       -0.015, 0.005000000000001, 1	!	#27  VertId=0
+vert	0.05250020771871,       -0.015, 0.005156496563391	!	#28  VertId=0
+vert{2}	        0.08,       -0.015,            0, 1	!	#29  VertId=0
+vert	0.0626536686473, -0.01500000000001, 0.006522409349776	!	#30  VertId=0
+vert	0.06914213562373, -0.01500000000001, 0.01085786437627	!	#31  VertId=0
+vert{2}	0.05499999999999,       -0.015,        0.045, 1	!	#32  VertId=0
+vert	0.0626536686473, -0.01500000000001, 0.04347759065023	!	#33  VertId=0
+vert	0.04925974851452,       -0.015, 0.07385819298767	!	#34  VertId=0
+vert{2}	        0.08,       -0.015,         0.08, 1	!	#35  VertId=0
+vert	0.06675706977907,       -0.015, 0.07065257209191	!	#36  VertId=0
+vert	0.06531050280696,       -0.015, 0.07177007826	!	#37  VertId=0
+vert{2}	0.06808334453519,       -0.015, 0.06939464867935, 1	!	#38  VertId=0
+vert	0.07347759065022, -0.01500000000002, 0.0173463313527	!	#39  VertId=0
+vert	0.06914213562373, -0.01500000000001, 0.03914213562373	!	#40  VertId=0
+vert	0.07499999999999, -0.01500000000002,        0.025	!	#41  VertId=0
+vert{2}	        0.08,            0,            0, 1	!	#42  VertId=0
+vert	0.07347759065022, -0.01500000000002, 0.0326536686473	!	#43  VertId=0
+vert{2}	0.05499999999999,       -0.015,        0.075, 1	!	#44  VertId=0
+vert	0.05863252897307,       -0.015, 0.07463115016316	!	#45  VertId=0
+vert	0.05682560380027,       -0.015, 0.07490755106846	!	#46  VertId=0
+vert	0.06375844413886,       -0.015, 0.07273573344242	!	#47  VertId=0
+vert	0.0604022880009,       -0.015, 0.07417362527425	!	#48  VertId=0
+vert	0.0621167736309,       -0.015, 0.07353965755815	!	#49  VertId=0
+vert{2}	        0.08,            0,         0.08, 1	!	#50  VertId=0
+pen penAttribute_3
+edge	   7,    2,    1,    2, 262144			!	#1   EdgeId=0
+edge	   4,    1,    0,    0, 262144			!	#2   EdgeId=0
+edge	   1,    3,    0,    0, 262144			!	#3   EdgeId=0
+edge	   3,    8,    0,    0, 262144			!	#4   EdgeId=0
+edge	   5,    6,    0,    0, 262144			!	#5   EdgeId=0
+edge	   8,    9,    0,    0, 262144			!	#6   EdgeId=0
+edge	   9,   10,    0,    0, 262144			!	#7   EdgeId=0
+edge	  10,   11,    0,    0, 262144			!	#8   EdgeId=0
+edge	  11,   12,    0,    0, 262144			!	#9   EdgeId=0
+edge	   2,   14,    2,    3, 262144			!	#10  EdgeId=0
+edge	  21,   14,    2,    4, 262144			!	#11  EdgeId=0
+edge	  12,   19,    0,    0, 262144			!	#12  EdgeId=0
+edge	   7,   21,    2,    5, 262144			!	#13  EdgeId=0
+edge	  29,    2,    1,    3, 262144			!	#14  EdgeId=0
+edge	  20,   22,    0,    0, 262144			!	#15  EdgeId=0
+edge	  23,   20,    0,    0, 262144			!	#16  EdgeId=0
+edge	  16,   13,    0,    0, 262144			!	#17  EdgeId=0
+edge	  15,    5,    0,    0, 262144			!	#18  EdgeId=0
+edge	  13,   15,    0,    0, 262144			!	#19  EdgeId=0
+edge	  24,   18,    0,    0, 262144			!	#20  EdgeId=0
+edge	  22,   24,    0,    0, 262144			!	#21  EdgeId=0
+edge	  35,    7,    1,    5, 262144			!	#22  EdgeId=0
+edge	  14,   42,    3,    4, 262144			!	#23  EdgeId=0
+edge	  25,   23,    0,    0, 262144			!	#24  EdgeId=0
+edge	  21,   50,    4,    5, 262144			!	#25  EdgeId=0
+edge	  34,   25,    0,    0, 262144			!	#26  EdgeId=0
+edge	  28,   26,    0,    0, 262144			!	#27  EdgeId=0
+edge	  27,   28,    0,    0, 262144			!	#28  EdgeId=0
+edge	  26,   17,    0,    0, 262144			!	#29  EdgeId=0
+edge	  30,   27,    0,    0, 262144			!	#30  EdgeId=0
+edge	  17,   16,    0,    0, 262144			!	#31  EdgeId=0
+edge	  32,   33,    0,    0, 262144			!	#32  EdgeId=0
+edge	  18,   32,    0,    0, 262144			!	#33  EdgeId=0
+edge	  37,   36,    0,    0, 262144			!	#34  EdgeId=0
+edge	  31,   30,    0,    0, 262144			!	#35  EdgeId=0
+edge	  33,   40,    0,    0, 262144			!	#36  EdgeId=0
+edge	  47,   37,    0,    0, 262144			!	#37  EdgeId=0
+edge	  36,   38,    0,    0, 262144			!	#38  EdgeId=0
+edge	  48,   49,    0,    0, 262144			!	#39  EdgeId=0
+edge	  49,   47,    0,    0, 262144			!	#40  EdgeId=0
+edge	  44,   34,    0,    0, 262144			!	#41  EdgeId=0
+edge	  45,   48,    0,    0, 262144			!	#42  EdgeId=0
+edge	  39,   31,    0,    0, 262144			!	#43  EdgeId=0
+edge	  44,   46,    0,    0, 262144			!	#44  EdgeId=0
+edge	  46,   45,    0,    0, 262144			!	#45  EdgeId=0
+edge	  35,   29,    1,    6, 262144			!	#46  EdgeId=0
+edge	  41,   39,    0,    0, 262144			!	#47  EdgeId=0
+edge	  40,   43,    0,    0, 262144			!	#48  EdgeId=0
+edge	  43,   41,    0,    0, 262144			!	#49  EdgeId=0
+edge	  42,   29,    3,    6, 262144			!	#50  EdgeId=0
+edge	  50,   35,    5,    6, 262144			!	#51  EdgeId=0
+edge	  50,   42,    4,    6, 262144			!	#52  EdgeId=0
+vect	           0,           -1,            0	!	#1  
+vect	          -1,            0,            0	!	#2  
+vect	           0,            0,           -1	!	#3  
+vect	           0,            1,            0	!	#4  
+vect	           0,            0,            1	!	#5  
+vect	           1,            0,            0	!	#6  
+material materialAttribute_1
+pgon	   4,    1,      2,					!	#1   PolyId=0
+		   1,		 -14,		 -46,		  22
+material materialAttribute_1
+pgon	   4,    2,      2,					!	#2   PolyId=0
+		  -1,		  13,		  11,		 -10
+material materialAttribute_1
+pgon	   4,    3,      2,					!	#3   PolyId=0
+		  10,		  23,		  50,		  14
+material materialAttribute_1
+pgon	   4,    4,      2,					!	#4   PolyId=0
+		 -11,		  25,		  52,		 -23
+material materialAttribute_1
+pgon	   4,    5,      2,					!	#5   PolyId=0
+		 -13,		 -22,		 -51,		 -25
+material materialAttribute_1
+pgon	   4,    6,      2,					!	#6   PolyId=0
+		  46,		 -50,		 -52,		  51
+material bms_buildingMatAttribute_1
+coor{3}	   2,    0,
+	-28.98873666122, -20.24640796973,            0,
+	-27.98873666122, -20.24640796973,            0,
+	-28.98873666122, -19.24640796973,            0,
+	-28.98873666122, -20.24640796973,            1
+
+body	262182
+
+    material 0
+    body    -1
+endgroup
+group 	"group_3256067E_775A_479C_A418_DEE2310157EE"
+    xform             -1, -1.224646799147E-16,            0,         0.03,
+            1.224646799147E-16,           -1,            0,            0,
+                       0,            0,            1,            0
+    placegroup ("group_8A3D6D0D_B75A_4C40_9670_4CD7190E6F7B")
+    del          1
+endgroup
+
+
+
+!!MORPH-010 147615AC-D3F5-4125-A46F-C55EC4AE9CC2
+group 	"group_D7655C0D_5842_480C_8F18_A6086F0607AD"
+    pen     penAttribute_3
+    set building_material buildingMatAttribute_1, DEFAULT, DEFAULT
+    sect_attrs{2} penAttribute_4, lineTypeAttribute_1
+
+_A = A / 0.2 * xOrig 
+_B = ZZYZX / 2
+
+vert{2}	      -_A,            			0,       0.085 - _B, 			1	!	#1   VertId=0
+vert{2}	      -_A,            			0,       0.085 + _B, 			1	!	#2   VertId=0
+vert{2}	      -_A,        		ySocket,         0.085 + _B, 			1	!	#3   VertId=0
+vert{2}	      -_A,        		ySocket,         0.085 - _B, 			1	!	#4   VertId=0
+vert{2}	      -_A + yBorder,	ySocket,         0.085 - _B + yBorder,  1	!	#5   VertId=0
+vert{2}	      -_A + yBorder,	ySocket,         0.085 + _B - yBorder,  1	!	#6   VertId=0
+vert{2}	       _A,            			0,       0.085 - _B, 			1	!	#7   VertId=0
+vert{2}	       _A,            			0,       0.085 + _B, 			1	!	#8   VertId=0
+vert{2}	       _A,        		ySocket,         0.085 - _B, 			1	!	#9   VertId=0
+vert{2}	       _A - yBorder,	ySocket,         0.085 - _B + yBorder,  1	!	#10  VertId=0
+vert{2}	       _A - yBorder,	ySocket,         0.085 + _B - yBorder,  1	!	#11  VertId=0
+vert{2}	       _A,        		ySocket,         0.085 + _B, 			1	!	#12  VertId=0
+
+pen penAttribute_3
+edge	   1,    2,    1,    5, 262144				!	#1   EdgeId=0
+edge	   3,    2,    4,    5, 262144				!	#2   EdgeId=0
+edge	   4,    1,    3,    5, 262144				!	#3   EdgeId=0
+edge	   4,    3,    2,    5, 262144				!	#4   EdgeId=0
+edge	   1,    7,    1,    3, 262144				!	#5   EdgeId=0
+edge	   2,    8,    1,    4, 262144				!	#6   EdgeId=0
+edge	   9,    4,    2,    3, 262144				!	#7   EdgeId=0
+edge	  12,    3,    2,    4, 262144				!	#8   EdgeId=0
+edge	   7,    8,    1,    7, 262144				!	#9   EdgeId=0
+edge	   7,    9,    3,    7, 262144				!	#10  EdgeId=0
+edge	   9,   12,    2,    7, 262144				!	#11  EdgeId=0
+edge	   5,    6,    2,    6, 262144				!	#12  EdgeId=0
+edge	  10,    5,    2,    6, 262144				!	#13  EdgeId=0
+edge	  11,   10,    2,    6, 262144				!	#14  EdgeId=0
+edge	   6,   11,    2,    6, 262144				!	#15  EdgeId=0
+edge	   8,   12,    4,    7, 262144				!	#16  EdgeId=0
+vect	           0,           -1,            0	!	#1  
+vect	           0,            1,            0	!	#2  
+vect	           0,            0,           -1	!	#3  
+vect	           0,            0,            1	!	#4  
+vect	          -1,            0,            0	!	#5  
+vect	           0,            1,            0	!	#6  
+vect	           1,            0,            0	!	#7  
+material materialAttribute_1
+pgon	   4,    1,      2,					!	#1   PolyId=0
+		  -1,		   5,		   9,		  -6
+material materialAttribute_1
+pgon	   9,    2,     98,					!	#2   PolyId=0
+		   4,		  -8,		 -11,		   7,		   0,		 -12,		 -13,		 -14,
+		 -15
+material materialAttribute_1
+pgon	   4,    3,      2,					!	#3   PolyId=0
+		  -3,		  -7,		 -10,		  -5
+material materialAttribute_1
+pgon	   4,    4,      2,					!	#4   PolyId=0
+		   2,		   6,		  16,		   8
+material materialAttribute_1
+pgon	   4,    5,      2,					!	#5   PolyId=0
+		   1,		  -2,		  -4,		   3
+material bms_buildingMatAttribute_1
+pgon	   4,    6,      2,					!	#6   PolyId=0
+		  12,		  15,		  14,		  13
+material materialAttribute_1
+pgon	   4,    7,      2,					!	#7   PolyId=0
+		  -9,		  10,		  11,		 -16
+material bms_buildingMatAttribute_1
+coor{3}	   2,    0,
+	      -0.075,            0,            0,
+	       0.925,            0,            0,
+	      -0.075,            1,            0,
+	      -0.075,            0,            1
+
+body	262179
+
+    material 0
+    body    -1
+endgroup
+
+!!R!!
+if PanelType = "Riasztó" THEN 
+	addZ -0.04
+	placegroup ("group_93AE106D_8854_4517_B195_B12345B23801")
+	HOTSPOT 0, 0.015, 0.04, 1005
+ENDIF
+
+!!TH!!
+IF PanelType = "Termosztát" THEN
+	addZ -0.04
+	placegroup ("group_450D7AFF_0312_4524_A168_5357AD9DA5AD")
+	HOTSPOT 0, 0.015, 0.04, 1006
+ENDIF
+
+!!CS!!
+IF PanelType = "Kaputelefon" THEN
+	addZ -0.04
+	placegroup ("group_3256067E_775A_479C_A418_DEE2310157EE")
+	HOTSPOT 0, 0.015, 0.04, 1007
+ENDIF
+
+IF PanelType = "Okospanel" THEN
+	addZ -0.085
+
+	placegroup ("group_D7655C0D_5842_480C_8F18_A6086F0607AD")
+ENDIF
+
+killgroup ("group_D7655C0D_5842_480C_8F18_A6086F0607AD")
+killgroup ("group_93AE106D_8854_4517_B195_B12345B23801")
+killgroup ("group_450D7AFF_0312_4524_A168_5357AD9DA5AD")
+killgroup ("group_3256067E_775A_479C_A418_DEE2310157EE")
+killgroup ("group_A84ADB41_434D_4A19_9D69_960C02EF508B")
+killgroup ("group_9580A771_BD04_44F5_9790_4BBEFA4ECB41")
+killgroup ("group_8A3D6D0D_B75A_4C40_9670_4CD7190E6F7B")
+]]>
+</Script_3D>
+
+<ParamSection SectVersion="27" SectionFlags="0" SubIdent="0">
+	<ParamSectHeader>
+		<AutoHotspots>false</AutoHotspots>
+		<StatBits>
+			<STBit_FixSize/>
+		</StatBits>
+		<WDLeftFrame>0</WDLeftFrame>
+		<WDRightFrame>0</WDRightFrame>
+		<WDTopFrame>0</WDTopFrame>
+		<WDBotFrame>0</WDBotFrame>
+		<LayFlags>65535</LayFlags>
+		<WDMirrorThickness>0</WDMirrorThickness>
+		<WDWallInset>0</WDWallInset>
+	</ParamSectHeader>
+	<Parameters>
+		<String Name="PanelType">
+			<Description><![CDATA["Panel Típusa"]]></Description>
+			<Value><![CDATA["Termosztát"]]></Value>
+		</String>
+		<String Name="Direction">
+			<Description><![CDATA["Panel Állása"]]></Description>
+			<Value><![CDATA["Függőleges"]]></Value>
+		</String>
+		<String Name="Label1">
+			<Description><![CDATA["Címke"]]></Description>
+			<Value><![CDATA["TH"]]></Value>
+		</String>
+		<RealNum Name="TextSize">
+			<Description><![CDATA["Címkeméret"]]></Description>
+			<Value>3</Value>
+		</RealNum>
+		<PenColor Name="LabelPen">
+			<Description><![CDATA["Címke Toll"]]></Description>
+			<Value>6</Value>
+		</PenColor>
+		<Angle Name="SymRot">
+			<Description><![CDATA["Címke állása"]]></Description>
+			<Value>0</Value>
+		</Angle>
+		<Length Name="A">
+			<Description><![CDATA["Dimension 1"]]></Description>
+			<Fix/>
+			<Value>0.2</Value>
+		</Length>
+		<Length Name="B">
+			<Description><![CDATA["Dimension 2"]]></Description>
+			<Fix/>
+			<Value>0.444314</Value>
+		</Length>
+		<Length Name="sideX">
+			<Description><![CDATA[""]]></Description>
+			<Flags>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>0</Value>
+		</Length>
+		<Length Name="sideY">
+			<Description><![CDATA[""]]></Description>
+			<Flags>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>0</Value>
+		</Length>
+		<Length Name="ZZYZX">
+			<Description><![CDATA["Height"]]></Description>
+			<Fix/>
+			<Value>0.1</Value>
+		</Length>
+		<Boolean Name="AC_show2DHotspotsIn3D">
+			<Description><![CDATA["Show 2D Hotspots in 3D"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>0</Value>
+		</Boolean>
+		<Length Name="ac_bottomlevel">
+			<Description><![CDATA["Bottom Level"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>1</Value>
+		</Length>
+		<Length Name="ac_toplevel">
+			<Description><![CDATA["Top Level"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>0</Value>
+		</Length>
+		<Boolean Name="use_stored_environment">
+			<Description><![CDATA["Use Stored Environment"]]></Description>
+			<Value>0</Value>
+		</Boolean>
+
+		<!-- FILL_TITLE: PARAMETER BLOCK ===== PARAMETER BLOCK ===== PARAMETER BLOCK ===== PARAMETER BLOCK -->
+
+		<Title Name="FILL_TITLE">
+			<Description><![CDATA["FILLS"]]></Description>
+		</Title>
+		<FillPattern Name="fillAttribute_1">
+			<Description><![CDATA["Fill 1"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>24</Value>
+		</FillPattern>
+
+		<!-- LINETYPE_TITLE: PARAMETER BLOCK ===== PARAMETER BLOCK ===== PARAMETER BLOCK ===== PARAMETER BLOCK -->
+
+		<Title Name="LINETYPE_TITLE">
+			<Description><![CDATA["LINES"]]></Description>
+		</Title>
+		<LineType Name="lineTypeAttribute_1">
+			<Description><![CDATA["Line 1"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>1</Value>
+		</LineType>
+
+		<!-- MATERIAL_TITLE: PARAMETER BLOCK ===== PARAMETER BLOCK ===== PARAMETER BLOCK ===== PARAMETER BLOCK -->
+
+		<Title Name="MATERIAL_TITLE">
+			<Description><![CDATA["SURFACES"]]></Description>
+		</Title>
+		<Material Name="materialAttribute_1">
+			<Description><![CDATA["Surface 1"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>60</Value>
+		</Material>
+
+		<!-- PEN_TITLE: PARAMETER BLOCK ===== PARAMETER BLOCK ===== PARAMETER BLOCK ===== PARAMETER BLOCK -->
+
+		<Title Name="PEN_TITLE">
+			<Description><![CDATA["PENS"]]></Description>
+		</Title>
+		<PenColor Name="penAttribute_1">
+			<Description><![CDATA["Pen 1"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>93</Value>
+		</PenColor>
+		<PenColor Name="penAttribute_2">
+			<Description><![CDATA["Pen 2"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0</Value>
+		</PenColor>
+		<PenColor Name="penAttribute_3">
+			<Description><![CDATA["Pen 3"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>1</Value>
+		</PenColor>
+		<PenColor Name="penAttribute_4">
+			<Description><![CDATA["Pen 4"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>6</Value>
+		</PenColor>
+		<PenColor Name="penAttribute_5">
+			<Description><![CDATA["Pen 5"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>101</Value>
+		</PenColor>
+		<PenColor Name="penAttribute_6">
+			<Description><![CDATA["Pen 6"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>17</Value>
+		</PenColor>
+		<PenColor Name="penAttribute_7">
+			<Description><![CDATA["Pen 7"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>53</Value>
+		</PenColor>
+
+		<!-- BUILDING_MATERIAL_TITLE: PARAMETER BLOCK ===== PARAMETER BLOCK ===== PARAMETER BLOCK ===== PARAMETER BLOCK -->
+
+		<Title Name="BUILDING_MATERIAL_TITLE">
+			<Description><![CDATA["BUILDING MATERIALS"]]></Description>
+		</Title>
+		<BuildingMaterial Name="buildingMatAttribute_1">
+			<Description><![CDATA["Building Material 1"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>85</Value>
+		</BuildingMaterial>
+		<Length Name="xSocket">
+			<Description><![CDATA[""]]></Description>
+			<Value>0.05</Value>
+		</Length>
+		<Length Name="ySocket">
+			<Description><![CDATA[""]]></Description>
+			<Value>0.015</Value>
+		</Length>
+		<Length Name="zSocket">
+			<Description><![CDATA[""]]></Description>
+			<Value>0.05</Value>
+		</Length>
+	</Parameters>
+</ParamSection>
+
+<Copyright SectVersion="1" SectionFlags="0" SubIdent="0">
+	<Author>Máté Péter</Author>
+	<License>
+		<Type>CC BY</Type>
+		<Version>4.0</Version>
+	</License>
+</Copyright>
+
+<CalledMacros SectVersion="2" SectionFlags="0" SubIdent="0">
+</CalledMacros>
+
+<!-- GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT -->
+
+<Script_1D SectVersion="20" SectionFlags="0" SubIdent="0">
+<![CDATA[
+UnID = 0
+
+yBorder = 0.01
+
+if PanelType = "Okospanel" THEN
+	IF Direction = "Vízszintes" THEN
+		xOrig = 0.125
+	else
+		xOrig = 0.085
+	endif
+else
+		xOrig = 0.050
+endif
+]]>
+</Script_1D>
+
+<!-- GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT -->
+
+<Script_PR SectVersion="20" SectionFlags="0" SubIdent="0">
+<![CDATA[]]>
+</Script_PR>
+
+<!-- GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT -->
+
+<Script_UI SectVersion="20" SectionFlags="0" SubIdent="0">
+<![CDATA[]]>
+</Script_UI>
+
+<!-- GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT -->
+
+<Script_VL SectVersion="20" SectionFlags="0" SubIdent="0">
+<![CDATA[
+VALUES "PanelType" "Termosztát", "Kaputelefon", "Riasztó", "Okospanel"
+VALUES "Direction" "Függőleges", "Vízszintes"
+
+values "xSocket" range [yBorder, ]
+values "ySocket" range [0, ]
+values "zSocket" range [yBorder, ]
+
+if PanelType <> "Okospanel" then
+	hideparameter "Direction"
+endif
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+if	GLOB_MODPAR_NAME = "PanelType" \
+|	GLOB_MODPAR_NAME = "Direction" \
+then
+	parameters	xSocket	= A * xOrig / 0.2,
+				ySocket = B * 0.015 / 0.444314
+
+	if PanelType <> "Okospanel" then
+		parameters	zSocket = xSocket,
+					ZZYZX	= xSocket * 2
+	endif
+endif
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+if	GLOB_MODPAR_NAME = "A" \
+then
+	parameters	xSocket	= A * xOrig / 0.2,
+				ZZYZX	= A * 0.080 / 0.2
+
+	if PanelType <> "Okospanel" then
+		parameters	zSocket	= A * 0.080 / 0.2 / 2
+	endif
+endif
+
+if GLOB_MODPAR_NAME = "B" then
+	parameters ySocket = B * 0.015 / 0.444314
+endif
+
+if GLOB_MODPAR_NAME = "ZZYZX" then
+	parameters	zSocket	= ZZYZX / 2
+
+	if PanelType <> "Okospanel" then
+		parameters	xSocket	= ZZYZX / 2, 
+					A = ZZYZX / 0.080 * 0.2
+	endif
+endif
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+if GLOB_MODPAR_NAME = "xSocket" then
+	parameters	A =	xSocket / xOrig * 0.2
+
+	if PanelType <> "Okospanel" then
+		parameters	zSocket	= xSocket,
+					ZZYZX	= 	xSocket * 2
+	endif
+endif
+
+if GLOB_MODPAR_NAME = "ySocket" then
+	parameters B = ySocket / 0.015 * 0.444314
+endif
+
+if GLOB_MODPAR_NAME = "zSocket" then
+	parameters ZZYZX = 	zSocket * 2
+
+	if PanelType <> "Okospanel" then
+		parameters	xSocket	= zSocket,
+					A		= zSocket / xOrig * 0.2
+	endif
+endif
+]]>
+</Script_VL>
+
+<!-- GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT -->
+
+<Script_FWM SectVersion="20" SectionFlags="0" SubIdent="0">
+<![CDATA[]]>
+</Script_FWM>
+
+<!-- GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT -->
+
+<Script_BWM SectVersion="20" SectionFlags="0" SubIdent="0">
+<![CDATA[]]>
+</Script_BWM>
+
+<Keywords SectVersion="1" SectionFlags="0" SubIdent="0">
+<![CDATA[]]>
+</Keywords>
+
+<Comment SectVersion="20" SectionFlags="0" SubIdent="0">
+<![CDATA[]]>
+</Comment>
+
+</Symbol>

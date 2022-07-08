@@ -1,0 +1,1580 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Symbol IsArchivable="false" IsPlaceable="true" MainGUID="73859D7D-6CDA-4590-9976-3FFB6A946EDF" MigrationValue="Normal" Owner="1196638531" Signature="1196644685" Version="41">
+<Ancestry SectVersion="1" SectionFlags="0" SubIdent="0" Template="true">
+	<MainGUID>F938E33A-329D-4A36-BE3E-85E126820996</MainGUID>
+	<MainGUID>103E8D2C-8230-42E1-9597-46F84CCE28C0</MainGUID>
+	<MainGUID>0DF8E541-68EB-4102-8886-C144F74770E0</MainGUID>
+	<MainGUID>129052FD-BD0F-439E-9B71-BEBF06CB2699</MainGUID>
+</Ancestry>
+
+<!-- GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT -->
+
+<Script_2D SectVersion="20" SectionFlags="0" SubIdent="0">
+<![CDATA[
+!hotspot2 0,0:circle2 0,0, .05:line2 0,0,1,0:line2 0,0,0,.5
+
+if SocketType <> "Padlókiállás" then
+	hotspot2 	 0,     	 ySocket,	UnID, xSocket, 1 + 128	: UnID = UnID + 1
+	hotspot2 	 xSocket,	 ySocket,	UnID, xSocket, 2		: UnID = UnID + 1
+	hotspot2	-1,     	 ySocket,	UnID, xSocket, 3		: UnID = UnID + 1
+	
+	hotspot2 	 xSocket,	 0,			UnID, ySocket, 1 + 128	: UnID = UnID + 1
+	hotspot2 	 xSocket,	 ySocket,	UnID, ySocket, 2		: UnID = UnID + 1
+	hotspot2	 xSocket,	-1,			UnID, ySocket, 3		: UnID = UnID + 1
+	
+	hotspot2 	 0,     	 ySocket,	UnID, xSocket, 1 + 128	: UnID = UnID + 1
+	hotspot2 	-xSocket,	 ySocket,	UnID, xSocket, 2		: UnID = UnID + 1
+	hotspot2	-1,     	 ySocket,	UnID, xSocket, 3		: UnID = UnID + 1
+	
+	hotspot2 	-xSocket,	 0,			UnID, ySocket, 1 + 128	: UnID = UnID + 1
+	hotspot2 	-xSocket,	 ySocket,	UnID, ySocket, 2		: UnID = UnID + 1
+	hotspot2	-xSocket,	-1,			UnID, ySocket, 3		: UnID = UnID + 1
+	
+	hotspot2 	 0,			 0,			UnID, xSocket, 1 + 128	: UnID = UnID + 1
+	hotspot2 	 xSocket,	 0,			UnID, xSocket, 2		: UnID = UnID + 1
+	hotspot2	-1,	 		 0,			UnID, xSocket, 3		: UnID = UnID + 1
+	
+	hotspot2 	 0,			 0,			UnID, xSocket, 1 + 128	: UnID = UnID + 1
+	hotspot2 	-xSocket,	 0,			UnID, xSocket, 2		: UnID = UnID + 1
+	hotspot2	-1,			 0,			UnID, xSocket, 3		: UnID = UnID + 1
+else
+	hotspot2 	 0,     	 ySocket,	UnID, xSocket, 1 + 128	: UnID = UnID + 1
+	hotspot2 	 xSocket,	 ySocket,	UnID, xSocket, 2		: UnID = UnID + 1
+	hotspot2	-1,     	 ySocket,	UnID, xSocket, 3		: UnID = UnID + 1
+	
+	hotspot2 	 xSocket,	 0,			UnID, ySocket, 1 + 128	: UnID = UnID + 1
+	hotspot2 	 xSocket,	 ySocket,	UnID, ySocket, 2		: UnID = UnID + 1
+	hotspot2	 xSocket,	-1,			UnID, ySocket, 3		: UnID = UnID + 1
+
+
+	hotspot2 	 0,     	-ySocket,	UnID, xSocket, 1 + 128	: UnID = UnID + 1
+	hotspot2 	 xSocket,	-ySocket,	UnID, xSocket, 2		: UnID = UnID + 1
+	hotspot2	-1,     	-ySocket,	UnID, xSocket, 3		: UnID = UnID + 1
+	
+	hotspot2 	 xSocket,	 0,			UnID, ySocket, 1 + 128	: UnID = UnID + 1
+	hotspot2 	 xSocket,	-ySocket,	UnID, ySocket, 2		: UnID = UnID + 1
+	hotspot2	 xSocket,	 1,			UnID, ySocket, 3		: UnID = UnID + 1
+
+
+	hotspot2 	 0,     	 ySocket,	UnID, xSocket, 1 + 128	: UnID = UnID + 1
+	hotspot2 	-xSocket,	 ySocket,	UnID, xSocket, 2		: UnID = UnID + 1
+	hotspot2	 1,     	 ySocket,	UnID, xSocket, 3		: UnID = UnID + 1
+	
+	hotspot2 	-xSocket,	 0,			UnID, ySocket, 1 + 128	: UnID = UnID + 1
+	hotspot2 	-xSocket,	 ySocket,	UnID, ySocket, 2		: UnID = UnID + 1
+	hotspot2	-xSocket,	-1,			UnID, ySocket, 3		: UnID = UnID + 1
+
+
+	hotspot2 	 0,     	-ySocket,	UnID, xSocket, 1 + 128	: UnID = UnID + 1
+	hotspot2 	-xSocket,	-ySocket,	UnID, xSocket, 2		: UnID = UnID + 1
+	hotspot2	 1,     	-ySocket,	UnID, xSocket, 3		: UnID = UnID + 1
+	
+	hotspot2 	-xSocket,	 0,			UnID, ySocket, 1 + 128	: UnID = UnID + 1
+	hotspot2 	-xSocket,	-ySocket,	UnID, ySocket, 2		: UnID = UnID + 1
+	hotspot2	-xSocket,	 1,			UnID, ySocket, 3		: UnID = UnID + 1
+endif
+
+mul2     A/0.200000, B/0.345000
+
+drawindex      10
+pen     penAttribute_1
+
+fill fillAttribute_1
+if SocketType # "Padlókiállás" THEN
+	poly2_b{5}       5,      2,      2,      8, penAttribute_1, penAttribute_2, 
+			-29.02873666122, -24.74640796973,            1, -5.877379086394E-16, -2.02128619923E-15,            1,            0, 
+				   -0.04,        0.015,      1, 
+				   -0.04, 			0,      1, 
+					0.04, 			0,      1, 
+					0.04,        0.015,      1, 
+				   -0.04,        0.015,      1
+	pen     penAttribute_3
+	set line_type lineTypeAttribute_1
+	poly2_b{5}       2,      1,      0,      3,      1,      0, 
+					   0,            0,            1,            0,            0,            1,            0, 
+				   -0.04,			 0,      1, 
+				   -0.04,        0.015,      1
+	poly2_b{5}       2,      1,      0,      3,      1,      0, 
+					   0,            0,            1,            0,            0,            1,            0, 
+					0.04,			 0,      1, 
+				   -0.04,			 0,      1
+	poly2_b{5}       2,      1,      0,      3,      1,      0, 
+					   0,            0,            1,            0,            0,            1,            0, 
+				   -0.04,        0.015,      1, 
+					0.04,        0.015,      1
+	poly2_b{5}       2,      1,      0,      3,      1,      0, 
+					   0,            0,            1,            0,            0,            1,            0, 
+					0.04,        0.015,      1, 
+					0.04, 			0,      1
+	pen     penAttribute_1
+ENDIF
+
+
+if SocketType = "Egyszerű" OR SocketType = "Kapcsolható" OR SocketType = "Egyedi" Then
+	IF SocketCount > 1 AND Direction = "Vízszintes" THEN
+		SocketTemp = SocketCount
+			Offset = 0.08
+			if DirNegate = 1 then
+				Offset = -Offset
+			endif
+		
+		
+		DO 
+			add2 Offset, 0
+			
+			poly2_b{5}       5,      2,      2,      8, penAttribute_1, penAttribute_2, 
+				-29.02873666122, -24.74640796973,            1, -5.877379086394E-16, -2.02128619923E-15,            1,            0, 
+					   -0.04,        0.015,      1, 
+					   -0.04, -9.797174393179E-18,      1, 
+						0.04, 9.797174393179E-18,      1, 
+						0.04,        0.015,      1, 
+					   -0.04,        0.015,      1
+			pen     penAttribute_3
+			set line_type lineTypeAttribute_1
+			poly2_b{5}       2,      1,      0,      3,      1,      0, 
+							   0,            0,            1,            0,            0,            1,            0, 
+						   -0.04, -1.040834085586E-17,      1, 
+						   -0.04,        0.015,      1
+			poly2_b{5}       2,      1,      0,      3,      1,      0, 
+							   0,            0,            1,            0,            0,            1,            0, 
+							0.04, 9.797174393179E-18,      1, 
+						   -0.04, -1.040834085586E-17,      1
+			poly2_b{5}       2,      1,      0,      3,      1,      0, 
+							   0,            0,            1,            0,            0,            1,            0, 
+						   -0.04,        0.015,      1, 
+							0.04,        0.015,      1
+			poly2_b{5}       2,      1,      0,      3,      1,      0, 
+							   0,            0,            1,            0,            0,            1,            0, 
+							0.04,        0.015,      1, 
+							0.04, 9.797174393179E-18,      1
+			pen     penAttribute_1
+			
+			SocketTemp = SocketTemp -1
+		WHILE SocketTemp > 1
+	endif
+endif
+
+del SocketCount
+
+IF SocketType = "Padlókiállás" THEN
+	POLY2 5, 3,
+		-xSocket, -ySocket,
+		-xSocket,  ySocket,
+		 xSocket,  ySocket,
+		 xSocket, -ySocket,
+		-xSocket, -ySocket 
+	
+	LINE2 -xSocket, -ySocket, xSocket,  ySocket
+	LINE2 -xSocket,  ySocket, xSocket, -ySocket
+ENDIF
+
+!!!!!!!!!! HOTSPOTOK !!!!!!!!!!!!!!
+
+!if SocketType # "Padlókiállás" THEN
+!!
+!!hotspot2 	 -0.04,        0.015
+!!hotspot2	  0.04,        0.015
+!!hotspot2 	 -0.04,        0.00
+!!hotspot2 	  0.04,        0.00
+!!hotspot2 	  0.00,        0.00
+!!hotspot2 	  0.00,        0.015
+!
+!ELSE
+!ENDIF
+!
+!if SocketType = "Padlókiállás" THEN
+!
+!!hotspot2		-0.04, -0.04
+!!hotspot2		-0.04, 0.04
+!!hotspot2		0.04, 0.04
+!!hotspot2		0.04, -0.04
+!!hotspot2		0, 0, 500
+!
+!
+!ELSE
+!ENDIF
+
+
+!!!!!!!!!!! MOZGATÓ HOTSPOT MIND !!!!!!!!!!!
+
+! . . . . . . . . . . . . . . . . . . . . . . . . . . . 
+
+ADD2 0, 0.015
+ADD2 sideX,sideY
+DEL 1
+
+! . . . . . . . . . . . . . . . . . . . . . . . . . . . 
+
+HOTSPOT2 sideX, -0.1, 1, sideY, 3+128	!Referenz
+HOTSPOT2 sideX, 0, 2, sideY, 1+128		!Basis
+HOTSPOT2 sideX, sideY, 3, sideY, 2	!Beweger
+
+HOTSPOT2 -0.1, sideY, 4, sideX, 3+128
+HOTSPOT2 0, sideY, 5, sideX, 1+128
+HOTSPOT2 sideX, sideY, 6, sideX, 2
+
+! . . . . . . . . . . . . . . . . . . . . . . . . . . . 
+
+DEL 1
+
+! . . . . . . . . . . . . . . . . . . . . . . . . . . . 
+
+add2 sideX, sideY
+rot2 SymRot
+
+IF SocketType = "Egyszerű" OR SocketType = "Hotelkártya olvasó" OR SocketType = "Egyedi"  THEN
+
+
+pen     LabelPen
+
+rot2 180
+add2 0, -0.115
+line_property       0
+line2               0,          0.1,            0,         0.15
+arc2                0,            0,          0.1,            0,          180
+del 2
+else
+endif
+
+
+IF SocketType = "LED" OR SocketType = "Bútor LED" or SocketType = "Kiállás" THEN
+
+pen     LabelPen
+
+!poly2_b{5}       2,      1,      0,      3,      1,      0, 
+!                   0,            0,            1,            0,            0,            1,            0, 
+!                   0,        0.345,      1, 
+!                   0,        0.195,      1
+
+poly2_b{5}       2,      1,      0,      3,      1,      0, 
+                   0,            0,            1,            0,            0,            1,            0, 
+                0.06,        0.015,      1, 
+               -0.06,        0.015,      1
+
+mul2 0.6, 0.6 
+add2 0, -0.05
+poly2_b{5}       4,      1,      0,      3,      1,      0, 
+                   0,            0,            1,            0,            0,            1,            0, 
+                0.06,        0.135,      1, 
+        		   0,        0.135,    900, 
+                   0, 		  -180,   4001, 
+               -0.06,        0.135,      1
+add2 0, -0.035
+
+poly2_b{5}       2,      1,      0,      3,      1,      0, 
+                   0,            0,            1,            0,            0,            1,            0, 
+                   0,        0.135,      1, 
+                   0,        0.015,      1
+
+add2 0, 0.3
+
+poly2_b{5}       2,      1,      0,      3,      1,      0, 
+                   0,            0,            1,            0,            0,            1,            0, 
+                   0,        0.135,      1, 
+                   0,        0.015,      1
+del 2
+
+add2 0, 0.035
+
+ELSE
+ENDIF
+
+IF SocketType = "TV" or SocketType = "INTERNET" or SocketType = "HDMI" THEN
+pen     LabelPen
+circle2  0,        0.065,         0.05
+
+Else
+ENDIF
+
+ADD2 0, 0.03
+
+
+HOTSPOT2 sideLX, -0.1, 25, sideLY, 3+128	!Referenz
+HOTSPOT2 sideLX, 0, 26, sideLY, 1+128		!Basis
+HOTSPOT2 sideLX, sideLY, 27, sideLY, 2	!Beweger
+
+HOTSPOT2 -0.1, sideLY, 28, sideLX, 3+128
+HOTSPOT2 0, sideLY, 29, sideLX, 1+128
+HOTSPOT2 sideLX, sideLY, 30, sideLX, 2
+
+! . . . . . . . . . . . . . . . . . . . . . . . . . . . 
+
+DEL 2
+
+
+ADD2 sideLX, sideLY
+
+
+if SocketType # "Egyszerű" THEN
+ if SocketType = "LED" or SocketType = "Bútor LED" or SocketType = "Kiállás" Then
+
+else
+endif
+iTypeTextRotation = 1
+r = request ("View_Rotangle", "", _angleViewRot)
+! Actual rotation of the 2D symbol:	
+_totalRotate	= (SYMB_ROTANGLE + _angleViewRot) MOD 360
+! Count the number of transformations of the
+! coordinate system in different cases
+_nTrans = 0					 
+if iTypeTextRotation = 2 then					! Readable
+    if (_totalRotate > (90 + EPS) & _totalRotate < (270 + EPS)) then
+        rot2 180
+        _nTrans = _nTrans + 1
+    endif
+else
+    if iTypeTextRotation = 1 then				! Horizontal
+        rot2 _totalRotate * (SYMB_MIRRORED - not(SYMB_MIRRORED))
+        _nTrans = _nTrans + 1
+    endif
+endif
+
+define style{2}    "AC_STYLE_1" "Arial",          TextSize,      1
+
+paragraph		"AC_PRG_3"      2,            0,            0,            0,            1
+    pen     LabelPen
+    set style "AC_STYLE_1"
+        Label1
+endparagraph
+textblock		"AC_TEXTBLOCK_3"            0,      5,            0,            1,            1,            1, 
+        "AC_PRG_3"
+richtext2		0, 0.15, "AC_TEXTBLOCK_3"
+
+
+else
+endif
+
+
+
+IF SocketType = "Egyszerű" THEN
+
+iTypeTextRotation = 1
+r = request ("View_Rotangle", "", _angleViewRot)
+! Actual rotation of the 2D symbol:	
+_totalRotate	= (SYMB_ROTANGLE + _angleViewRot) MOD 360
+! Count the number of transformations of the
+! coordinate system in different cases
+_nTrans = 0
+
+add2 0, 0.15
+					 
+if iTypeTextRotation = 2 then					! Readable
+    if (_totalRotate > (90 + EPS) & _totalRotate < (270 + EPS)) then
+        rot2 180
+        _nTrans = _nTrans + 1
+    endif
+else
+    if iTypeTextRotation = 1 then				! Horizontal
+        rot2 _totalRotate * (SYMB_MIRRORED - not(SYMB_MIRRORED))
+        _nTrans = _nTrans + 1
+    endif
+endif
+
+
+
+
+define style{2}    "AC_STYLE_2" "Arial",            TextSize,      1
+
+
+
+paragraph		"AC_PRG_4"      2,            0,            0,            0,            1
+    set style "AC_STYLE_2"
+        Label1
+endparagraph
+
+textblock		"AC_TEXTBLOCK_4"            0,      5,            0,            1,            1,            1, 
+        "AC_PRG_4"
+richtext2		0,         0, "AC_TEXTBLOCK_4"
+
+else
+endif
+]]>
+</Script_2D>
+
+<!-- GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT -->
+
+<Script_3D SectVersion="20" SectionFlags="0" SubIdent="0">
+<![CDATA[
+!hotspot 0,0,0:sphere .01:lin_ 0,0,0,1,0,0:lin_ 0,0,0,0,.5,0:lin_ 0,0,0,0,0,2
+
+if SocketType <> "Padlókiállás" then
+	hotspot  xSocket,	0,	 		 zSocket,	UnID, ySocket, 1 + 128	: UnID = UnID + 1
+	hotspot  xSocket,	ySocket,	 zSocket,	UnID, ySocket, 2		: UnID = UnID + 1
+	hotspot	 xSocket,	-1,			 zSocket,	UnID, ySocket, 3		: UnID = UnID + 1
+	
+	hotspot  xSocket,	0,	 		-zSocket,	UnID, ySocket, 1 + 128	: UnID = UnID + 1
+	hotspot  xSocket,	ySocket,	-zSocket,	UnID, ySocket, 2		: UnID = UnID + 1
+	hotspot	 xSocket,	-1,			-zSocket,	UnID, ySocket, 3		: UnID = UnID + 1
+	
+	hotspot -xSocket,	0,	 		 zSocket,	UnID, ySocket, 1 + 128	: UnID = UnID + 1
+	hotspot -xSocket,	ySocket,	 zSocket,	UnID, ySocket, 2		: UnID = UnID + 1
+	hotspot	-xSocket,	-1,			 zSocket,	UnID, ySocket, 3		: UnID = UnID + 1
+	
+	hotspot -xSocket,	0,	 		-zSocket,	UnID, ySocket, 1 + 128	: UnID = UnID + 1
+	hotspot -xSocket,	ySocket,	-zSocket,	UnID, ySocket, 2		: UnID = UnID + 1
+	hotspot	-xSocket,	-1,			-zSocket,	UnID, ySocket, 3		: UnID = UnID + 1
+
+	
+	hotspot  0,     	 ySocket,	 0,			UnID, xSocket, 1 + 128	: UnID = UnID + 1
+	hotspot  xSocket,	 ySocket,	 0,			UnID, xSocket, 2		: UnID = UnID + 1
+	hotspot	-1,     	 ySocket,	 0,			UnID, xSocket, 3		: UnID = UnID + 1
+	
+	hotspot  0,     	 ySocket,	 0,			UnID, xSocket, 1 + 128	: UnID = UnID + 1
+	hotspot -xSocket,	 ySocket,	 0,			UnID, xSocket, 2		: UnID = UnID + 1
+	hotspot	 1,     	 ySocket,	 0,			UnID, xSocket, 3		: UnID = UnID + 1
+	
+	hotspot  0,     	 ySocket,	 0,			UnID, xSocket, 1 + 128	: UnID = UnID + 1
+	hotspot  0,	 		 ySocket,	 zSocket,	UnID, xSocket, 2		: UnID = UnID + 1
+	hotspot	 0,     	 ySocket,	-1,			UnID, xSocket, 3		: UnID = UnID + 1
+	
+	hotspot	 0,     	 ySocket,	 0,			UnID, xSocket, 1 + 128	: UnID = UnID + 1
+	hotspot	 0,			 ySocket,	-zSocket,	UnID, xSocket, 2		: UnID = UnID + 1
+	hotspot	 0,     	 ySocket,	 1,			UnID, xSocket, 3		: UnID = UnID + 1
+else
+	hotspot  0,     	 ySocket,	 zSocket,	UnID, xSocket, 1 + 128	: UnID = UnID + 1
+	hotspot  xSocket,	 ySocket,	 zSocket,	UnID, xSocket, 2		: UnID = UnID + 1
+	hotspot	-1,     	 ySocket,	 zSocket,	UnID, xSocket, 3		: UnID = UnID + 1
+	
+	hotspot  xSocket,	 0,	 		 zSocket,	UnID, ySocket, 1 + 128	: UnID = UnID + 1
+	hotspot  xSocket,	 ySocket,	 zSocket,	UnID, ySocket, 2		: UnID = UnID + 1
+	hotspot	 xSocket,	-1,			 zSocket,	UnID, ySocket, 3		: UnID = UnID + 1
+
+	hotspot  xSocket,	 ySocket,	 0,			UnID, zSocket, 1 + 128	: UnID = UnID + 1
+	hotspot  xSocket,	 ySocket,	 zSocket,	UnID, zSocket, 2		: UnID = UnID + 1
+	hotspot	 xSocket,	 ySocket,	-1,			UnID, zSocket, 3		: UnID = UnID + 1
+
+
+	hotspot  0,     	 ySocket,	 zSocket,	UnID, xSocket, 1 + 128	: UnID = UnID + 1
+	hotspot -xSocket,	 ySocket,	 zSocket,	UnID, xSocket, 2		: UnID = UnID + 1
+	hotspot	 1,     	 ySocket,	 zSocket,	UnID, xSocket, 3		: UnID = UnID + 1
+	
+	hotspot -xSocket,	 0,	 		 zSocket,	UnID, ySocket, 1 + 128	: UnID = UnID + 1
+	hotspot -xSocket,	 ySocket,	 zSocket,	UnID, ySocket, 2		: UnID = UnID + 1
+	hotspot	-xSocket,	-1,			 zSocket,	UnID, ySocket, 3		: UnID = UnID + 1
+
+	hotspot -xSocket,	 ySocket,	 0,			UnID, zSocket, 1 + 128	: UnID = UnID + 1
+	hotspot -xSocket,	 ySocket,	 zSocket,	UnID, zSocket, 2		: UnID = UnID + 1
+	hotspot	-xSocket,	 ySocket,	-1,			UnID, zSocket, 3		: UnID = UnID + 1
+
+
+	hotspot  0,     	-ySocket,	 zSocket,	UnID, xSocket, 1 + 128	: UnID = UnID + 1
+	hotspot  xSocket,	-ySocket,	 zSocket,	UnID, xSocket, 2		: UnID = UnID + 1
+	hotspot	-1,     	-ySocket,	 zSocket,	UnID, xSocket, 3		: UnID = UnID + 1
+	
+	hotspot  xSocket,	 0,	 		 zSocket,	UnID, ySocket, 1 + 128	: UnID = UnID + 1
+	hotspot  xSocket,	-ySocket,	 zSocket,	UnID, ySocket, 2		: UnID = UnID + 1
+	hotspot	 xSocket,	 1,			 zSocket,	UnID, ySocket, 3		: UnID = UnID + 1
+
+	hotspot  xSocket,	-ySocket,	 0,			UnID, zSocket, 1 + 128	: UnID = UnID + 1
+	hotspot  xSocket,	-ySocket,	 zSocket,	UnID, zSocket, 2		: UnID = UnID + 1
+	hotspot	 xSocket,	-ySocket,	-1,			UnID, zSocket, 3		: UnID = UnID + 1
+
+
+	hotspot  0,     	-ySocket,	 zSocket,	UnID, xSocket, 1 + 128	: UnID = UnID + 1
+	hotspot -xSocket,	-ySocket,	 zSocket,	UnID, xSocket, 2		: UnID = UnID + 1
+	hotspot	 1,     	-ySocket,	 zSocket,	UnID, xSocket, 3		: UnID = UnID + 1
+	
+	hotspot -xSocket,	 0,	 		 zSocket,	UnID, ySocket, 1 + 128	: UnID = UnID + 1
+	hotspot -xSocket,	-ySocket,	 zSocket,	UnID, ySocket, 2		: UnID = UnID + 1
+	hotspot	-xSocket,	 1,			 zSocket,	UnID, ySocket, 3		: UnID = UnID + 1
+
+	hotspot -xSocket,	-ySocket,	 0,			UnID, zSocket, 1 + 128	: UnID = UnID + 1
+	hotspot -xSocket,	-ySocket,	 zSocket,	UnID, zSocket, 2		: UnID = UnID + 1
+	hotspot	-xSocket,	-ySocket,	-1,			UnID, zSocket, 3		: UnID = UnID + 1
+endif
+
+bms_buildingMatAttribute_1 = 0
+r = REQUEST{2} ("Building_Material_info", buildingMatAttribute_1, "gs_bmat_surface", bms_buildingMatAttribute_1)
+
+mulx	A/         0.2
+muly	B/       0.345
+mulz	ZZYZX/        0.08
+
+body    -1
+model solid
+resol       36
+if (use_stored_environment) then
+GLOB_SCRIPT_TYPE =      3
+GLOB_CONTEXT =      3
+GLOB_VIEW_TYPE =      3
+GLOB_SCALE =    100
+GLOB_NORTH_DIR =           90
+GLOB_PROJECT_LONGITUDE =    19.054779
+GLOB_PROJECT_LATITUDE =    47.559708
+GLOB_DRAWING_BGD_PEN = penAttribute_6
+GLOB_FRAME_NR =     -1
+GLOB_EYEPOS_X = 4.548563990697
+GLOB_EYEPOS_Y = -0.8656694308675
+GLOB_EYEPOS_Z = 24.62095122455
+GLOB_TARGPOS_X = 4.865850148415
+GLOB_TARGPOS_Y = 4.725320346037
+GLOB_TARGPOS_Z = -7.138144524677
+GLOB_SUN_AZIMUTH =          240
+GLOB_SUN_ALTITUDE =           35
+endif
+
+
+hotspot 0,   0.015,   0, 1001
+ 
+IF SocketType # "Hotelkártya olvasó" AND SocketType # "Padlókiállás" THEN
+LIN_ -0.015,0.015,0.015,0.015,0.015,-0.015
+LIN_ -0.015,0.015,-0.015,0.015,0.015,0.015
+ELSE
+ENDIF
+
+!!MORPH-004 2C376AC8-088F-4A36-A9DD-1A62C066C701
+group 	"group_95694725_9782_475D_84D5_0689008E0A05"
+    pen     penAttribute_3
+    set building_material buildingMatAttribute_1, DEFAULT, DEFAULT
+    sect_attrs{2} penAttribute_7, lineTypeAttribute_1
+vert{2}	           0,       -0.015,            0, 1	!	#1   VertId=0
+vert{2}	           0,            0,            0, 1	!	#2   VertId=0
+vert{2}	           0,       -0.015,         0.08, 1	!	#3   VertId=0
+vert{2}	           0,            0,         0.08, 1	!	#4   VertId=0
+vert	0.01401923788647, 1.734723475977E-18,        0.025	!	#5   VertId=0
+vert	       0.025, 8.673617379884E-19, 0.01401923788647	!	#6   VertId=0
+vert{2}	        0.04,            0,         0.01, 1	!	#7   VertId=0
+vert{2}	0.009999999999999, 1.734723475977E-18,         0.04, 1	!	#8   VertId=0
+vert	0.01401923788647, 1.734723475977E-18,        0.055	!	#9   VertId=0
+vert	       0.025, 8.673617379884E-19, 0.06598076211353	!	#10  VertId=0
+vert{2}	        0.08,       -0.015,            0, 1	!	#11  VertId=0
+vert{2}	        0.08,            0,            0, 1	!	#12  VertId=0
+vert	       0.055, -8.673617379884E-19, 0.06598076211353	!	#13  VertId=0
+vert{2}	        0.08,       -0.015,         0.08, 1	!	#14  VertId=0
+vert{2}	        0.08,            0,         0.08, 1	!	#15  VertId=0
+vert	       0.055, -8.673617379884E-19, 0.01401923788647	!	#16  VertId=0
+vert	0.06598076211353, -1.734723475977E-18,        0.025	!	#17  VertId=0
+vert{2}	        0.04,            0,         0.07, 1	!	#18  VertId=0
+vert	0.06598076211353, -1.734723475977E-18,        0.055	!	#19  VertId=0
+vert{2}	        0.07, -1.734723475977E-18,         0.04, 1	!	#20  VertId=0
+pen penAttribute_3
+edge	   1,    2,    2,    4, 262144			!	#1   EdgeId=0
+edge	   1,    3,    2,    3, 262144			!	#2   EdgeId=0
+edge	   4,    3,    2,    5, 262144			!	#3   EdgeId=0
+edge	   2,    4,    1,    2, 262144			!	#4   EdgeId=0
+edge	   5,    8,    1,    6, 262144			!	#5   EdgeId=0
+edge	   8,    9,    1,    6, 262144			!	#6   EdgeId=0
+edge	  11,    1,    3,    4, 262144			!	#7   EdgeId=0
+edge	   9,   10,    1,    6, 262144			!	#8   EdgeId=0
+edge	   3,   14,    3,    5, 262144			!	#9   EdgeId=0
+edge	   2,   12,    1,    4, 262144			!	#10  EdgeId=0
+edge	  15,    4,    1,    5, 262144			!	#11  EdgeId=0
+edge	  13,   19,    1,    6, 262144			!	#12  EdgeId=0
+edge	   7,    6,    1,    6, 262144			!	#13  EdgeId=0
+edge	  10,   18,    1,    6, 262144			!	#14  EdgeId=0
+edge	  16,    7,    1,    6, 262144			!	#15  EdgeId=0
+edge	   6,    5,    1,    6, 262144			!	#16  EdgeId=0
+edge	  18,   13,    1,    6, 262144			!	#17  EdgeId=0
+edge	  12,   11,    4,    7, 262144			!	#18  EdgeId=0
+edge	  11,   14,    3,    7, 262144			!	#19  EdgeId=0
+edge	  14,   15,    5,    7, 262144			!	#20  EdgeId=0
+edge	  17,   16,    1,    6, 262144			!	#21  EdgeId=0
+edge	  20,   17,    1,    6, 262144			!	#22  EdgeId=0
+edge	  12,   15,    1,    7, 262144			!	#23  EdgeId=0
+edge	  19,   20,    1,    6, 262144			!	#24  EdgeId=0
+vect	           0,            1,            0	!	#1  
+vect	          -1,            0,            0	!	#2  
+vect	           0,           -1,            0	!	#3  
+vect	           0,            0,           -1	!	#4  
+vect	           0,            0,            1	!	#5  
+vect	6.229682679377E-17,            1, 6.687256751345E-33	!	#6  
+vect	           1,            0,            0	!	#7  
+material materialAttribute_1
+pgon	  17,    1,     98,					!	#1   PolyId=0
+		   4,		 -11,		 -23,		 -10,		   0,		  -5,		 -16,		 -13,
+		 -15,		 -21,		 -22,		 -24,		 -12,		 -17,		 -14,		  -8,
+		  -6
+material materialAttribute_1
+pgon	   4,    2,      2,					!	#2   PolyId=0
+		  -1,		   2,		  -3,		  -4
+material materialAttribute_1
+pgon	   4,    3,      2,					!	#3   PolyId=0
+		  -2,		  -7,		  19,		  -9
+material materialAttribute_1
+pgon	   4,    4,      2,					!	#4   PolyId=0
+		   1,		  10,		  18,		   7
+material materialAttribute_1
+pgon	   4,    5,      2,					!	#5   PolyId=0
+		   3,		   9,		  20,		  11
+material materialAttribute_1
+pgon	  12,    6,      2,					!	#6   PolyId=0
+		   5,		   6,		   8,		  14,		  17,		  12,		  24,		  22,
+		  21,		  15,		  13,		  16
+material materialAttribute_1
+pgon	   4,    7,      2,					!	#7   PolyId=0
+		 -18,		  23,		 -20,		 -19
+material bms_buildingMatAttribute_1
+coor{3}	   2,    0,
+	-28.98873666122, -24.76140796973,            0,
+	-27.98873666122, -24.76140796973,            0,
+	-28.98873666122, -23.76140796973,            0,
+	-28.98873666122, -24.76140796973,            1
+
+body	262179
+
+    material 0
+    body    -1
+endgroup
+group 	"group_544E73AD_3D48_453B_A506_CF0409ECE778"
+    xform              1,            0,            0,        -0.04,
+                       0,            1,            0,        0.015,
+                       0,            0,            1,            0
+    placegroup ("group_95694725_9782_475D_84D5_0689008E0A05")
+    del          1
+endgroup
+!!MORPH-004 31B89BA6-B67B-4FAF-999D-337D3C197235
+group 	"group_3F15C2F6_B0F4_4F9F_9736_01FFE014ED1E"
+    set building_material buildingMatAttribute_1, DEFAULT, DEFAULT
+    sect_attrs{2} penAttribute_7, lineTypeAttribute_1
+vert{2}	           0,       -0.015,            0, 1	!	#1   VertId=0
+vert{2}	           0,       -0.015,         0.08, 1	!	#2   VertId=0
+vert{2}	           0,            0,            0, 1	!	#3   VertId=0
+vert{2}	           0,            0,         0.08, 1	!	#4   VertId=0
+vert{2}	        0.08,       -0.015,            0, 1	!	#5   VertId=0
+vert{2}	        0.08,       -0.015,         0.08, 1	!	#6   VertId=0
+vert{2}	        0.08,            0,            0, 1	!	#7   VertId=0
+vert{2}	        0.04,            0,         0.04, 1	!	#8   VertId=0
+vert{2}	        0.08,            0,         0.08, 1	!	#9   VertId=0
+pen penAttribute_3
+edge	   1,    2,    1,    3, 262144			!	#1   EdgeId=0
+edge	   1,    3,    1,    8, 262144			!	#2   EdgeId=0
+edge	   4,    2,    1,    9, 262144			!	#3   EdgeId=0
+edge	   3,    4,    1,    2, 262144			!	#4   EdgeId=0
+edge	   5,    1,    3,    8, 262144			!	#5   EdgeId=0
+edge	   2,    6,    3,    9, 262144			!	#6   EdgeId=0
+edge	   3,    7,    4,    8, 262144			!	#7   EdgeId=0
+edge	   8,    4,    2,    5, 262144			!	#8   EdgeId=0
+edge	   5,    6,    3,    6, 262144			!	#9   EdgeId=0
+edge	   7,    5,    6,    8, 262144			!	#10  EdgeId=0
+edge	   9,    4,    5,    9, 262144			!	#11  EdgeId=0
+edge	   8,    3,    2,    4, 262144			!	#12  EdgeId=0
+edge	   9,    8,    5,    7, 262144			!	#13  EdgeId=0
+edge	   6,    9,    6,    9, 262144			!	#14  EdgeId=0
+edge	   7,    9,    6,    7, 262144			!	#15  EdgeId=0
+edge	   7,    8,    4,    7, 262144			!	#16  EdgeId=0
+vect	          -1,            0,            0	!	#1  
+vect	           0,            1,            0	!	#2  
+vect	           0,           -1,            0	!	#3  
+vect	           0,            1,            0	!	#4  
+vect	           0,            1,            0	!	#5  
+vect	           1,            0,            0	!	#6  
+vect	           0,            1,            0	!	#7  
+vect	           0,            0,           -1	!	#8  
+vect	           0,            0,            1	!	#9  
+material materialAttribute_1
+pgon	   4,    1,      2,					!	#1   PolyId=0
+		   1,		  -3,		  -4,		  -2
+material materialAttribute_1
+pgon	   3,    2,      2,					!	#2   PolyId=0
+		   4,		  -8,		  12
+material materialAttribute_1
+pgon	   4,    3,      2,					!	#3   PolyId=0
+		  -1,		  -5,		   9,		  -6
+material materialAttribute_1
+pgon	   3,    4,      2,					!	#4   PolyId=0
+		  -7,		 -12,		 -16
+material materialAttribute_1
+pgon	   3,    5,      2,					!	#5   PolyId=0
+		   8,		 -11,		  13
+material materialAttribute_1
+pgon	   4,    6,      2,					!	#6   PolyId=0
+		  -9,		 -10,		  15,		 -14
+material materialAttribute_1
+pgon	   3,    7,      2,					!	#7   PolyId=0
+		 -13,		 -15,		  16
+material materialAttribute_1
+pgon	   4,    8,      2,					!	#8   PolyId=0
+		   2,		   7,		  10,		   5
+material materialAttribute_1
+pgon	   4,    9,      2,					!	#9   PolyId=0
+		   3,		   6,		  14,		  11
+material bms_buildingMatAttribute_1
+coor{3}	   2,    0,
+	-28.98873666122, -24.76140796973,            0,
+	-27.98873666122, -24.76140796973,            0,
+	-28.98873666122, -23.76140796973,            0,
+	-28.98873666122, -24.76140796973,            1
+
+body	262179
+
+    material 0
+    body    -1
+endgroup
+group 	"group_E69D2D8A_3560_4A40_B706_CB37B866BDE5"
+    xform              1,            0,            0,        -0.04,
+                       0,            1,            0,        0.015,
+                       0,            0,            1,            0
+    placegroup ("group_3F15C2F6_B0F4_4F9F_9736_01FFE014ED1E")
+    del          1
+endgroup
+!!MORPH-004 14885358-0DC5-4869-9FE8-8007F2D9CF71
+group 	"group_354F318F_27BD_4561_9DD4_F9F58EA9D165"
+    set building_material buildingMatAttribute_1, DEFAULT, DEFAULT
+    sect_attrs{2} penAttribute_7, lineTypeAttribute_1
+vert{2}	           0,       -0.015,            0, 1	!	#1   VertId=0
+vert{2}	           0,            0,            0, 1	!	#2   VertId=0
+vert{2}	           0,       -0.015,         0.08, 1	!	#3   VertId=0
+vert{2}	           0,            0,         0.08, 1	!	#4   VertId=0
+vert	0.03133974596216, 8.673617379884E-19,        0.035	!	#5   VertId=0
+vert	       0.035,            0, 0.03133974596216	!	#6   VertId=0
+vert{2}	        0.04,            0,         0.03, 1	!	#7   VertId=0
+vert{2}	        0.03, 8.673617379884E-19,         0.04, 1	!	#8   VertId=0
+vert	0.03133974596216,            0,        0.045	!	#9   VertId=0
+vert	       0.035,            0, 0.04866025403784	!	#10  VertId=0
+vert{2}	        0.08,       -0.015,            0, 1	!	#11  VertId=0
+vert{2}	        0.08,            0,            0, 1	!	#12  VertId=0
+vert	       0.045, -8.673617379884E-19, 0.04866025403784	!	#13  VertId=0
+vert{2}	        0.08,       -0.015,         0.08, 1	!	#14  VertId=0
+vert{2}	        0.08,            0,         0.08, 1	!	#15  VertId=0
+vert	       0.045,            0, 0.03133974596216	!	#16  VertId=0
+vert	0.04866025403784, -8.673617379884E-19,        0.035	!	#17  VertId=0
+vert{2}	        0.04,            0,         0.05, 1	!	#18  VertId=0
+vert	0.04866025403784, -8.673617379884E-19,        0.045	!	#19  VertId=0
+vert{2}	        0.05, -8.673617379884E-19,         0.04, 1	!	#20  VertId=0
+pen penAttribute_3
+edge	   1,    2,    1,    3, 262144			!	#1   EdgeId=0
+edge	   1,    3,    1,    2, 262144			!	#2   EdgeId=0
+edge	   4,    3,    1,    4, 262144			!	#3   EdgeId=0
+edge	   2,    4,    1,    5, 262144			!	#4   EdgeId=0
+edge	   5,    8,    5,    6, 262144			!	#5   EdgeId=0
+edge	   8,    9,    5,    6, 262144			!	#6   EdgeId=0
+edge	  11,    1,    2,    3, 262144			!	#7   EdgeId=0
+edge	   9,   10,    5,    6, 262144			!	#8   EdgeId=0
+edge	   3,   14,    2,    4, 262144			!	#9   EdgeId=0
+edge	   6,    5,    5,    6, 262144			!	#10  EdgeId=0
+edge	   2,   12,    3,    5, 262144			!	#11  EdgeId=0
+edge	  15,    4,    4,    5, 262144			!	#12  EdgeId=0
+edge	   7,    6,    5,    6, 262144			!	#13  EdgeId=0
+edge	  13,   19,    5,    6, 262144			!	#14  EdgeId=0
+edge	  10,   18,    5,    6, 262144			!	#15  EdgeId=0
+edge	  16,    7,    5,    6, 262144			!	#16  EdgeId=0
+edge	  18,   13,    5,    6, 262144			!	#17  EdgeId=0
+edge	  12,   11,    3,    7, 262144			!	#18  EdgeId=0
+edge	  11,   14,    2,    7, 262144			!	#19  EdgeId=0
+edge	  14,   15,    4,    7, 262144			!	#20  EdgeId=0
+edge	  17,   16,    5,    6, 262144			!	#21  EdgeId=0
+edge	  20,   17,    5,    6, 262144			!	#22  EdgeId=0
+edge	  12,   15,    5,    7, 262144			!	#23  EdgeId=0
+edge	  19,   20,    5,    6, 262144			!	#24  EdgeId=0
+vect	          -1,            0,            0	!	#1  
+vect	           0,           -1,            0	!	#2  
+vect	           0,            0,           -1	!	#3  
+vect	           0,            0,            1	!	#4  
+vect	           0,            1,            0	!	#5  
+vect	7.369793738462E-17,            1, 1.974730280605E-17	!	#6  
+vect	           1,            0,            0	!	#7  
+material materialAttribute_1
+pgon	   4,    1,      2,					!	#1   PolyId=0
+		  -1,		   2,		  -3,		  -4
+material materialAttribute_1
+pgon	   4,    2,      2,					!	#2   PolyId=0
+		  -2,		  -7,		  19,		  -9
+material materialAttribute_1
+pgon	   4,    3,      2,					!	#3   PolyId=0
+		   1,		  11,		  18,		   7
+material materialAttribute_1
+pgon	   4,    4,      2,					!	#4   PolyId=0
+		   3,		   9,		  20,		  12
+material materialAttribute_1
+pgon	  17,    5,     98,					!	#5   PolyId=0
+		   4,		 -12,		 -23,		 -11,		   0,		  -5,		 -10,		 -13,
+		 -16,		 -21,		 -22,		 -24,		 -14,		 -17,		 -15,		  -8,
+		  -6
+material materialAttribute_1
+pgon	  12,    6,      2,					!	#6   PolyId=0
+		   5,		   6,		   8,		  15,		  17,		  14,		  24,		  22,
+		  21,		  16,		  13,		  10
+material materialAttribute_1
+pgon	   4,    7,      2,					!	#7   PolyId=0
+		 -18,		  23,		 -20,		 -19
+material bms_buildingMatAttribute_1
+coor{3}	   2,    0,
+	-28.98873666122, -24.76140796973,            0,
+	-27.98873666122, -24.76140796973,            0,
+	-28.98873666122, -23.76140796973,            0,
+	-28.98873666122, -24.76140796973,            1
+
+body	262179
+
+    material 0
+    body    -1
+endgroup
+group 	"group_51CF521A_F0C9_4436_913F_C97A42C19C9B"
+    xform              1,            0,            0,        -0.04,
+                       0,            1,            0,        0.015,
+                       0,            0,            1,            0
+    placegroup ("group_354F318F_27BD_4561_9DD4_F9F58EA9D165")
+    del          1
+endgroup
+!!!DUGALJ!!!
+addZ -0.04
+if SocketType = "Egyszerű" OR SocketType = "Kapcsolható" OR SocketType = "Egyedi" THEN
+
+placegroup ("group_544E73AD_3D48_453B_A506_CF0409ECE778")
+
+IF SocketCount > 1 AND Direction = "Vízszintes" THEN
+
+SocketTemp = SocketCount-1
+Offset = 0.08
+
+if DirNegate = 1 then
+		Offset = -Offset
+	else
+	endif
+
+DO
+
+ addX Offset
+
+	placegroup ("group_544E73AD_3D48_453B_A506_CF0409ECE778")
+
+SocketTemp = SocketTemp -1
+WHILE SocketTemp > 0
+
+else
+endif
+
+
+IF SocketCount > 1 AND Direction = "Függőleges" THEN
+
+SocketTemp = SocketCount-1
+Offset = 0.08
+
+if DirNegate = 1 then
+		Offset = -Offset
+	else
+	endif
+
+DO
+
+ addZ Offset
+
+	placegroup ("group_544E73AD_3D48_453B_A506_CF0409ECE778")
+
+SocketTemp = SocketTemp -1
+WHILE SocketTemp > 0
+
+else
+endif
+
+
+
+Else
+ENDIF
+
+
+IF SocketType = "LED" OR SocketType = "Bútor LED" OR SocketType = "Kiállás" THEN
+!!!KIÁLLÁS!!!
+
+placegroup ("group_E69D2D8A_3560_4A40_B706_CB37B866BDE5")
+
+else
+endif
+
+if SocketType = "HDMI" OR SocketType = "INTERNET" OR SocketType = "TV" Then
+!!!TV!!!
+placegroup ("group_51CF521A_F0C9_4436_913F_C97A42C19C9B")
+
+else
+endif
+
+
+if SocketType = "Hotelkártya olvasó" THEN
+add -0.04, 0, 0
+BRICK 0.08, 0.015, 0.08 
+
+else
+endif
+DEL TOP
+IF SocketType = "Padlókiállás" THEN
+	ADD -xSocket, -ySocket, 0
+	BRICK 2*xSocket, 2*ySocket, zSocket
+ENDIF
+
+
+killgroup ("group_544E73AD_3D48_453B_A506_CF0409ECE778")
+killgroup ("group_E69D2D8A_3560_4A40_B706_CB37B866BDE5")
+killgroup ("group_51CF521A_F0C9_4436_913F_C97A42C19C9B")
+killgroup ("group_95694725_9782_475D_84D5_0689008E0A05")
+killgroup ("group_3F15C2F6_B0F4_4F9F_9736_01FFE014ED1E")
+killgroup ("group_354F318F_27BD_4561_9DD4_F9F58EA9D165")
+]]>
+</Script_3D>
+
+<ParamSection SectVersion="27" SectionFlags="0" SubIdent="0">
+	<ParamSectHeader>
+		<AutoHotspots>false</AutoHotspots>
+		<StatBits>
+			<STBit_FixSize/>
+			<STBit_Enable2DScriptDrawingOrder/>
+		</StatBits>
+		<WDLeftFrame>0</WDLeftFrame>
+		<WDRightFrame>0</WDRightFrame>
+		<WDTopFrame>0</WDTopFrame>
+		<WDBotFrame>0</WDBotFrame>
+		<LayFlags>65535</LayFlags>
+		<WDMirrorThickness>0</WDMirrorThickness>
+		<WDWallInset>0</WDWallInset>
+	</ParamSectHeader>
+	<Parameters>
+		<String Name="SocketType">
+			<Description><![CDATA["Dugalj Típusa"]]></Description>
+			<Value><![CDATA["Egyszerű"]]></Value>
+		</String>
+		<Length Name="sideLX">
+			<Description><![CDATA[""]]></Description>
+			<Flags>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>0</Value>
+		</Length>
+		<Length Name="sideLY">
+			<Description><![CDATA[""]]></Description>
+			<Flags>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>0</Value>
+		</Length>
+		<Integer Name="SocketCount">
+			<Description><![CDATA["Dugalj mennyisége"]]></Description>
+			<Value>1</Value>
+		</Integer>
+		<String Name="Label1">
+			<Description><![CDATA["Címke"]]></Description>
+			<Value><![CDATA["1"]]></Value>
+		</String>
+		<RealNum Name="TextSize">
+			<Description><![CDATA["Címkeméret"]]></Description>
+			<Value>2</Value>
+		</RealNum>
+		<Angle Name="SymRot">
+			<Description><![CDATA["Címke állása"]]></Description>
+			<Flags>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>0</Value>
+		</Angle>
+		<PenColor Name="LabelPen">
+			<Description><![CDATA["Címke Toll"]]></Description>
+			<Value>6</Value>
+		</PenColor>
+		<String Name="Direction">
+			<Description><![CDATA["Irány"]]></Description>
+			<Value><![CDATA["Vízszintes"]]></Value>
+		</String>
+		<Boolean Name="DirNegate">
+			<Description><![CDATA["Fordított irány"]]></Description>
+			<Value>0</Value>
+		</Boolean>
+		<Length Name="sideX">
+			<Description><![CDATA[""]]></Description>
+			<Flags>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>0</Value>
+		</Length>
+		<Length Name="sideY">
+			<Description><![CDATA[""]]></Description>
+			<Flags>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>0</Value>
+		</Length>
+		<Length Name="A">
+			<Description><![CDATA["Dimension 1"]]></Description>
+			<Fix/>
+			<Value>0.2</Value>
+		</Length>
+		<Length Name="B">
+			<Description><![CDATA["Dimension 2"]]></Description>
+			<Fix/>
+			<Value>0.345</Value>
+		</Length>
+		<Length Name="ZZYZX">
+			<Description><![CDATA["Height"]]></Description>
+			<Fix/>
+			<Value>0.08</Value>
+		</Length>
+		<Boolean Name="AC_show2DHotspotsIn3D">
+			<Description><![CDATA["Show 2D Hotspots in 3D"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>0</Value>
+		</Boolean>
+		<Length Name="ac_bottomlevel">
+			<Description><![CDATA["Bottom Level"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>1</Value>
+		</Length>
+		<Length Name="ac_toplevel">
+			<Description><![CDATA["Top Level"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>0</Value>
+		</Length>
+
+		<!-- gs_2D_representation: PARAMETER BLOCK ===== PARAMETER BLOCK ===== PARAMETER BLOCK ===== PARAMETER BLOCK -->
+
+		<Title Name="gs_2D_representation">
+			<Description><![CDATA["2D Representation"]]></Description>
+			<Fix/>
+		</Title>
+		<PenColor Name="gs_cont_pen">
+			<Description><![CDATA["Contour Pen"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>10</Value>
+		</PenColor>
+		<FillPattern Name="gs_fill_type">
+			<Description><![CDATA["Fill Type"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>65</Value>
+		</FillPattern>
+		<PenColor Name="gs_fill_pen">
+			<Description><![CDATA["Fill Pen"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>19</Value>
+		</PenColor>
+		<PenColor Name="gs_back_pen">
+			<Description><![CDATA["Fill Background Pen"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>19</Value>
+		</PenColor>
+
+		<!-- gs_list: PARAMETER BLOCK ===== PARAMETER BLOCK ===== PARAMETER BLOCK ===== PARAMETER BLOCK -->
+
+		<Title Name="gs_list">
+			<Description><![CDATA["Description"]]></Description>
+			<Fix/>
+		</Title>
+		<RealNum Name="gs_list_cost">
+			<Description><![CDATA["Cost"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0</Value>
+		</RealNum>
+		<String Name="gs_list_manufacturer">
+			<Description><![CDATA["Manufacturer"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<String Name="gs_list_note">
+			<Description><![CDATA["Note/Remarks"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<String Name="gs_list_location">
+			<Description><![CDATA["Location"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<String Name="gs_list_accessories">
+			<Description><![CDATA["Accessories"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<RealNum Name="gs_list_volts">
+			<Description><![CDATA["Volts"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0</Value>
+		</RealNum>
+		<String Name="FM_Type">
+			<Description><![CDATA["Group Type"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA["Electric Facilities"]]></Value>
+		</String>
+		<Integer Name="iFMType">
+			<Description><![CDATA["Group Type"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>8</Value>
+		</Integer>
+		<String Name="FM_InventoryNumber">
+			<Description><![CDATA["Inventory Number"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<String Name="FM_SerialNumber">
+			<Description><![CDATA["Serial Number"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<String Name="FM_ProductionYear">
+			<Description><![CDATA["Production Year"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<RealNum Name="FM_ObjectWeight">
+			<Description><![CDATA["Object Weight"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0</Value>
+		</RealNum>
+		<String Name="FM_ObjectWeightUnit">
+			<Description><![CDATA["Object Weight Unit"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA["kg"]]></Value>
+		</String>
+		<RealNum Name="FM_PowerConsumption">
+			<Description><![CDATA["Wattage"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0</Value>
+		</RealNum>
+		<RealNum Name="FM_Egress">
+			<Description><![CDATA["Egress"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0</Value>
+		</RealNum>
+		<String Name="gs_list_custom1">
+			<Description><![CDATA["User Defined 1"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<String Name="gs_list_custom2">
+			<Description><![CDATA["User Defined 2"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<String Name="gs_list_custom3">
+			<Description><![CDATA["User Defined 3"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<String Name="gs_list_custom4">
+			<Description><![CDATA["User Defined 4"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<String Name="gs_list_custom5">
+			<Description><![CDATA["User Defined 5"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<Boolean Name="use_stored_environment">
+			<Description><![CDATA["Use Stored Environment"]]></Description>
+			<Value>0</Value>
+		</Boolean>
+
+		<!-- FILL_TITLE: PARAMETER BLOCK ===== PARAMETER BLOCK ===== PARAMETER BLOCK ===== PARAMETER BLOCK -->
+
+		<Title Name="FILL_TITLE">
+			<Description><![CDATA["FILLS"]]></Description>
+		</Title>
+		<FillPattern Name="fillAttribute_1">
+			<Description><![CDATA["Fill 1"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>24</Value>
+		</FillPattern>
+
+		<!-- LINETYPE_TITLE: PARAMETER BLOCK ===== PARAMETER BLOCK ===== PARAMETER BLOCK ===== PARAMETER BLOCK -->
+
+		<Title Name="LINETYPE_TITLE">
+			<Description><![CDATA["LINES"]]></Description>
+		</Title>
+		<LineType Name="lineTypeAttribute_1">
+			<Description><![CDATA["Line 1"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>1</Value>
+		</LineType>
+
+		<!-- MATERIAL_TITLE: PARAMETER BLOCK ===== PARAMETER BLOCK ===== PARAMETER BLOCK ===== PARAMETER BLOCK -->
+
+		<Title Name="MATERIAL_TITLE">
+			<Description><![CDATA["SURFACES"]]></Description>
+		</Title>
+		<Material Name="materialAttribute_1">
+			<Description><![CDATA["Surface 1"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>60</Value>
+		</Material>
+
+		<!-- PEN_TITLE: PARAMETER BLOCK ===== PARAMETER BLOCK ===== PARAMETER BLOCK ===== PARAMETER BLOCK -->
+
+		<Title Name="PEN_TITLE">
+			<Description><![CDATA["PENS"]]></Description>
+		</Title>
+		<PenColor Name="penAttribute_1">
+			<Description><![CDATA["Pen 1"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>93</Value>
+		</PenColor>
+		<PenColor Name="penAttribute_2">
+			<Description><![CDATA["Pen 2"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0</Value>
+		</PenColor>
+		<PenColor Name="penAttribute_3">
+			<Description><![CDATA["Pen 3"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>1</Value>
+		</PenColor>
+		<PenColor Name="penAttribute_4">
+			<Description><![CDATA["Pen 4"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>6</Value>
+		</PenColor>
+		<PenColor Name="penAttribute_5">
+			<Description><![CDATA["Pen 5"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>101</Value>
+		</PenColor>
+		<PenColor Name="penAttribute_6">
+			<Description><![CDATA["Pen 6"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>17</Value>
+		</PenColor>
+		<PenColor Name="penAttribute_7">
+			<Description><![CDATA["Pen 7"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>53</Value>
+		</PenColor>
+
+		<!-- BUILDING_MATERIAL_TITLE: PARAMETER BLOCK ===== PARAMETER BLOCK ===== PARAMETER BLOCK ===== PARAMETER BLOCK -->
+
+		<Title Name="BUILDING_MATERIAL_TITLE">
+			<Description><![CDATA["BUILDING MATERIALS"]]></Description>
+		</Title>
+		<BuildingMaterial Name="buildingMatAttribute_1">
+			<Description><![CDATA["Building Material 1"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>85</Value>
+		</BuildingMaterial>
+		<Length Name="xSocket">
+			<Description><![CDATA[""]]></Description>
+			<Value>0.04</Value>
+		</Length>
+		<Length Name="ySocket">
+			<Description><![CDATA[""]]></Description>
+			<Value>0.015</Value>
+		</Length>
+		<Length Name="zSocket">
+			<Description><![CDATA[""]]></Description>
+			<Value>0.04</Value>
+		</Length>
+	</Parameters>
+</ParamSection>
+
+<Copyright SectVersion="1" SectionFlags="0" SubIdent="0">
+	<Author></Author>
+	<License>
+		<Type>CC BY</Type>
+		<Version>4.0</Version>
+	</License>
+</Copyright>
+
+<CalledMacros SectVersion="2" SectionFlags="0" SubIdent="0">
+</CalledMacros>
+
+<!-- GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT -->
+
+<Script_1D SectVersion="20" SectionFlags="0" SubIdent="0">
+<![CDATA[
+UnID = 0
+
+]]>
+</Script_1D>
+
+<!-- GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT -->
+
+<Script_PR SectVersion="20" SectionFlags="0" SubIdent="0">
+<![CDATA[]]>
+</Script_PR>
+
+<!-- GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT -->
+
+<Script_UI SectVersion="20" SectionFlags="0" SubIdent="0">
+<![CDATA[]]>
+</Script_UI>
+
+<!-- GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT -->
+
+<Script_VL SectVersion="20" SectionFlags="0" SubIdent="0">
+<![CDATA[
+VALUES "SocketType" "Egyszerű","LED","Bútor LED", "Kiállás", "TV", "INTERNET", "HDMI", "Hotelkártya olvasó", "Kapcsolható", "Padlókiállás", "Egyedi"
+VALUES "Direction"  "Vízszintes", "Függőleges"
+
+values "xSocket" range (0, ]
+values "ySocket" range (0, ]
+values "zSocket" range (0, ]
+
+IF SocketType = "Egyszerű" THEN
+
+VALUES "Label1" STR(SocketCount, 1, 0)
+HIDEPARAMETER "Label1"
+
+ELSE
+ENDIF
+
+IF SocketType = "Egyedi" THEN
+
+ELSE
+ENDIF
+
+
+IF SocketType = "LED" THEN
+HIDEPARAMETER "SocketCount"
+VALUES "Label1" "LED"
+HIDEPARAMETER "Label1"
+HIDEPARAMETER "Direction"
+
+ELSE
+ENDIF
+
+IF SocketType = "Hotelkártya olvasó" THEN
+HIDEPARAMETER "SocketCount"
+VALUES "Label1" "HC"
+HIDEPARAMETER "Label1"
+HIDEPARAMETER "Direction"
+
+ELSE
+ENDIF
+
+IF SocketType = "Bútor LED" THEN
+HIDEPARAMETER "SocketCount"
+VALUES "Label1" "Bútor LED"
+HIDEPARAMETER "Label1"
+HIDEPARAMETER "Direction"
+
+ELSE
+ENDIF
+
+IF SocketType = "Kiállás" THEN
+HIDEPARAMETER "SocketCount"
+VALUES "Label1" "Kiállás"
+HIDEPARAMETER "Label1"
+HIDEPARAMETER "Direction"
+
+ELSE
+ENDIF
+
+IF SocketType = "TV" THEN
+
+HIDEPARAMETER "SocketCount"
+VALUES "Label1" "TV"
+HIDEPARAMETER "Label1"
+HIDEPARAMETER "Direction"
+
+
+ELSE 
+ENDIF
+
+IF SocketType = "INTERNET" THEN
+
+HIDEPARAMETER "SocketCount"
+VALUES "Label1" "INT"
+HIDEPARAMETER "Label1"
+HIDEPARAMETER "Direction"
+
+
+ELSE 
+ENDIF
+
+IF SocketType = "HDMI" THEN
+
+HIDEPARAMETER "SocketCount"
+VALUES "Label1" "HDMI"
+HIDEPARAMETER "Label1"
+HIDEPARAMETER "Direction"
+
+
+ELSE 
+ENDIF
+
+IF SocketType = "Kapcsolható" THEN
+
+
+VALUES "Label1" "Kapcs."
+VALUES "SocketCount" 1
+HIDEPARAMETER "Label1"
+HIDEPARAMETER "SocketCount"
+HIDEPARAMETER "Direction"
+
+
+ELSE 
+ENDIF
+
+IF SocketType = "Padlókiállás" THEN
+
+HIDEPARAMETER "SocketCoutn"
+HIDEPARAMETER "Direction"
+
+
+ELSE
+ENDIF
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+if GLOB_MODPAR_NAME = "A" then
+	parameters	xSocket	= A * 0.040 / 0.2,
+				ZZYZX	= A * 0.08 / 0.200
+	if SocketType <> "Padlókiállás" then
+		parameters	zSocket	= A * 0.040 / 0.2
+	endif 
+endif
+
+if GLOB_MODPAR_NAME = "B" then
+	parameters ySocket = B * 0.015 / 0.345
+endif
+
+if GLOB_MODPAR_NAME = "ZZYZX" then
+	parameters xSocket	= ZZYZX * 0.040 / 0.08,
+				A		= ZZYZX / 2
+endif
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+if GLOB_MODPAR_NAME = "xSocket" then
+	parameters	A =			xSocket / 0.040 * 0.2,
+				ZZYZX = 	xSocket / 0.040 * 0.08
+
+	if SocketType <> "Padlókiállás" then
+		parameters	zSocket	= xSocket
+	endif
+endif
+
+if GLOB_MODPAR_NAME = "ySocket" then
+	parameters B = ySocket / 0.015 * 0.345
+endif
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+if GLOB_MODPAR_NAME = "SocketType" then
+	if SocketType = "Padlókiállás" then
+		parameters 	xSocket = 0.040,
+					ySocket = 0.040,
+					zSocket = 0.015,
+					A = 0.200,
+					B =	0.080,
+					ZZYZX = 0.345
+	else
+		parameters 	xSocket = 0.040,
+					ySocket = 0.015,
+					zSocket = 0.040,
+					A = 0.200,
+					B =	0.345,
+					ZZYZX = 0.080
+	endif
+endif
+]]>
+</Script_VL>
+
+<!-- GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT -->
+
+<Script_FWM SectVersion="20" SectionFlags="0" SubIdent="0">
+<![CDATA[]]>
+</Script_FWM>
+
+<!-- GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT -->
+
+<Script_BWM SectVersion="20" SectionFlags="0" SubIdent="0">
+<![CDATA[]]>
+</Script_BWM>
+
+<Keywords SectVersion="1" SectionFlags="0" SubIdent="0">
+<![CDATA[]]>
+</Keywords>
+
+<Comment SectVersion="20" SectionFlags="0" SubIdent="0">
+<![CDATA[]]>
+</Comment>
+
+</Symbol>
