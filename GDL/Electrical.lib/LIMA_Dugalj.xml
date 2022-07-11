@@ -74,7 +74,7 @@ else
 	hotspot2	-xSocket,	 1,			UnID, ySocket, 3		: UnID = UnID + 1
 endif
 
-mul2     A/0.200000, B/0.345000
+mul2     A / aOrig, B / bOrig
 
 drawindex      10
 pen     penAttribute_1
@@ -486,9 +486,9 @@ endif
 bms_buildingMatAttribute_1 = 0
 r = REQUEST{2} ("Building_Material_info", buildingMatAttribute_1, "gs_bmat_surface", bms_buildingMatAttribute_1)
 
-mulx	A/         0.2
-muly	B/       0.345
-mulz	ZZYZX/        0.08
+mulx	A		/ aOrig 
+muly	B		/ bOrig 
+mulz	ZZYZX	/ zOrig
 
 body    -1
 model solid
@@ -1369,6 +1369,10 @@ killgroup ("group_354F318F_27BD_4561_9DD4_F9F58EA9D165")
 <![CDATA[
 UnID = 0
 
+aOrig = 0.200
+bOrig = 0.345
+zOrig =	0.080
+
 ]]>
 </Script_1D>
 
@@ -1394,6 +1398,8 @@ VALUES "Direction"  "Vízszintes", "Függőleges"
 values "xSocket" range (0, ]
 values "ySocket" range (0, ]
 values "zSocket" range (0, ]
+values "SocketCount" range [1, ]
+if SocketCount < 2 then hideparameter "Direction"
 
 IF SocketType = "Egyszerű" THEN
 
@@ -1542,16 +1548,16 @@ if GLOB_MODPAR_NAME = "SocketType" then
 		parameters 	xSocket = 0.040,
 					ySocket = 0.040,
 					zSocket = 0.015,
-					A = 0.200,
-					B =	0.080,
-					ZZYZX = 0.345
+					A		= aOrig,
+					B		= zOrig,
+					ZZYZX	= bOrig
 	else
 		parameters 	xSocket = 0.040,
 					ySocket = 0.015,
 					zSocket = 0.040,
-					A = 0.200,
-					B =	0.345,
-					ZZYZX = 0.080
+					A		= aOrig,
+					B		= bOrig,
+					ZZYZX	= zOrig
 	endif
 endif
 ]]>

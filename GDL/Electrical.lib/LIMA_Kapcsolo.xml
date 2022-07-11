@@ -10,22 +10,41 @@
 
 <Script_2D SectVersion="20" SectionFlags="0" SubIdent="0">
 <![CDATA[
-!   Name     : SW-Alpha.gsm
-!   Date     : 2020. június 26., péntek
-!   Version  : 23.00
-!   Written by ARCHICAD 
-!
+!hotspot2 0,0:circle2 0,0, .05:line2 0,0,1,0:line2 0,0,0,.5
 
+hotspot2 	 0,     	 ySocket,	UnID, xSocket, 1 + 128	: UnID = UnID + 1
+hotspot2 	 xSocket,	 ySocket,	UnID, xSocket, 2		: UnID = UnID + 1
+hotspot2	-1,     	 ySocket,	UnID, xSocket, 3		: UnID = UnID + 1
 
+hotspot2 	 xSocket,	 0,			UnID, ySocket, 1 + 128	: UnID = UnID + 1
+hotspot2 	 xSocket,	 ySocket,	UnID, ySocket, 2		: UnID = UnID + 1
+hotspot2	 xSocket,	-1,			UnID, ySocket, 3		: UnID = UnID + 1
+
+hotspot2 	 0,     	 ySocket,	UnID, xSocket, 1 + 128	: UnID = UnID + 1
+hotspot2 	-xSocket,	 ySocket,	UnID, xSocket, 2		: UnID = UnID + 1
+hotspot2	-1,     	 ySocket,	UnID, xSocket, 3		: UnID = UnID + 1
+
+hotspot2 	-xSocket,	 0,			UnID, ySocket, 1 + 128	: UnID = UnID + 1
+hotspot2 	-xSocket,	 ySocket,	UnID, ySocket, 2		: UnID = UnID + 1
+hotspot2	-xSocket,	-1,			UnID, ySocket, 3		: UnID = UnID + 1
+
+hotspot2 	 0,			 0,			UnID, xSocket, 1 + 128	: UnID = UnID + 1
+hotspot2 	 xSocket,	 0,			UnID, xSocket, 2		: UnID = UnID + 1
+hotspot2	-1,	 		 0,			UnID, xSocket, 3		: UnID = UnID + 1
+
+hotspot2 	 0,			 0,			UnID, xSocket, 1 + 128	: UnID = UnID + 1
+hotspot2 	-xSocket,	 0,			UnID, xSocket, 2		: UnID = UnID + 1
+hotspot2	-1,			 0,			UnID, xSocket, 3		: UnID = UnID + 1
 
 drawindex      10
-
 
 !!!!!!!!!!!	FELÜLNÉZETI VETÜLET !!!!!!!!!!!
 
 
 pen     penAttribute_1
 fill fillAttribute_1
+
+mul2 A/0.5298195131242,B/0.8933904949848
 poly2_b{5}       5,      2,      2,      8, penAttribute_1, penAttribute_2, 
         -29.02873666122, -24.74640796973,            1, -5.877379086394E-16, -2.02128619923E-15,            1,            0, 
                -0.04,        0.015,      1, 
@@ -51,16 +70,10 @@ poly2_b{5}       2,      1,      0,      3,      1,      0,
                    0,            0,            1,            0,            0,            1,            0, 
                 0.04,        0.015,      1, 
                 0.04, 9.797174393179E-18,      1
+del 1
+
 
 !!!!!!!!!! HOTSPOTOK !!!!!!!!!!!!!!
-
-hotspot2 	 -0.04,        0.015
-hotspot2	  0.04,        0.015
-hotspot2 	 -0.04,        0.00
-hotspot2 	  0.04,        0.00
-hotspot2 	  0.00,        0.00
-hotspot2 	  0.00,        0.015
-
 
 !pen     SymbolPen
 !fill fillAttribute_1
@@ -141,31 +154,7 @@ IF SymVis = 1 THEN
 
 ! . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 
-ADD2 0, 0.015
-ADD2 sideX,sideY
-DEL 1
-
-
-! . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-
-HOTSPOT2 sideX, -0.1, 1, sideY, 3+128	!Referenz
-HOTSPOT2 sideX, 0, 2, sideY, 1+128		!Basis
-HOTSPOT2 sideX, sideY, 3, sideY, 2	!Beweger
-
-HOTSPOT2 -0.1, sideY, 4, sideX, 3+128
-HOTSPOT2 0, sideY, 5, sideX, 1+128
-HOTSPOT2 sideX, sideY, 6, sideX, 2
-
-! . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-
-DEL 1
-
-! . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-
-
-add2 sideX, sideY
-
-
+ADD2 0, B * 0.015 / 0.8933904949848	- 0.015
 
 IF SwitchType = "Egypólusú Kapcsoló" THEN
 
@@ -551,12 +540,42 @@ return
 
 <Script_3D SectVersion="20" SectionFlags="0" SubIdent="0">
 <![CDATA[
-!
-!   Name     : SW-Alpha.gsm
-!   Date     : 2020. június 26., péntek
-!   Version  : 23.00
-!   Written by ARCHICAD 
-!
+!hotspot 0,0,0:sphere .01:lin_ 0,0,0,1,0,0:lin_ 0,0,0,0,.5,0:lin_ 0,0,0,0,0,2
+
+
+hotspot  xSocket,	0,	 		 xSocket,	UnID, ySocket, 1 + 128	: UnID = UnID + 1
+hotspot  xSocket,	ySocket,	 xSocket,	UnID, ySocket, 2		: UnID = UnID + 1
+hotspot	 xSocket,	-1,			 xSocket,	UnID, ySocket, 3		: UnID = UnID + 1
+
+hotspot  xSocket,	0,	 		-xSocket,	UnID, ySocket, 1 + 128	: UnID = UnID + 1
+hotspot  xSocket,	ySocket,	-xSocket,	UnID, ySocket, 2		: UnID = UnID + 1
+hotspot	 xSocket,	-1,			-xSocket,	UnID, ySocket, 3		: UnID = UnID + 1
+
+hotspot -xSocket,	0,	 		 xSocket,	UnID, ySocket, 1 + 128	: UnID = UnID + 1
+hotspot -xSocket,	ySocket,	 xSocket,	UnID, ySocket, 2		: UnID = UnID + 1
+hotspot	-xSocket,	-1,			 xSocket,	UnID, ySocket, 3		: UnID = UnID + 1
+
+hotspot -xSocket,	0,	 		-xSocket,	UnID, ySocket, 1 + 128	: UnID = UnID + 1
+hotspot -xSocket,	ySocket,	-xSocket,	UnID, ySocket, 2		: UnID = UnID + 1
+hotspot	-xSocket,	-1,			-xSocket,	UnID, ySocket, 3		: UnID = UnID + 1
+
+
+hotspot  0,     	 ySocket,	 0,			UnID, xSocket, 1 + 128	: UnID = UnID + 1
+hotspot  xSocket,	 ySocket,	 0,			UnID, xSocket, 2		: UnID = UnID + 1
+hotspot	-1,     	 ySocket,	 0,			UnID, xSocket, 3		: UnID = UnID + 1
+
+hotspot  0,     	 ySocket,	 0,			UnID, xSocket, 1 + 128	: UnID = UnID + 1
+hotspot -xSocket,	 ySocket,	 0,			UnID, xSocket, 2		: UnID = UnID + 1
+hotspot	 1,     	 ySocket,	 0,			UnID, xSocket, 3		: UnID = UnID + 1
+
+hotspot  0,     	 ySocket,	 0,			UnID, xSocket, 1 + 128	: UnID = UnID + 1
+hotspot  0,	 		 ySocket,	 xSocket,	UnID, xSocket, 2		: UnID = UnID + 1
+hotspot	 0,     	 ySocket,	-1,			UnID, xSocket, 3		: UnID = UnID + 1
+
+hotspot	 0,     	 ySocket,	 0,			UnID, xSocket, 1 + 128	: UnID = UnID + 1
+hotspot	 0,			 ySocket,	-xSocket,	UnID, xSocket, 2		: UnID = UnID + 1
+hotspot	 0,     	 ySocket,	 1,			UnID, xSocket, 3		: UnID = UnID + 1
+
 
 bms_buildingMatAttribute_1 = 0
 r = REQUEST{2} ("Building_Material_info", buildingMatAttribute_1, "gs_bmat_surface", bms_buildingMatAttribute_1)
@@ -565,7 +584,6 @@ r = REQUEST{2} ("Building_Material_info", buildingMatAttribute_1, "gs_bmat_surfa
 mulx	A/0.5298195131242
 muly	B/0.8933904949848
 mulz	ZZYZX/        0.08
-
 
 addZ -0.04
 
@@ -876,20 +894,20 @@ ELSE
 ENDIF
 
 
-IF SwitchType = "Egypólusú Kapcsoló" OR SwitchType = "Kétpólusú Kapcsoló" OR SwitchType = "Kereszt Kapcsoló" OR SwitchType = "Alternatív Kapcsoló" THEN
+IF SwitchType = "Egypólusú Kapcsoló" OR SwitchType = "Kétpólusú Kapcsoló" OR SwitchType = "Kereszt Kapcsoló" OR SwitchType = "Alternatív Kapcsoló" OR SwitchType = "Alternatív Kapcsoló Nedvestéri" THEN
 
-hotspot 0,0.015,0.04, 1001
+!hotspot 0,0.015,0.04, 1001
 placegroup ("group_FF7EB92A_1E83_42FC_A40F_E167DAAD302E")
-
+hotspot 0,   0.015,   0.04, UnID : UnID = UnID + 1
 ELSE
 ENDIF
 
 IF SwitchType = "Külső Redőny vagy Belső Roló Kapcsoló" THEN
 
 
-hotspot 0,0.015,0.04, 1001
+!hotspot 0,0.015,0.04, 1001
 placegroup ("group_5303B7C7_1F6B_47B4_B35C_B36777D59878")
-
+hotspot 0,   0.015,   0.04, UnID : UnID = UnID + 1
 ELSE
 ENDIF
 
@@ -1000,12 +1018,12 @@ killgroup ("group_E83A34D1_0603_434F_9A7A_55E51664BF6B")
 		<Length Name="A">
 			<Description><![CDATA["Dimension 1"]]></Description>
 			<Fix/>
-			<Value>0.529819513124176</Value>
+			<Value>0.5298195131242</Value>
 		</Length>
 		<Length Name="B">
 			<Description><![CDATA["Dimension 2"]]></Description>
 			<Fix/>
-			<Value>0.893390494984813</Value>
+			<Value>0.8933904949848</Value>
 		</Length>
 		<Length Name="ZZYZX">
 			<Description><![CDATA["Height"]]></Description>
@@ -1389,6 +1407,14 @@ killgroup ("group_E83A34D1_0603_434F_9A7A_55E51664BF6B")
 			</Flags>
 			<Value>85</Value>
 		</BuildingMaterial>
+		<Length Name="xSocket">
+			<Description><![CDATA[""]]></Description>
+			<Value>0.04</Value>
+		</Length>
+		<Length Name="ySocket">
+			<Description><![CDATA[""]]></Description>
+			<Value>0.015</Value>
+		</Length>
 	</Parameters>
 </ParamSection>
 
@@ -1406,7 +1432,9 @@ killgroup ("group_E83A34D1_0603_434F_9A7A_55E51664BF6B")
 <!-- GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT -->
 
 <Script_1D SectVersion="20" SectionFlags="0" SubIdent="0">
-<![CDATA[]]>
+<![CDATA[
+UnID = 0
+]]>
 </Script_1D>
 
 <!-- GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT -->
@@ -1446,6 +1474,34 @@ HIDEPARAMETER "LabelCount"
 
 ELSE
 ENDIF
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+if GLOB_MODPAR_NAME = "A" then
+	parameters	xSocket	= A * 0.040 / 0.5298195131242,
+				ZZYZX	= A * 0.080 / 0.5298195131242
+endif
+
+if GLOB_MODPAR_NAME = "B" then
+	parameters ySocket = B * 0.015 / 0.8933904949848
+endif
+
+if GLOB_MODPAR_NAME = "ZZYZX" then
+	parameters xSocket	= ZZYZX / 2,
+				A		= ZZYZX / 0.080 * 0.5298195131242
+endif
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+if GLOB_MODPAR_NAME = "xSocket" then
+	parameters	A =			xSocket / 0.040 * 0.5298195131242,
+				ZZYZX = 	xSocket * 2
+endif
+
+if GLOB_MODPAR_NAME = "ySocket" then
+	parameters B = ySocket / 0.015 * 0.8933904949848
+endif
+
 ]]>
 </Script_VL>
 
