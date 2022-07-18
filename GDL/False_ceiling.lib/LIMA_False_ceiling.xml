@@ -13,7 +13,146 @@
 
 <Script_3D SectVersion="20" SectionFlags="0" SubIdent="0">
 <![CDATA[
-lin_ 0,0,0, 1,0,0
+!!!!!!!!!!!!!! Size hotspots !!!!!!!!!!!!!!
+
+hotspot  0,	 B, 0,	UnID, A, 1 + 256	: UnID = UnID + 1
+hotspot  A,	 B, 0,	UnID, A, 2			: UnID = UnID + 1
+hotspot -1,	 B, 0,	UnID, A, 3			: UnID = UnID + 1
+
+hotspot  A,	 0, 0,	UnID, B, 1 + 256	: UnID = UnID + 1
+hotspot  A,	 B, 0,	UnID, B, 2			: UnID = UnID + 1
+hotspot  A,	-1, 0,	UnID, B, 3			: UnID = UnID + 1
+
+
+hotspot  0,	 0, 0,	UnID, A, 1 + 256	: UnID = UnID + 1
+hotspot  A,	 0, 0,	UnID, A, 2			: UnID = UnID + 1
+hotspot -1,	 0, 0,	UnID, A, 3			: UnID = UnID + 1
+
+hotspot  0,	 0, 0,	UnID, B, 1 + 256	: UnID = UnID + 1
+hotspot  0,	 B, 0,	UnID, B, 2			: UnID = UnID + 1
+hotspot  0,	-1, 0,	UnID, B, 3			: UnID = UnID + 1
+
+if bEditMode then
+	lin_	0,0,0,	A,0,0
+	lin_	A,0,0,	A,B,0
+	lin_	A,B,0,	0,B,0
+	lin_	0,B,0,	0,0,0
+
+	hotline	0,0,0,	A,0,0, UnID : UnID = UnID + 1
+	hotline	A,0,0,	A,B,0, UnID : UnID = UnID + 1
+	hotline	A,B,0,	0,B,0, UnID : UnID = UnID + 1
+	hotline	0,B,0,	0,0,0, UnID : UnID = UnID + 1
+endif
+
+
+!!!!!!!!!!!!!! Offset hotspots !!!!!!!!!!!!!!
+
+for _i = 1 to vardim1(offsetPointS)
+	hotspot  offsetPointS[_i][_X_],	 0,						0,	UnID, offsetPointS[_i][_Y_],1 + 128	: UnID = UnID + 1
+	hotspot  offsetPointS[_i][_X_],	 offsetPointS[_i][_Y_],	0,	UnID, offsetPointS[_i][_Y_],2		: UnID = UnID + 1
+	hotspot  offsetPointS[_i][_X_],	-1,						0,	UnID, offsetPointS[_i][_Y_],3		: UnID = UnID + 1
+
+	hotspot  0,						 offsetPointS[_i][_Y_], 0,	UnID, offsetPointS[_i][_X_],1 + 128	: UnID = UnID + 1
+	hotspot  offsetPointS[_i][_X_],	 offsetPointS[_i][_Y_],	0,	UnID, offsetPointS[_i][_X_],2		: UnID = UnID + 1
+	hotspot -1,						 offsetPointS[_i][_Y_],	0,	UnID, offsetPointS[_i][_X_],3		: UnID = UnID + 1
+next _i
+
+if bEditMode then
+	lin_	offsetPointS[1][_X_], offsetPointS[1][_Y_], 0,	offsetPointS[2][_X_], offsetPointS[1][_Y_], 0
+	lin_	offsetPointS[2][_X_], offsetPointS[1][_Y_], 0,	offsetPointS[2][_X_], offsetPointS[2][_Y_], 0
+	lin_	offsetPointS[2][_X_], offsetPointS[2][_Y_], 0,	offsetPointS[1][_X_], offsetPointS[2][_Y_], 0
+	lin_	offsetPointS[1][_X_], offsetPointS[2][_Y_], 0,	offsetPointS[1][_X_], offsetPointS[1][_Y_], 0
+
+	hotline	offsetPointS[1][_X_], offsetPointS[1][_Y_], 0,	offsetPointS[2][_X_], offsetPointS[1][_Y_], 0, UnID : UnID = UnID + 1
+	hotline	offsetPointS[2][_X_], offsetPointS[1][_Y_], 0,	offsetPointS[2][_X_], offsetPointS[2][_Y_], 0, UnID : UnID = UnID + 1
+	hotline	offsetPointS[2][_X_], offsetPointS[2][_Y_], 0,	offsetPointS[1][_X_], offsetPointS[2][_Y_], 0, UnID : UnID = UnID + 1
+	hotline	offsetPointS[1][_X_], offsetPointS[2][_Y_], 0,	offsetPointS[1][_X_], offsetPointS[1][_Y_], 0, UnID : UnID = UnID + 1
+endif
+
+
+!!!!!!!!!!!!!! Beam hotspots !!!!!!!!!!!!!!
+
+
+for _i = 1 to vardim1(xPositionS)
+	hotspot  0,				 offsetPointS[1][_Y_],	0,	UnID, xPositionS[_i],1 + 128: UnID = UnID + 1
+	hotspot  xPositionS[_i], offsetPointS[1][_Y_],	0,	UnID, xPositionS[_i],2		: UnID = UnID + 1
+	hotspot -1,				 offsetPointS[1][_Y_],	0,	UnID, xPositionS[_i],3		: UnID = UnID + 1
+next _i
+
+!!hotspot  offsetPointS[1][_X_],					offsetPointS[2][_Y_],	0,	UnID, xBeamOffset,1 + 128	: UnID = UnID + 1
+!!hotspot  offsetPointS[1][_X_] + xBeamOffset,	offsetPointS[2][_Y_],	0,	UnID, xBeamOffset,2			: UnID = UnID + 1
+!!hotspot  offsetPointS[1][_X_] - 1,				offsetPointS[2][_Y_],	0,	UnID, xBeamOffset,3			: UnID = UnID + 1
+
+
+!!!!!!!!!!!!!! Hole hotspots !!!!!!!!!!!!!!
+
+for _i = 2 to vardim1(holeDefS)
+	for _j = 1 to 3 step 2
+		__x = _j
+		__y = _j + 1
+
+		hotspot  holeDefS[_i][__x],	 0,					0,	UnID, holeDefS[_i][__y],1 + 128	: UnID = UnID + 1
+		hotspot  holeDefS[_i][__x],	 holeDefS[_i][__y],	0,	UnID, holeDefS[_i][__y],2		: UnID = UnID + 1
+		hotspot  holeDefS[_i][__x],	-1,					0,	UnID, holeDefS[_i][__y],3		: UnID = UnID + 1
+	
+		hotspot  0,					 holeDefS[_i][__y], 0,	UnID, holeDefS[_i][__x],1 + 128	: UnID = UnID + 1
+		hotspot  holeDefS[_i][__x],	 holeDefS[_i][__y],	0,	UnID, holeDefS[_i][__x],2		: UnID = UnID + 1
+		hotspot -1,					 holeDefS[_i][__y],	0,	UnID, holeDefS[_i][__x],3		: UnID = UnID + 1
+	next _j
+
+	if bEditMode then
+		lin_	holeDefS[_i][_XMIN], holeDefS[_i][_YMIN], 0,	holeDefS[_i][_XMAX], holeDefS[_i][_YMIN], 0
+		lin_	holeDefS[_i][_XMAX], holeDefS[_i][_YMIN], 0,	holeDefS[_i][_XMAX], holeDefS[_i][_YMAX], 0
+		lin_	holeDefS[_i][_XMAX], holeDefS[_i][_YMAX], 0,	holeDefS[_i][_XMIN], holeDefS[_i][_YMAX], 0
+		lin_	holeDefS[_i][_XMIN], holeDefS[_i][_YMAX], 0,	holeDefS[_i][_XMIN], holeDefS[_i][_YMIN], 0
+	
+		hotline	holeDefS[_i][_XMIN], holeDefS[_i][_YMIN], 0,	holeDefS[_i][_XMAX], holeDefS[_i][_YMIN], 0, UnID : UnID = UnID + 1
+		hotline	holeDefS[_i][_XMAX], holeDefS[_i][_YMIN], 0,	holeDefS[_i][_XMAX], holeDefS[_i][_YMAX], 0, UnID : UnID = UnID + 1
+		hotline	holeDefS[_i][_XMAX], holeDefS[_i][_YMAX], 0,	holeDefS[_i][_XMIN], holeDefS[_i][_YMAX], 0, UnID : UnID = UnID + 1
+		hotline	holeDefS[_i][_XMIN], holeDefS[_i][_YMAX], 0,	holeDefS[_i][_XMIN], holeDefS[_i][_YMIN], 0, UnID : UnID = UnID + 1
+	endif
+
+	rect2 holeDefS[_i][_XMIN], holeDefS[_i][_YMIN], holeDefS[_i][_XMAX], holeDefS[_i][_YMAX]
+next _i
+
+gosub "CalculateHoles"
+
+put \
+	-xLamelle / 2,	 0,			0,
+	-xLamelle / 2,	-yLamelle,	0,
+	 xLamelle / 2,	-yLamelle,	0,
+	 xLamelle / 2,	 0,			0
+
+for _i = 1 to vardim1(segmentS)
+	material segmentS[_i][5]
+
+	tube nsp/3, 4, 1+2, 
+		use (nsp), 
+		segmentS[_i][1], segmentS[_i][2] - 1, 0,0,
+		segmentS[_i][1], segmentS[_i][2], 0,0, 
+		segmentS[_i][3], segmentS[_i][4], 0,0,
+		segmentS[_i][3], segmentS[_i][4] + 1, 0,0
+
+	add segmentS[_i][1] - xLamelle / 2, (segmentS[_i][2] + segmentS[_i][4]) / 2, 0
+		hotspot  0,			 0, 0,	UnID, xLamelle, 1 + 256	: UnID = UnID + 1
+		hotspot  xLamelle,	 0, 0,	UnID, xLamelle, 2		: UnID = UnID + 1
+		hotspot -1,			 0, 0,	UnID, xLamelle, 3		: UnID = UnID + 1
+
+		hotspot  0,	0, 	0,			UnID, yLamelle, 1 + 256	: UnID = UnID + 1
+		hotspot  0,	0,  -yLamelle,	UnID, yLamelle, 2		: UnID = UnID + 1
+		hotspot  0,	0,  1,			UnID, yLamelle, 3		: UnID = UnID + 1
+	del 1
+next _i
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+end ! end ! end ! end ! end ! end ! end ! end ! end ! end ! end ! end ! end ! end ! end ! 
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+
+
 ]]>
 </Script_3D>
 
@@ -21,29 +160,36 @@ lin_ 0,0,0, 1,0,0
 
 <Script_2D SectVersion="20" SectionFlags="0" SubIdent="0">
 <![CDATA[
-rect2 0,0, A,B
+!!!!!!!!!!!!!! Size hotspots !!!!!!!!!!!!!!
 
-! Size hotspots
-
-hotspot2  0,	 B, UnID, A, 1 + 128	: UnID = UnID + 1
+hotspot2  0,	 B, UnID, A, 1 + 256	: UnID = UnID + 1
 hotspot2  A,	 B, UnID, A, 2			: UnID = UnID + 1
 hotspot2 -1,	 B, UnID, A, 3			: UnID = UnID + 1
 
-hotspot2  A,	 0, UnID, B, 1 + 128	: UnID = UnID + 1
+hotspot2  A,	 0, UnID, B, 1 + 256	: UnID = UnID + 1
 hotspot2  A,	 B, UnID, B, 2			: UnID = UnID + 1
 hotspot2  A,	-1, UnID, B, 3			: UnID = UnID + 1
 
 
-hotspot2  0,	 0, UnID, A, 1 + 128	: UnID = UnID + 1
+hotspot2  0,	 0, UnID, A, 1 + 256	: UnID = UnID + 1
 hotspot2  A,	 0, UnID, A, 2			: UnID = UnID + 1
 hotspot2 -1,	 0, UnID, A, 3			: UnID = UnID + 1
 
-hotspot2  0,	 0, UnID, B, 1 + 128	: UnID = UnID + 1
+hotspot2  0,	 0, UnID, B, 1 + 256	: UnID = UnID + 1
 hotspot2  0,	 B, UnID, B, 2			: UnID = UnID + 1
 hotspot2  0,	-1, UnID, B, 3			: UnID = UnID + 1
 
+if bEditMode then
+		rect2 0,0, A,B
 
-! Offset hotspots
+		hotline2 0,	0,	A,	0
+		hotline2 A,	0,	A,	B
+		hotline2 0,	B,	A,	B
+		hotline2 0,	B,	0, 	0
+endif
+
+
+!!!!!!!!!!!!!! Offset hotspots !!!!!!!!!!!!!!
 
 for _i = 1 to vardim1(offsetPointS)
 	hotspot2  offsetPointS[_i][_X_],	 0,						UnID, offsetPointS[_i][_Y_],1 + 128	: UnID = UnID + 1
@@ -55,12 +201,20 @@ for _i = 1 to vardim1(offsetPointS)
 	hotspot2 -1,						 offsetPointS[_i][_Y_],	UnID, offsetPointS[_i][_X_],3		: UnID = UnID + 1
 next _i
 
-add2 offsetPointS[1][_X_], offsetPointS[1][_Y_]
-	rect2 0,0, offsetPointS[2][_X_] - offsetPointS[1][_X_], offsetPointS[2][_Y_] - offsetPointS[1][_Y_]
-del 1
+if bEditMode then
+	add2 offsetPointS[1][_X_], offsetPointS[1][_Y_]
+		rect2 0,0, offsetPointS[2][_X_] - offsetPointS[1][_X_], offsetPointS[2][_Y_] - offsetPointS[1][_Y_]
+
+		hotline2 0,												0,												offsetPointS[2][_X_] - offsetPointS[1][_X_],	0
+		hotline2 offsetPointS[2][_X_] - offsetPointS[1][_X_],	0,												offsetPointS[2][_X_] - offsetPointS[1][_X_],	offsetPointS[2][_Y_] - offsetPointS[1][_Y_]
+		hotline2 0,												offsetPointS[2][_Y_] - offsetPointS[1][_Y_],	offsetPointS[2][_X_] - offsetPointS[1][_X_],	offsetPointS[2][_Y_] - offsetPointS[1][_Y_]
+		hotline2 0,												offsetPointS[2][_Y_] - offsetPointS[1][_Y_],	0, 									0
+	del 1
+endif
 
 
-! Beam hotspots
+!!!!!!!!!!!!!! Beam hotspots !!!!!!!!!!!!!!
+
 
 for _i = 1 to vardim1(xPositionS)
 	hotspot2  0,				 offsetPointS[1][_Y_],	UnID, xPositionS[_i],1 + 128: UnID = UnID + 1
@@ -68,8 +222,13 @@ for _i = 1 to vardim1(xPositionS)
 	hotspot2 -1,				 offsetPointS[1][_Y_],	UnID, xPositionS[_i],3		: UnID = UnID + 1
 next _i
 
+!!hotspot2  offsetPointS[1][_X_],							offsetPointS[2][_Y_],	UnID, xBeamOffset,1 + 128	: UnID = UnID + 1
+!!hotspot2  min(xPositionS[1], offsetPointS[1][_X_] + EPS),	offsetPointS[2][_Y_],	UnID, xBeamOffset,2			: UnID = UnID + 1
+!!hotspot2  offsetPointS[1][_X_] - 1,						offsetPointS[2][_Y_],	UnID, xBeamOffset,3			: UnID = UnID + 1
 
-! Hole hotspots
+
+
+!!!!!!!!!!!!!! Hole hotspots !!!!!!!!!!!!!!
 
 for _i = 2 to vardim1(holeDefS)
 	for _j = 1 to 3 step 2
@@ -85,14 +244,44 @@ for _i = 2 to vardim1(holeDefS)
 		hotspot2 -1,					 holeDefS[_i][__y],	UnID, holeDefS[_i][__x],3		: UnID = UnID + 1
 	next _j
 
-	rect2 holeDefS[_i][_XMIN], holeDefS[_i][_YMIN], holeDefS[_i][_XMAX], holeDefS[_i][_YMAX]
+	if GLOB_PREVIEW_MODE then
+		DEFINE STYLE "LIMA" "Arial", max(A, B), 7, 0
+		set style "LIMA"
+
+		text2 holeDefS[_i][_XMIN], holeDefS[_i][_YMIN], _i
+	endif
+
+	if bEditMode then
+		rect2 holeDefS[_i][_XMIN], holeDefS[_i][_YMIN], holeDefS[_i][_XMAX], holeDefS[_i][_YMAX]
+
+		hotline2 holeDefS[_i][_XMIN], holeDefS[_i][_YMIN], holeDefS[_i][_XMAX], holeDefS[_i][_YMIN]
+		hotline2 holeDefS[_i][_XMAX], holeDefS[_i][_YMIN], holeDefS[_i][_XMAX], holeDefS[_i][_YMAX]
+		hotline2 holeDefS[_i][_XMAX], holeDefS[_i][_YMAX], holeDefS[_i][_XMIN], holeDefS[_i][_YMAX]
+		hotline2 holeDefS[_i][_XMIN], holeDefS[_i][_YMAX], holeDefS[_i][_XMIN], holeDefS[_i][_YMIN]
+	endif
 next _i
 
 gosub "CalculateHoles"
 
-for _i = 1 to vardim1(segmentS)
-	line2 segmentS[_i][1],segmentS[_i][2], segmentS[_i][3], segmentS[_i][4] 
-next _i
+if bEditMode then
+	DEFINE STYLE "LIMA2" "Arial", max(A, B), 2, 0
+	set style "LIMA2"
+
+	for _i = 1 to vardim1(segmentS)
+		line2 segmentS[_i][1],segmentS[_i][2], segmentS[_i][3], segmentS[_i][4] 
+	
+		hotline2 segmentS[_i][1],segmentS[_i][2], segmentS[_i][3], segmentS[_i][4]
+	next _i
+
+	if	GLOB_PREVIEW_MODE \
+	then
+		for _i = 1 to vardim1(xPositionS)
+			if not(_i % 10) then
+				text2 xPositionS[_i], 0, _i
+			endif
+		next _i
+	endif
+endif
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -121,6 +310,8 @@ _XMIN = 1
 _YMIN = 2
 _XMAX = 3
 _YMAX = 4
+_MAT  = 5
+
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -128,8 +319,9 @@ goto "EndMaster"
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
+
 "CalculateHoles":
-	dim segmentS[][4]
+	dim segmentS[][5]
 	_s = 1
 	
 	for _i = 1 to vardim1(xPositionS)
@@ -139,41 +331,63 @@ goto "EndMaster"
 		dim cutterS[][2]
 		_k = 1
 	
-		for _j = 1 to vardim1(holeDefS)
+		for _j = 2 to vardim1(holeDefS)
 			if	holeDefS[_j][_XMIN] < xPositionS[_i]\
 			&	holeDefS[_j][_XMAX] > xPositionS[_i]\
+			|	holeDefS[_j][_XMIN] > xPositionS[_i]\
+			&	holeDefS[_j][_XMAX] < xPositionS[_i]\
 			then
-				cutterS[_k][1] = holeDefS[_j][_YMIN]
-				cutterS[_k][2] = holeDefS[_j][_YMAX]
-	
+				cutterS[_k][1] = min(holeDefS[_j][_YMIN], holeDefS[_j][_YMAX])
+				cutterS[_k][2] = max(holeDefS[_j][_YMIN], holeDefS[_j][_YMAX])
+
 				_k = _k + 1
 			endif
+		next _j
 	
-			dim _temp[2]
-	
-			for _l = 1 to vardim1(cutterS)
-				for _m = _l to vardim1(cutterS)
-					if cutters[_l][1] > cutters[_m][1] then
-						_temp = cutters[_l]
-						cutters[_l] = cutters[_m]
-						cutters[_m] = _temp
-					endif
-				next _m
-			next _l
-	
-			for _l = 1 to vardim1(cutterS)
+		dim _temp[2]
+
+		!!!!!!!!!!!!!! Sorting of cutterS !!!!!!!!!!!!!!
+		for _l = 1 to vardim1(cutterS)
+			for _m = _l to vardim1(cutterS)
+				if cutterS[_l][1] > cutterS[_m][1] then
+					_temp = cutterS[_l]
+					cutterS[_l] = cutterS[_m]
+					cutterS[_m] = _temp
+				endif
+			next _m
+		next _l
+
+		!!!!!!!!!!!!!! Merging of overlapping cutters !!!!!!!!!!!!!!
+		for _j = 1 to vardim1(cutterS)
+			for _k = _j + 1 to vardim1(cutterS)
+				if cutterS[_k][1] <= cutterS[_j][2] then
+					cutterS[_j][1] = min(cutterS[_j][1], cutterS[_j][2], cutterS[_k][1], cutterS[_k][2])
+					cutterS[_j][2] = max(cutterS[_j][1], cutterS[_j][2], cutterS[_k][1], cutterS[_k][2])
+					cutterS[_k][1] = 0
+					cutterS[_k][2] = 0
+				endif
+			next _k
+		next _j
+
+		for _l = 1 to vardim1(cutterS)
+			!!!!!!!!!!!!!! Deleting unneeded cutters marked with 0 !!!!!!!!!!!!!!
+			if	cutterS[_l][1] > EPS \
+			&	cutterS[_l][2] > EPS \
+			then
 				segmentS[_s][3] = xPositionS[_i]
 				segmentS[_s][4] = cutterS[_l][1]
+				segmentS[_s][5] = _i % vardim1(surfaceS) + 1
 	
 				_s = _s + 1
 	
 				segmentS[_s][1] = xPositionS[_i]
 				segmentS[_s][2] = cutterS[_l][2]
-			next _l
-		next _j
+			endif
+		next _l
 	
 		segmentS[_s][3] = xPositionS[_i]
 		segmentS[_s][4] = offsetPointS[2][_Y_]
+		segmentS[_s][5] = _i % vardim1(surfaceS) + 1
 	
 		_s = _s + 1
 	next _i
@@ -193,17 +407,18 @@ return
 
 <Script_UI SectVersion="20" SectionFlags="0" SubIdent="0">
 <![CDATA[
-UI_DIALOG "LIMA Ceiling Generator"
-
-UI_PAGE 1
-
-UI_CURRENT_PAGE 1
-
-yButton = 26
-xSep = 5
-
-UI_BUTTON UI_FUNCTION, "Hole+", xSep, xSep, 100, yButton, 100 ui_tooltip "Add a hole"
-!UI_infield "iDivide",  xSep, xSep, 25, yButton
+!!UI_DIALOG "LIMA Ceiling Generator"
+!!
+!!UI_PAGE 1
+!!
+!!UI_CURRENT_PAGE 1
+!!
+!!yButton = 26
+!!xSep = 5
+!!
+!!UI_BUTTON UI_FUNCTION, "Hole+", xSep, xSep, 100, yButton, 100 ui_tooltip "Add a hole"
+!!
+!!!UI_infield "iDivide",  xSep, xSep, 25, yButton
 
 ]]>
 </Script_UI>
@@ -212,20 +427,95 @@ UI_BUTTON UI_FUNCTION, "Hole+", xSep, xSep, 100, yButton, 100 ui_tooltip "Add a 
 
 <Script_VL SectVersion="20" SectionFlags="0" SubIdent="0">
 <![CDATA[
+values "xBeamOffset" range [0,]
+values "xLamelle" range [0,]
+values "yLamelle" range [0,]
+values "iAdd" range [0, vardim1(xPositionS) + 1]
+values "iDel" range [0, vardim1(xPositionS)]
+
+dim _iDeleteHoleValS[]
+_iDeleteHoleValS[1] = 0
+
+for _i = 2 to vardim1(holeDefS)
+	_iDeleteHoleValS[_i] = _i
+next _i
+
+values "iDeleteHole" _iDeleteHoleValS
+
+
+!!!!!!!!!!!!!! Offset limiting !!!!!!!!!!!!!!
 dim _xPositionS[]
 
-if	iDivide > EPS then
+offsetPointS[1][_X_] = max(min(offsetPointS[1][_X_], offsetPointS[2][_X_], A), 0)
+offsetPointS[1][_Y_] = max(min(offsetPointS[1][_Y_], offsetPointS[2][_Y_], B), 0)
+
+offsetPointS[2][_X_] = max(min(offsetPointS[2][_X_], A), offsetPointS[1][_X_])
+offsetPointS[2][_Y_] = max(min(offsetPointS[2][_Y_], B), offsetPointS[1][_Y_])
+
+parameters offsetPointS = offsetPointS
+
+
+!!!!!!!!!!!!!! Hole position limiting !!!!!!!!!!!!!!
+for _i = 2 to vardim1(holeDefS)
+	holeDefS[_i][_XMIN] = max(min(holeDefS[_i][_XMIN], offsetPointS[2][_X_]), offsetPointS[1][_X_])
+	holeDefS[_i][_YMIN] = max(min(holeDefS[_i][_YMIN], offsetPointS[2][_Y_]), offsetPointS[1][_Y_])
+
+	holeDefS[_i][_XMAX] = max(min(holeDefS[_i][_XMAX], offsetPointS[2][_X_]), offsetPointS[1][_X_])
+	holeDefS[_i][_YMAX] = max(min(holeDefS[_i][_YMAX], offsetPointS[2][_Y_]), offsetPointS[1][_Y_])
+next _i
+
+parameters holeDefS = holeDefS
+
+
+!!!!!!!!!!!!!! Recalculating !!!!!!!!!!!!!!
+if	iDivide > 0 \
+then
 	_dist = (offsetPointS[2][_X_] - offsetPointS[1][_X_]) / iDivide
 
-	for _i = 1 to iDivide - 1
-		_xPositionS[_i] = offsetPointS[1][_X_] + _dist * _i
+	for _i = 0 to iDivide
+		_xPositionS[_i + 1] = offsetPointS[1][_X_] + _dist * _i
 	next _i
 	
 	iDivide = 0
 
-	parameters	iDivide = iDivide,
-				xPositionS = _xPositionS
+	parameters	iDivide		= 0,
+				xPositionS	= _xPositionS
 endif
+
+
+if	GLOB_MODPAR_NAME = "xBeamOffset" \
+&	xBeamOffset > EPS \
+then
+	_dist = offsetPointS[1][_X_]
+	_i = 1
+
+	while _dist <= offsetPointS[2][_X_] do
+		_xPositionS[_i] = _dist
+
+		_dist = _dist + xBeamOffset
+		_i = _i + 1
+	endwhile
+
+	parameters	xPositionS	= _xPositionS,
+				xBeamOffset	= 0
+endif
+
+
+if	GLOB_MODPAR_NAME = "iSurfaces" \
+then
+	dim _surfaceS[]
+
+	for _i = 1 to iSurfaces
+		if _i > vardim1(surfaceS) then
+			_surfaceS[_i] = sDefault
+		else
+			_surfaceS[_i] = surfaceS[_i]
+		endif
+	next _i
+
+	parameters 	surfaceS	= _surfaceS
+endif
+
 
 if	iDeleteHole > 1 \
 &	iDeleteHole <= vardim1(holeDefS)\
@@ -246,15 +536,84 @@ then
 				iDeletehole	= 0
 endif
 
-if 	GLOB_UI_BUTTON_ID = 100 then
-	_iNew = vardim1(holeDefS)
 
-	holeDefS[_iNew + 1][_XMIN] = -0.1
-	holeDefS[_iNew + 1][_YMIN] = -0.1
-	holeDefS[_iNew + 1][_XMAX] = -0.2
-	holeDefS[_iNew + 1][_YMAX] = -0.2
+if 	bAddHole then
+	_iNew = vardim1(holeDefS) + 1
 
-	parameters holeDefS = holeDefS
+	holeDefS[_iNew][_XMIN] = offsetPointS[1][_X_] + 0.1
+	holeDefS[_iNew][_YMIN] = offsetPointS[1][_Y_] + 0.1
+	holeDefS[_iNew][_XMAX] = offsetPointS[1][_X_] + 0.2
+	holeDefS[_iNew][_YMAX] = offsetPointS[1][_Y_] + 0.2
+
+	parameters 	holeDefS = holeDefS,
+				bAddHole = 0
+endif
+
+
+!!if 	GLOB_UI_BUTTON_ID = 100 then
+!!	_iNew = vardim1(holeDefS) + 1
+!!
+!!	holeDefS[_iNew][_XMIN] = offsetPointS[1][_X_] + 0.1
+!!	holeDefS[_iNew][_YMIN] = offsetPointS[1][_Y_] + 0.1
+!!	holeDefS[_iNew][_XMAX] = offsetPointS[1][_X_] + 0.2
+!!	holeDefS[_iNew][_YMAX] = offsetPointS[1][_Y_] + 0.2
+!!
+!!	parameters holeDefS = holeDefS
+!!endif
+
+
+if	iAdd > EPS \
+&	GLOB_MODPAR_NAME = "iAdd" \
+then
+	dim _xPositionS[]
+
+	for _i = 1 to vardim1(xPositionS) + 1
+		if _i < iAdd then
+			_xPositionS[_i] = xPositionS[_i]
+		endif
+
+		if _i = iAdd then
+			if _i = 1 then
+				_xPositionS[_i] = (offsetPointS[1][_X_] + xPositionS[1]) / 2
+			endif
+
+			if	_i > 1 \
+			&	_i <= vardim1(xPositionS) \
+			then
+				_xPositionS[_i] = (xPositionS[_i-1] + xPositionS[_i]) / 2
+			endif
+
+			if _i = vardim1(xPositionS) + 1 then
+				_xPositionS[_i] = (offsetPointS[2][_X_] + xPositionS[vardim1(xPositionS)]) / 2
+			endif
+		endif		
+
+		if _i > iAdd then
+			_xPositionS[_i] = xPositionS[_i - 1]
+		endif
+	next _i
+
+	parameters	xPositionS	= _xPositionS,
+				iAdd 		= 0
+endif
+
+if	iDel > EPS \
+&	GLOB_MODPAR_NAME = "iDel" \
+then
+	dim _xPositionS[]
+
+	for _i = 1 to vardim1(xPositionS)
+		if _i < iDel then
+			_xPositionS[_i] = xPositionS[_i]
+		endif
+
+		if _i > iDel then
+			_xPositionS[_i-1] = xPositionS[_i]
+		endif
+	next _i
+
+	parameters	xPositionS	= _xPositionS,
+				iDel 		= 0
 endif
 ]]>
 </Script_VL>
@@ -511,15 +870,80 @@ endif
 
 		<!-- LIMA: PARAMETER BLOCK ===== PARAMETER BLOCK ===== PARAMETER BLOCK ===== PARAMETER BLOCK -->
 
-		<Length Name="LIMA">
-			<Description><![CDATA[""]]></Description>
+		<Title Name="LIMA">
+			<Description><![CDATA["Parameters"]]></Description>
+		</Title>
+		<Boolean Name="bEditMode">
+			<Description><![CDATA["Edit mode"]]></Description>
 			<Flags>
-				<ParFlg_BoldName/>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0</Value>
+		</Boolean>
+		<Integer Name="iDivide">
+			<Description><![CDATA["Beams: Divide whole length"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0</Value>
+		</Integer>
+		<Length Name="xBeamOffset">
+			<Description><![CDATA["Beams: Distance from each other"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
 			</Flags>
 			<Value>0</Value>
 		</Length>
-		<Length Name="offsetPointS">
+		<Boolean Name="bAddHole">
+			<Description><![CDATA["Add a hole"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0</Value>
+		</Boolean>
+		<Integer Name="iDeleteHole">
+			<Description><![CDATA["Delete a hole"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0</Value>
+		</Integer>
+		<Length Name="xLamelle">
+			<Description><![CDATA["Lamelle x Size (width)"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0.01</Value>
+		</Length>
+		<Length Name="yLamelle">
+			<Description><![CDATA["Lamelle y Size (height)"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0.1</Value>
+		</Length>
+		<Integer Name="iAdd">
 			<Description><![CDATA[""]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0</Value>
+		</Integer>
+		<Integer Name="iDel">
+			<Description><![CDATA[""]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0</Value>
+		</Integer>
+
+		<!-- LIMA_Hidden: PARAMETER BLOCK ===== PARAMETER BLOCK ===== PARAMETER BLOCK ===== PARAMETER BLOCK -->
+
+		<Title Name="LIMA_Hidden">
+			<Description><![CDATA[""]]></Description>
+		</Title>
+		<Length Name="offsetPointS">
+			<Description><![CDATA["Offsets from borders"]]></Description>
 			<Flags>
 				<ParFlg_Child/>
 			</Flags>
@@ -531,46 +955,88 @@ endif
 			</ArrayValues>
 		</Length>
 		<Length Name="xPositionS">
-			<Description><![CDATA[""]]></Description>
+			<Description><![CDATA["Beams' positions"]]></Description>
 			<Flags>
 				<ParFlg_Child/>
 			</Flags>
-			<ArrayValues FirstDimension="3" SecondDimension="0">
+			<ArrayValues FirstDimension="34" SecondDimension="0">
 				<AVal Row="1">0</AVal>
-				<AVal Row="2">0.2</AVal>
-				<AVal Row="3">0.4</AVal>
+				<AVal Row="2">0</AVal>
+				<AVal Row="3">0</AVal>
+				<AVal Row="4">0</AVal>
+				<AVal Row="5">0</AVal>
+				<AVal Row="6">0</AVal>
+				<AVal Row="7">0</AVal>
+				<AVal Row="8">0</AVal>
+				<AVal Row="9">0</AVal>
+				<AVal Row="10">0</AVal>
+				<AVal Row="11">0</AVal>
+				<AVal Row="12">0</AVal>
+				<AVal Row="13">0</AVal>
+				<AVal Row="14">0</AVal>
+				<AVal Row="15">0</AVal>
+				<AVal Row="16">0</AVal>
+				<AVal Row="17">0</AVal>
+				<AVal Row="18">0</AVal>
+				<AVal Row="19">0</AVal>
+				<AVal Row="20">0</AVal>
+				<AVal Row="21">0</AVal>
+				<AVal Row="22">0</AVal>
+				<AVal Row="23">0</AVal>
+				<AVal Row="24">0</AVal>
+				<AVal Row="25">0</AVal>
+				<AVal Row="26">0</AVal>
+				<AVal Row="27">0</AVal>
+				<AVal Row="28">0</AVal>
+				<AVal Row="29">0</AVal>
+				<AVal Row="30">0</AVal>
+				<AVal Row="31">0</AVal>
+				<AVal Row="32">0</AVal>
+				<AVal Row="33">0</AVal>
+				<AVal Row="34">0</AVal>
 			</ArrayValues>
 		</Length>
 		<Length Name="holeDefS">
-			<Description><![CDATA[""]]></Description>
+			<Description><![CDATA["Holes' corner points"]]></Description>
 			<Flags>
 				<ParFlg_Child/>
 			</Flags>
-			<ArrayValues FirstDimension="2" SecondDimension="4">
+			<ArrayValues FirstDimension="1" SecondDimension="4">
 				<AVal Column="1" Row="1">0</AVal>
 				<AVal Column="2" Row="1">0</AVal>
 				<AVal Column="3" Row="1">0</AVal>
 				<AVal Column="4" Row="1">0</AVal>
-				<AVal Column="1" Row="2">0.2</AVal>
-				<AVal Column="2" Row="2">0.4</AVal>
-				<AVal Column="3" Row="2">0.4</AVal>
-				<AVal Column="4" Row="2">0.6</AVal>
 			</ArrayValues>
 		</Length>
-		<Integer Name="iDivide">
-			<Description><![CDATA[""]]></Description>
+
+		<!-- LIMA_Materials: PARAMETER BLOCK ===== PARAMETER BLOCK ===== PARAMETER BLOCK ===== PARAMETER BLOCK -->
+
+		<Title Name="LIMA_Materials">
+			<Description><![CDATA["Materials"]]></Description>
+		</Title>
+		<Material Name="surfaceS">
+			<Description><![CDATA["Surface materials"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<ArrayValues FirstDimension="1" SecondDimension="0">
+				<AVal Row="1">0</AVal>
+			</ArrayValues>
+		</Material>
+		<Integer Name="iSurfaces">
+			<Description><![CDATA["Number of surface materials"]]></Description>
 			<Flags>
 				<ParFlg_Child/>
 			</Flags>
 			<Value>0</Value>
 		</Integer>
-		<Integer Name="iDeleteHole">
-			<Description><![CDATA[""]]></Description>
+		<Material Name="sDefault">
+			<Description><![CDATA["Default surface material"]]></Description>
 			<Flags>
 				<ParFlg_Child/>
 			</Flags>
-			<Value>0</Value>
-		</Integer>
+			<Value>1</Value>
+		</Material>
 	</Parameters>
 </ParamSection>
 
