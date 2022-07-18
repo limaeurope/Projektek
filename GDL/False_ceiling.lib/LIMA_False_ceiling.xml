@@ -430,8 +430,14 @@ return
 values "xBeamOffset" range [0,]
 values "xLamelle" range [0,]
 values "yLamelle" range [0,]
-values "iAdd" range [0, vardim1(xPositionS) + 1]
 values "iDel" range [0, vardim1(xPositionS)]
+
+if	abs (xPositionS[vardim1(xPositionS)] - offsetPointS[2][_X_]) < EPS \
+then
+	values "iAdd" range [0, vardim1(xPositionS)]
+else
+	values "iAdd" range [0, vardim1(xPositionS) + 1]
+endif
 
 dim _iDeleteHoleValS[]
 _iDeleteHoleValS[1] = 0
@@ -568,23 +574,20 @@ then
 	dim _xPositionS[]
 
 	for _i = 1 to vardim1(xPositionS) + 1
-		if _i < iAdd then
+		if	_i < iAdd \
+		then
 			_xPositionS[_i] = xPositionS[_i]
 		endif
 
 		if _i = iAdd then
-			if _i = 1 then
+			if _i = 1 \
+			then
 				_xPositionS[_i] = (offsetPointS[1][_X_] + xPositionS[1]) / 2
 			endif
 
 			if	_i > 1 \
-			&	_i <= vardim1(xPositionS) \
 			then
-				_xPositionS[_i] = (xPositionS[_i-1] + xPositionS[_i]) / 2
-			endif
-
-			if _i = vardim1(xPositionS) + 1 then
-				_xPositionS[_i] = (offsetPointS[2][_X_] + xPositionS[vardim1(xPositionS)]) / 2
+				_xPositionS[_i] = (xPositionS[_i - 1] + xPositionS[_i]) / 2
 			endif
 		endif		
 
@@ -592,6 +595,11 @@ then
 			_xPositionS[_i] = xPositionS[_i - 1]
 		endif
 	next _i
+
+	if iAdd > vardim1(xPositionS) \
+	then
+		_xPositionS[vardim1(xPositionS) + 1] = offsetPointS[2][_X_]
+	endif
 
 	parameters	xPositionS	= _xPositionS,
 				iAdd 		= 0
@@ -923,14 +931,14 @@ endif
 			<Value>0.1</Value>
 		</Length>
 		<Integer Name="iAdd">
-			<Description><![CDATA[""]]></Description>
+			<Description><![CDATA["Add a lamelle: before nth"]]></Description>
 			<Flags>
 				<ParFlg_Child/>
 			</Flags>
 			<Value>0</Value>
 		</Integer>
 		<Integer Name="iDel">
-			<Description><![CDATA[""]]></Description>
+			<Description><![CDATA["Delete a lamelle: nth"]]></Description>
 			<Flags>
 				<ParFlg_Child/>
 			</Flags>
@@ -941,6 +949,9 @@ endif
 
 		<Title Name="LIMA_Hidden">
 			<Description><![CDATA[""]]></Description>
+			<Flags>
+				<ParFlg_Hidden/>
+			</Flags>
 		</Title>
 		<Length Name="offsetPointS">
 			<Description><![CDATA["Offsets from borders"]]></Description>
