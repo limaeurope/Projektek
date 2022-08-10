@@ -376,7 +376,9 @@ goto "EndMaster"
 			then
 				segmentS[_s][3] = xPositionS[_i]
 				segmentS[_s][4] = cutterS[_l][1]
-				segmentS[_s][5] = _i % vardim1(surfaceS) + 1
+				_sI = _i % vardim1(surfaceS)
+				if _sI = 0 then _sI = vardim1(surfaceS)
+				segmentS[_s][5] = surfaceS[_sI]
 	
 				_s = _s + 1
 	
@@ -387,7 +389,9 @@ goto "EndMaster"
 	
 		segmentS[_s][3] = xPositionS[_i]
 		segmentS[_s][4] = offsetPointS[2][_Y_]
-		segmentS[_s][5] = _i % vardim1(surfaceS) + 1
+		_sI = _i % vardim1(surfaceS)
+		if _sI = 0 then _sI = vardim1(surfaceS)
+		segmentS[_s][5] = surfaceS[_sI]
 	
 		_s = _s + 1
 	next _i
