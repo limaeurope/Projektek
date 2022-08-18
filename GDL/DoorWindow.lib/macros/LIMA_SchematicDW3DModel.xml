@@ -1,0 +1,3424 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Symbol IsArchivable="false" IsPlaceable="false" MainGUID="EC63B06A-CF78-4A53-8AE1-542D2137C0CB" MigrationValue="Normal" Owner="1196638531" Signature="1196644685" Version="43">
+<Ancestry SectVersion="1" SectionFlags="0" SubIdent="0" Template="false">
+	<MainGUID>F938E33A-329D-4A36-BE3E-85E126820996</MainGUID>
+	<MainGUID>103E8D2C-8230-42E1-9597-46F84CCE28C0</MainGUID>
+	<MainGUID>6ACDA889-69B2-4EC5-936C-CB1DA7032A92</MainGUID>
+	<MainGUID>F6AE9687-2BC7-4D47-88C9-8F793E1DE2D6</MainGUID>
+</Ancestry>
+
+<CalledMacros SectVersion="2" SectionFlags="0" SubIdent="0">
+	<Macro>
+		<MName><![CDATA["OpeningLines"]]></MName>
+		<MainGUID>0A3FFC62-4039-4319-9A16-C518D3B5D840</MainGUID>
+	</Macro>
+</CalledMacros>
+
+<!-- GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT -->
+
+<Script_3D SectVersion="20" SectionFlags="0" SubIdent="0">
+<![CDATA[
+EPS = 0.00001
+
+PANE_MIDDLE			= 1
+PANE_UPPER_MIDDLE	= 2
+PANE_LOWER_MIDDLE	= 3
+PANE_RIGHT			= 5
+PANE_UPPER_RIGHT	= 6
+PANE_LOWER_RIGHT	= 7
+PANE_LEFT			= 9
+PANE_UPPER_LEFT		= 10
+PANE_LOWER_LEFT		= 11
+PANE_MULTISASH		= 101
+PANE_LEAF			= 201
+
+pen gs_cont_pen
+
+nRow = 0
+
+
+! =============================================================================
+! Window schematic model
+! =============================================================================
+
+if bWindow then
+
+	! =============================================================================
+	! Rectangular window
+	! =============================================================================
+
+	if	bStorefront |\
+		iWindowType = WIN_W1 |\
+		iWindowType = WIN_WDoubleSash |\
+		iWindowType = WIN_W2 |\
+		iWindowType = WIN_W2Sidelight |\
+		iWindowType = WIN_W3 |\
+		iWindowType = WIN_W32Sidelights1 |\
+		iWindowType = WIN_W32Sidelights2 |\
+		iWindowType = WIN_WVariable |\
+		iWindowType = WIN_WVariableDoubleSash |\
+		iWindowType = WIN_HistoricWindowSingle2 |\
+		iWindowType = WIN_HistoricWindowSingle |\
+		iWindowType = WIN_HistoricWindowDouble |\
+		iWindowType = WIN_HistoricWindowTriple |\
+		iWindowType = WIN_HistoricWindowSegmented |\
+		iWindowType = WIN_HistoricWindowTripleArched |\
+		iWindowType = WIN_W2HorizontalSlide |\
+		iWindowType = WIN_WSingleHung1 |\
+		iWindowType = WIN_WSingleHung2 |\
+		iWindowType = WIN_WSingleHung3 |\
+		iWindowType = WIN_WDoubleHung1 |\
+		iWindowType = WIN_WDoubleHung2 |\
+		iWindowType = WIN_WDoubleHung3 |\
+		iWindowType = WIN_WRound |\
+		iWindowType = WIN_WOval |\
+		iWindowType = WIN_WMultiside |\
+		iWindowType = WIN_WHalfRound |\
+		iWindowType = WIN_WQuarterRound |\
+		iWindowType = WIN_WPentagon |\
+		iWindowType = WIN_WTriangle |\
+		iWindowType = WIN_WEyebrows |\
+		iWindowType = WIN_WArched |\
+		iWindowType = WIN_WTrapezoid |\
+		iWindowType = WIN_WTrapezoidDoubleSash |\
+		iWindowType = WIN_W3HorizontalSlide |\
+		iWindowType = WIN_Rhomb |\
+		iWindowType = WIN_Skewed then
+
+		nRow = 3
+		nColumn = 3
+
+		dim _panePlacingType[][]
+		dim _paneWidthArray[][]
+		dim _paneHeightArray[][]
+		dim _panePosXArray[][]
+		dim _panePosYArray[][]
+		dim _paneOpeningType[][]
+		dim _paneMullionStyleType[][]
+		dim _paneVertProportion[][]
+		dim _paneOverhangingSides[][]
+		for i = 1 to nRow
+			for j = 1 to nColumn
+				_panePlacingType[i][j]		= 0
+				_paneWidthArray[i][j]		= 0
+				_paneHeightArray[i][j]		= 0
+				_panePosXArray[i][j]		= 0
+				_panePosYArray[i][j]		= 0
+				_paneOpeningType[i][j]		= 0
+				_paneMullionStyleType[i][j]	= 0
+				_paneVertProportion[i][j]	= 0
+				_paneOverhangingSides[i][j]	= 0
+			next j
+		next i
+
+		_LeftSLight_w = ac_unit_width - gs_SLight_w - gs_MidPane_w
+
+		! Transom Sashes ==============================================================
+
+		if gs_UTrans then
+			_cavityHeight = ac_unit_height - gs_UTrans_h + topOvhg
+			_cavityBottom = gs_UTrans_h
+
+			! Upper Left Sash -------------------------------------------------------------
+
+			if gs_UTransom_toLeft & gs_LeftMullion_Top  then
+				! Pane #10
+				_cavityLeft		= -ac_unit_width/2
+				_cavityRight	= -ac_unit_width/2 + _LeftSLight_w
+
+				_panePlacingType[1][1]		= PANE_UPPER_LEFT
+				_paneWidthArray[1][1]		= _cavityRight - _cavityLeft + leftOvhg
+				_paneHeightArray[1][1]		= _cavityHeight
+				_panePosXArray[1][1]		= _cavityLeft + (_cavityRight - _cavityLeft - leftOvhg)/2
+				_panePosYArray[1][1]		= _cavityBottom
+				_paneOpeningType[1][1]		= gs_optype_m_10
+				_paneMullionStyleType[1][1]	= iMullionStyle_10
+				_paneVertProportion[1][1]	= VertDoublePaneProp_10
+				_paneOverhangingSides[1][1] = 1 + 2		! Left + Upper
+			endif
+
+			! Upper Middle Sash -----------------------------------------------------------
+
+			if gs_UTransom_Middle then
+				! Pane #2
+				if gs_LeftMullion_Top then
+					_cavityLeft	= -ac_unit_width/2 + _LeftSLight_w
+				else
+					_cavityLeft	= -ac_unit_width/2
+				endif
+
+				if gs_Mullion_Top then
+					_cavityRight	= ac_unit_width/2 - gs_SLight_w
+				else
+					_cavityRight	= ac_unit_width/2
+				endif
+
+				_bLeftOvhg	= ((gs_bLeftSLight & not(gs_LeftMullion_Top)) | not(gs_bLeftSLight))
+				_bRightOvhg	= ((gs_bSLight & not(gs_Mullion_Top)) | not(gs_bSLight))
+
+				_panePlacingType[1][2]		= PANE_UPPER_MIDDLE
+				_paneWidthArray[1][2]		= _cavityRight - _cavityLeft + leftOvhg * _bLeftOvhg + rightOvhg * _bRightOvhg
+				_paneHeightArray[1][2]		= _cavityHeight
+				_panePosXArray[1][2]		= _cavityLeft + (_cavityRight - _cavityLeft - leftOvhg * _bLeftOvhg + rightOvhg * _bRightOvhg)/2
+				_panePosYArray[1][2]		= _cavityBottom
+				_paneOpeningType[1][2]		= gs_optype_m_02
+				_paneMullionStyleType[1][2]	= iMullionStyle_02
+				_paneVertProportion[1][2]	= VertDoublePaneProp_02
+				_paneOverhangingSides[1][2] = 1*_bLeftOvhg + 2 + 4*_bRightOvhg		! Left + Upper + Right
+			endif
+
+			! Upper Right Sash ------------------------------------------------------------
+
+			if gs_UTransom_toRight & gs_Mullion_Top then
+				! Pane #6
+				_cavityLeft	= ac_unit_width/2 - gs_SLight_w
+				_cavityRight	= ac_unit_width/2
+
+				_panePlacingType[1][3]		= PANE_UPPER_RIGHT
+				_paneWidthArray[1][3]		= _cavityRight - _cavityLeft + rightOvhg
+				_paneHeightArray[1][3]		= _cavityHeight
+				_panePosXArray[1][3]		= _cavityRight - (_cavityRight - _cavityLeft - rightOvhg)/2
+				_panePosYArray[1][3]		= _cavityBottom
+				_paneOpeningType[1][3]		= gs_optype_m_06
+				_paneMullionStyleType[1][3]	= iMullionStyle_06
+				_paneVertProportion[1][3]	= VertDoublePaneProp_06
+				_paneOverhangingSides[1][3] = 2 + 4		! Upper + Right
+			endif
+		endif
+
+
+		! Main Sashes =================================================================
+
+		! Middle Left Sash ------------------------------------------------------------
+
+		if gs_bLeftSLight then
+			! Pane #9
+			if gs_UTrans & gs_UTransom_toLeft then
+				_cavityTop = gs_UTrans_h
+			else
+				_cavityTop = ac_unit_height + topOvhg
+			endif
+
+			if gs_LTrans & gs_LTransom_toLeft then
+				_cavityBottom = gs_LTrans_h
+			else
+				_cavityBottom = -bottomOvhg
+			endif
+
+			_cavityLeft	= -ac_unit_width/2
+
+			if gs_LeftMullion_Middle then
+				_cavityRight	= -ac_unit_width/2 + _LeftSLight_w
+			else
+				_cavityRight	=  ac_unit_width/2 - gs_MidPane_w - gs_bSLight * gs_SLight_w
+			endif
+			_panePlacingType[2][1]		= PANE_LEFT
+			_paneWidthArray[2][1]		= _cavityRight - _cavityLeft + leftOvhg
+			_paneHeightArray[2][1]		= _cavityTop - _cavityBottom
+			_panePosXArray[2][1]		= _cavityLeft + (_cavityRight - _cavityLeft - leftOvhg)/2
+			_panePosYArray[2][1]		= _cavityBottom
+			_paneOpeningType[2][1]		= gs_optype_m_09
+			_paneMullionStyleType[2][1]	= iMullionStyle_09
+			_paneVertProportion[2][1]	= VertDoublePaneProp_09
+			_paneOverhangingSides[2][1] = 1 + 2*not(gs_UTrans & gs_UTransom_toLeft) + 8*not(gs_LTrans & gs_LTransom_toLeft)		! Left + Upper + Lower
+		endif
+
+		! Middle Middle Sash ----------------------------------------------------------
+
+		! Pane #1
+		if gs_UTrans & gs_UTransom_Middle then
+			_cavityTop = gs_UTrans_h
+		else
+			_cavityTop = ac_unit_height + topOvhg
+		endif
+
+		if gs_LTrans & gs_LTransom_Middle then
+			_cavityBottom = gs_LTrans_h
+		else
+			_cavityBottom =  -bottomOvhg
+		endif
+
+		if gs_bLeftSLight then
+			if gs_LeftMullion_Middle then
+				_cavityLeft = -ac_unit_width/2 + _LeftSLight_w
+			else
+				_cavityLeft	= ac_unit_width/2 - gs_MidPane_w - gs_bSLight * gs_SLight_w
+			endif
+		else
+			_cavityLeft = -ac_unit_width/2
+		endif
+
+		if gs_bSLight then
+			if gs_RightMullion_Middle then
+				_cavityRight = ac_unit_width/2 - gs_SLight_w
+			else
+				_cavityRight = ac_unit_width/2 - gs_SLight_w
+			endif
+		else
+			_cavityRight	=  ac_unit_width/2
+		endif
+
+		_panePlacingType[2][2]		= PANE_MIDDLE
+		_paneWidthArray[2][2]		= _cavityRight - _cavityLeft + leftOvhg * not(gs_bLeftSLight) + rightOvhg * not(gs_bSLight)
+		_paneHeightArray[2][2]		= _cavityTop - _cavityBottom
+		_panePosXArray[2][2]		= (_cavityLeft + _cavityRight - leftOvhg * not(gs_bLeftSLight) + rightOvhg * not(gs_bSLight))/2
+		_panePosYArray[2][2]		= _cavityBottom
+		_paneOpeningType[2][2]		= gs_optype_m_01
+		_paneMullionStyleType[2][2]	= iMullionStyle_01
+		_paneVertProportion[2][2]	= VertDoublePaneProp_01
+		_paneOverhangingSides[2][2] = 1*not(gs_bLeftSLight) + 2*not(gs_UTrans & gs_UTransom_Middle) + 4*not(gs_bSLight) + 8*not(gs_LTrans & gs_LTransom_Middle)	! Left + Upper + Right + Lower
+
+		! Middle Right Sash -----------------------------------------------------------
+
+		if gs_bSLight then
+			! Pane #5
+
+			if gs_UTrans & gs_UTransom_toRight then
+				_cavityTop = gs_UTrans_h
+			else
+				_cavityTop = ac_unit_height + topOvhg
+			endif
+
+			if gs_LTrans & gs_LTransom_toRight then
+				_cavityBottom = gs_LTrans_h
+			else
+				_cavityBottom =  -bottomOvhg
+			endif
+
+			if gs_RightMullion_Middle then
+				_cavityLeft = ac_unit_width/2 - gs_SLight_w
+			else
+				_cavityLeft = ac_unit_width/2 - gs_SLight_w
+			endif
+
+			_cavityRight	= ac_unit_width/2
+
+			_panePlacingType[2][3]		= PANE_RIGHT
+			_paneWidthArray[2][3]		= _cavityRight - _cavityLeft + rightOvhg
+			_paneHeightArray[2][3]		= _cavityTop - _cavityBottom
+			_panePosXArray[2][3]		= _cavityRight - (_cavityRight - _cavityLeft - rightOvhg)/2
+			_panePosYArray[2][3]		= _cavityBottom
+			_paneOpeningType[2][3]		= gs_optype_m_05
+			_paneMullionStyleType[2][3]	= iMullionStyle_05
+			_paneVertProportion[2][3]	= VertDoublePaneProp_05
+			_paneOverhangingSides[2][3] = 2*not(gs_UTrans & gs_UTransom_toRight) + 4 + 8*not(gs_LTrans & gs_LTransom_toRight)		! Upper + Right + Lower
+		endif
+
+		! Lower Transom Sashes ========================================================
+
+		if gs_LTrans then
+
+			_cavityHeight = gs_LTrans_h + bottomOvhg
+			_cavityBottom = -bottomOvhg
+
+			! Lower Left Sash -------------------------------------------------------------
+
+			if gs_LTransom_toLeft & gs_LeftMullion_Bott then
+				! Pane #11
+				_cavityLeft		= -ac_unit_width/2
+				_cavityRight	= -ac_unit_width/2 + _LeftSLight_w
+
+				_panePlacingType[3][1]		= PANE_LOWER_LEFT
+				_paneWidthArray[3][1]		= _cavityRight - _cavityLeft + leftOvhg
+				_paneHeightArray[3][1]		= _cavityHeight
+				_panePosXArray[3][1]		= _cavityLeft + (_cavityRight - _cavityLeft - leftOvhg)/2
+				_panePosYArray[3][1]		= _cavityBottom
+				_paneOpeningType[3][1]		= gs_optype_m_11
+				_paneMullionStyleType[3][1]	= iMullionStyle_11
+				_paneVertProportion[3][1]	= VertDoublePaneProp_11
+				_paneOverhangingSides[3][1] = 1 + 8		! Left + Lower
+			endif
+
+			! Lower Middle Sash -----------------------------------------------------------
+
+			if gs_LTransom_Middle then
+				! Pane #3
+
+				if gs_LeftMullion_Bott then
+					_cavityLeft	= -ac_unit_width/2 + _LeftSLight_w
+				else
+					_cavityLeft	= -ac_unit_width/2
+				endif
+
+				if gs_Mullion_Bott then
+					_cavityRight	=  ac_unit_width/2 - gs_SLight_w
+				else
+					_cavityRight	=  ac_unit_width/2 
+				endif
+
+				_bLeftOvhg	= ((gs_bLeftSLight & not(gs_LeftMullion_Bott)) | not(gs_bLeftSLight))
+				_bRightOvhg	= ((gs_bSLight & not(gs_Mullion_Bott)) | not(gs_bSLight))
+
+				_panePlacingType[3][2]		= PANE_LOWER_MIDDLE
+				_paneWidthArray[3][2]		= _cavityRight - _cavityLeft + leftOvhg * _bLeftOvhg + rightOvhg * _bRightOvhg
+				_paneHeightArray[3][2]		= _cavityHeight
+				_panePosXArray[3][2]		= (_cavityLeft + _cavityRight - leftOvhg * _bLeftOvhg + rightOvhg * _bRightOvhg)/2
+				_panePosYArray[3][2]		= _cavityBottom
+				_paneOpeningType[3][2]		= gs_optype_m_03
+				_paneMullionStyleType[3][2]	= iMullionStyle_03
+				_paneVertProportion[3][2]	= VertDoublePaneProp_03
+				_paneOverhangingSides[3][2] = 1*_bLeftOvhg + 4*_bRightOvhg + 8		! Left + Right + Lower
+			endif
+
+			if gs_LTransom_toRight & gs_Mullion_Bott then
+				! Pane #7
+				_cavityLeft	= ac_unit_width/2 - gs_SLight_w
+				_cavityRight	= ac_unit_width/2
+
+				_panePlacingType[3][3]		= PANE_LOWER_RIGHT
+				_paneWidthArray[3][3]		= _cavityRight - _cavityLeft + rightOvhg
+				_paneHeightArray[3][3]		= _cavityHeight
+				_panePosXArray[3][3]		= _cavityRight - (_cavityRight - _cavityLeft - rightOvhg)/2
+				_panePosYArray[3][3]		= _cavityBottom
+				_paneOpeningType[3][3]		= gs_optype_m_07
+				_paneMullionStyleType[3][3]	= iMullionStyle_07
+				_paneVertProportion[3][3]	= VertDoublePaneProp_07
+				_paneOverhangingSides[3][3] = 4 + 8		! Right + Lower
+			endif
+		endif
+
+	endif
+
+
+	! =============================================================================
+	! Rectangular Multisash window
+	! =============================================================================
+
+	if	iWindowType = WIN_MultisashHorizontal	|\
+		iWindowType = WIN_MultisashVertical		then
+
+		nRow = 1
+		nColumn = gs_panes_number * RepeatNum
+
+		dim _panePlacingType[][]
+		dim _paneWidthArray[][]
+		dim _paneHeightArray[][]
+		dim _panePosXArray[][]
+		dim _panePosYArray[][]
+		dim _paneOpeningType[][]
+		dim _paneMullionStyleType[][]
+		dim _paneVertProportion[][]
+		dim _paneOverhangingSides[][]
+		for i = 1 to nColumn
+			_panePlacingType[1][i]		= 0
+			_paneWidthArray[1][i]		= 0
+			_paneHeightArray[1][i]		= 0
+			_panePosXArray[1][i]		= 0
+			_panePosYArray[1][i]		= 0
+			_paneOpeningType[1][i]		= 0
+			_paneMullionStyleType[1][i]	= 0
+			_paneVertProportion[1][i]	= 0
+			_paneOverhangingSides[1][i]	= 0
+		next i
+
+		dim _inputOpeningType[10]
+			_inputOpeningType[1] = gs_optype_m_01
+			_inputOpeningType[2] = gs_optype_m_02
+			_inputOpeningType[3] = gs_optype_m_03
+			_inputOpeningType[4] = gs_optype_m_04
+			_inputOpeningType[5] = gs_optype_m_05
+			_inputOpeningType[6] = gs_optype_m_06
+			_inputOpeningType[7] = gs_optype_m_07
+			_inputOpeningType[8] = gs_optype_m_08
+			_inputOpeningType[9] = gs_optype_m_09
+			_inputOpeningType[10] = gs_optype_m_10
+
+		dim _inputMullionStyle[10]
+			_inputMullionStyle[1] = iMullionStyle_01
+			_inputMullionStyle[2] = iMullionStyle_02
+			_inputMullionStyle[3] = iMullionStyle_03
+			_inputMullionStyle[4] = iMullionStyle_04
+			_inputMullionStyle[5] = iMullionStyle_05
+			_inputMullionStyle[6] = iMullionStyle_06
+			_inputMullionStyle[7] = iMullionStyle_07
+			_inputMullionStyle[8] = iMullionStyle_08
+			_inputMullionStyle[9] = iMullionStyle_09
+			_inputMullionStyle[10] = iMullionStyle_10
+
+		dim _inputVertProportion[10]
+			_inputVertProportion[1] = VertDoublePaneProp_01
+			_inputVertProportion[2] = VertDoublePaneProp_02
+			_inputVertProportion[3] = VertDoublePaneProp_03
+			_inputVertProportion[4] = VertDoublePaneProp_04
+			_inputVertProportion[5] = VertDoublePaneProp_05
+			_inputVertProportion[6] = VertDoublePaneProp_06
+			_inputVertProportion[7] = VertDoublePaneProp_07
+			_inputVertProportion[8] = VertDoublePaneProp_08
+			_inputVertProportion[9] = VertDoublePaneProp_09
+			_inputVertProportion[10] = VertDoublePaneProp_10
+
+		if iWindowType = WIN_MultisashHorizontal then
+
+			dim _inputPaneWidthArray[10]
+				_inputPaneWidthArray[1] = PaneWidth_01
+				_inputPaneWidthArray[2] = PaneWidth_02
+				_inputPaneWidthArray[3] = PaneWidth_03
+				_inputPaneWidthArray[4] = PaneWidth_04
+				_inputPaneWidthArray[5] = PaneWidth_05
+				_inputPaneWidthArray[6] = PaneWidth_06
+				_inputPaneWidthArray[7] = PaneWidth_07
+				_inputPaneWidthArray[8] = PaneWidth_08
+				_inputPaneWidthArray[9] = PaneWidth_09
+				_inputPaneWidthArray[10] = 0
+
+			_cavityTop		= ac_unit_height + topOvhg
+			_cavityBottom	= -bottomOvhg
+			_offsetX		= -ac_unit_width/2
+			iSash			= 1
+
+			for iModule = 1 to RepeatNum
+				_ModuleLength = ac_unit_width
+
+				if gs_repeat_modules then
+					if iModule = 1 then
+						_ModuleLength = gs_axis_distance + gs_frame_offset_left
+					else
+						if iModule = gs_repeat_modules_number then
+							_ModuleLength = gs_axis_distance + gs_frame_offset_right
+						else
+							_ModuleLength = gs_axis_distance
+						endif
+					endif
+				endif
+
+				for iPane = 1 to gs_panes_number
+					if iPane = 1 then
+						_cavityLeft = _offsetX
+					else
+						if iPane = 2 then
+							_cavityLeft = _cavityLeft + _inputPaneWidthArray[iPane-1] + gs_frame_offset_left * gs_repeat_modules * (iModule = 1)
+						else
+							_cavityLeft = _cavityLeft + _inputPaneWidthArray[iPane-1]
+						endif
+					endif
+					if iPane = gs_panes_number then
+						_cavityRight	=  _offsetX + _ModuleLength
+					else
+						if iPane = 1 then
+							_cavityRight	= _cavityLeft + _inputPaneWidthArray[iPane] + gs_frame_offset_left * gs_repeat_modules * (iModule = 1)
+						else
+							_cavityRight	=  _cavityLeft + _inputPaneWidthArray[iPane]
+						endif
+					endif
+
+					_bLeftOvhg	= ( (iPane = 1) & (iModule = 1) )
+					_bRightOvhg	= ( ((gs_panes_number = 1) | (iPane = gs_panes_number)) & (iModule = RepeatNum) )
+
+					_panePlacingType[1][iSash]		= PANE_MULTISASH
+					_paneWidthArray[1][iSash]		= _cavityRight - _cavityLeft + leftOvhg * _bLeftOvhg + rightOvhg * _bRightOvhg
+					_paneHeightArray[1][iSash]		= _cavityTop - _cavityBottom
+					_panePosXArray[1][iSash]		= (_cavityLeft + _cavityRight - leftOvhg * _bLeftOvhg + rightOvhg * _bRightOvhg)/2
+					_panePosYArray[1][iSash]		= _cavityBottom
+					_paneOpeningType[1][iSash]		= _inputOpeningType[iPane]
+					_paneMullionStyleType[1][iSash]	= _inputMullionStyle[iPane]
+					_paneVertProportion[1][iSash]	= _inputVertProportion[iPane]
+					_paneOverhangingSides[1][iSash]	= 1*_bLeftOvhg + 2 + 4*_bRightOvhg + 8		! Left + Upper + Right + Lower
+					iSash						= iSash + 1
+				next iPane
+
+				_offsetX = _offsetX + _ModuleLength
+			next iModule
+
+		else
+
+			dim _inputPaneHeightArray[10]
+				_inputPaneHeightArray[1] = PaneHeight_01
+				_inputPaneHeightArray[2] = PaneHeight_02
+				_inputPaneHeightArray[3] = PaneHeight_03
+				_inputPaneHeightArray[4] = PaneHeight_04
+				_inputPaneHeightArray[5] = PaneHeight_05
+				_inputPaneHeightArray[6] = PaneHeight_06
+				_inputPaneHeightArray[7] = PaneHeight_07
+				_inputPaneHeightArray[8] = PaneHeight_08
+				_inputPaneHeightArray[9] = PaneHeight_09
+				_inputPaneHeightArray[10] = 0
+
+			_cavityLeft		= -ac_unit_width/2
+			_cavityRight	=  ac_unit_width/2
+			_offsetY		= 0
+			iSash			= 1
+
+			for iModule = 1 to RepeatNum
+				_ModuleHeight = ac_unit_height
+
+				if gs_repeat_modules then
+					if iModule = 1 then
+						_ModuleHeight = gs_axis_distance + gs_frame_offset_lower
+					else
+						if iModule = gs_repeat_modules_number then
+							_ModuleHeight = gs_axis_distance + gs_frame_offset_upper
+						else
+							_ModuleHeight = gs_axis_distance
+						endif
+					endif
+				endif
+
+				for iPane = 1 to gs_panes_number
+					if iPane = 1 then
+						_cavityBottom = _offsetY
+					else
+						if iPane = 2 then
+							_cavityBottom = _cavityBottom + _inputPaneHeightArray[iPane-1] + gs_frame_offset_lower * gs_repeat_modules * (iModule = 1)
+						else
+							_cavityBottom = _cavityBottom + _inputPaneHeightArray[iPane-1]
+						endif
+					endif
+					if iPane = gs_panes_number then
+						_cavityTop = _offsetY + _ModuleHeight
+					else
+						if iPane = 1 then
+							_cavityTop = _cavityBottom + _inputPaneHeightArray[iPane] + gs_frame_offset_lower * gs_repeat_modules * (iModule = 1)
+						else
+							_cavityTop = _cavityBottom + _inputPaneHeightArray[iPane]
+						endif
+					endif
+
+					_bLowerOvhg	= ( (iPane = 1) & (iModule = 1) )
+					_bUpperOvhg	= ( ((gs_panes_number = 1) | (iPane = gs_panes_number)) & (iModule = RepeatNum) )
+
+					_panePlacingType[1][iSash]		= PANE_MULTISASH
+					_paneWidthArray[1][iSash]		= _cavityRight - _cavityLeft + leftOvhg + rightOvhg
+					_paneHeightArray[1][iSash]		= _cavityTop + _bUpperOvhg * topOvhg - (_cavityBottom - _bLowerOvhg * bottomOvhg)
+					_panePosXArray[1][iSash]		= (_cavityLeft + _cavityRight - leftOvhg + rightOvhg)/2
+					_panePosYArray[1][iSash]		= _cavityBottom - _bLowerOvhg * bottomOvhg
+					_paneOpeningType[1][iSash]		= _inputOpeningType[iPane]
+					_paneMullionStyleType[1][iSash]	= _inputMullionStyle[iPane]
+					_paneVertProportion[1][iSash]	= _inputVertProportion[iPane]
+					_paneOverhangingSides[1][iSash]	= 1 + 2*_bUpperOvhg + 4 + 8*_bLowerOvhg		! Left + Upper + Right + Lower
+					iSash							= iSash + 1
+				next iPane
+
+				_offsetY = _offsetY + _ModuleHeight
+			next iModule
+		endif
+
+	endif
+
+else
+
+	nRow = 3
+	nColumn = 3
+
+	dim _panePlacingType[][]
+	dim _paneWidthArray[][]
+	dim _paneHeightArray[][]
+	dim _panePosXArray[][]
+	dim _panePosYArray[][]
+	dim _paneOpeningType[][]
+	dim _paneMullionStyleType[][]
+	dim _paneVertProportion[][]
+	dim _paneOverhangingSides[][]
+	for i = 1 to nRow
+		for j = 1 to nColumn
+			_panePlacingType[i][j]		= 0
+			_paneWidthArray[i][j]		= 0
+			_paneHeightArray[i][j]		= 0
+			_panePosXArray[i][j]		= 0
+			_panePosYArray[i][j]		= 0
+			_paneOpeningType[i][j]		= 0
+			_paneMullionStyleType[i][j]	= 0
+			_paneVertProportion[i][j]	= 0
+			_paneOverhangingSides[i][j]	= 0		! TODO ajtoknal meg be kell kotni
+		next j
+	next i
+
+
+	! Transom Sashes ==============================================================
+
+	_cavityHeight = gs_transom_height - gs_frame_width_transom/2 + topOvhg
+	_cavityBottom = ac_unit_height - gs_transom_height + gs_frame_width_transom/2
+
+	! Upper Left Sash -------------------------------------------------------------
+
+	if gs_door_transom & gs_sidelight_left & (gs_SidelightTransomRelation_m = SIDELIGHT_CROSSES_TRANSOM) then
+		! Pane #10
+		_cavityLeft		= -ac_unit_width/2
+		_cavityRight	= -ac_unit_width/2 + gs_sidelight_width_left - gs_frame_width_left_2
+
+		_panePlacingType[1][1]		= PANE_UPPER_LEFT
+		_paneWidthArray[1][1]		= _cavityRight - _cavityLeft + leftOvhg
+		_paneHeightArray[1][1]		= _cavityHeight
+		_panePosXArray[1][1]		= _cavityLeft + (_cavityRight - _cavityLeft - leftOvhg)/2
+		_panePosYArray[1][1]		= _cavityBottom
+		_paneOpeningType[1][1]		= gs_optype_m_10
+		_paneMullionStyleType[1][1]	= iMullionStyle_10
+		_paneVertProportion[1][1]	= VertDoublePaneProp_10
+	endif
+
+	! Upper Middle Sash -----------------------------------------------------------
+
+	if gs_door_transom then
+		! Pane #2
+		if gs_sidelight_left &\
+		((gs_SidelightTransomRelation_m = SIDELIGHT_CROSSES_TRANSOM) |\
+		 (gs_SidelightTransomRelation_m = SIDELIGHT_OVER_TRANSOM)) then
+			_cavityLeft	= -ac_unit_width/2 + gs_sidelight_width_left - gs_frame_width_left_2
+			_bLeftOvhg	= 0
+		else
+			_cavityLeft	= -ac_unit_width/2
+			_bLeftOvhg	= 1
+		endif
+		if gs_sidelight_right &\
+		((gs_SidelightTransomRelation_m = SIDELIGHT_CROSSES_TRANSOM) |\
+		 (gs_SidelightTransomRelation_m = SIDELIGHT_OVER_TRANSOM)) then
+			_cavityRight	=  ac_unit_width/2 - gs_sidelight_width_right + gs_frame_width_right_2
+			_bRightOvhg		= 0
+		else
+			_cavityRight	=  ac_unit_width/2
+			_bRightOvhg		= 1
+		endif
+
+		_panePlacingType[1][2]		= PANE_UPPER_MIDDLE
+		_paneWidthArray[1][2]		= _cavityRight - _cavityLeft + leftOvhg * _bLeftOvhg + rightOvhg * _bRightOvhg
+		_paneHeightArray[1][2]		= _cavityHeight
+		_panePosXArray[1][2]		= _cavityLeft + (_cavityRight - _cavityLeft - leftOvhg * _bLeftOvhg + rightOvhg * _bRightOvhg)/2
+		_panePosYArray[1][2]		= _cavityBottom
+		_paneOpeningType[1][2]		= gs_optype_m_02
+		_paneMullionStyleType[1][2]	= iMullionStyle_02
+		_paneVertProportion[1][2]	= VertDoublePaneProp_02
+	endif
+
+	! Upper Right Sash ------------------------------------------------------------
+
+	if gs_door_transom & gs_sidelight_right & (gs_SidelightTransomRelation_m = SIDELIGHT_CROSSES_TRANSOM) then
+		! Pane #6
+		_cavityLeft		= ac_unit_width/2 - gs_sidelight_width_right + gs_frame_width_right_2
+		_cavityRight	= ac_unit_width/2
+
+		_panePlacingType[1][3]		= PANE_UPPER_RIGHT
+		_paneWidthArray[1][3]		= _cavityRight - _cavityLeft + rightOvhg
+		_paneHeightArray[1][3]		= _cavityHeight
+		_panePosXArray[1][3]		= _cavityRight - (_cavityRight - _cavityLeft - rightOvhg)/2
+		_panePosYArray[1][3]		= _cavityBottom
+		_paneOpeningType[1][3]		= gs_optype_m_06
+		_paneMullionStyleType[1][3]	= iMullionStyle_06
+		_paneVertProportion[1][3]	= VertDoublePaneProp_06
+	endif
+
+
+	! Sidelight Sashes ============================================================
+
+	if gs_door_transom &\
+		((gs_SidelightTransomRelation_m = SIDELIGHT_CROSSES_TRANSOM) |\
+		 (gs_SidelightTransomRelation_m = SIDELIGHT_UNDER_TRANSOM)) then
+		_cavityTop = ac_unit_height - gs_transom_height + gs_frame_width_transom/2
+	else
+		_cavityTop = ac_unit_height + topOvhg
+	endif
+
+	! Left Sidelight Sash ---------------------------------------------------------
+
+	if gs_sidelight_left then
+		! Pane #9
+		if gs_bSidelight_fr_hdiv_left then
+			_cavityBottom = gs_sidelight_fr_hdiv_hgt_left + gs_sidelight_fr_hdiv_wdt_left/2
+		else
+			_cavityBottom = gs_sidelight_parapet_hgt_left - not(gs_sidelight_parapet_hgt_left > EPS) * bottomOvhg
+		endif
+		_cavityLeft		= -ac_unit_width/2
+		_cavityRight	= -ac_unit_width/2 + gs_sidelight_width_left - gs_frame_width_left_2
+
+		_panePlacingType[2][1]		= PANE_LEFT
+		_paneWidthArray[2][1]		= _cavityRight - _cavityLeft + leftOvhg
+		_paneHeightArray[2][1]		= _cavityTop - _cavityBottom
+		_panePosXArray[2][1]		= _cavityLeft + (_cavityRight - _cavityLeft - leftOvhg)/2
+		_panePosYArray[2][1]		= _cavityBottom
+		_paneOpeningType[2][1]		= gs_optype_m_09
+		_paneMullionStyleType[2][1]	= iMullionStyle_09
+		_paneVertProportion[2][1]	= VertDoublePaneProp_09
+	endif
+
+	! Left Sidelight Lower Sash ---------------------------------------------------------
+
+	if gs_sidelight_left & gs_bSidelight_fr_hdiv_left then
+		! Pane #11
+		_cavityLowTop		= gs_sidelight_fr_hdiv_hgt_left + gs_sidelight_fr_hdiv_wdt_left/2
+		_cavityLowBottom	= gs_sidelight_parapet_hgt_left - not(gs_sidelight_parapet_hgt_left > EPS) * bottomOvhg
+
+		_panePlacingType[3][1]		= PANE_LOWER_LEFT
+		_paneWidthArray[3][1]		= _cavityRight - _cavityLeft + leftOvhg
+		_paneHeightArray[3][1]		= _cavityLowTop - _cavityLowBottom
+		_panePosXArray[3][1]		= _cavityLeft + (_cavityRight - _cavityLeft - leftOvhg)/2
+		_panePosYArray[3][1]		= _cavityLowBottom
+		_paneOpeningType[3][1]		= gs_optype_m_11
+		_paneMullionStyleType[3][1]	= iMullionStyle_11
+		_paneVertProportion[3][1]	= VertDoublePaneProp_11
+	endif
+
+
+	! Right Sidelight Sash --------------------------------------------------------
+
+	if gs_sidelight_right then
+		! Pane #5
+		if gs_bSidelight_fr_hdiv_right then
+			_cavityBottom = gs_sidelight_fr_hdiv_hgt_right + gs_sidelight_fr_hdiv_wdt_right/2
+		else
+			_cavityBottom = gs_sidelight_parapet_hgt_right + not(gs_sidelight_parapet_hgt_right > EPS) * bottomOvhg
+		endif
+		_cavityLeft		= ac_unit_width/2 - gs_sidelight_width_right + gs_frame_width_right_2
+		_cavityRight	= ac_unit_width/2
+
+		_panePlacingType[2][3]		= PANE_RIGHT
+		_paneWidthArray[2][3]		= _cavityRight - _cavityLeft + rightOvhg
+		_paneHeightArray[2][3]		= _cavityTop - _cavityBottom
+		_panePosXArray[2][3]		= _cavityRight - (_cavityRight - _cavityLeft - rightOvhg)/2
+		_panePosYArray[2][3]		= _cavityBottom
+		_paneOpeningType[2][3]		= gs_optype_m_05
+		_paneMullionStyleType[2][3]	= iMullionStyle_05
+		_paneVertProportion[2][3]	= VertDoublePaneProp_05
+	endif
+
+	! Right Sidelight Lower Sash ---------------------------------------------------------
+
+	if gs_sidelight_right & gs_bSidelight_fr_hdiv_right then
+		! Pane #7
+		_cavityLowTop		= gs_sidelight_fr_hdiv_hgt_right + gs_sidelight_fr_hdiv_wdt_right/2
+		_cavityLowBottom	= gs_sidelight_parapet_hgt_right + not(gs_sidelight_parapet_hgt_right > EPS) * bottomOvhg
+
+		_panePlacingType[3][3]		= PANE_LOWER_RIGHT
+		_paneWidthArray[3][3]		= _cavityRight - _cavityLeft + rightOvhg
+		_paneHeightArray[3][3]		= _cavityLowTop - _cavityLowBottom
+		_panePosXArray[3][3]		= _cavityRight - (_cavityRight - _cavityLeft - rightOvhg)/2
+		_panePosYArray[3][3]		= _cavityLowBottom
+		_paneOpeningType[3][3]		= gs_optype_m_07
+		_paneMullionStyleType[3][3]	= iMullionStyle_07
+		_paneVertProportion[3][3]	= VertDoublePaneProp_07
+	endif
+
+
+	! Leaf ========================================================================
+
+	! Pane #1
+	if gs_door_transom then
+		_cavityTop = ac_unit_height - gs_transom_height + gs_frame_width_transom/2
+	else
+		_cavityTop = ac_unit_height + topOvhg
+	endif
+	_cavityBottom	= -bottomOvhg
+
+	if gs_sidelight_left then
+		_cavityLeft	= -ac_unit_width/2 + gs_sidelight_width_left - gs_frame_width_left_2
+		_bLeftOvhg	= 0
+	else
+		_cavityLeft	= -ac_unit_width/2
+		_bLeftOvhg	= 1
+	endif
+	if gs_sidelight_right then
+		_cavityRight	=  ac_unit_width/2 - gs_sidelight_width_right + gs_frame_width_right_2
+		_bRightOvhg		= 0
+	else
+		_cavityRight	=  ac_unit_width/2
+		_bRightOvhg		= 1
+	endif
+
+	if bTerraceDoor then
+		_panePlacingType[2][2]	= PANE_MIDDLE
+	else
+		_panePlacingType[2][2]	= PANE_LEAF
+	endif
+	_paneWidthArray[2][2]		= _cavityRight - _cavityLeft + leftOvhg * _bLeftOvhg + rightOvhg * _bRightOvhg
+	_paneHeightArray[2][2]		= _cavityTop - _cavityBottom
+	_panePosXArray[2][2]		= _cavityLeft + (_cavityRight - _cavityLeft - leftOvhg * _bLeftOvhg + rightOvhg * _bRightOvhg)/2
+	_panePosYArray[2][2]		= _cavityBottom
+	_paneOpeningType[2][2]		= gs_optype_m_01		! Used for Terrace Door (bTerraceDoor)
+	_paneMullionStyleType[2][2]	= MULLION_SOLID_PANEL
+	_paneVertProportion[2][2]	= 50					! Not used for Door Leaf
+
+	if gs_sidelight_left then
+		_frame_width_left	= gs_frame_width_left_2 
+	else
+		_frame_width_left	= gs_frame_width_left + leftOvhg 
+	endif
+
+	if gs_sidelight_right then
+		_frame_width_right	= gs_frame_width_right_2		
+	else
+		_frame_width_right	= gs_frame_width_right + rightOvhg
+	endif
+
+endif
+
+
+	! =============================================================================
+	! Draw schematic model
+	! =============================================================================
+
+	_opLineDist = 0.005
+
+	for i = 1 to nRow
+
+		for j = 1 to nColumn
+
+			if (_panePlacingType[i][j] > 0) then
+
+				if (_paneMullionStyleType[i][j] = MULLION_SOLID_PANEL) then
+
+					if (_panePlacingType[i][j] = PANE_LEAF) then
+
+						_bDoubleFaced = not(gs_leaf_mat = gs_leaf_matin)
+						if WIDO_REVEAL_SIDE then
+							_matPlane	= gs_leaf_matin
+							_matPlane2	= gs_leaf_mat
+						else
+							_matPlane	= gs_leaf_mat
+							_matPlane2	= gs_leaf_matin
+						endif
+
+					else
+
+						_bDoubleFaced = not(gs_panel_mat = gs_panel_mat2)
+						if WIDO_REVEAL_SIDE then
+							_matPlane	= gs_panel_mat
+							_matPlane2	= gs_panel_mat2
+						else
+							_matPlane	= gs_panel_mat2
+							_matPlane2	= gs_panel_mat
+						endif
+
+					endif
+
+				else
+
+					_bDoubleFaced = 0
+					if _paneMullionStyleType[i][j] = MULLION_VENT_PANEL then
+						_matPlane = gs_ventSashLouver_mat
+					else
+						_matPlane = gs_glass_mat
+					endif
+
+				endif
+
+				_paneTotalWidth		= _paneWidthArray[i][j]
+				_paneTotalHeight	= _paneHeightArray[i][j]
+				_vertDoublePaneProp	=_paneVertProportion[i][j]
+
+				_bLeftOvhg	= bittest(_paneOverhangingSides[i][j],0)
+				_bUpperOvhg	= bittest(_paneOverhangingSides[i][j],1)
+				_bRightOvhg	= bittest(_paneOverhangingSides[i][j],2)
+				_bLowerOvhg	= bittest(_paneOverhangingSides[i][j],3)
+
+				add _panePosXArray[i][j] - _paneTotalWidth/2, _panePosYArray[i][j], 0
+
+				if (_panePlacingType[i][j] = PANE_LEAF) then
+
+					gosub "door leaf drawing"
+
+				else
+
+					_optype_m = _paneOpeningType[i][j]
+					gosub "window sash drawing"
+
+				endif
+
+				del 1
+
+			endif
+
+		next j
+
+	next i
+
+
+! =============================================================================
+end
+! =============================================================================
+
+
+! =============================================================================
+"door leaf drawing":
+! =============================================================================
+
+	if	(gs_leaf_optype_m = LEAF_1L_SIDE_HUNG) |\
+		(gs_leaf_optype_m = LEAF_1L_SIDE_HUNG_M) |\
+		(gs_leaf_optype_m = LEAF_1L_DOUBLE_ACTING) |\
+		(gs_leaf_optype_m = LEAF_1L_DOUBLE_ACTING_M) then
+
+		_bDoubleSash = 0
+		_bSecondSash = 0
+
+		_paneWidth	= _paneTotalWidth
+		_paneHeight	= _paneTotalHeight
+
+		if	(gs_leaf_optype_m = LEAF_1L_SIDE_HUNG_M) |\
+			(gs_leaf_optype_m = LEAF_1L_DOUBLE_ACTING_M) then
+
+			_optype_m = SASH_SIDE_HUNG_M
+		else
+			_optype_m = SASH_SIDE_HUNG
+		endif
+		gosub "pane drawing"
+	endif
+
+	if (gs_leaf_optype_m = LEAF_1L_PIVOT) then
+
+		_bDoubleSash = 0
+		_bSecondSash = 0
+
+		_paneWidth	= _paneTotalWidth
+		_paneHeight	= _paneTotalHeight
+
+		_optype_m = SASH_VER_PIVOT_M
+		gosub "pane drawing"
+	endif
+
+	if	(gs_leaf_optype_m = LEAF_2L_SIDE_HUNG) |\
+		(gs_leaf_optype_m = LEAF_2L_DOUBLE_ACTING) |\
+		(gs_leaf_optype_m = LEAF_GAR_2L_SIDE_HUNG) then
+
+		if bArchedTop & not(gs_door_transom) then
+
+			_bDoubleSash = 1
+			_bSecondSash = 1
+
+			_dPaneTotalWidth = _paneTotalWidth - _frame_width_left - _frame_width_right
+
+			_paneWidth	= _dPaneTotalWidth - gs_SecondLeaf_w + _frame_width_left
+			_paneHeight	= _paneTotalHeight
+
+			_optype_m = SASH_SIDE_HUNG_M
+			gosub "pane drawing"
+
+			addx _paneWidth
+			_paneWidth	= gs_SecondLeaf_w + _frame_width_right
+			_optype_m	= SASH_SIDE_HUNG
+			_bSecondSash = 0
+			gosub "pane drawing"
+			del 1
+
+		else
+
+			_bDoubleSash = 0
+			_bSecondSash = 0
+
+			_dPaneTotalWidth = _paneTotalWidth - _frame_width_left - _frame_width_right
+
+			_paneWidth	= _dPaneTotalWidth - gs_SecondLeaf_w + _frame_width_left
+			_paneHeight	= _paneTotalHeight
+
+			_optype_m = SASH_SIDE_HUNG_M
+			gosub "pane drawing"
+
+			addx _paneWidth
+			_paneWidth	= gs_SecondLeaf_w + _frame_width_right
+			_optype_m	= SASH_SIDE_HUNG
+			gosub "pane drawing"
+			del 1
+
+		endif
+
+	endif
+
+	if (gs_leaf_optype_m = LEAF_2L_DOUBLE_EGRESS) then
+
+		_bDoubleSash = 0
+		_bSecondSash = 0
+
+		_dPaneTotalWidth = _paneTotalWidth - _frame_width_left - _frame_width_right
+
+		_paneWidth	= _dPaneTotalWidth - gs_SecondLeaf_w + _frame_width_left
+		_paneHeight	= _paneTotalHeight
+
+		_optype_m = SASH_SIDE_HUNG_M
+		mulz -1
+		gosub "pane drawing"
+		del 1
+
+		addx _paneWidth
+		_paneWidth	= gs_SecondLeaf_w + _frame_width_right
+		_optype_m	= SASH_SIDE_HUNG
+		gosub "pane drawing"
+		del 1
+	endif
+
+	if (gs_leaf_optype_m = LEAF_2L_1SLIDING) then
+
+		_bDoubleSash = 0
+		_bSecondSash = 0
+
+		_dPaneTotalWidth = _paneTotalWidth - _frame_width_left - _frame_width_right
+
+		_paneWidth	= _dPaneTotalWidth/2 + _frame_width_left		! - gs_SecondLeaf_w
+		_paneHeight	= _paneTotalHeight
+
+		_optype_m = SASH_RIGHT_SLIDING
+		gosub "pane drawing"
+
+		addx _paneWidth
+		_paneWidth	= _dPaneTotalWidth/2 + _frame_width_right		! gs_SecondLeaf_w
+		_optype_m	= SASH_FIXED
+		gosub "pane drawing"
+		del 1
+	endif
+
+	if (gs_leaf_optype_m = LEAF_2L_2SLIDING) then
+
+		_bDoubleSash = 0
+		_bSecondSash = 0
+
+		_dPaneTotalWidth = _paneTotalWidth - _frame_width_left - _frame_width_right
+
+		_paneWidth	= _dPaneTotalWidth/2 + _frame_width_left		! - gs_SecondLeaf_w
+		_paneHeight	= _paneTotalHeight
+
+		_optype_m = SASH_RIGHT_SLIDING
+		gosub "pane drawing"
+
+		addx _paneWidth
+		_paneWidth	= _dPaneTotalWidth/2 + _frame_width_right		! gs_SecondLeaf_w
+		_optype_m	= SASH_LEFT_SLIDING
+		gosub "pane drawing"
+		del 1
+	endif
+
+	if (gs_leaf_optype_m = LEAF_3L_2SLIDING) then
+
+		_bDoubleSash = 0
+		_bSecondSash = 0
+
+		_dPaneTotalWidth = _paneTotalWidth - _frame_width_left - _frame_width_right
+
+		_paneWidth	= _dPaneTotalWidth/3 + _frame_width_left
+		_paneHeight	= _paneTotalHeight
+
+		_optype_m = SASH_RIGHT_SLIDING
+		gosub "pane drawing"
+
+		addx _paneWidth
+		_paneWidth	= _dPaneTotalWidth/3
+		if bSpecSlidingDoorUSA then
+			_optype_m	= SASH_FIXED
+		else
+			_optype_m	= SASH_RIGHT_SLIDING
+		endif
+		gosub "pane drawing"
+
+		addx _paneWidth
+		_paneWidth	= _dPaneTotalWidth/3 + _frame_width_right
+		_optype_m	= SASH_FIXED
+		gosub "pane drawing"
+		del 2
+	endif
+
+	if (gs_leaf_optype_m = LEAF_3L_2SLIDING_CENTER) then
+
+		_bDoubleSash = 0
+		_bSecondSash = 0
+
+		_dPaneTotalWidth = _paneTotalWidth - _frame_width_left - _frame_width_right
+
+		_paneWidth	= SlidingLeafWidth_Left + _frame_width_left
+		_paneHeight	= _paneTotalHeight
+
+		_optype_m = SASH_RIGHT_SLIDING
+		gosub "pane drawing"
+
+		addx _paneWidth
+		_paneWidth	= _dPaneTotalWidth - SlidingLeafWidth_Left - SlidingLeafWidth_Right
+		_optype_m	= SASH_FIXED
+		gosub "pane drawing"
+
+		addx _paneWidth
+		_paneWidth	= SlidingLeafWidth_Right + _frame_width_right
+		_optype_m	= SASH_LEFT_SLIDING
+		gosub "pane drawing"
+		del 2
+	endif
+
+	if (gs_leaf_optype_m = LEAF_4L_2SLIDING) then
+
+		_bDoubleSash = 0
+		_bSecondSash = 0
+
+		_dPaneTotalWidth = _paneTotalWidth - _frame_width_left - _frame_width_right
+
+		_paneWidth	= _dPaneTotalWidth/4 + _frame_width_left
+		_paneHeight	= _paneTotalHeight
+
+		_optype_m = SASH_FIXED
+		gosub "pane drawing"
+
+		addx _paneWidth
+		_paneWidth	= _dPaneTotalWidth/4
+		_optype_m	= SASH_LEFT_SLIDING
+		gosub "pane drawing"
+
+		addx _paneWidth
+		_paneWidth	= _dPaneTotalWidth/4
+		_optype_m	= SASH_RIGHT_SLIDING
+		gosub "pane drawing"
+
+		addx _paneWidth
+		_paneWidth	= _dPaneTotalWidth/4 + _frame_width_right
+		_optype_m	= SASH_FIXED
+		gosub "pane drawing"
+		del 2
+	endif
+
+	if (gs_leaf_optype_m = LEAF_4L_3SLIDING) then
+
+		_bDoubleSash = 0
+		_bSecondSash = 0
+
+		_dPaneTotalWidth = _paneTotalWidth - _frame_width_left - _frame_width_right
+
+		_paneWidth	= _dPaneTotalWidth/4 + _frame_width_left
+		_paneHeight	= _paneTotalHeight
+
+		_optype_m = SASH_RIGHT_SLIDING
+		gosub "pane drawing"
+
+		addx _paneWidth
+		_paneWidth	= _dPaneTotalWidth/4
+		_optype_m	= SASH_RIGHT_SLIDING
+		gosub "pane drawing"
+
+		addx _paneWidth
+		_paneWidth	= _dPaneTotalWidth/4
+		_optype_m	= SASH_RIGHT_SLIDING
+		gosub "pane drawing"
+
+		addx _paneWidth
+		_paneWidth	= _dPaneTotalWidth/4 + _frame_width_right
+		_optype_m	= SASH_FIXED
+		gosub "pane drawing"
+		del 2
+	endif
+
+	if (gs_leaf_optype_m = LEAF_4L_4SLIDING) then
+
+		_bDoubleSash = 0
+		_bSecondSash = 0
+
+		_dPaneTotalWidth = _paneTotalWidth - _frame_width_left - _frame_width_right
+
+		_paneWidth	= _dPaneTotalWidth/4 + _frame_width_left
+		_paneHeight	= _paneTotalHeight
+
+		_optype_m = SASH_RIGHT_SLIDING
+		gosub "pane drawing"
+
+		addx _paneWidth
+		_paneWidth	= _dPaneTotalWidth/4
+		_optype_m	= SASH_LEFT_SLIDING
+		gosub "pane drawing"
+
+		addx _paneWidth
+		_paneWidth	= _dPaneTotalWidth/4
+		_optype_m	= SASH_RIGHT_SLIDING
+		gosub "pane drawing"
+
+		addx _paneWidth
+		_paneWidth	= _dPaneTotalWidth/4 + _frame_width_right
+		_optype_m	= SASH_LEFT_SLIDING
+		gosub "pane drawing"
+		del 2
+	endif
+
+	if	(gs_leaf_optype_m = LEAF_1L_EXTERNAL_SLIDING) |\
+		(gs_leaf_optype_m = LEAF_1L_EXTERNAL_SLIDING_M) |\
+		(gs_leaf_optype_m = LEAF_1L_POCKET) |\
+		(gs_leaf_optype_m = LEAF_1L_POCKET_M) then
+
+		_bDoubleSash = 0
+		_bSecondSash = 0
+
+		_paneWidth	= _paneTotalWidth
+		_paneHeight	= _paneTotalHeight
+
+		if	(gs_leaf_optype_m = LEAF_1L_EXTERNAL_SLIDING_M) |\
+			(gs_leaf_optype_m = LEAF_1L_POCKET_M) then
+
+			_optype_m = SASH_LEFT_SLIDING
+		else
+			_optype_m = SASH_RIGHT_SLIDING
+		endif
+		gosub "pane drawing"
+	endif
+
+	if (gs_leaf_optype_m = LEAF_2L_EXTERNAL_SLIDING) then
+
+		_bDoubleSash = 0
+		_bSecondSash = 0
+
+		_paneWidth	= _paneTotalWidth/2			! - gs_SecondLeaf_w
+		_paneHeight	= _paneTotalHeight
+
+		_optype_m = SASH_LEFT_SLIDING
+		gosub "pane drawing"
+
+		addx _paneWidth
+		_paneWidth	= _paneTotalWidth/2		! gs_SecondLeaf_w
+		_optype_m	= SASH_RIGHT_SLIDING
+		gosub "pane drawing"
+		del 1
+	endif
+
+	if (gs_leaf_optype_m = LEAF_2L_POCKET) then
+
+		_bDoubleSash = 0
+		_bSecondSash = 0
+
+		_dPaneTotalWidth = _paneTotalWidth - (_frame_width_left + _frame_width_right) * gs_pocket_door_frame - (leftOvhg + rightOvhg) * not(gs_pocket_door_frame)
+
+		_paneWidth	= _dPaneTotalWidth/2 + _frame_width_left * gs_pocket_door_frame + leftOvhg * not(gs_pocket_door_frame)		! - gs_SecondLeaf_w
+		_paneHeight	= _paneTotalHeight
+
+		addz posLeafy
+		_optype_m = SASH_LEFT_SLIDING
+		gosub "pane drawing"
+
+		addx _paneWidth
+		_paneWidth	= _dPaneTotalWidth/2 + _frame_width_right * gs_pocket_door_frame + rightOvhg * not(gs_pocket_door_frame)		! gs_SecondLeaf_w
+		_optype_m	= SASH_RIGHT_SLIDING
+		gosub "pane drawing"
+		del 2
+	endif
+
+	if	(gs_leaf_optype_m = LEAF_1L_MULTIPANEL) |\
+		(gs_leaf_optype_m = LEAF_1L_MULTIPANEL_M) then
+
+		_bDoubleSash = 0
+		_bSecondSash = 0
+
+		_dPaneTotalWidth = _paneTotalWidth - _frame_width_left - _frame_width_right
+
+		_dPaneWidth	= _dPaneTotalWidth / (gs_leaf_num  - (bMiddleStacking))
+
+		_paneHeight	= _paneTotalHeight
+		_offsetX	= 0
+
+		for iLeaf = 1 to gs_leaf_num
+
+			if (iLeaf = 1) then
+				_paneWidth	= _dPaneWidth / ( 1 + (bMiddleStacking) ) + _frame_width_left
+			else
+				if (iLeaf = gs_leaf_num) then
+					_paneWidth	= _dPaneWidth / ( 1 + (bMiddleStacking) ) + _frame_width_right
+				else
+					_paneWidth	= _dPaneWidth
+				endif
+			endif
+
+			addx _offsetX
+			if (gs_leaf_optype_m = LEAF_1L_MULTIPANEL) then
+				_optype_m = SASH_SIDE_HUNG_M
+			else
+				_optype_m = SASH_SIDE_HUNG
+			endif
+			gosub "pane drawing"
+			del 1
+
+			_offsetX = _offsetX + _paneWidth
+
+		next iLeaf
+
+	endif
+
+	if (gs_leaf_optype_m = LEAF_2L_MULTIPANEL) then
+
+		_bDoubleSash = 0
+		_bSecondSash = 0
+
+		_dPaneTotalWidth = _paneTotalWidth - _frame_width_left - _frame_width_right
+
+		_dPaneWidth	= _dPaneTotalWidth / (gs_leaf_num + gs_leaf_num2 - (bMiddleStacking))
+
+		_paneHeight	= _paneTotalHeight
+		_offsetX	= 0
+
+		for iLeaf = 1 to gs_leaf_num + gs_leaf_num2
+
+			if (iLeaf = 1) then
+				_paneWidth	= _dPaneWidth / ( 1 + (bMiddleStacking) ) + _frame_width_left
+			else
+				if (iLeaf = gs_leaf_num + gs_leaf_num2) then
+					_paneWidth	= _dPaneWidth / ( 1 + (bMiddleStacking) ) + _frame_width_right
+				else
+					_paneWidth	= _dPaneWidth
+				endif
+			endif
+
+			addx _offsetX
+			if iLeaf < gs_leaf_num + 1 then
+				_optype_m = SASH_SIDE_HUNG_M
+			else
+				_optype_m = SASH_SIDE_HUNG
+			endif
+			gosub "pane drawing"
+			del 1
+
+			_offsetX = _offsetX + _paneWidth
+
+		next iLeaf
+
+	endif
+
+	if (gs_leaf_optype_m = LEAF_GAR_2L_ROLLSIDE) then
+
+		_bDoubleSash = 0
+		_bSecondSash = 0
+
+		_dPaneTotalWidth = _paneTotalWidth - _frame_width_left - _frame_width_right
+
+		_paneWidth	= _dPaneTotalWidth/2 + _frame_width_left		! - gs_SecondLeaf_w
+		_paneHeight	= _paneTotalHeight
+
+		_optype_m = SASH_LEFT_SLIDING
+		gosub "pane drawing"
+
+		addx _paneWidth
+		_paneWidth	= _dPaneTotalWidth/2 + _frame_width_right		! gs_SecondLeaf_w
+		_optype_m	= SASH_RIGHT_SLIDING
+		gosub "pane drawing"
+		del 1
+	endif
+
+	if	(gs_leaf_optype_m = LEAF_GAR_1L_SECTIONAL) |\
+		(gs_leaf_optype_m = LEAF_GAR_1L_UP_SLIDING) |\
+		(gs_leaf_optype_m = LEAF_GAR_1L_ROLLUP) then
+
+		_bDoubleSash = 0
+		_bSecondSash = 0
+
+		_paneWidth	= _paneTotalWidth
+		_paneHeight	= _paneTotalHeight
+
+		_optype_m = SASH_UP_SLIDING
+		gosub "pane drawing"
+	endif
+
+	if	(gs_leaf_optype_m = LEAF_GAR_1L_UP_AND_OVER) then
+
+		_bDoubleSash = 0
+		_bSecondSash = 0
+
+		_paneWidth	= _paneTotalWidth
+		_paneHeight	= _paneTotalHeight
+
+		_optype_m = SASH_TOP_HUNG
+		gosub "pane drawing"
+	endif
+
+return
+
+
+! =============================================================================
+"window sash drawing":
+! =============================================================================
+
+!!!	lin_ 0, 0, 0, _paneWidthArray[i][j], _paneHeightArray[i][j], 0
+!!!
+!!!	add _paneWidthArray[i][j]/2, _paneHeightArray[i][j]/2, 0
+!!!	mul 10, 10, 1
+!!!		text 0.01, 0, i
+!!!	del 1
+!!!
+!!!	addx 0.05
+!!!	mul 10, 10, 1
+!!!		text 0.01, 0, j
+!!!	del 3
+
+	if	_optype_m = SASH_FIXED |\
+		_optype_m = SASH_FIXED_SCREW |\
+		_optype_m = SASH_FIXED_SLIDE |\
+		_optype_m = SASH_SIDE_HUNG |\
+		_optype_m = SASH_SIDE_HUNG_M |\
+		_optype_m = SASH_TILT_TURN |\
+		_optype_m = SASH_TILT_TURN_M |\
+		_optype_m = SASH_BOTTOM_HUNG |\
+		_optype_m = SASH_TOP_HUNG |\
+		_optype_m = SASH_VER_PIVOT |\
+		_optype_m = SASH_VER_PIVOT_M |\
+		_optype_m = SASH_HOR_PIVOT |\
+		_optype_m = SASH_LEFT_SLIDING |\
+		_optype_m = SASH_RIGHT_SLIDING |\
+		_optype_m = SASH_UP_SLIDING |\
+		_optype_m = SASH_DOWN_SLIDING then
+
+		_paneWidth	= _paneTotalWidth
+		_paneHeight	= _paneTotalHeight
+
+		_bDoubleSash = 0
+		_bSecondSash = 0
+		gosub "pane drawing"
+
+	endif
+
+	_bDoubleSash = 1
+	if	_optype_m = SASH_DOUBLE_SIDE_HUNG |\
+		_optype_m = SASH_DOUBLE_TILT_TURN |\
+		_optype_m = SASH_DOUBLE_TILT_TURN_M |\
+		_optype_m = SASH_SLIDING_HOR |\
+		_optype_m = SASH_SLIDING_HOR_M |\
+		_optype_m = SASH_DOUBLE_SLIDING_HOR |\
+		_optype_m = SASH_DOUBLE_SLIDING_HOR_M then
+
+		_horizDoublePaneProp = 50
+
+		_paneWidth	= _bLeftOvhg * leftOvhg + ((_paneTotalWidth - _bLeftOvhg * leftOvhg - _bRightOvhg * rightOvhg) * (_horizDoublePaneProp/100))
+		_paneHeight	= _paneTotalHeight
+
+		_bSecondSash = 1
+		gosub "pane drawing"
+		_leftPaneWidth	= _paneWidth
+
+		_paneWidth	= _bRightOvhg * rightOvhg + ((_paneTotalWidth - _bLeftOvhg * leftOvhg - _bRightOvhg * rightOvhg) * (1 - _horizDoublePaneProp/100))
+
+		addx _leftPaneWidth
+		_bSecondSash = 0
+		gosub "pane drawing"
+		del 1
+
+	endif
+
+	if	_optype_m = SASH_SLIDING_VER |\
+		_optype_m = SASH_DOUBLE_SLIDING_VER then
+
+		_paneWidth	= _paneTotalWidth
+		_paneHeight	= _bLowerOvhg * bottomOvhg + ((_paneTotalHeight - _bLowerOvhg * bottomOvhg - _bUpperOvhg * topOvhg) * (_vertDoublePaneProp/100))
+
+		_bSecondSash = 0
+		gosub "pane drawing"
+		_lowerPaneHeight	= _paneHeight
+
+		_paneHeight	= _bUpperOvhg * topOvhg + ((_paneTotalHeight - _bLowerOvhg * bottomOvhg - _bUpperOvhg * topOvhg) * (1 - _vertDoublePaneProp/100))
+
+		addy _lowerPaneHeight
+		_bSecondSash = 1
+		gosub "pane drawing"
+		del 1
+
+	endif
+
+return
+
+
+! =============================================================================
+"pane drawing":
+! =============================================================================
+
+	_iOpeningType = _optype_m
+	if _optype_m = SASH_DOUBLE_SIDE_HUNG then
+		if _bSecondSash then
+			_iOpeningType = SASH_SIDE_HUNG_M
+		else
+			_iOpeningType = SASH_SIDE_HUNG
+		endif
+	endif
+	if _optype_m = SASH_DOUBLE_TILT_TURN then
+		if _bSecondSash then
+			_iOpeningType = SASH_SIDE_HUNG_M
+		else
+			_iOpeningType = SASH_TILT_TURN
+		endif
+	endif
+	if _optype_m = SASH_DOUBLE_TILT_TURN_M then
+		if _bSecondSash then
+			_iOpeningType = SASH_TILT_TURN_M
+		else
+			_iOpeningType = SASH_SIDE_HUNG
+		endif
+	endif
+	if _optype_m = SASH_SLIDING_HOR then
+		if _bSecondSash then
+			_iOpeningType = SASH_FIXED_SLIDE
+		else
+			_iOpeningType = SASH_LEFT_SLIDING
+		endif
+	endif
+	if _optype_m = SASH_SLIDING_HOR_M then
+		if _bSecondSash then
+			_iOpeningType = SASH_RIGHT_SLIDING
+		else
+			_iOpeningType = SASH_FIXED_SLIDE
+		endif
+	endif
+	if	_optype_m = SASH_DOUBLE_SLIDING_HOR |\
+		_optype_m = SASH_DOUBLE_SLIDING_HOR_M then
+		if _bSecondSash then
+			_iOpeningType = SASH_RIGHT_SLIDING
+		else
+			_iOpeningType = SASH_LEFT_SLIDING
+		endif
+	endif
+	if _optype_m = SASH_SLIDING_VER then
+		if _bSecondSash then
+			_iOpeningType = SASH_FIXED_SLIDE
+		else
+			_iOpeningType = SASH_UP_SLIDING
+		endif
+	endif
+	if _optype_m = SASH_DOUBLE_SLIDING_VER then
+		if _bSecondSash then
+			_iOpeningType = SASH_DOWN_SLIDING
+		else
+			_iOpeningType = SASH_UP_SLIDING
+		endif
+	endif
+
+	material _matPlane
+
+	_offsetZ = 0
+	_oplineWidth	= _paneWidth
+	_oplineHeight	= _paneHeight
+	_topWidthMod	= 0
+	_sideHeightMod	= 0
+
+	! Initialize
+	_bArchedPane		= 0
+	_bHalfArchedPane	= 0
+	_bQuarterRoundPane	= 0
+	_bEyebrowsPane		= 0
+	_bTrapezoidPane		= 0
+	_bPentagonPane		= 0
+	_bTrianglePane		= 0
+	_bRhombusPane		= 0
+	_bSkewedPane		= 0
+	_bRoundPane			= 0
+	_bMultisidePane		= 0
+	_bOvalPane			= 0
+
+	_bPivotPaneLeaf		= 0
+
+	if bWindow then
+
+		_bArchedPane	= ( (_panePlacingType[i][j] = PANE_UPPER_MIDDLE) & (iWindowType = WIN_HistoricWindowSegmented) ) |\
+						  ( (_panePlacingType[i][j] = PANE_UPPER_MIDDLE) & (iWindowType = WIN_WArched) & gs_UTrans ) |\
+						  ( (_panePlacingType[i][j] = PANE_MIDDLE) & (iWindowType = WIN_WArched) & not(gs_UTrans) & not(_bDoubleSash) ) |\
+						  ( (_panePlacingType[i][j] = PANE_MIDDLE) & (iWindowType = WIN_WHalfRound) )
+
+		_bHalfArchedPane	= ( (_panePlacingType[i][j] = PANE_MIDDLE) & (iWindowType = WIN_WArched) & not(gs_UTrans) & _bDoubleSash )
+
+		_bQuarterRoundPane	= ( (_panePlacingType[i][j] = PANE_MIDDLE) & (iWindowType = WIN_WQuarterRound) )
+
+		_bEyebrowsPane	= ( (_panePlacingType[i][j] = PANE_UPPER_MIDDLE) & (iWindowType = WIN_HistoricWindowTripleArched) & gs_UTrans ) |\
+						  ( (_panePlacingType[i][j] = PANE_MIDDLE) & (iWindowType = WIN_WEyebrows) & not(gs_UTrans) )
+
+		_bTrapezoidPane	= ( (_panePlacingType[i][j] = PANE_UPPER_MIDDLE) & (iWindowType = WIN_WTrapezoidDoubleSash) & gs_UTrans ) |\
+						  ( (_panePlacingType[i][j] = PANE_MIDDLE) & (iWindowType = WIN_WTrapezoidDoubleSash) & not(gs_UTrans) ) |\
+						  ( (_panePlacingType[i][j] = PANE_RIGHT) & (iWindowType = WIN_WTrapezoidDoubleSash) & not(gs_UTrans) ) |\
+						  ( (_panePlacingType[i][j] = PANE_UPPER_MIDDLE) & (iWindowType = WIN_WTrapezoid) & gs_UTrans ) |\
+						  ( (_panePlacingType[i][j] = PANE_MIDDLE) & (iWindowType = WIN_WTrapezoid) & not(gs_UTrans) )
+
+		_bPentagonPane	= ( (_panePlacingType[i][j] = PANE_MIDDLE) & (iWindowType = WIN_WPentagon) & not(gs_UTrans) )
+
+		_bTrianglePane	= ( (_panePlacingType[i][j] = PANE_MIDDLE) & (iWindowType = WIN_WTriangle) )
+
+		_bRhombusPane	= ( (_panePlacingType[i][j] = PANE_MIDDLE) & (iWindowType = WIN_Rhomb) )
+
+		_bSkewedPane	= ( (_panePlacingType[i][j] = PANE_MIDDLE) & (iWindowType = WIN_Skewed) )
+
+		_bRoundPane		= ( (_panePlacingType[i][j] = PANE_MIDDLE) & (iWindowType = WIN_WRound) )
+
+		_bMultisidePane	= ( (_panePlacingType[i][j] = PANE_MIDDLE) & (iWindowType = WIN_WMultiside) )
+
+		_bOvalPane		= ( (_panePlacingType[i][j] = PANE_MIDDLE) & (iWindowType = WIN_WOval) )
+
+	else
+
+		_bArchedPane	= ( (_panePlacingType[i][j] = PANE_UPPER_MIDDLE) & bArchedTop ) |\
+						  ( (_panePlacingType[i][j] = PANE_LEAF) & bArchedTop & not(gs_door_transom) & not(_bDoubleSash))
+
+		_bHalfArchedPane	= ( (_panePlacingType[i][j] = PANE_LEAF) & bArchedTop & not(gs_door_transom) & _bDoubleSash )
+
+		_bPivotPaneLeaf	= ( (_panePlacingType[i][j] = PANE_LEAF) & (_optype_m = SASH_VER_PIVOT_M) )
+
+	endif
+
+	_bRectPane = not( _bArchedPane |\
+					  _bHalfArchedPane |\
+					  _bQuarterRoundPane |\
+					  _bEyebrowsPane |\
+					  _bTrapezoidPane |\
+					  _bPentagonPane |\
+					  _bTrianglePane |\
+					  _bRhombusPane |\
+					  _bSkewedPane |\
+					  _bRoundPane |\
+					  _bMultisidePane |\
+					  _bOvalPane |\
+					  _bPivotPaneLeaf)
+
+	! -----------------------------------------------------------------------------
+	! Rectangular pane
+	! -----------------------------------------------------------------------------
+	if _bRectPane | _bPivotPaneLeaf then
+
+		_oplineWidth	= _paneWidth
+		_oplineHeight	= _paneHeight
+		for iFace = 1 to 1 + _bDoubleFaced
+
+			gosub "DoubleFaceHandling"
+
+			addz _offsetZ
+			plane 4,
+				0,			0,				0,
+				_paneWidth,	0,				0,
+				_paneWidth,	_paneHeight,	0,
+				0,			_paneHeight,	0
+			del 1
+
+		next iFace
+
+		if (GLOB_PREVIEW_MODE = 1) then
+
+			lin_ 0, 0, 0, _paneWidth, 0, 0
+			lin_ _paneWidth, 0, 0, _paneWidth, _paneHeight, 0
+			lin_ _paneWidth, _paneHeight, 0, 0, _paneHeight, 0
+			lin_ 0, _paneHeight, 0, 0, 0, 0
+
+		endif
+
+		_oplineWidth	= _paneWidth
+		_oplineHeight	= _paneHeight
+	endif
+
+	! -----------------------------------------------------------------------------
+	! Arched pane
+	! -----------------------------------------------------------------------------
+	if _bArchedPane then
+
+		if (_paneWidth < ac_unit_width) then
+
+		else
+
+			! Half horizontal arch with divider or not
+			! -----------------------------------------------------------------------------
+			_arcHeight	= ac_unit_height + topOvhg + bottomOvhg - gs_shoulderHeight
+			_ang = 180 - 2*atn((_paneWidth/2) / _arcHeight)
+			_arcRadius	= (_paneWidth/2) / sin(_ang)
+
+			if _bDoubleSash then
+
+				for iFace = 1 to 1 + _bDoubleFaced
+
+					gosub "DoubleFaceHandling"
+
+					addz _offsetZ
+					gosub "DividedHalfHorizArch"
+					del 1
+
+				next iFace
+
+				if (GLOB_PREVIEW_MODE = 1) then
+
+					model wire
+					gosub "DividedHalfHorizArch"
+					model solid
+
+				endif
+
+			else
+
+				for iFace = 1 to 1 + _bDoubleFaced
+
+					gosub "DoubleFaceHandling"
+
+					addz _offsetZ
+					gosub "HorizArch"
+					del 1
+
+				next iFace
+
+				if (GLOB_PREVIEW_MODE = 1) then
+
+					model wire
+					gosub "HorizArch"
+					model solid
+
+				endif
+
+			endif
+
+			_oplineWidth = _paneWidth
+			if	(_paneOpeningType[i][j] = SASH_BOTTOM_HUNG) |\
+				(_paneOpeningType[i][j] = SASH_TOP_HUNG) then
+
+				_oplineHeight = _paneHeight
+			else
+				_oplineHeight = _paneHeight - _arcHeight
+			endif
+
+		endif
+
+	endif
+
+
+	! -----------------------------------------------------------------------------
+	! Half Arched pane
+	! -----------------------------------------------------------------------------
+	if _bHalfArchedPane then
+
+		! Half horizontal arch with divider or not
+		! -----------------------------------------------------------------------------
+		_arcHeight	= ac_unit_height + topOvhg + bottomOvhg - gs_shoulderHeight
+		_ang = 180 - 2*atn((_paneTotalWidth/2) / _arcHeight)
+		_arcRadius	= (_paneTotalWidth/2) / sin(_ang)
+
+		if _bSecondSash then
+			addx _paneWidth
+			mulx -1
+		endif
+
+		if ( abs(_paneWidth - (_paneTotalWidth/2)) < EPS ) then				! Symmetric case
+
+			for iFace = 1 to 1 + _bDoubleFaced
+
+				gosub "DoubleFaceHandling"
+
+				addz _offsetZ
+				gosub "HalfHorizArch"
+				del 1
+
+			next iFace
+
+			if (GLOB_PREVIEW_MODE = 1) then
+
+				model wire
+				gosub "HalfHorizArch"
+				model solid
+
+			endif
+
+		else			! Asymmetric case
+
+			for iFace = 1 to 1 + _bDoubleFaced
+
+				gosub "DoubleFaceHandling"
+
+				addz _offsetZ
+				gosub "AssymHorizArch"
+				del 1
+
+			next iFace
+
+			if (GLOB_PREVIEW_MODE = 1) then
+
+				model wire
+				gosub "AssymHorizArch"
+				model solid
+
+			endif
+
+		endif
+
+		if _bSecondSash then del 2
+
+		_oplineWidth = _paneWidth
+		if	(_paneOpeningType[i][j] = SASH_BOTTOM_HUNG) |\
+			(_paneOpeningType[i][j] = SASH_TOP_HUNG) then
+
+			_oplineHeight = _paneHeight
+		else
+			_oplineHeight = _paneHeight - _arcHeight
+		endif
+
+	endif
+
+
+	! -----------------------------------------------------------------------------
+	! Quarter Round pane
+	! -----------------------------------------------------------------------------
+	if _bQuarterRoundPane then
+
+		for iFace = 1 to 1 + _bDoubleFaced
+
+			gosub "DoubleFaceHandling"
+
+			addz _offsetZ
+			gosub "QuarterRound"
+			del 1
+
+		next iFace
+
+		if (GLOB_PREVIEW_MODE = 1) then
+
+			model wire
+			gosub "QuarterRound"
+			model solid
+
+		endif
+
+		_oplineWidth	= _paneWidth
+		_oplineHeight	= _paneHeight
+
+	endif
+
+	! -----------------------------------------------------------------------------
+	! Round and Multiside pane
+	! -----------------------------------------------------------------------------
+	if _bRoundPane | _bMultisidePane then
+
+		_bszog = 360 / gs_numOfSides
+
+		_kszog = 90 - _bszog/2
+
+		if gs_numOfSides mod 2 = 0 then
+			if gs_numOfSides mod 4 = 2 then
+				_radius = (ac_unit_width + leftOvhg + rightOvhg) / 2
+				_mag = _radius * cos(_bszog / 2)
+			else
+				_mag = (ac_unit_width + leftOvhg + rightOvhg) / 2
+				_radius = _mag / cos(_bszog / 2)
+			endif
+		else
+			_radius = (ac_unit_width + leftOvhg + rightOvhg) / (2 * sin(_bszog * int(gs_numOfSides / 2) / 2))
+			_mag = _radius * cos(_bszog / 2)
+		endif
+
+		if _bRoundPane then
+			_noh = 0
+		else
+			_noh = 2*(_radius) * sin(_bszog / 2)
+		endif
+
+		resol gs_numOfSides
+
+		for iFace = 1 to 1 + _bDoubleFaced
+
+			gosub "DoubleFaceHandling"
+
+			addz _offsetZ
+			gosub "Multiside"
+			del 1
+
+		next iFace
+
+		if (GLOB_PREVIEW_MODE = 1) then
+
+			model wire
+			gosub "Multiside"
+			model solid
+
+		endif
+
+		_oplineWidth	= _paneWidth
+		_oplineHeight	= _paneHeight
+
+	endif
+
+	! -----------------------------------------------------------------------------
+	! Oval pane
+	! -----------------------------------------------------------------------------
+	if _bOvalPane then
+
+		_alpha_rotation = 180 / gs_numOfSides
+		if (gs_numOfSides mod 2) = 0 then
+			_alpha_rotation = 0
+		endif
+
+		for iFace = 1 to 1 + _bDoubleFaced
+
+			gosub "DoubleFaceHandling"
+
+			addz _offsetZ
+			gosub "Oval"
+			del 1
+
+		next iFace
+
+		if (GLOB_PREVIEW_MODE = 1) then
+
+			model wire
+			gosub "Oval"
+			model solid
+
+		endif
+
+		_oplineWidth	= _paneWidth
+		_oplineHeight	= _paneHeight
+
+	endif
+
+	! -----------------------------------------------------------------------------
+	! Pentagon pane
+	! -----------------------------------------------------------------------------
+	if _bPentagonPane then
+
+		_inclinedHeight = (ac_unit_height + topOvhg + bottomOvhg - gs_shoulderHeight)
+
+		for iFace = 1 to 1 + _bDoubleFaced
+
+			gosub "DoubleFaceHandling"
+
+			addz _offsetZ
+			gosub "Pentagon"
+			del 1
+
+		next iFace
+
+		if (GLOB_PREVIEW_MODE = 1) then
+
+			model wire
+			gosub "Pentagon"
+			model solid
+
+		endif
+
+		_oplineWidth	= _paneWidth
+		_oplineHeight	= _paneHeight
+
+	endif
+
+	! -----------------------------------------------------------------------------
+	! Pentagon pane
+	! -----------------------------------------------------------------------------
+	if _bTrianglePane then
+
+		for iFace = 1 to 1 + _bDoubleFaced
+
+			gosub "DoubleFaceHandling"
+
+			addz _offsetZ
+			gosub "Triangle"
+			del 1
+
+		next iFace
+
+		if (GLOB_PREVIEW_MODE = 1) then
+
+			model wire
+			gosub "Triangle"
+			model solid
+
+		endif
+
+		_oplineWidth	= _paneWidth
+		_oplineHeight	= _paneHeight
+
+	endif
+
+	! -----------------------------------------------------------------------------
+	! Eyebrows pane
+	! -----------------------------------------------------------------------------
+	if _bEyebrowsPane then
+
+		_eyebrowsHeight = (gs_shoulderHeight - gs_UTrans * (gs_UTrans_h + bottomOvhg))
+		ace = (_paneWidth)/2
+		bce = _paneHeight - _eyebrowsHeight
+
+		mce = ace - gs_smallerRad
+		nce = bce - gs_smallerRad
+		cce = sqr(mce^2 + nce^2) / 2
+		fce = ((2*cce^2) / nce) - nce
+		_curveRadius = fce + bce
+		alphace = 90 - (2*asn(cce / (fce + nce)))
+		gammace = 180 - 2*alphace
+
+		for iFace = 1 to 1 + _bDoubleFaced
+
+			gosub "DoubleFaceHandling"
+
+			addz _offsetZ
+			gosub "Eyebrows"
+			del 1
+
+		next iFace
+
+		if (GLOB_PREVIEW_MODE = 1) then
+
+			model wire
+			gosub "Eyebrows"
+			model solid
+
+		endif
+
+		_oplineWidth	= _paneWidth
+		_oplineHeight	= _paneHeight
+
+	endif
+
+	! -----------------------------------------------------------------------------
+	! Trapezoid pane
+	! -----------------------------------------------------------------------------
+	if _bTrapezoidPane then
+
+		_inclinedHeight = (ac_unit_height + topOvhg + bottomOvhg - gs_shoulderHeight)
+		_ratio = _inclinedHeight / (ac_unit_width + leftOvhg + rightOvhg)
+
+		if (_paneWidth < ac_unit_width) then
+
+			if (_panePlacingType[i][j] = PANE_MIDDLE) then
+				_paneLeftHeight = _paneHeight
+				_paneRightHeight = _paneHeight - _ratio * _paneWidth
+			else
+				_paneLeftHeight = _paneHeight - _ratio * _paneWidth
+				_paneRightHeight = _paneHeight - _inclinedHeight
+			endif
+
+		else
+			_paneLeftHeight = _paneHeight
+			_paneRightHeight =_paneHeight - _inclinedHeight
+		endif
+
+		for iFace = 1 to 1 + _bDoubleFaced
+
+			gosub "DoubleFaceHandling"
+
+			addz _offsetZ
+			gosub "Trapezoid"
+			del 1
+
+		next iFace
+
+		if (GLOB_PREVIEW_MODE = 1) then
+
+			model wire
+			gosub "Trapezoid"
+			model solid
+
+		endif
+
+		_oplineWidth	= _paneWidth
+		_oplineHeight	=  (_paneLeftHeight + _paneRightHeight)/2
+
+	endif
+
+	! -----------------------------------------------------------------------------
+	! Rhombus pane
+	! -----------------------------------------------------------------------------
+	if _bRhombusPane then
+
+!		_inclinedHeight = (ac_unit_height + topOvhg + bottomOvhg - gs_shoulderHeight)
+!		_ratio = _inclinedHeight / (ac_unit_width + leftOvhg + rightOvhg)
+
+		for iFace = 1 to 1 + _bDoubleFaced
+
+			gosub "DoubleFaceHandling"
+
+			addz _offsetZ
+			gosub "Rhombus"
+			del 1
+
+		next iFace
+
+		if (GLOB_PREVIEW_MODE = 1) then
+
+			model wire
+			gosub "Rhombus"
+			model solid
+
+		endif
+
+		_oplineWidth	= _paneWidth
+		_oplineHeight	= _paneHeight
+
+	endif
+
+	! -----------------------------------------------------------------------------
+	! Skewed pane
+	! -----------------------------------------------------------------------------
+	if _bSkewedPane then
+
+		_inclinedHeight = (ac_unit_height + topOvhg + bottomOvhg - gs_shoulderHeight)
+		_ratio = _inclinedHeight / (ac_unit_width + leftOvhg + rightOvhg)
+
+		for iFace = 1 to 1 + _bDoubleFaced
+
+			gosub "DoubleFaceHandling"
+
+			addz _offsetZ
+			gosub "Skewed"
+			del 1
+
+		next iFace
+
+		if (GLOB_PREVIEW_MODE = 1) then
+
+			model wire
+			gosub "Skewed"
+			model solid
+
+		endif
+
+		_oplineWidth	= _paneWidth
+		_oplineHeight	= _paneHeight - _inclinedHeight
+
+	endif
+
+
+	! -----------------------------------------------------------------------------
+	! Opening lines
+	! -----------------------------------------------------------------------------
+
+	if _panePlacingType[i][j] = PANE_LEAF then
+		_bOplines3d			= bDoorOplines3d
+		_opLineType3dIn		= doorOpLineType3dIn
+		_opLineType3dOut	= doorOpLineType3dOut
+		_opLinePen			= gs_doorOpLinePen
+		_opline_style_m 	= gs_door_opline_style_m
+	else
+		_bOplines3d			= bWinOplines3d
+		_opLineType3dIn		= winOpLineType3dIn
+		_opLineType3dOut	= winOpLineType3dOut
+		_opLinePen			= gs_winOpLinePen
+		_opline_style_m		= gs_win_opline_style_m
+	endif
+
+	if _bOplines3d then
+
+		_bGeneralPane = not(_bTrapezoidPane | _bSkewedPane | _bPivotPaneLeaf | _bRhombusPane)
+
+		addz -_opLineDist/2
+
+		! -----------------------------------------------------------------------------
+		if _bGeneralPane then
+		! -----------------------------------------------------------------------------
+
+			call "OpeningLines" parameters A	= _oplineWidth,
+						B						= _oplineHeight,
+						frameThickness			= _opLineDist,
+						iOpeningType			= _iOpeningType,
+						opLineType3dIn			= _opLineType3dIn,
+						opLineType3dOut			= _opLineType3dOut,
+						gs_opLinePen			= _opLinePen,
+						gs_opline_style_m		= _opline_style_m,
+					bSkyLight				= 0
+
+		endif
+
+		! -----------------------------------------------------------------------------
+		if _bRhombusPane then
+		! -----------------------------------------------------------------------------
+
+			__oplineWidth	= _oplineWidth
+			__oplineHeight	= _oplineHeight
+			_offsetX		= 0
+			_offsetY		= 0
+
+			if (_iOpeningType = SASH_SIDE_HUNG) then
+				__oplineWidth	= _oplineWidth * 3/4
+				__oplineHeight	= _oplineHeight / 2
+				_offsetX		= 0
+				_offsetY		= _oplineHeight / 4
+			endif
+
+			if (_iOpeningType = SASH_SIDE_HUNG_M) then
+				__oplineWidth	= _oplineWidth * 3/4
+				__oplineHeight	= _oplineHeight / 2
+				_offsetX		= _oplineWidth / 4
+				_offsetY		= _oplineHeight / 4
+			endif
+
+			if (_iOpeningType = SASH_BOTTOM_HUNG) then
+				__oplineWidth	= _oplineWidth / 2
+				__oplineHeight	= _oplineHeight * 3/4
+				_offsetX		= _oplineWidth / 4
+				_offsetY		= _oplineHeight / 4
+			endif
+
+			add _offsetX, _offsetY, 0
+			call "OpeningLines" parameters A	= __oplineWidth,
+						B						= __oplineHeight,
+						frameThickness			= _opLineDist,
+						iOpeningType			= _iOpeningType,
+						opLineType3dIn			= _opLineType3dIn,
+						opLineType3dOut			= _opLineType3dOut,
+						gs_opLinePen			= _opLinePen,
+						gs_opline_style_m		= _opline_style_m,
+						bSkyLight				= 0
+			del 1
+
+		endif
+
+
+		! -----------------------------------------------------------------------------
+		if _bTrapezoidPane then
+		! -----------------------------------------------------------------------------
+
+			if _bOplines3d & (_iOpeningType <> SASH_FIXED) then
+				_sideHeightMod = 0
+				_topWidthMod = 0
+				__iOpeningType = _iOpeningType
+				if _iOpeningType = SASH_TILT_TURN	then __iOpeningType = SASH_SIDE_HUNG
+				if _iOpeningType = SASH_TILT_TURN_M	then __iOpeningType = SASH_SIDE_HUNG_M
+
+				__oplineHeight = _oplineHeight
+
+				topH1 = _oplineHeight + _oplineWidth/2 * _ratio
+				topH2 = _oplineHeight - _oplineWidth/2 * _ratio
+
+				if	(__iOpeningType = SASH_SIDE_HUNG & _opline_style_m = 1) | \
+					(__iOpeningType = SASH_SIDE_HUNG_M & _opline_style_m = 2) then __oplineHeight = topH2
+				if	(__iOpeningType = SASH_SIDE_HUNG_M & _opline_style_m = 1) |\
+					(__iOpeningType = SASH_SIDE_HUNG & _opline_style_m = 2) then __oplineHeight = topH1
+				if __iOpeningType = SASH_BOTTOM_HUNG then
+					if _opline_style_m = 1 then
+						__oplineHeight = _oplineHeight
+					else
+						__oplineHeight = topH1
+					endif
+				endif
+				if __iOpeningType = SASH_SIDE_HUNG_M then _sideHeightMod = (topH2 - topH1) / 2
+				if __iOpeningType = SASH_SIDE_HUNG then _sideHeightMod = (topH1 - topH2) / 2
+				if __iOpeningType = SASH_BOTTOM_HUNG & _opline_style_m = 2 then
+					_topWidthMod = topH1 - topH2
+				endif
+
+				call "OpeningLines" parameters a = _oplineWidth,
+							b					= __oplineHeight,
+							frameThickness		= _opLineDist,
+							iOpeningType		= __iOpeningType,
+							opLineType3dIn		= _opLineType3dIn,
+							opLineType3dOut		= _opLineType3dOut,
+							gs_opLinePen		= _opLinePen,
+							gs_opline_style_m	= _opline_style_m,
+							sideHeightMod		= _sideHeightMod,
+							topWidthMod			= _topWidthMod
+
+				if _iOpeningType = SASH_TILT_TURN | _iOpeningType = SASH_TILT_TURN_M then
+					if _opline_style_m = 1 then
+						__oplineHeight = _oplineHeight
+					else
+						__oplineHeight = topH1
+					endif
+					if (_iOpeningType = SASH_TILT_TURN | _iOpeningType = SASH_TILT_TURN_M) & _opline_style_m = 2 then
+						_topWidthMod = topH1 - topH2
+					endif
+
+					call "OpeningLines" parameters a = _oplineWidth,
+						b					= __oplineHeight,
+						frameThickness		= _opLineDist,
+						iOpeningType		= SASH_BOTTOM_HUNG,
+						opLineType3dIn		= _opLineType3dIn,
+						opLineType3dOut		= _opLineType3dOut,
+						gs_opLinePen		= _opLinePen,
+						gs_opline_style_m	= _opline_style_m,
+						sideHeightMod		= 0,
+						topWidthMod			= _topWidthMod
+				endif
+
+			endif
+
+		endif
+
+		! -----------------------------------------------------------------------------
+		if _bSkewedPane then
+		! -----------------------------------------------------------------------------
+
+			if _bOplines3d & (_iOpeningType <> SASH_FIXED) then
+				_sideHeightMod = 0
+
+				_bMirrored = (_iOpeningType = SASH_SIDE_HUNG_M & _opline_style_m = 1) | (_iOpeningType = SASH_SIDE_HUNG & _opline_style_m = 2)
+
+				if _iOpeningType = SASH_SIDE_HUNG_M then _sideHeightMod = -_oplineWidth * _ratio
+				if _iOpeningType = SASH_SIDE_HUNG then _sideHeightMod = _oplineWidth * _ratio
+
+				addy _oplineWidth * _bMirrored * _ratio
+				call "OpeningLines" parameters a = _oplineWidth,
+							b					= _opLineHeight,
+							frameThickness		= _opLineDist,
+							iOpeningType		= _iOpeningType,
+							opLineType3dIn		= _opLineType3dIn,
+							opLineType3dOut		= _opLineType3dOut,
+							gs_opLinePen		= _opLinePen,
+							gs_opline_style_m	= _opline_style_m,
+							sideHeightMod		= _sideHeightMod,
+							topWidthMod			= 0
+				del 1
+			endif
+
+		endif
+
+		! -----------------------------------------------------------------------------
+		if _bPivotPaneLeaf then
+		! -----------------------------------------------------------------------------
+
+			_dOplineWidth = _oplineWidth - gs_frame_width_left - gs_frame_width_right - leftOvhg - rightOvhg
+
+			call "OpeningLines" parameters A	= _dOplineWidth - gs_pivotOffset + gs_frame_width_left + leftOvhg,
+						B						= _oplineHeight,
+						frameThickness			= _opLineDist,
+						iOpeningType			= SASH_SIDE_HUNG,
+						opLineType3dIn			= _opLineType3dIn,
+						opLineType3dOut			= _opLineType3dOut,
+						gs_opLinePen			= _opLinePen,
+						gs_opline_style_m		= _opline_style_m,
+						bSkyLight				= 0
+
+			addx _dOplineWidth - gs_pivotOffset + gs_frame_width_left + leftOvhg
+			call "OpeningLines" parameters A	= gs_pivotOffset + gs_frame_width_right + rightOvhg,
+						B						= _oplineHeight,
+						frameThickness			= _opLineDist,
+						iOpeningType			= SASH_SIDE_HUNG_M,
+						opLineType3dIn			= _opLineType3dOut,
+						opLineType3dOut			= _opLineType3dIn,
+						gs_opLinePen			= _opLinePen,
+						gs_opline_style_m		= _opline_style_m,
+						bSkyLight				= 0
+			del 1
+
+		endif
+
+		del 1
+
+	endif
+
+return
+
+! =============================================================================
+"DoubleFaceHandling":
+! =============================================================================
+
+	_offsetZ = 0
+	if _bDoubleFaced then
+		if (iFace = 1) then
+			material _matPlane
+			_offsetZ = -_opLineDist/2
+		else
+			material _matPlane2
+			_offsetZ = _opLineDist/2
+		endif
+	endif
+
+return
+
+! =============================================================================
+"HorizArch":
+! =============================================================================
+
+	poly_ 6,
+		0,				0,							1,
+		0,				_paneHeight - _arcHeight,	1,
+		_paneWidth/2,	_paneHeight - _arcRadius,	901,
+		_paneWidth/2,	_paneHeight,				3001,
+		_paneWidth,		_paneHeight - _arcHeight,	3001,
+		_paneWidth,		0,							1
+
+return
+
+! =============================================================================
+"HalfHorizArch":
+! =============================================================================
+
+	poly_ 5,
+		0,					0,					1,
+		0,					_paneHeight,		1,
+		1,					0,					801,
+		_paneWidth,			gs_shoulderHeight,	1001,
+		_paneWidth,			0,					1
+
+return
+
+! =============================================================================
+"AssymHorizArch":
+! =============================================================================
+
+	rotz 90
+	cutplane -90
+	del 1
+
+	addx -_paneTotalWidth + _paneWidth
+	poly_ 6,
+		0,					0,							1,
+		0,					_paneHeight - _arcHeight,	1,
+		_paneTotalWidth/2,	_paneHeight - _arcRadius,	901,
+		_paneTotalWidth/2,	_paneHeight,				3001,
+		_paneTotalWidth,	_paneHeight - _arcHeight,	3001,
+		_paneTotalWidth,	0,							1
+	del 1
+
+	cutend
+
+return
+
+! =============================================================================
+"DividedHalfHorizArch":
+! =============================================================================
+
+	poly_ 5,
+		0,				0,							1,
+		0,				_paneHeight - _arcHeight,	1,
+		_paneWidth/2,	_paneHeight - _arcRadius,	901,
+		_paneWidth/2,	_paneHeight,				3001,
+		_paneWidth/2,		0,						1
+
+	poly_ 5,
+		_paneWidth/2,	0,							1,
+		_paneWidth/2,	_paneHeight - _arcRadius,	901,
+		_paneWidth/2,	_paneHeight,				1,
+		_paneWidth,		_paneHeight - _arcHeight,	3001,
+		_paneWidth,		0,							1
+
+return
+
+! =============================================================================
+"QuarterRound":
+! =============================================================================
+
+	poly_ 5,
+		0,					0,					1,
+		0,					_paneHeight,		1,
+		gs_shoulderHeight,	_paneHeight,		1,
+		_paneWidth,			gs_shoulderHeight,	1001,
+		_paneWidth,			0,					1
+
+return
+
+! =============================================================================
+"Multiside":
+! =============================================================================
+
+	addx _paneWidth/2
+	poly_ 5,
+		_noh/2,		0,				1,
+		0,			_mag,			901,
+		0,			360 -_bszog,	4001,
+		-_noh/2,	0,				1,
+		 _noh/2,	0,				1
+	del 1
+
+return
+
+! =============================================================================
+"Oval":
+! =============================================================================
+
+	for jj = 1 to gs_numOfSides
+		put (_paneWidth / 2) * sin (_alpha_rotation + (jj-1) * (360 / gs_numOfSides)),
+			(_paneWidth / 2) * (_paneHeight / _paneWidth) * cos (_alpha_rotation + (jj-1) * (360 / gs_numOfSides)), 1
+	next jj
+
+	add _paneWidth / 2, _paneHeight / 2, 0
+	poly_ nsp/3,
+		get(nsp)
+
+	del 1
+
+return
+
+! =============================================================================
+"Eyebrows":
+! =============================================================================
+
+	addx _paneWidth/2
+	poly_ 8,
+		_paneWidth/2,	0,					1,
+		_paneWidth/2,	_eyebrowsHeight,	1,
+		gs_smallerRad,	alphace,			2001,
+		_curveRadius,	90 - alphace,		2001,
+		_curveRadius,	90 - alphace,		2001,
+		gs_smallerRad,	alphace,			2001,
+		-_paneWidth/2,	_eyebrowsHeight,	1,
+		-_paneWidth/2,	0,					1
+	del 1
+
+return
+
+! =============================================================================
+"Trapezoid":
+! =============================================================================
+
+	poly_ 4,
+		0,				0,					1,
+		0,				_paneLeftHeight,	1,
+		_paneWidth,		_paneRightHeight,	1,
+		_paneWidth,		0,					1
+
+return
+
+! =============================================================================
+"Pentagon":
+! =============================================================================
+
+	poly_ 5,
+		0,				0,								1,
+		0,				_paneHeight - _inclinedHeight,	1,
+		_paneWidth/2,	_paneHeight,					1,
+		_paneWidth,		_paneHeight - _inclinedHeight,	1,
+		_paneWidth,		0,								1
+
+return
+
+! =============================================================================
+"Triangle":
+! =============================================================================
+
+	poly_ 3,
+		0,										0,				1,
+		_paneWidth/2 + gs_posTopEdge_triangle,	_paneHeight,	1,
+		_paneWidth,								0,				1
+
+return
+
+! =============================================================================
+"Rhombus":
+! =============================================================================
+
+	poly_ 4,
+		_paneWidth / 2,	0,					1,
+		0,				_paneHeight / 2,	1,
+		_paneWidth / 2,	_paneHeight,		1,
+		_paneWidth,		_paneHeight / 2,	1
+
+return
+
+! =============================================================================
+"Skewed":
+! =============================================================================
+
+	poly_ 4,
+		0,				_inclinedHeight,				1,
+		0,				_paneHeight,					1,
+		_paneWidth,		_paneHeight - _inclinedHeight,	1,
+		_paneWidth,		0,								1
+
+return
+]]>
+</Script_3D>
+
+<!-- GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT -->
+
+<Script_1D SectVersion="20" SectionFlags="0" SubIdent="0">
+<![CDATA[
+
+! iWindowType:
+WIN_W1							= 1
+WIN_WDoubleSash					= 2
+WIN_W2							= 3
+WIN_W2Sidelight					= 4
+WIN_W3							= 5
+WIN_W32Sidelights1				= 6
+WIN_W32Sidelights2				= 7
+WIN_WVariable					= 8
+WIN_WVariableDoubleSash			= 9
+WIN_HistoricWindowSingle2		= 10
+WIN_HistoricWindowSingle		= 11
+WIN_HistoricWindowDouble		= 12
+WIN_HistoricWindowTriple		= 13
+WIN_HistoricWindowSegmented		= 14
+WIN_HistoricWindowTripleArched	= 15
+WIN_W2HorizontalSlide			= 16
+WIN_W4HorizontalSlide			= 17
+WIN_Curved						= 18
+WIN_Bow							= 19
+WIN_SplayBay					= 20
+WIN_SquareBay					= 21
+WIN_Ribbon						= 22
+WIN_WSingleHung1				= 23
+WIN_WSingleHung2				= 24
+WIN_WSingleHung3				= 25
+WIN_WDoubleHung1				= 26
+WIN_WDoubleHung2				= 27
+WIN_WDoubleHung3				= 28
+WIN_WRound						= 29
+WIN_WOval						= 30
+WIN_WMultiside					= 31
+WIN_WHalfRound					= 32
+WIN_WQuarterRound 				= 33
+WIN_WPentagon					= 34
+WIN_WTriangle					= 35
+WIN_WEyebrows					= 36
+WIN_WArched						= 37
+WIN_WTrapezoid					= 38
+WIN_WTrapezoidDoubleSash		= 39
+WIN_VentWindow					= 40
+WIN_2SashSliding				= 41
+WIN_MultisashHorizontal			= 42
+WIN_MultisashVertical			= 43
+WIN_GlassBlock					= 44
+WIN_TerraceDoorSWE				= 45
+WIN_W3HorizontalSlide			= 46
+WIN_W6HorizontalSlide			= 47
+WIN_VentilationBrick			= 48
+WIN_Rhomb						= 49
+WIN_Skewed						= 50
+DOOR_NoSidelight				= 100
+DOOR_OneSidelight				= 101
+DOOR_TwoSidelight				= 102
+
+! gs_optype_m:
+SASH_FIXED					= 1		! Fixed Glass
+SASH_FIXED_SCREW			= 2		! Fixed Sash
+SASH_SIDE_HUNG				= 3		! Side Hung
+SASH_SIDE_HUNG_M			= 4		! Side Hung Mirrored
+SASH_TILT_TURN				= 5		! Tilt and Turn
+SASH_TILT_TURN_M			= 6		! Tilt and Turn Mirrored
+SASH_BOTTOM_HUNG			= 7		! Bottom Hung
+SASH_TOP_HUNG				= 8		! Top Hung
+SASH_HOR_PIVOT				= 9		! Horizontal Pivot Hung
+SASH_VER_PIVOT				= 10	! Vertical Pivotted
+SASH_TILT_SLIDE				= 11	! Tilt and Slide
+SASH_LEFT_SLIDING			= 12	! Left Sliding
+SASH_RIGHT_SLIDING			= 13	! Right Sliding
+SASH_UP_SLIDING				= 14	! Sliding Up
+SASH_DOWN_SLIDING			= 15	! Sliding Down
+SASH_VER_PIVOT_M			= 16	! Vertical Pivotted Mirrored
+SASH_FIXED_SLIDE			= 17	! Fixed Sliding Sash
+SASH_DOUBLE_SIDE_HUNG		= 18	! Double Sash
+SASH_DOUBLE_TILT_TURN		= 19	! Double Tilt and Turn
+SASH_DOUBLE_TILT_TURN_M		= 20	! Double Tilt and Turn Mirrored
+SASH_SLIDING_HOR			= 21	! Sliding
+SASH_SLIDING_HOR_M			= 22	! Sliding Mirrored
+SASH_DOUBLE_SLIDING_HOR		= 23	! Double Sliding
+SASH_DOUBLE_SLIDING_HOR_M	= 24	! Double Sliding Mirrored
+SASH_SLIDING_VER			= 25	! Single Hung
+SASH_DOUBLE_SLIDING_VER		= 26	! Double Hung
+
+! gs_leaf_optype_m:
+LEAF_1L_SIDE_HUNG			= 1
+LEAF_1L_SIDE_HUNG_M			= 2
+LEAF_1L_DOUBLE_ACTING		= 3
+LEAF_1L_DOUBLE_ACTING_M		= 4
+LEAF_2L_SIDE_HUNG			= 5
+LEAF_2L_DOUBLE_ACTING		= 6
+LEAF_2L_DOUBLE_EGRESS		= 7
+LEAF_2L_DOUBLE_EGRESS_M		= 8
+LEAF_1L_PIVOT				= 9
+LEAF_1L_PIVOT_M				= 10
+LEAF_2L_1SLIDING			= 11
+LEAF_2L_1SLIDING_M			= 12
+LEAF_2L_2SLIDING			= 13
+LEAF_2L_2SLIDING_M			= 14
+LEAF_3L_2SLIDING			= 15
+LEAF_3L_2SLIDING_M			= 16
+LEAF_4L_2SLIDING			= 17
+LEAF_4L_3SLIDING			= 18
+LEAF_4L_3SLIDING_M			= 19
+LEAF_4L_4SLIDING			= 20
+LEAF_4L_4SLIDING_M			= 21
+LEAF_1L_EXTERNAL_SLIDING	= 22
+LEAF_1L_EXTERNAL_SLIDING_M	= 23
+LEAF_2L_EXTERNAL_SLIDING	= 24
+LEAF_1L_POCKET				= 25
+LEAF_1L_POCKET_M			= 26
+LEAF_2L_POCKET				= 27
+LEAF_1L_MULTIPANEL			= 28
+LEAF_1L_MULTIPANEL_M		= 29
+LEAF_2L_MULTIPANEL			= 30
+LEAF_REVOLVING				= 31
+LEAF_3L_2SLIDING_CENTER		= 32
+LEAF_GAR_1L_UP_AND_OVER		= 100
+LEAF_GAR_1L_UP_SLIDING		= 101
+LEAF_GAR_1L_SECTIONAL		= 102
+LEAF_GAR_2L_SIDE_HUNG		= 103
+LEAF_GAR_2L_ROLLSIDE		= 104
+LEAF_GAR_1L_ROLLUP			= 105
+
+! iMullionStyle:
+MULLION_NONE			= 1
+MULLION_HVGRID			= 2
+MULLION_EDITABLEGRID	= 3
+MULLION_CUSTOM			= 4
+MULLION_PRAIRIE			= 5
+MULLION_DIVIDED			= 6
+MULLION_SUNBURST_1		= 7
+MULLION_SUNBURST_2		= 8
+MULLION_SUNBURST_3		= 9
+MULLION_SUNBURST_4		= 10
+MULLION_SUNBURST_5		= 11
+MULLION_SUNBURST_6		= 12
+MULLION_SOLID_GLAZED	= 13
+MULLION_DIVIDED_FRAME	= 14
+MULLION_SOLID_PANEL		= 15
+MULLION_VENT_PANEL		= 16
+MULLION_FRENCH_PANEL	= 17
+
+! gs_SidelightTransomRelation_m:
+SIDELIGHT_UNDER_TRANSOM		= 1
+SIDELIGHT_OVER_TRANSOM		= 2
+SIDELIGHT_CROSSES_TRANSOM	= 3
+]]>
+</Script_1D>
+
+<ParamSection SectVersion="27" SectionFlags="0" SubIdent="0">
+	<ParamSectHeader>
+		<AutoHotspots>false</AutoHotspots>
+		<StatBits>
+			<STBit_FixSize/>
+		</StatBits>
+		<WDLeftFrame>0</WDLeftFrame>
+		<WDRightFrame>0</WDRightFrame>
+		<WDTopFrame>0</WDTopFrame>
+		<WDBotFrame>0</WDBotFrame>
+		<LayFlags>65535</LayFlags>
+		<WDMirrorThickness>0</WDMirrorThickness>
+		<WDWallInset>0</WDWallInset>
+	</ParamSectHeader>
+	<Parameters>
+		<Length Name="A">
+			<Description><![CDATA[""]]></Description>
+			<Fix/>
+			<Value>1</Value>
+		</Length>
+		<Length Name="B">
+			<Description><![CDATA[""]]></Description>
+			<Fix/>
+			<Value>1</Value>
+		</Length>
+		<Length Name="ZZYZX">
+			<Description><![CDATA[""]]></Description>
+			<Fix/>
+			<Value>1</Value>
+		</Length>
+		<Integer Name="AC_WallContours">
+			<Description><![CDATA["Wall Contours (0-None,1-Full,2-Side,3-Length)"]]></Description>
+			<Fix/>
+			<Value>0</Value>
+		</Integer>
+		<Integer Name="AC_Hole_Hotspot_Control">
+			<Description><![CDATA["Hotspots 0-None,1-2D,2-3D,3-All"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>3</Value>
+		</Integer>
+		<Boolean Name="AC_show2DHotspotsIn3D">
+			<Description><![CDATA[""]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>1</Value>
+		</Boolean>
+		<Length Name="ac_bottomlevel">
+			<Description><![CDATA[""]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>1</Value>
+		</Length>
+		<Length Name="ac_toplevel">
+			<Description><![CDATA[""]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>0</Value>
+		</Length>
+		<Boolean Name="AC_HoleSideMaterial">
+			<Description><![CDATA["Hole has Wall's Side Surface"]]></Description>
+			<Fix/>
+			<Value>0</Value>
+		</Boolean>
+		<Boolean Name="AC_HoleMaterialCurved">
+			<Description><![CDATA["Hole Surface's Split is Curved in Curved Walls"]]></Description>
+			<Fix/>
+			<Value>0</Value>
+		</Boolean>
+		<Boolean Name="bWindow">
+			<Description><![CDATA[""]]></Description>
+			<Value>1</Value>
+		</Boolean>
+		<Boolean Name="bStorefront">
+			<Description><![CDATA[""]]></Description>
+			<Value>0</Value>
+		</Boolean>
+		<Boolean Name="bTerraceDoor">
+			<Description><![CDATA[""]]></Description>
+			<Value>0</Value>
+		</Boolean>
+		<Integer Name="iWindowType">
+			<Description><![CDATA[""]]></Description>
+			<Value>0</Value>
+		</Integer>
+		<Length Name="ac_unit_width">
+			<Description><![CDATA[""]]></Description>
+			<Value>1.5</Value>
+		</Length>
+		<Length Name="ac_unit_height">
+			<Description><![CDATA[""]]></Description>
+			<Value>1.5</Value>
+		</Length>
+		<Length Name="gs_SecondLeaf_w">
+			<Description><![CDATA[""]]></Description>
+			<Value>0</Value>
+		</Length>
+		<Length Name="SlidingLeafWidth_Left">
+			<Description><![CDATA[""]]></Description>
+			<Value>0</Value>
+		</Length>
+		<Length Name="SlidingLeafWidth_Right">
+			<Description><![CDATA[""]]></Description>
+			<Value>0</Value>
+		</Length>
+		<Length Name="gs_shoulderHeight">
+			<Description><![CDATA[""]]></Description>
+			<Value>0</Value>
+		</Length>
+		<Length Name="gs_smallerRad">
+			<Description><![CDATA[""]]></Description>
+			<Value>0</Value>
+		</Length>
+		<Integer Name="gs_numOfSides">
+			<Description><![CDATA[""]]></Description>
+			<Value>0</Value>
+		</Integer>
+		<Length Name="gs_posTopEdge_triangle">
+			<Description><![CDATA[""]]></Description>
+			<Value>0</Value>
+		</Length>
+		<Length Name="gs_SLight_w">
+			<Description><![CDATA[""]]></Description>
+			<Value>0.5</Value>
+		</Length>
+		<Length Name="gs_MidPane_w">
+			<Description><![CDATA[""]]></Description>
+			<Value>0.5</Value>
+		</Length>
+		<Length Name="gs_UTrans_h">
+			<Description><![CDATA[""]]></Description>
+			<Value>0</Value>
+		</Length>
+		<Length Name="gs_LTrans_h">
+			<Description><![CDATA[""]]></Description>
+			<Value>0</Value>
+		</Length>
+		<Boolean Name="gs_bSLight">
+			<Description><![CDATA[""]]></Description>
+			<Value>0</Value>
+		</Boolean>
+		<Boolean Name="gs_bLeftSLight">
+			<Description><![CDATA[""]]></Description>
+			<Value>0</Value>
+		</Boolean>
+		<Boolean Name="gs_UTrans">
+			<Description><![CDATA[""]]></Description>
+			<Value>0</Value>
+		</Boolean>
+		<Boolean Name="gs_LTrans">
+			<Description><![CDATA[""]]></Description>
+			<Value>0</Value>
+		</Boolean>
+		<Boolean Name="gs_Mullion_Top">
+			<Description><![CDATA[""]]></Description>
+			<Value>0</Value>
+		</Boolean>
+		<Boolean Name="gs_LeftMullion_Top">
+			<Description><![CDATA[""]]></Description>
+			<Value>0</Value>
+		</Boolean>
+		<Boolean Name="gs_Mullion_Bott">
+			<Description><![CDATA[""]]></Description>
+			<Value>0</Value>
+		</Boolean>
+		<Boolean Name="gs_LeftMullion_Bott">
+			<Description><![CDATA[""]]></Description>
+			<Value>0</Value>
+		</Boolean>
+		<Boolean Name="gs_UTransom_toLeft">
+			<Description><![CDATA[""]]></Description>
+			<Value>0</Value>
+		</Boolean>
+		<Boolean Name="gs_UTransom_toRight">
+			<Description><![CDATA[""]]></Description>
+			<Value>0</Value>
+		</Boolean>
+		<Boolean Name="gs_LTransom_toLeft">
+			<Description><![CDATA[""]]></Description>
+			<Value>0</Value>
+		</Boolean>
+		<Boolean Name="gs_LTransom_toRight">
+			<Description><![CDATA[""]]></Description>
+			<Value>0</Value>
+		</Boolean>
+		<Boolean Name="gs_RightMullion_Middle">
+			<Description><![CDATA[""]]></Description>
+			<Value>0</Value>
+		</Boolean>
+		<Boolean Name="gs_LeftMullion_Middle">
+			<Description><![CDATA[""]]></Description>
+			<Value>0</Value>
+		</Boolean>
+		<Boolean Name="gs_UTransom_Middle">
+			<Description><![CDATA[""]]></Description>
+			<Value>0</Value>
+		</Boolean>
+		<Boolean Name="gs_LTransom_Middle">
+			<Description><![CDATA[""]]></Description>
+			<Value>0</Value>
+		</Boolean>
+		<Length Name="leftOvhg">
+			<Description><![CDATA[""]]></Description>
+			<Value>0</Value>
+		</Length>
+		<Length Name="rightOvhg">
+			<Description><![CDATA[""]]></Description>
+			<Value>0</Value>
+		</Length>
+		<Length Name="topOvhg">
+			<Description><![CDATA[""]]></Description>
+			<Value>0</Value>
+		</Length>
+		<Length Name="bottomOvhg">
+			<Description><![CDATA[""]]></Description>
+			<Value>0</Value>
+		</Length>
+		<Boolean Name="gs_repeat_modules">
+			<Description><![CDATA[""]]></Description>
+			<Value>0</Value>
+		</Boolean>
+		<Integer Name="RepeatNum">
+			<Description><![CDATA[""]]></Description>
+			<Value>0</Value>
+		</Integer>
+		<Integer Name="gs_panes_number">
+			<Description><![CDATA[""]]></Description>
+			<Value>0</Value>
+		</Integer>
+		<Length Name="gs_axis_distance">
+			<Description><![CDATA[""]]></Description>
+			<Value>0</Value>
+		</Length>
+		<Length Name="gs_frame_offset_left">
+			<Description><![CDATA[""]]></Description>
+			<Value>0</Value>
+		</Length>
+		<Length Name="gs_frame_offset_right">
+			<Description><![CDATA[""]]></Description>
+			<Value>0</Value>
+		</Length>
+		<Length Name="gs_frame_offset_lower">
+			<Description><![CDATA[""]]></Description>
+			<Value>0</Value>
+		</Length>
+		<Length Name="gs_frame_offset_upper">
+			<Description><![CDATA[""]]></Description>
+			<Value>0</Value>
+		</Length>
+		<Length Name="PaneWidth_01">
+			<Description><![CDATA[""]]></Description>
+			<Value>0</Value>
+		</Length>
+		<Length Name="PaneWidth_02">
+			<Description><![CDATA[""]]></Description>
+			<Value>0</Value>
+		</Length>
+		<Length Name="PaneWidth_03">
+			<Description><![CDATA[""]]></Description>
+			<Value>0</Value>
+		</Length>
+		<Length Name="PaneWidth_04">
+			<Description><![CDATA[""]]></Description>
+			<Value>0</Value>
+		</Length>
+		<Length Name="PaneWidth_05">
+			<Description><![CDATA[""]]></Description>
+			<Value>0</Value>
+		</Length>
+		<Length Name="PaneWidth_06">
+			<Description><![CDATA[""]]></Description>
+			<Value>0</Value>
+		</Length>
+		<Length Name="PaneWidth_07">
+			<Description><![CDATA[""]]></Description>
+			<Value>0</Value>
+		</Length>
+		<Length Name="PaneWidth_08">
+			<Description><![CDATA[""]]></Description>
+			<Value>0</Value>
+		</Length>
+		<Length Name="PaneWidth_09">
+			<Description><![CDATA[""]]></Description>
+			<Value>0</Value>
+		</Length>
+		<Length Name="PaneHeight_01">
+			<Description><![CDATA[""]]></Description>
+			<Value>0</Value>
+		</Length>
+		<Length Name="PaneHeight_02">
+			<Description><![CDATA[""]]></Description>
+			<Value>0</Value>
+		</Length>
+		<Length Name="PaneHeight_03">
+			<Description><![CDATA[""]]></Description>
+			<Value>0</Value>
+		</Length>
+		<Length Name="PaneHeight_04">
+			<Description><![CDATA[""]]></Description>
+			<Value>0</Value>
+		</Length>
+		<Length Name="PaneHeight_05">
+			<Description><![CDATA[""]]></Description>
+			<Value>0</Value>
+		</Length>
+		<Length Name="PaneHeight_06">
+			<Description><![CDATA[""]]></Description>
+			<Value>0</Value>
+		</Length>
+		<Length Name="PaneHeight_07">
+			<Description><![CDATA[""]]></Description>
+			<Value>0</Value>
+		</Length>
+		<Length Name="PaneHeight_08">
+			<Description><![CDATA[""]]></Description>
+			<Value>0</Value>
+		</Length>
+		<Length Name="PaneHeight_09">
+			<Description><![CDATA[""]]></Description>
+			<Value>0</Value>
+		</Length>
+		<Integer Name="gs_optype_m_01">
+			<Description><![CDATA[""]]></Description>
+			<Value>3</Value>
+		</Integer>
+		<Integer Name="gs_optype_m_05">
+			<Description><![CDATA[""]]></Description>
+			<Value>3</Value>
+		</Integer>
+		<Integer Name="gs_optype_m_09">
+			<Description><![CDATA[""]]></Description>
+			<Value>3</Value>
+		</Integer>
+		<Integer Name="gs_optype_m_03">
+			<Description><![CDATA[""]]></Description>
+			<Value>1</Value>
+		</Integer>
+		<Integer Name="gs_optype_m_07">
+			<Description><![CDATA[""]]></Description>
+			<Value>1</Value>
+		</Integer>
+		<Integer Name="gs_optype_m_11">
+			<Description><![CDATA[""]]></Description>
+			<Value>1</Value>
+		</Integer>
+		<Integer Name="gs_optype_m_02">
+			<Description><![CDATA[""]]></Description>
+			<Value>1</Value>
+		</Integer>
+		<Integer Name="gs_optype_m_06">
+			<Description><![CDATA[""]]></Description>
+			<Value>1</Value>
+		</Integer>
+		<Integer Name="gs_optype_m_10">
+			<Description><![CDATA[""]]></Description>
+			<Value>1</Value>
+		</Integer>
+		<Integer Name="gs_optype_m_04">
+			<Description><![CDATA[""]]></Description>
+			<Value>1</Value>
+		</Integer>
+		<Integer Name="gs_optype_m_08">
+			<Description><![CDATA[""]]></Description>
+			<Value>1</Value>
+		</Integer>
+		<Integer Name="iMullionStyle_01">
+			<Description><![CDATA[""]]></Description>
+			<Value>1</Value>
+		</Integer>
+		<Integer Name="iMullionStyle_02">
+			<Description><![CDATA[""]]></Description>
+			<Value>1</Value>
+		</Integer>
+		<Integer Name="iMullionStyle_03">
+			<Description><![CDATA[""]]></Description>
+			<Value>1</Value>
+		</Integer>
+		<Integer Name="iMullionStyle_04">
+			<Description><![CDATA[""]]></Description>
+			<Value>1</Value>
+		</Integer>
+		<Integer Name="iMullionStyle_05">
+			<Description><![CDATA[""]]></Description>
+			<Value>1</Value>
+		</Integer>
+		<Integer Name="iMullionStyle_06">
+			<Description><![CDATA[""]]></Description>
+			<Value>1</Value>
+		</Integer>
+		<Integer Name="iMullionStyle_07">
+			<Description><![CDATA[""]]></Description>
+			<Value>1</Value>
+		</Integer>
+		<Integer Name="iMullionStyle_08">
+			<Description><![CDATA[""]]></Description>
+			<Value>1</Value>
+		</Integer>
+		<Integer Name="iMullionStyle_09">
+			<Description><![CDATA[""]]></Description>
+			<Value>1</Value>
+		</Integer>
+		<Integer Name="iMullionStyle_10">
+			<Description><![CDATA[""]]></Description>
+			<Value>1</Value>
+		</Integer>
+		<Integer Name="iMullionStyle_11">
+			<Description><![CDATA[""]]></Description>
+			<Value>1</Value>
+		</Integer>
+		<Integer Name="gs_leaf_optype_m">
+			<Description><![CDATA[""]]></Description>
+			<Value>1</Value>
+		</Integer>
+		<RealNum Name="VertDoublePaneProp_01">
+			<Description><![CDATA[""]]></Description>
+			<Value>50</Value>
+		</RealNum>
+		<RealNum Name="VertDoublePaneProp_02">
+			<Description><![CDATA[""]]></Description>
+			<Value>50</Value>
+		</RealNum>
+		<RealNum Name="VertDoublePaneProp_03">
+			<Description><![CDATA[""]]></Description>
+			<Value>50</Value>
+		</RealNum>
+		<RealNum Name="VertDoublePaneProp_04">
+			<Description><![CDATA[""]]></Description>
+			<Value>50</Value>
+		</RealNum>
+		<RealNum Name="VertDoublePaneProp_05">
+			<Description><![CDATA[""]]></Description>
+			<Value>50</Value>
+		</RealNum>
+		<RealNum Name="VertDoublePaneProp_06">
+			<Description><![CDATA[""]]></Description>
+			<Value>50</Value>
+		</RealNum>
+		<RealNum Name="VertDoublePaneProp_07">
+			<Description><![CDATA[""]]></Description>
+			<Value>50</Value>
+		</RealNum>
+		<RealNum Name="VertDoublePaneProp_08">
+			<Description><![CDATA[""]]></Description>
+			<Value>50</Value>
+		</RealNum>
+		<RealNum Name="VertDoublePaneProp_09">
+			<Description><![CDATA[""]]></Description>
+			<Value>50</Value>
+		</RealNum>
+		<RealNum Name="VertDoublePaneProp_10">
+			<Description><![CDATA[""]]></Description>
+			<Value>50</Value>
+		</RealNum>
+		<RealNum Name="VertDoublePaneProp_11">
+			<Description><![CDATA[""]]></Description>
+			<Value>50</Value>
+		</RealNum>
+		<Boolean Name="bArchedTop">
+			<Description><![CDATA[""]]></Description>
+			<Value>0</Value>
+		</Boolean>
+		<Integer Name="gs_SidelightTransomRelation_m">
+			<Description><![CDATA[""]]></Description>
+			<Value>1</Value>
+		</Integer>
+		<Boolean Name="gs_door_transom">
+			<Description><![CDATA[""]]></Description>
+			<Value>1</Value>
+		</Boolean>
+		<Length Name="gs_transom_height">
+			<Description><![CDATA[""]]></Description>
+			<Value>0</Value>
+		</Length>
+		<Length Name="gs_frame_width_transom">
+			<Description><![CDATA[""]]></Description>
+			<Value>0</Value>
+		</Length>
+		<Boolean Name="gs_sidelight_left">
+			<Description><![CDATA[""]]></Description>
+			<Value>0</Value>
+		</Boolean>
+		<Length Name="gs_sidelight_width_left">
+			<Description><![CDATA[""]]></Description>
+			<Value>0</Value>
+		</Length>
+		<Length Name="gs_frame_width_left">
+			<Description><![CDATA[""]]></Description>
+			<Value>0</Value>
+		</Length>
+		<Length Name="gs_frame_width_left_2">
+			<Description><![CDATA[""]]></Description>
+			<Value>0</Value>
+		</Length>
+		<Boolean Name="gs_bSidelight_fr_hdiv_left">
+			<Description><![CDATA[""]]></Description>
+			<Value>0</Value>
+		</Boolean>
+		<Length Name="gs_sidelight_fr_hdiv_hgt_left">
+			<Description><![CDATA[""]]></Description>
+			<Value>0</Value>
+		</Length>
+		<Length Name="gs_sidelight_fr_hdiv_wdt_left">
+			<Description><![CDATA[""]]></Description>
+			<Value>0</Value>
+		</Length>
+		<Length Name="gs_sidelight_parapet_hgt_left">
+			<Description><![CDATA[""]]></Description>
+			<Value>0</Value>
+		</Length>
+		<Boolean Name="gs_sidelight_right">
+			<Description><![CDATA[""]]></Description>
+			<Value>0</Value>
+		</Boolean>
+		<Length Name="gs_sidelight_width_right">
+			<Description><![CDATA[""]]></Description>
+			<Value>0</Value>
+		</Length>
+		<Length Name="gs_frame_width_right">
+			<Description><![CDATA[""]]></Description>
+			<Value>0</Value>
+		</Length>
+		<Length Name="gs_frame_width_right_2">
+			<Description><![CDATA[""]]></Description>
+			<Value>0</Value>
+		</Length>
+		<Boolean Name="gs_bSidelight_fr_hdiv_right">
+			<Description><![CDATA[""]]></Description>
+			<Value>0</Value>
+		</Boolean>
+		<Length Name="gs_sidelight_fr_hdiv_hgt_right">
+			<Description><![CDATA[""]]></Description>
+			<Value>0</Value>
+		</Length>
+		<Length Name="gs_sidelight_fr_hdiv_wdt_right">
+			<Description><![CDATA[""]]></Description>
+			<Value>0</Value>
+		</Length>
+		<Length Name="gs_sidelight_parapet_hgt_right">
+			<Description><![CDATA[""]]></Description>
+			<Value>0</Value>
+		</Length>
+		<Boolean Name="gs_pocket_door_frame">
+			<Description><![CDATA[""]]></Description>
+			<Value>1</Value>
+		</Boolean>
+		<Length Name="posLeafy">
+			<Description><![CDATA[""]]></Description>
+			<Value>0</Value>
+		</Length>
+		<Length Name="gs_pivotOffset">
+			<Description><![CDATA[""]]></Description>
+			<Value>0</Value>
+		</Length>
+		<Integer Name="gs_leaf_num">
+			<Description><![CDATA[""]]></Description>
+			<Value>1</Value>
+		</Integer>
+		<Integer Name="gs_leaf_num2">
+			<Description><![CDATA[""]]></Description>
+			<Value>1</Value>
+		</Integer>
+		<Boolean Name="bMiddleStacking">
+			<Description><![CDATA[""]]></Description>
+			<Value>0</Value>
+		</Boolean>
+		<Boolean Name="bSpecSlidingDoorUSA">
+			<Description><![CDATA[""]]></Description>
+			<Value>0</Value>
+		</Boolean>
+		<Boolean Name="bDoorOplines3d">
+			<Description><![CDATA[""]]></Description>
+			<Value>1</Value>
+		</Boolean>
+		<Integer Name="doorOpLineType3dIn">
+			<Description><![CDATA[""]]></Description>
+			<Value>0</Value>
+		</Integer>
+		<Integer Name="doorOpLineType3dOut">
+			<Description><![CDATA[""]]></Description>
+			<Value>0</Value>
+		</Integer>
+		<PenColor Name="gs_doorOpLinePen">
+			<Description><![CDATA[""]]></Description>
+			<Value>1</Value>
+		</PenColor>
+		<Integer Name="gs_door_opline_style_m">
+			<Description><![CDATA[""]]></Description>
+			<Value>1</Value>
+		</Integer>
+		<Boolean Name="bWinOplines3d">
+			<Description><![CDATA[""]]></Description>
+			<Value>1</Value>
+		</Boolean>
+		<Integer Name="winOpLineType3dIn">
+			<Description><![CDATA[""]]></Description>
+			<Value>0</Value>
+		</Integer>
+		<Integer Name="winOpLineType3dOut">
+			<Description><![CDATA[""]]></Description>
+			<Value>0</Value>
+		</Integer>
+		<PenColor Name="gs_winOpLinePen">
+			<Description><![CDATA[""]]></Description>
+			<Value>1</Value>
+		</PenColor>
+		<Integer Name="gs_win_opline_style_m">
+			<Description><![CDATA[""]]></Description>
+			<Value>1</Value>
+		</Integer>
+		<PenColor Name="gs_cont_pen">
+			<Description><![CDATA[""]]></Description>
+			<Value>1</Value>
+		</PenColor>
+		<Material Name="gs_leaf_mat">
+			<Description><![CDATA[""]]></Description>
+			<Value>15</Value>
+		</Material>
+		<Material Name="gs_leaf_matin">
+			<Description><![CDATA[""]]></Description>
+			<Value>15</Value>
+		</Material>
+		<Material Name="gs_ventSashLouver_mat">
+			<Description><![CDATA[""]]></Description>
+			<Value>15</Value>
+		</Material>
+		<Material Name="gs_glass_mat">
+			<Description><![CDATA[""]]></Description>
+			<Value>24</Value>
+		</Material>
+		<Material Name="gs_panel_mat">
+			<Description><![CDATA[""]]></Description>
+			<Value>15</Value>
+		</Material>
+		<Material Name="gs_panel_mat2">
+			<Description><![CDATA[""]]></Description>
+			<Value>15</Value>
+		</Material>
+	</Parameters>
+</ParamSection>
+
+<Copyright SectVersion="1" SectionFlags="0" SubIdent="0">
+	<Author>GRAPHISOFT</Author>
+	<License>
+		<Type>CC BY</Type>
+		<Version>4.0</Version>
+	</License>
+</Copyright>
+
+<Keywords SectVersion="1" SectionFlags="0" SubIdent="0">
+<![CDATA[]]>
+</Keywords>
+
+<!-- GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT -->
+
+<Script_2D SectVersion="20" SectionFlags="0" SubIdent="0">
+<![CDATA[]]>
+</Script_2D>
+
+<!-- GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT -->
+
+<Script_PR SectVersion="20" SectionFlags="0" SubIdent="0">
+<![CDATA[]]>
+</Script_PR>
+
+<!-- GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT -->
+
+<Script_UI SectVersion="20" SectionFlags="0" SubIdent="0">
+<![CDATA[]]>
+</Script_UI>
+
+<!-- GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT -->
+
+<Script_VL SectVersion="20" SectionFlags="0" SubIdent="0">
+<![CDATA[]]>
+</Script_VL>
+
+<!-- GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT -->
+
+<Script_FWM SectVersion="20" SectionFlags="0" SubIdent="0">
+<![CDATA[]]>
+</Script_FWM>
+
+<!-- GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT -->
+
+<Script_BWM SectVersion="20" SectionFlags="0" SubIdent="0">
+<![CDATA[]]>
+</Script_BWM>
+
+<Comment SectVersion="20" SectionFlags="0" SubIdent="0">
+<![CDATA[]]>
+</Comment>
+
+</Symbol>

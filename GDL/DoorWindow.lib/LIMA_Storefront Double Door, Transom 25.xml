@@ -1,0 +1,4290 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Symbol IsArchivable="true" IsPlaceable="true" MainGUID="8182FAAA-F845-4E82-98BD-B1B2B60A3B66" MigrationValue="Normal" Owner="1196638531" Signature="1196644685" Version="43">
+<Ancestry SectVersion="1" SectionFlags="0" SubIdent="0" Template="false">
+	<MainGUID>F938E33A-329D-4A36-BE3E-85E126820996</MainGUID>
+	<MainGUID>103E8D2C-8230-42E1-9597-46F84CCE28C0</MainGUID>
+	<MainGUID>6ACDA889-69B2-4EC5-936C-CB1DA7032A92</MainGUID>
+	<MainGUID>F6AE9687-2BC7-4D47-88C9-8F793E1DE2D6</MainGUID>
+	<MainGUID>11E85B84-8DD1-491B-A2FE-337454A91545</MainGUID>
+	<MainGUID>4C454F1B-EBE2-41D6-ABBF-29259AF178AC</MainGUID>
+</Ancestry>
+
+<!-- GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT -->
+
+<Script_1D SectVersion="20" SectionFlags="0" SubIdent="0">
+<![CDATA[
+! Contact person: <SzL, NJ, BD>
+EPS = 0.0001
+
+call "LIMA_general_storefront_door_macro",
+		parameters all iStorefrontType = 2, iDoorType = 2,
+						bEnableSwingLineTurnOff = bEnableSwingLineTurnOff,
+						bEnableSecondaryOpLineTypes = bEnableSecondaryOpLineTypes
+
+]]>
+</Script_1D>
+
+<!-- GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT -->
+
+<Script_VL SectVersion="20" SectionFlags="0" SubIdent="0">
+<![CDATA[
+lock "gs_pen_2D"	! unused, but inherited from subtype
+]]>
+</Script_VL>
+
+<Comment SectVersion="20" SectionFlags="0" SubIdent="0">
+<![CDATA[Storefront double door with transom.]]>
+</Comment>
+
+<Keywords SectVersion="1" SectionFlags="0" SubIdent="0">
+<![CDATA[Nominal sizes, optional frame joints on both sides, visible or butt glazed frames, door leaf styles, handle types, opening and opening signs in 2D / 3D, reveal, wall closure, minimal space]]>
+</Keywords>
+
+<ParamSection SectVersion="27" SectionFlags="0" SubIdent="0">
+	<ParamSectHeader>
+		<AutoHotspots>false</AutoHotspots>
+		<HoleBits>
+			<WDBit_3DFrame/>
+			<WDBit_ThickIsParam/>
+		</HoleBits>
+		<StatBits>
+			<STBit_UIDefault/>
+			<STBit_UIUseHierarchicalPages/>
+		</StatBits>
+		<WDLeftFrame>0</WDLeftFrame>
+		<WDRightFrame>0</WDRightFrame>
+		<WDTopFrame>0</WDTopFrame>
+		<WDBotFrame>0</WDBotFrame>
+		<LayFlags>65535</LayFlags>
+		<WDMirrorThickness>0</WDMirrorThickness>
+		<WDWallInset>0</WDWallInset>
+	</ParamSectHeader>
+	<Parameters>
+		<Length Name="A">
+			<Description><![CDATA["Width"]]></Description>
+			<Fix/>
+			<Value>1.8</Value>
+		</Length>
+		<Length Name="B">
+			<Description><![CDATA["Height"]]></Description>
+			<Fix/>
+			<Value>2.7</Value>
+		</Length>
+		<Length Name="ZZYZX">
+			<Description><![CDATA["Z Dimension"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>1</Value>
+		</Length>
+		<Integer Name="AC_WallContours">
+			<Description><![CDATA["Wall Contours (0-None,1-Full,2-Side,3-Length)"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>0</Value>
+		</Integer>
+		<Integer Name="AC_Hole_Hotspot_Control">
+			<Description><![CDATA["Hotspots 0-None,1-2D,2-3D,3-All"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>3</Value>
+		</Integer>
+		<Boolean Name="AC_show2DHotspotsIn3D">
+			<Description><![CDATA["Show 2D Hotspots in 3D"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>1</Value>
+		</Boolean>
+		<Length Name="ac_bottomlevel">
+			<Description><![CDATA["Bottom Level"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>1</Value>
+		</Length>
+		<Length Name="ac_toplevel">
+			<Description><![CDATA["Top Level"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>0</Value>
+		</Length>
+		<Length Name="AC_Sill_To_Curr_Story">
+			<Description><![CDATA["Sill Height to Current Story"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Unique/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>0</Value>
+		</Length>
+		<Integer Name="AC_Hole_Display_Option">
+			<Description><![CDATA["Floor Plan Display Option"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>3</Value>
+		</Integer>
+		<Angle Name="AC_Hole_Position_Angle">
+			<Description><![CDATA["Hole Position Angle"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>0</Value>
+		</Angle>
+		<Boolean Name="AC_HoleSideMaterial">
+			<Description><![CDATA["Hole has Wall's Side Surface"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>1</Value>
+		</Boolean>
+		<Boolean Name="AC_HoleMaterialCurved">
+			<Description><![CDATA["Hole Surface's Split is Curved in Curved Walls"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>0</Value>
+		</Boolean>
+
+		<!-- gs_door_frame: PARAMETER BLOCK ===== PARAMETER BLOCK ===== PARAMETER BLOCK ===== PARAMETER BLOCK -->
+
+		<Title Name="gs_door_frame">
+			<Description><![CDATA["Door Frame"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Hidden/>
+			</Flags>
+		</Title>
+		<Integer Name="AC_WallType">
+			<Description><![CDATA["Wall Type"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>0</Value>
+		</Integer>
+		<Integer Name="AC_WindowInWallContour">
+			<Description><![CDATA["Window in Wall Contour"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Hidden/>
+			</Flags>
+			<ArrayValues FirstDimension="4" SecondDimension="0">
+				<AVal Row="1">0</AVal>
+				<AVal Row="2">0</AVal>
+				<AVal Row="3">0</AVal>
+				<AVal Row="4">0</AVal>
+			</ArrayValues>
+		</Integer>
+		<Length Name="AC_WallContourPolygon">
+			<Description><![CDATA["Wall Contour Polygon"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Hidden/>
+			</Flags>
+			<ArrayValues FirstDimension="1" SecondDimension="3">
+				<AVal Column="1" Row="1">0</AVal>
+				<AVal Column="2" Row="1">0</AVal>
+				<AVal Column="3" Row="1">0</AVal>
+			</ArrayValues>
+		</Length>
+		<Integer Name="AC_Wall_Direction_Type">
+			<Description><![CDATA["Wall Direction Type"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>0</Value>
+		</Integer>
+		<Integer Name="ac_revealAnchorPos">
+			<Description><![CDATA["Reveal Anchor Position"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Unique/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>0</Value>
+		</Integer>
+		<Length Name="ac_revealToWallCore">
+			<Description><![CDATA["Reveal to Wall Core"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Unique/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>0</Value>
+		</Length>
+		<Integer Name="ac_zone_on_reveal_side">
+			<Description><![CDATA["Opening Direction"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Unique/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>1</Value>
+		</Integer>
+		<Boolean Name="ac_wido_flip_once">
+			<Description><![CDATA["Flip"]]></Description>
+			<Flags>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>0</Value>
+		</Boolean>
+		<Integer Name="pwi">
+			<Description><![CDATA["Parapet Wall Inset Value"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Unique/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>2</Value>
+		</Integer>
+
+		<!-- iTypeDemolitionFill: PARAMETER BLOCK ===== PARAMETER BLOCK ===== PARAMETER BLOCK ===== PARAMETER BLOCK -->
+
+		<Integer Name="iTypeDemolitionFill">
+			<Description><![CDATA["Demolition / New construction"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_BoldName/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>1</Value>
+		</Integer>
+		<FillPattern Name="gs_new_symb_fill">
+			<Description><![CDATA["New Wall Fill Type"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>4</Value>
+		</FillPattern>
+		<PenColor Name="gs_new_symb_pen_Fg">
+			<Description><![CDATA["New Wall Fill Pen"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>1</Value>
+		</PenColor>
+		<PenColor Name="gs_new_symb_pen_bg">
+			<Description><![CDATA["New Wall Fill Background Pen"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>19</Value>
+		</PenColor>
+		<Length Name="gs_new_symb_width_r">
+			<Description><![CDATA["New Wall Fill Width Right"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0.15</Value>
+		</Length>
+		<Length Name="gs_new_symb_width_l">
+			<Description><![CDATA["New Wall Fill Width Left"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0.15</Value>
+		</Length>
+		<Boolean Name="gs_bShowNewOnCC">
+			<Description><![CDATA["Show new construction on Wall"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>0</Value>
+		</Boolean>
+		<LineType Name="gs_Demolition_linetype">
+			<Description><![CDATA["Demolition line type"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>1</Value>
+		</LineType>
+		<Boolean Name="gs_bShowDemolitionPar">
+			<Description><![CDATA["Show Demolition/New parameter"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>0</Value>
+		</Boolean>
+
+		<!-- gs_options: PARAMETER BLOCK ===== PARAMETER BLOCK ===== PARAMETER BLOCK ===== PARAMETER BLOCK -->
+
+		<Title Name="gs_options">
+			<Description><![CDATA["Options"]]></Description>
+			<Fix/>
+		</Title>
+		<Integer Name="iDWDet2D">
+			<Description><![CDATA["2D Detail Level"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>1</Value>
+		</Integer>
+		<Integer Name="iDWDet3D">
+			<Description><![CDATA["3D Detail Level"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>8</Value>
+		</Integer>
+		<Boolean Name="gs_full_edit">
+			<Description><![CDATA["Fully Editable"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>1</Value>
+		</Boolean>
+		<Integer Name="iRevealOnSymbol">
+			<Description><![CDATA["Show Reveal on Symbol"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>1</Value>
+		</Integer>
+		<Integer Name="gs_rttl">
+			<Description><![CDATA["Right Panel/Total Panel Opening"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>50</Value>
+		</Integer>
+		<Boolean Name="bOpeningSymbDisplay">
+			<Description><![CDATA["Symbolic Display of Opening"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>0</Value>
+		</Boolean>
+		<String Name="gs_opening_dir_sl">
+			<Description><![CDATA["Glazing Direction"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA["From Reveal Side"]]></Value>
+		</String>
+		<Integer Name="gs_opening_dir_sl_m">
+			<Description><![CDATA["Glazing Direction"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>1</Value>
+		</Integer>
+
+		<!-- gs_door_sizes: PARAMETER BLOCK ===== PARAMETER BLOCK ===== PARAMETER BLOCK ===== PARAMETER BLOCK -->
+
+		<Title Name="gs_door_sizes">
+			<Description><![CDATA["Door Sizes"]]></Description>
+			<Fix/>
+		</Title>
+		<String Name="gs_unit_size">
+			<Description><![CDATA["Unit Size"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA["Custom Size"]]></Value>
+		</String>
+		<Length Name="gs_tolerance_left">
+			<Description><![CDATA["Tolerance Left"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0</Value>
+		</Length>
+		<Length Name="gs_tolerance_right">
+			<Description><![CDATA["Tolerance Right"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0</Value>
+		</Length>
+		<Length Name="gs_tolerance_upper">
+			<Description><![CDATA["Tolerance Upper"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0</Value>
+		</Length>
+		<Length Name="gs_tolerance_lower">
+			<Description><![CDATA["Tolerance Lower"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>0</Value>
+		</Length>
+		<Length Name="ac_wallhole_width">
+			<Description><![CDATA["Wallhole Width"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>1.8</Value>
+		</Length>
+		<Length Name="ac_wallhole_height">
+			<Description><![CDATA["Wallhole Height"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>2.7</Value>
+		</Length>
+		<Length Name="ac_reveal_width">
+			<Description><![CDATA["Reveal Width"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>1.8</Value>
+		</Length>
+		<Length Name="ac_reveal_height">
+			<Description><![CDATA["Reveal Height"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>2.7</Value>
+		</Length>
+		<Length Name="ac_unit_width">
+			<Description><![CDATA["Unit Width"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>1.8</Value>
+		</Length>
+		<Length Name="ac_unit_height">
+			<Description><![CDATA["Unit Height"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>2.7</Value>
+		</Length>
+		<Length Name="ac_egress_width">
+			<Description><![CDATA["Egress Width"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>1.7</Value>
+		</Length>
+		<Length Name="ac_egress_height">
+			<Description><![CDATA["Egress Height"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>2.05</Value>
+		</Length>
+		<Length Name="ac_leaf_width">
+			<Description><![CDATA["Nominal Leaf Width"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>1.72</Value>
+		</Length>
+		<Length Name="ac_leaf_height">
+			<Description><![CDATA["Nominal Leaf Height"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>2.06</Value>
+		</Length>
+		<Integer Name="gs_nominal_size">
+			<Description><![CDATA["Nominal Size"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>0</Value>
+		</Integer>
+		<Boolean Name="gs_wallhole_nominal">
+			<Description><![CDATA["Set Wallhole Size as Nominal Size"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>1</Value>
+		</Boolean>
+		<Boolean Name="gs_reveal_nominal">
+			<Description><![CDATA["Set Reveal Size as Nominal Size"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0</Value>
+		</Boolean>
+		<Boolean Name="gs_unit_nominal">
+			<Description><![CDATA["Set Unit Size as Nominal Size"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0</Value>
+		</Boolean>
+		<Boolean Name="gs_egress_nominal">
+			<Description><![CDATA["Set Egress Size as Nominal Size"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0</Value>
+		</Boolean>
+		<Boolean Name="gs_leaf_nominal">
+			<Description><![CDATA["Set Leaf Size as Nominal Size"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0</Value>
+		</Boolean>
+		<Boolean Name="gs_retain_nominal_sizes">
+			<Description><![CDATA["Transfer Current Nominal Size to Selection"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0</Value>
+		</Boolean>
+
+		<!-- titleEndFrame: PARAMETER BLOCK ===== PARAMETER BLOCK ===== PARAMETER BLOCK ===== PARAMETER BLOCK -->
+
+		<Title Name="titleEndFrame">
+			<Description><![CDATA["End Frame Profile"]]></Description>
+		</Title>
+		<String Name="endFrameLeft">
+			<Description><![CDATA["End Frame Profile on Left"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA["Normal"]]></Value>
+		</String>
+		<Integer Name="iEndFrameLeft">
+			<Description><![CDATA["End Frame Profile on Left"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>1</Value>
+		</Integer>
+		<Boolean Name="gs_stack_left">
+			<Description><![CDATA["Joint Left"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>0</Value>
+		</Boolean>
+		<Angle Name="leftCornerAngle">
+			<Description><![CDATA["Left Angle"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>90</Value>
+		</Angle>
+		<String Name="endFrameRight">
+			<Description><![CDATA["End Frame Profile on Right"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA["Normal"]]></Value>
+		</String>
+		<Integer Name="iEndFrameRight">
+			<Description><![CDATA["End Frame Profile on Right"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>1</Value>
+		</Integer>
+		<Boolean Name="gs_stack_right">
+			<Description><![CDATA["Joint Right"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>0</Value>
+		</Boolean>
+		<Angle Name="rightCornerAngle">
+			<Description><![CDATA["Right Angle"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>90</Value>
+		</Angle>
+		<Boolean Name="gs_stack_top">
+			<Description><![CDATA["Joint Upper"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0</Value>
+		</Boolean>
+		<Boolean Name="gs_stack_bottom">
+			<Description><![CDATA["Joint Lower"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>0</Value>
+		</Boolean>
+
+		<!-- titleStorefrontFrame: PARAMETER BLOCK ===== PARAMETER BLOCK ===== PARAMETER BLOCK ===== PARAMETER BLOCK -->
+
+		<Title Name="titleStorefrontFrame">
+			<Description><![CDATA["Door Frame"]]></Description>
+			<Fix/>
+		</Title>
+		<String Name="frameStyleLeft">
+			<Description><![CDATA["Frame Style on Left Side"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA["Visible Mullions"]]></Value>
+		</String>
+		<String Name="frameStyleRight">
+			<Description><![CDATA["Frame Style on Right Side"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA["Visible Mullions"]]></Value>
+		</String>
+		<Boolean Name="gs_wthk">
+			<Description><![CDATA["Frame Thickness=Wall Thickness"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0</Value>
+		</Boolean>
+		<Length Name="gs_frame_thk">
+			<Description><![CDATA["Frame Thickness"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0.08</Value>
+		</Length>
+		<Length Name="gs_frame_width">
+			<Description><![CDATA["Frame Width"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0.04</Value>
+		</Length>
+		<Boolean Name="gs_mf">
+			<Description><![CDATA["Middle Frame"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0</Value>
+		</Boolean>
+
+		<!-- gs_sidelight: PARAMETER BLOCK ===== PARAMETER BLOCK ===== PARAMETER BLOCK ===== PARAMETER BLOCK -->
+
+		<Title Name="gs_sidelight">
+			<Description><![CDATA["Shape"]]></Description>
+			<Fix/>
+		</Title>
+		<Boolean Name="gs_door_transom">
+			<Description><![CDATA["Transom"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>1</Value>
+		</Boolean>
+		<Length Name="gs_transom_height">
+			<Description><![CDATA["Transom Height"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0.64</Value>
+		</Length>
+		<Boolean Name="gs_sidelight_left">
+			<Description><![CDATA["Sidelight Side 1"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>0</Value>
+		</Boolean>
+		<Length Name="gs_sidelight_width_left">
+			<Description><![CDATA["Sidelight Width 1"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>0</Value>
+		</Length>
+		<Boolean Name="gs_sidelight_right">
+			<Description><![CDATA["Sidelight Side 2"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>0</Value>
+		</Boolean>
+		<Length Name="gs_sidelight_width_right">
+			<Description><![CDATA["Sidelight Width 2"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>0</Value>
+		</Length>
+
+		<!-- titlePanels: PARAMETER BLOCK ===== PARAMETER BLOCK ===== PARAMETER BLOCK ===== PARAMETER BLOCK -->
+
+		<Title Name="titlePanels">
+			<Description><![CDATA["Panels"]]></Description>
+		</Title>
+		<String Name="divisionMethod">
+			<Description><![CDATA["Panel Division Type"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA["Number of Divisions"]]></Value>
+		</String>
+		<Integer Name="iDivisionMethod">
+			<Description><![CDATA["Panel Division Type"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>1</Value>
+		</Integer>
+		<Length Name="divWidthHor">
+			<Description><![CDATA["Horizontal Division Width (0-No)"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0.3</Value>
+		</Length>
+		<Length Name="divWidthVertBottom">
+			<Description><![CDATA["Bottom Vertical Div. Width (0-No)"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0.3</Value>
+		</Length>
+		<Length Name="divWidthVertMiddle">
+			<Description><![CDATA["Middle Vertical Division Width (0-No)"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0.3</Value>
+		</Length>
+		<Length Name="divWidthVertTransom">
+			<Description><![CDATA["Transom Vertical Division Width (0-No)"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0.3</Value>
+		</Length>
+		<Integer Name="nHorDivision">
+			<Description><![CDATA["Horizontal Division Number"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>1</Value>
+		</Integer>
+		<Length Name="gs_grid_w">
+			<Description><![CDATA["Horizontal Mullion Width"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0.03</Value>
+		</Length>
+		<Length Name="gs_grid_thk">
+			<Description><![CDATA["Horizontal Mullion Thickness"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0.05</Value>
+		</Length>
+		<Length Name="gridWidthVert">
+			<Description><![CDATA["Vertical Mullion Width"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0.03</Value>
+		</Length>
+		<Length Name="gridThkVert">
+			<Description><![CDATA["Vertical Mullion Thickness"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0.05</Value>
+		</Length>
+		<Integer Name="gs_hor_gnum">
+			<Description><![CDATA["Bottom Vert. Mull. Number"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>1</Value>
+		</Integer>
+		<Integer Name="nVertDivMiddle">
+			<Description><![CDATA["Middle Vert. Div. Number"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>2</Value>
+		</Integer>
+		<Length Name="gs_hor_dtr">
+			<Description><![CDATA["Middle Vert. Mull. Distance"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<ArrayValues FirstDimension="1" SecondDimension="0">
+				<AVal Row="1">0.5575</AVal>
+			</ArrayValues>
+		</Length>
+		<Integer Name="gs_hor_gnumtr">
+			<Description><![CDATA["Middle Vert. Mull. Number"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>1</Value>
+		</Integer>
+		<Integer Name="nVertDivTransom">
+			<Description><![CDATA["Transom Vert. Div. Number"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>1</Value>
+		</Integer>
+		<Length Name="gs_hor_dtp">
+			<Description><![CDATA["Transom Vert. Mull. Distance"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<ArrayValues FirstDimension="1" SecondDimension="0">
+				<AVal Row="1">0.29845</AVal>
+			</ArrayValues>
+		</Length>
+		<Integer Name="gs_hor_gtp">
+			<Description><![CDATA["Transom Vert. Mull. Number"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>0</Value>
+		</Integer>
+		<Length Name="middlePanelHeight">
+			<Description><![CDATA["Transom Height"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>0</Value>
+		</Length>
+
+		<!-- gs_door_panel: PARAMETER BLOCK ===== PARAMETER BLOCK ===== PARAMETER BLOCK ===== PARAMETER BLOCK -->
+
+		<Title Name="gs_door_panel">
+			<Description><![CDATA["Door Leaf"]]></Description>
+			<Fix/>
+		</Title>
+		<Integer Name="iDoorPanelType">
+			<Description><![CDATA["Panel Style"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>39</Value>
+		</Integer>
+		<String Name="gs_cust_panel">
+			<Description><![CDATA["Custom Panel Name"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<String Name="gs_cust_p">
+			<Description><![CDATA["Custom Panel Name"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<Boolean Name="bMiddleRail">
+			<Description><![CDATA["Middle Rail"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>1</Value>
+		</Boolean>
+		<Length Name="midRailWidth">
+			<Description><![CDATA["Middle Rail Width"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0.15</Value>
+		</Length>
+		<Length Name="midRailElevation">
+			<Description><![CDATA["Middle Rail Elevation"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0.9</Value>
+		</Length>
+		<Length Name="bottomRailWidth">
+			<Description><![CDATA["Bottom Rail Width"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0.15</Value>
+		</Length>
+		<Boolean Name="gs_ds">
+			<Description><![CDATA["Door Stop"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>1</Value>
+		</Boolean>
+		<Length Name="gs_ds_thk">
+			<Description><![CDATA["Door Stop Thickness"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0.0254</Value>
+		</Length>
+		<Length Name="gs_ds_w">
+			<Description><![CDATA["Door Stop Width"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0.01</Value>
+		</Length>
+		<String Name="gs_handle_type">
+			<Description><![CDATA["Door Handle Type Left Inside"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA["None"]]></Value>
+		</String>
+		<Integer Name="gs_handle_type_m">
+			<Description><![CDATA["Door Handle Type Left Inside"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>0</Value>
+		</Integer>
+		<Boolean Name="bShowHandleOnSymbol">
+			<Description><![CDATA[""]]></Description>
+			<Value>0</Value>
+		</Boolean>
+		<String Name="gs_cust_handle">
+			<Description><![CDATA["Custom Handle Left Inside"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<String Name="gs_handle_type_out">
+			<Description><![CDATA["Door Handle Type Left Outside"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA["None"]]></Value>
+		</String>
+		<Integer Name="gs_handle_type_out_m">
+			<Description><![CDATA["Door Handle Type Left Outside"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>0</Value>
+		</Integer>
+		<String Name="gs_cust_handle_out">
+			<Description><![CDATA["Custom Handle Left Outside"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<Integer Name="gs_handle_type2_m">
+			<Description><![CDATA["Door Handle Type Right Inside"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>0</Value>
+		</Integer>
+		<String Name="gs_cust_handle2">
+			<Description><![CDATA["Custom Handle Right Inside"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<String Name="gs_handle_type2_out">
+			<Description><![CDATA["Door Handle Type Right Outside"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA["None"]]></Value>
+		</String>
+		<Integer Name="gs_handle_type2_out_m">
+			<Description><![CDATA["Door Handle Type Right Outside"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>0</Value>
+		</Integer>
+		<String Name="gs_cust_handle2_out">
+			<Description><![CDATA["Custom Handle Right Outside"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<Length Name="gs_han_height">
+			<Description><![CDATA["Handle Height Left"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0.9</Value>
+		</Length>
+		<Length Name="gs_han_pos">
+			<Description><![CDATA["Handle Distance from Leaf Edge Left"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0.035</Value>
+		</Length>
+		<Length Name="gs_han_height2">
+			<Description><![CDATA["Handle Height Right"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0.9</Value>
+		</Length>
+		<Length Name="gs_han_pos2">
+			<Description><![CDATA["Handle Distance from Leaf Edge Right"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0.035</Value>
+		</Length>
+		<Boolean Name="bKickBoardOut">
+			<Description><![CDATA["Kick Board Outside"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0</Value>
+		</Boolean>
+		<Boolean Name="bKickBoardIn">
+			<Description><![CDATA["Kick Board Inside"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0</Value>
+		</Boolean>
+		<Length Name="kickBoardHeight">
+			<Description><![CDATA["Kick Board Height"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0.1</Value>
+		</Length>
+		<Boolean Name="bKickBoardOut2">
+			<Description><![CDATA["Kick Board Outside 2"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0</Value>
+		</Boolean>
+		<Boolean Name="bKickBoardIn2">
+			<Description><![CDATA["Kick Board Inside 2"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0</Value>
+		</Boolean>
+		<Length Name="kickBoardHeight2">
+			<Description><![CDATA["Kick Board Height 2"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0.1</Value>
+		</Length>
+		<Length Name="leafFrameWidth">
+			<Description><![CDATA["Leaf Frame Width"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0.08</Value>
+		</Length>
+		<Length Name="gs_leaf_thk">
+			<Description><![CDATA["Leaf Thickness"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0.04</Value>
+		</Length>
+		<Length Name="gs_fw_side_right">
+			<Description><![CDATA["Leaf Frame Width Right"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>0.04</Value>
+		</Length>
+		<Length Name="gs_fw_side_left">
+			<Description><![CDATA["Leaf Frame Width Left"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>0.04</Value>
+		</Length>
+		<Length Name="gs_fw_lower">
+			<Description><![CDATA["Leaf Frame Width Lower"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>0.15</Value>
+		</Length>
+		<Length Name="gs_fw_upper">
+			<Description><![CDATA["Leaf Frame Width Upper"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>0.04</Value>
+		</Length>
+
+		<!-- titleGlassMullions: PARAMETER BLOCK ===== PARAMETER BLOCK ===== PARAMETER BLOCK ===== PARAMETER BLOCK -->
+
+		<Title Name="titleGlassMullions">
+			<Description><![CDATA["Glass and Mullions"]]></Description>
+		</Title>
+		<String Name="frameStyleMullion">
+			<Description><![CDATA["Frame Style on Mull."]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA["Visible Mullions"]]></Value>
+		</String>
+		<Boolean Name="gs_md">
+			<Description><![CDATA["Grid Depth=Frame Depth"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0</Value>
+		</Boolean>
+		<Integer Name="gs_ver_gnum">
+			<Description><![CDATA["Horizontal Mullion Number"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>0</Value>
+		</Integer>
+		<Integer Name="nVertDivBottom">
+			<Description><![CDATA["Bottom Vert. Div. Number"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>2</Value>
+		</Integer>
+		<Length Name="gs_glass_thk">
+			<Description><![CDATA["Glass Thickness"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0.01</Value>
+		</Length>
+		<Boolean Name="gs_gsmd">
+			<Description><![CDATA["Glass Setback=1/2 Mullion Depth"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0</Value>
+		</Boolean>
+		<Length Name="gs_gsb">
+			<Description><![CDATA["Glass Setback"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0.01</Value>
+		</Length>
+		<Length Name="buttGalzedJoint">
+			<Description><![CDATA["Butt Glazed Joint"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0.01</Value>
+		</Length>
+		<Boolean Name="bShowGlassPanelOnSymbol">
+			<Description><![CDATA[""]]></Description>
+			<Value>1</Value>
+		</Boolean>
+		<Boolean Name="bShowChiSpringSymbol">
+			<Description><![CDATA[""]]></Description>
+			<Value>0</Value>
+		</Boolean>
+		<Boolean Name="bShowAirtightPanel">
+			<Description><![CDATA[""]]></Description>
+			<Value>0</Value>
+		</Boolean>
+		<FillPattern Name="gs_fillAirtight">
+			<Description><![CDATA["Airtight Symbol Fill Type"]]></Description>
+			<Value>64</Value>
+		</FillPattern>
+		<PenColor Name="gs_penAirtight_fg">
+			<Description><![CDATA["Airtight Symbol Fill Pen"]]></Description>
+			<Value>1</Value>
+		</PenColor>
+		<PenColor Name="gs_penAirtight_bg">
+			<Description><![CDATA["Airtight Symbol Fill Background Pen"]]></Description>
+			<Value>1</Value>
+		</PenColor>
+
+		<!-- bVentilationProfile: PARAMETER BLOCK ===== PARAMETER BLOCK ===== PARAMETER BLOCK ===== PARAMETER BLOCK -->
+
+		<Boolean Name="bVentilationProfile">
+			<Description><![CDATA["Natural Ventilation"]]></Description>
+			<Flags>
+				<ParFlg_BoldName/>
+			</Flags>
+			<Value>0</Value>
+		</Boolean>
+		<Integer Name="iVentilationProfileType">
+			<Description><![CDATA["Natural Ventilation Type"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>2</Value>
+		</Integer>
+		<Length Name="VentilationProfileHeight">
+			<Description><![CDATA["Profile Height"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0.065</Value>
+		</Length>
+		<Length Name="VentilationProfileThickness">
+			<Description><![CDATA["Profile Thickness"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0.11</Value>
+		</Length>
+
+		<!-- gs_reveal_type_new: PARAMETER BLOCK ===== PARAMETER BLOCK ===== PARAMETER BLOCK ===== PARAMETER BLOCK -->
+
+		<String Name="gs_reveal_type_new">
+			<Description><![CDATA["Reveal Type"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_BoldName/>
+			</Flags>
+			<Value><![CDATA["No Reveal - Edge"]]></Value>
+		</String>
+		<Integer Name="gs_reveal_type_int">
+			<Description><![CDATA["Reveal Type"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_BoldName/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>1</Value>
+		</Integer>
+		<String Name="gs_reveal_type_bottom">
+			<Description><![CDATA["Bottom Reveal Type"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA["No Reveal"]]></Value>
+		</String>
+		<Integer Name="gs_reveal_type_bottom_int">
+			<Description><![CDATA["Bottom Reveal Type"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>2</Value>
+		</Integer>
+		<Length Name="gs_wido_sill">
+			<Description><![CDATA["Reveal Depth"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0</Value>
+		</Length>
+		<Length Name="AC_wido_sill">
+			<Description><![CDATA["Reveal Depth"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>0</Value>
+		</Length>
+		<String Name="gs_reveal_type">
+			<Description><![CDATA["Outer Reveal Type"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA["No Reveal"]]></Value>
+		</String>
+		<Integer Name="gs_reveal_doubleOuterTypeInt">
+			<Description><![CDATA["Reveal Type"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>0</Value>
+		</Integer>
+		<String Name="gs_reveal_double_innerType">
+			<Description><![CDATA["Inner Reveal Type"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA["No Reveal"]]></Value>
+		</String>
+		<Integer Name="gs_reveal_doubleInnerTypeInt">
+			<Description><![CDATA["Reveal Type"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>0</Value>
+		</Integer>
+		<Boolean Name="gs_reveal_uniform">
+			<Description><![CDATA["Uniform Jamb Depth"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>1</Value>
+		</Boolean>
+		<Length Name="gs_reveal_left">
+			<Description><![CDATA["Jamb Depth Side 2"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0.06</Value>
+		</Length>
+		<Length Name="gs_reveal_right">
+			<Description><![CDATA["Jamb Depth"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0.06</Value>
+		</Length>
+		<Length Name="gs_reveal_splayed_innerLeft">
+			<Description><![CDATA["Inner Jamb Depth Side 2"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0.06</Value>
+		</Length>
+		<Length Name="gs_reveal_splayed_innerRight">
+			<Description><![CDATA["Inner Jamb Depth"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0.06</Value>
+		</Length>
+		<Length Name="gs_reveal_double_innerLeft">
+			<Description><![CDATA["Inner Jamb Depth Side 2"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0.06</Value>
+		</Length>
+		<Length Name="gs_reveal_double_innerRight">
+			<Description><![CDATA["Inner Jamb Depth"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0.06</Value>
+		</Length>
+		<Length Name="gs_reveal_top">
+			<Description><![CDATA["Head Jamb Depth"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0.06</Value>
+		</Length>
+		<Length Name="gs_reveal_bottom">
+			<Description><![CDATA["Sill Jamb Depth"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0.06</Value>
+		</Length>
+		<Length Name="gs_reveal_splayed_innerTop">
+			<Description><![CDATA["Inner Head Depth"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0.06</Value>
+		</Length>
+		<Length Name="gs_reveal_splayed_innerBottom">
+			<Description><![CDATA["Inner Sill Depth"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0.06</Value>
+		</Length>
+		<Length Name="gs_reveal_double_innerTop">
+			<Description><![CDATA["Inner Head Depth"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0.06</Value>
+		</Length>
+		<Length Name="gs_reveal_double_innerBottom">
+			<Description><![CDATA["Inner Sill Depth"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0.06</Value>
+		</Length>
+		<Length Name="gs_reveal_outer_jamb_depth">
+			<Description><![CDATA["Outer Jamb Depth"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0.08</Value>
+		</Length>
+		<Angle Name="gs_reveal_left_angle">
+			<Description><![CDATA["Angle Side 2"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>20</Value>
+		</Angle>
+		<Angle Name="gs_reveal_right_angle">
+			<Description><![CDATA["Angle Side"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>20</Value>
+		</Angle>
+		<Angle Name="gs_reveal_top_angle">
+			<Description><![CDATA["Upper Side Angle"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>20</Value>
+		</Angle>
+		<Angle Name="gs_reveal_bottom_angle">
+			<Description><![CDATA["Bottom Side Angle"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>20</Value>
+		</Angle>
+		<Boolean Name="gs_reveal_auto_changed_by_cc">
+			<Description><![CDATA[""]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Unique/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>0</Value>
+		</Boolean>
+
+		<!-- gs_turn_plaster: PARAMETER BLOCK ===== PARAMETER BLOCK ===== PARAMETER BLOCK ===== PARAMETER BLOCK -->
+
+		<Title Name="gs_turn_plaster">
+			<Description><![CDATA["Turn Plaster"]]></Description>
+			<Fix/>
+		</Title>
+		<Boolean Name="gs_useWallFinishSkin">
+			<Description><![CDATA["Use Wall Finish Component"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0</Value>
+		</Boolean>
+		<Length Name="gs_maxPlasterThk">
+			<Description><![CDATA["Plaster Thickness Limit"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0.04</Value>
+		</Length>
+		<Boolean Name="gs_bAutoTurnOut">
+			<Description><![CDATA["Auto Turn Inside Face Plaster"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>1</Value>
+		</Boolean>
+		<Integer Name="gs_bOverOut">
+			<Description><![CDATA["Turn Inside Face Plaster"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0</Value>
+		</Integer>
+		<Boolean Name="gs_bAutoTurnIn">
+			<Description><![CDATA["Auto Turn Outside Face Plaster"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>1</Value>
+		</Boolean>
+		<Integer Name="gs_bOverIn">
+			<Description><![CDATA["Turn Outside Face Plaster"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0</Value>
+		</Integer>
+		<Boolean Name="gs_turn_plaster_dim_2D">
+			<Description><![CDATA["Dimensionable on 2D"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0</Value>
+		</Boolean>
+		<Boolean Name="gs_turn_plaster_show_3D">
+			<Description><![CDATA["Show in 3D"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0</Value>
+		</Boolean>
+
+		<!-- gs_closure_type: PARAMETER BLOCK ===== PARAMETER BLOCK ===== PARAMETER BLOCK ===== PARAMETER BLOCK -->
+
+		<String Name="gs_closure_type">
+			<Description><![CDATA["Closure Type"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_BoldName/>
+			</Flags>
+			<Value><![CDATA["No Closure"]]></Value>
+		</String>
+		<Integer Name="gs_closure_type_int">
+			<Description><![CDATA["Closure Type"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_BoldName/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>1</Value>
+		</Integer>
+		<String Name="gs_cavity_side">
+			<Description><![CDATA["Turn Skin on Side"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA["Both"]]></Value>
+		</String>
+		<Integer Name="iCavityClosureSide">
+			<Description><![CDATA["Turn Skin on Side"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>1</Value>
+		</Integer>
+		<Integer Name="gs_nTurn">
+			<Description><![CDATA["Number of Skins to Turn"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>1</Value>
+		</Integer>
+		<String Name="gs_nTurnDir">
+			<Description><![CDATA["Number from"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA["Outside Face"]]></Value>
+		</String>
+		<Integer Name="iCavityClosureTurnDir">
+			<Description><![CDATA["Number from"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>1</Value>
+		</Integer>
+		<Boolean Name="gs_cc_dutch_ShowLeft">
+			<Description><![CDATA["Place Closer on Side 2"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>1</Value>
+		</Boolean>
+		<Boolean Name="gs_cc_dutch_ShowRight">
+			<Description><![CDATA["Place Closer on Side 1"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>1</Value>
+		</Boolean>
+		<Boolean Name="gs_cc_dutch_ShowTop">
+			<Description><![CDATA["Place Closer on Top"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0</Value>
+		</Boolean>
+		<Boolean Name="gs_cc_dutch_ShowBottom">
+			<Description><![CDATA["Place Closer on Bottom"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0</Value>
+		</Boolean>
+		<Integer Name="gs_cc_dutch_ClosureToSkin">
+			<Description><![CDATA["Place Closer to Skin"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>1</Value>
+		</Integer>
+		<String Name="gs_cc_dutch_ClosureToSide_str">
+			<Description><![CDATA["Place Closer from Side"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<Integer Name="gs_cc_dutch_ClosureToSide">
+			<Description><![CDATA["Place Closer from Side"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>1</Value>
+		</Integer>
+		<Boolean Name="gs_cc_dutch_GapAtOutsideSkin">
+			<Description><![CDATA["Gap at Outside Skin"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>1</Value>
+		</Boolean>
+		<Boolean Name="gs_cc_dutch_TurnToClosure">
+			<Description><![CDATA["Turn Skin to Closer"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0</Value>
+		</Boolean>
+		<Length Name="gs_cc_dutch_TurnToClosureOffs">
+			<Description><![CDATA["Distance of Skin from Closer"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0</Value>
+		</Length>
+		<Length Name="gs_cc_dutch_widthJoint">
+			<Description><![CDATA["Closer Width"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0.038</Value>
+		</Length>
+		<Length Name="gs_cc_dutch_thkJoint">
+			<Description><![CDATA["Closer Thickness"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0.1</Value>
+		</Length>
+		<Boolean Name="gs_bJoint">
+			<Description><![CDATA["Insert Insulation Strip"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_BoldName/>
+			</Flags>
+			<Value>1</Value>
+		</Boolean>
+		<Boolean Name="gs_showJoint">
+			<Description><![CDATA["Show Insulation Strip"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>1</Value>
+		</Boolean>
+		<Length Name="gs_thkJoint">
+			<Description><![CDATA["Strip Thickness"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0.025</Value>
+		</Length>
+		<PenColor Name="gs_penJoint">
+			<Description><![CDATA["Contour Pen"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>43</Value>
+		</PenColor>
+		<LineType Name="gs_ltJoint">
+			<Description><![CDATA["Contour Line Type"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>1</Value>
+		</LineType>
+		<FillPattern Name="gs_fillJoint">
+			<Description><![CDATA["Fill Type"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>17</Value>
+		</FillPattern>
+		<PenColor Name="gs_penJointFg">
+			<Description><![CDATA["Fill Pen"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>1</Value>
+		</PenColor>
+		<PenColor Name="gs_penJointBg">
+			<Description><![CDATA["Fill Background Pen"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>102</Value>
+		</PenColor>
+		<Boolean Name="gs_cc_dutch_matJointCustom">
+			<Description><![CDATA["Custom Surface"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0</Value>
+		</Boolean>
+		<Material Name="gs_cc_dutch_matJoint">
+			<Description><![CDATA["Surface"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>15</Value>
+		</Material>
+		<Length Name="gs_widthPlug">
+			<Description><![CDATA["Profile Width"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0.15</Value>
+		</Length>
+		<PenColor Name="gs_penPlug">
+			<Description><![CDATA["Contour Pen"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>43</Value>
+		</PenColor>
+		<LineType Name="gs_ltPlug">
+			<Description><![CDATA["Contour Line Type"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>1</Value>
+		</LineType>
+		<FillPattern Name="gs_fillPlug">
+			<Description><![CDATA["Fill Type"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>17</Value>
+		</FillPattern>
+		<PenColor Name="gs_penPlugFg">
+			<Description><![CDATA["Fill Pen"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>1</Value>
+		</PenColor>
+		<PenColor Name="gs_penPlugBg">
+			<Description><![CDATA["Fill Background Pen"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>102</Value>
+		</PenColor>
+		<Length Name="gs_custom_cc_array_left">
+			<Description><![CDATA["Left Side Skin Data"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<ArrayValues FirstDimension="8" SecondDimension="4">
+				<AVal Column="1" Row="1">0</AVal>
+				<AVal Column="2" Row="1">0.015</AVal>
+				<AVal Column="3" Row="1">0</AVal>
+				<AVal Column="4" Row="1">1</AVal>
+				<AVal Column="1" Row="2">0</AVal>
+				<AVal Column="2" Row="2">0.015</AVal>
+				<AVal Column="3" Row="2">0</AVal>
+				<AVal Column="4" Row="2">1</AVal>
+				<AVal Column="1" Row="3">0</AVal>
+				<AVal Column="2" Row="3">0.015</AVal>
+				<AVal Column="3" Row="3">0</AVal>
+				<AVal Column="4" Row="3">1</AVal>
+				<AVal Column="1" Row="4">0</AVal>
+				<AVal Column="2" Row="4">0.015</AVal>
+				<AVal Column="3" Row="4">0</AVal>
+				<AVal Column="4" Row="4">1</AVal>
+				<AVal Column="1" Row="5">0</AVal>
+				<AVal Column="2" Row="5">0.015</AVal>
+				<AVal Column="3" Row="5">0</AVal>
+				<AVal Column="4" Row="5">1</AVal>
+				<AVal Column="1" Row="6">0</AVal>
+				<AVal Column="2" Row="6">0.015</AVal>
+				<AVal Column="3" Row="6">0</AVal>
+				<AVal Column="4" Row="6">1</AVal>
+				<AVal Column="1" Row="7">0</AVal>
+				<AVal Column="2" Row="7">0.015</AVal>
+				<AVal Column="3" Row="7">0</AVal>
+				<AVal Column="4" Row="7">1</AVal>
+				<AVal Column="1" Row="8">0</AVal>
+				<AVal Column="2" Row="8">0.015</AVal>
+				<AVal Column="3" Row="8">0</AVal>
+				<AVal Column="4" Row="8">1</AVal>
+			</ArrayValues>
+		</Length>
+		<Length Name="gs_custom_cc_array_right">
+			<Description><![CDATA["Right Side Skin Data"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<ArrayValues FirstDimension="8" SecondDimension="4">
+				<AVal Column="1" Row="1">0</AVal>
+				<AVal Column="2" Row="1">0.015</AVal>
+				<AVal Column="3" Row="1">0</AVal>
+				<AVal Column="4" Row="1">1</AVal>
+				<AVal Column="1" Row="2">0</AVal>
+				<AVal Column="2" Row="2">0.015</AVal>
+				<AVal Column="3" Row="2">0</AVal>
+				<AVal Column="4" Row="2">1</AVal>
+				<AVal Column="1" Row="3">0</AVal>
+				<AVal Column="2" Row="3">0.015</AVal>
+				<AVal Column="3" Row="3">0</AVal>
+				<AVal Column="4" Row="3">1</AVal>
+				<AVal Column="1" Row="4">0</AVal>
+				<AVal Column="2" Row="4">0.015</AVal>
+				<AVal Column="3" Row="4">0</AVal>
+				<AVal Column="4" Row="4">1</AVal>
+				<AVal Column="1" Row="5">0</AVal>
+				<AVal Column="2" Row="5">0.015</AVal>
+				<AVal Column="3" Row="5">0</AVal>
+				<AVal Column="4" Row="5">1</AVal>
+				<AVal Column="1" Row="6">0</AVal>
+				<AVal Column="2" Row="6">0.015</AVal>
+				<AVal Column="3" Row="6">0</AVal>
+				<AVal Column="4" Row="6">1</AVal>
+				<AVal Column="1" Row="7">0</AVal>
+				<AVal Column="2" Row="7">0.015</AVal>
+				<AVal Column="3" Row="7">0</AVal>
+				<AVal Column="4" Row="7">1</AVal>
+				<AVal Column="1" Row="8">0</AVal>
+				<AVal Column="2" Row="8">0.015</AVal>
+				<AVal Column="3" Row="8">0</AVal>
+				<AVal Column="4" Row="8">1</AVal>
+			</ArrayValues>
+		</Length>
+		<Integer Name="iCustomCCEditJambSide">
+			<Description><![CDATA["Edited Jamb Side"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>1</Value>
+		</Integer>
+		<Integer Name="iCustomCCEditWallSide">
+			<Description><![CDATA["Edited Wall Side"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>1</Value>
+		</Integer>
+		<Integer Name="iCustomCCEditSkin">
+			<Description><![CDATA["Edited Skin Number"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>1</Value>
+		</Integer>
+		<Boolean Name="gs_custom_cc_turn_in">
+			<Description><![CDATA["Turn-in Skin"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0</Value>
+		</Boolean>
+		<Boolean Name="gs_custom_cc_plaster">
+			<Description><![CDATA["Consider Skin as Plaster"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0</Value>
+		</Boolean>
+		<Integer Name="iCustomCCThicknessType">
+			<Description><![CDATA["Turn-in Thickness"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>1</Value>
+		</Integer>
+		<Length Name="gs_custom_cc_thickness">
+			<Description><![CDATA["Custom Thickness"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0.015</Value>
+		</Length>
+		<Integer Name="iCustomCCOrientation">
+			<Description><![CDATA["Hatch Orientation"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>1</Value>
+		</Integer>
+		<Boolean Name="gs_custom_cc_separator">
+			<Description><![CDATA["Separating Line at Turn-in"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0</Value>
+		</Boolean>
+		<PenColor Name="gs_custom_cc_separator_pen">
+			<Description><![CDATA["Separating Line Pen"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>1</Value>
+		</PenColor>
+		<Length Name="gs_custom_cc_overhang">
+			<Description><![CDATA["Skin Overhang to Frame Depth"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0</Value>
+		</Length>
+		<Boolean Name="gs_custom_cc_last_sel_side">
+			<Description><![CDATA["Last Selected Side"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>0</Value>
+		</Boolean>
+		<Boolean Name="gs_closure_auto_changed">
+			<Description><![CDATA["Closure Method Changed Automatically"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>0</Value>
+		</Boolean>
+
+		<!-- gs_door_oversize: PARAMETER BLOCK ===== PARAMETER BLOCK ===== PARAMETER BLOCK ===== PARAMETER BLOCK -->
+
+		<Title Name="gs_door_oversize">
+			<Description><![CDATA["Opening Oversize"]]></Description>
+		</Title>
+		<Length Name="gs_left_oversize">
+			<Description><![CDATA["Left Opening Oversize"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0</Value>
+		</Length>
+		<Length Name="gs_right_oversize">
+			<Description><![CDATA["Right Opening Oversize"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0</Value>
+		</Length>
+		<Length Name="gs_upper_oversize">
+			<Description><![CDATA["Upper Opening Oversize"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0</Value>
+		</Length>
+		<Length Name="gs_lower_oversize">
+			<Description><![CDATA["Lower Opening Oversize"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0</Value>
+		</Length>
+
+		<!-- ac_details: PARAMETER BLOCK ===== PARAMETER BLOCK ===== PARAMETER BLOCK ===== PARAMETER BLOCK -->
+
+		<Title Name="ac_details">
+			<Description><![CDATA["Computed Oversize Values"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Hidden/>
+			</Flags>
+		</Title>
+		<Length Name="ac_left_oversize">
+			<Description><![CDATA["AC Left Opening Oversize"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>0</Value>
+		</Length>
+		<Length Name="ac_right_oversize">
+			<Description><![CDATA["AC Right Opening Oversize"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>0</Value>
+		</Length>
+		<Length Name="ac_upper_oversize">
+			<Description><![CDATA["AC Upper Opening Oversize"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>0</Value>
+		</Length>
+		<Length Name="ac_lower_oversize">
+			<Description><![CDATA["AC Lower Opening Oversize"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>0</Value>
+		</Length>
+
+		<!-- gs_head_symbol: PARAMETER BLOCK ===== PARAMETER BLOCK ===== PARAMETER BLOCK ===== PARAMETER BLOCK -->
+
+		<Boolean Name="gs_head_symbol">
+			<Description><![CDATA["Head Depth on Symbol"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_BoldName/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>0</Value>
+		</Boolean>
+		<LineType Name="gs_head_symbol_line">
+			<Description><![CDATA["Head Depth Symbol Line Type"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>21</Value>
+		</LineType>
+		<PenColor Name="gs_head_symbol_pen">
+			<Description><![CDATA["Head Depth Symbol Pen"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>6</Value>
+		</PenColor>
+
+		<!-- gs_opening_params: PARAMETER BLOCK ===== PARAMETER BLOCK ===== PARAMETER BLOCK ===== PARAMETER BLOCK -->
+
+		<Title Name="gs_opening_params">
+			<Description><![CDATA["Opening"]]></Description>
+		</Title>
+		<Angle Name="gs_open_2D">
+			<Description><![CDATA["Opening Angle in 2D"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>90</Value>
+		</Angle>
+		<Angle Name="gs_open_3D">
+			<Description><![CDATA["Opening Angle in 3D"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0</Value>
+		</Angle>
+		<Boolean Name="gs_bSameLineTypeForLeaves">
+			<Description><![CDATA["Same Line Type for Leaves"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>1</Value>
+		</Boolean>
+		<Boolean Name="bOverride_MVO_2D">
+			<Description><![CDATA["Override MVO for 2D Symbolic Display"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_BoldName/>
+			</Flags>
+			<Value>0</Value>
+		</Boolean>
+		<Boolean Name="or_bOplines2D">
+			<Description><![CDATA["Show 2D Opening Lines"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>1</Value>
+		</Boolean>
+		<LineType Name="or_swingLineType">
+			<Description><![CDATA["Opening Line Type"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>1</Value>
+		</LineType>
+		<LineType Name="or_swingLineType2">
+			<Description><![CDATA["Secondary Opening Line Type"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>4</Value>
+		</LineType>
+		<String Name="or_SwingType">
+			<Description><![CDATA["Opening Line Shape"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA["Curved"]]></Value>
+		</String>
+		<Integer Name="or_iSwingType">
+			<Description><![CDATA["Opening Line Shape"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>1</Value>
+		</Integer>
+		<String Name="or_SlidingType">
+			<Description><![CDATA["Opening Line Shape"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA["None"]]></Value>
+		</String>
+		<Integer Name="or_iSlidingType">
+			<Description><![CDATA["Opening Line Shape"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>0</Value>
+		</Integer>
+		<PenColor Name="or_opLinePen">
+			<Description><![CDATA["Opening Line Pen in 2D/3D"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>3</Value>
+		</PenColor>
+		<Integer Name="or_iOpLinePen">
+			<Description><![CDATA["Opening Line Pen in 2D/3D"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>3</Value>
+		</Integer>
+		<Boolean Name="bOverride_MVO_3D">
+			<Description><![CDATA["Override MVO for 3D Projections"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_BoldName/>
+			</Flags>
+			<Value>0</Value>
+		</Boolean>
+		<Boolean Name="or_bOplines3d">
+			<Description><![CDATA["Show Opening Line"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>1</Value>
+		</Boolean>
+		<String Name="or_opLineType3dIn">
+			<Description><![CDATA["Line Type Opening Side"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA["Dashed"]]></Value>
+		</String>
+		<Integer Name="or_iOpLineType3dIn">
+			<Description><![CDATA["Line Type Opening Side"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>1</Value>
+		</Integer>
+		<String Name="or_opLineType3dOut">
+			<Description><![CDATA["Line Type Opposite Side"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA["Solid Line"]]></Value>
+		</String>
+		<Integer Name="or_iOpLineType3dOut">
+			<Description><![CDATA["Line Type Opposite Side"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>0</Value>
+		</Integer>
+		<String Name="or_opLineType3dSecondary">
+			<Description><![CDATA["Secondary Leaf Line Type"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA["Dashed"]]></Value>
+		</String>
+		<Integer Name="or_iOpLineType3dSecondary">
+			<Description><![CDATA["Secondary Leaf Line Type"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>1</Value>
+		</Integer>
+		<String Name="or_oplineStyle">
+			<Description><![CDATA["Line Orientation"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA["Handle"]]></Value>
+		</String>
+		<Integer Name="or_iOplineStyle">
+			<Description><![CDATA["Line Orientation"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>1</Value>
+		</Integer>
+		<Boolean Name="bHideOplineStyle">
+			<Description><![CDATA[""]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>0</Value>
+		</Boolean>
+		<Boolean Name="bLockOplineStyle">
+			<Description><![CDATA[""]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>0</Value>
+		</Boolean>
+		<Boolean Name="bEnableSwingLineTurnOff">
+			<Description><![CDATA[""]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>0</Value>
+		</Boolean>
+		<Boolean Name="bEnableSecondaryOpLineTypes">
+			<Description><![CDATA[""]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>0</Value>
+		</Boolean>
+
+		<!-- gs_2D_representation: PARAMETER BLOCK ===== PARAMETER BLOCK ===== PARAMETER BLOCK ===== PARAMETER BLOCK -->
+
+		<Title Name="gs_2D_representation">
+			<Description><![CDATA["2D and Section Representation"]]></Description>
+			<Fix/>
+		</Title>
+		<PenColor Name="gs_pen_2D">
+			<Description><![CDATA[""]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>23</Value>
+		</PenColor>
+		<PenColor Name="gs_frame_pen_cont">
+			<Description><![CDATA["Frame Pen"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>23</Value>
+		</PenColor>
+		<PenColor Name="gs_pen_mull">
+			<Description><![CDATA["Grid Pen"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>43</Value>
+		</PenColor>
+		<PenColor Name="gs_pen_glass">
+			<Description><![CDATA["Glass Pen"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>43</Value>
+		</PenColor>
+		<PenColor Name="gs_leaf_pen_2D">
+			<Description><![CDATA["Leaf Pen"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>43</Value>
+		</PenColor>
+		<String Name="gs_wcont_line">
+			<Description><![CDATA["Wall Contour Line"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_BoldName/>
+			</Flags>
+			<Value><![CDATA["Off"]]></Value>
+		</String>
+		<Integer Name="iWallContourLine">
+			<Description><![CDATA["Wall Contour Line"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>1</Value>
+		</Integer>
+		<LineType Name="gs_wcont_line_in">
+			<Description><![CDATA["Wall Contour Line Type Inside"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>1</Value>
+		</LineType>
+		<LineType Name="gs_wcont_line_out">
+			<Description><![CDATA["Wall Contour Line Type Outside"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>1</Value>
+		</LineType>
+		<LineType Name="gs_wcont_hidden_line_in">
+			<Description><![CDATA["Hidden Wall Contour Line Type Inside"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>4</Value>
+		</LineType>
+		<LineType Name="gs_wcont_hidden_line_out">
+			<Description><![CDATA["Hidden Wall Contour Line Type Outside"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>4</Value>
+		</LineType>
+		<PenColor Name="gs_wcont_line_pen">
+			<Description><![CDATA["Wall Contour Line Pen"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>3</Value>
+		</PenColor>
+		<Boolean Name="gs_bFills">
+			<Description><![CDATA["Use Fills"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_BoldName/>
+			</Flags>
+			<Value>1</Value>
+		</Boolean>
+		<FillPattern Name="gs_fillFr">
+			<Description><![CDATA["Frame Fill Type"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>65</Value>
+		</FillPattern>
+		<PenColor Name="gs_penFr_fg">
+			<Description><![CDATA["Frame Fill Pen"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>103</Value>
+		</PenColor>
+		<PenColor Name="gs_penFr_bg">
+			<Description><![CDATA["Frame Fill Background Pen"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>19</Value>
+		</PenColor>
+		<FillPattern Name="gs_fillLeaf">
+			<Description><![CDATA["Leaf Fill Type"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>16</Value>
+		</FillPattern>
+		<PenColor Name="gs_penLeaf_fg">
+			<Description><![CDATA["Leaf Fill Pen"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>19</Value>
+		</PenColor>
+		<PenColor Name="gs_penLeaf_bg">
+			<Description><![CDATA["Leaf Fill Background Pen"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>19</Value>
+		</PenColor>
+		<FillPattern Name="gs_FillSdl">
+			<Description><![CDATA["Uncut Fill Type"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>65</Value>
+		</FillPattern>
+		<PenColor Name="gs_penSdl_fg">
+			<Description><![CDATA["Uncut Fill Pen"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>2</Value>
+		</PenColor>
+		<PenColor Name="gs_penSdl_bg">
+			<Description><![CDATA["Uncut Fill Background Pen"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>19</Value>
+		</PenColor>
+		<FillPattern Name="gs_gsect">
+			<Description><![CDATA["Glass Fill"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>28</Value>
+		</FillPattern>
+		<PenColor Name="gs_penGlass_fg">
+			<Description><![CDATA["Glass Fill Pen"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>3</Value>
+		</PenColor>
+		<PenColor Name="gs_penGlass_bg">
+			<Description><![CDATA["Glass Fill Background Pen"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0</Value>
+		</PenColor>
+		<FillPattern Name="gs_wallhole_fill">
+			<Description><![CDATA["Plan Symbol Fill Type"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>65</Value>
+		</FillPattern>
+		<PenColor Name="gs_wallhole_pen_fg">
+			<Description><![CDATA["Plan Symbol Fill Pen"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>19</Value>
+		</PenColor>
+		<PenColor Name="gs_wallhole_pen_bg">
+			<Description><![CDATA["Plan Symbol Fill Background Pen"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0</Value>
+		</PenColor>
+		<FillPattern Name="gs_ventProfile_fill">
+			<Description><![CDATA["Ventilation Section Fill Type"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>16</Value>
+		</FillPattern>
+		<PenColor Name="gs_ventProfile_pen_fg">
+			<Description><![CDATA["Ventilation Section Fill Pen"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>19</Value>
+		</PenColor>
+		<PenColor Name="gs_ventProfile_pen_bg">
+			<Description><![CDATA["Ventilation Section Fill Background Pen"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>19</Value>
+		</PenColor>
+
+		<!-- gs_min_space: PARAMETER BLOCK ===== PARAMETER BLOCK ===== PARAMETER BLOCK ===== PARAMETER BLOCK -->
+
+		<Title Name="gs_min_space">
+			<Description><![CDATA["Minimal Space"]]></Description>
+		</Title>
+		<Length Name="msOpeningSideWidth2">
+			<Description><![CDATA["Opening Side Width 2"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0.1</Value>
+		</Length>
+		<Length Name="msOpeningSideWidth1">
+			<Description><![CDATA["Opening Side Width 1"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0.1</Value>
+		</Length>
+		<Length Name="ms_openingSDepth">
+			<Description><![CDATA["Opening Side Depth"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>1.8</Value>
+		</Length>
+		<Length Name="msOppositeSideWidth2">
+			<Description><![CDATA["Opposite Side Width 2"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0.1</Value>
+		</Length>
+		<Length Name="msOppositeSideWidth1">
+			<Description><![CDATA["Opposite Side Width 1"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0.1</Value>
+		</Length>
+		<Length Name="ms_oppositeSDepth">
+			<Description><![CDATA["Opposite Side Depth"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>1.2</Value>
+		</Length>
+		<String Name="gs_opside_list">
+			<Description><![CDATA["Opening Side Values"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value><![CDATA["Custom"]]></Value>
+		</String>
+		<Integer Name="gs_opside_list_m">
+			<Description><![CDATA["Opening Side Values"]]></Description>
+			<Flags>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>0</Value>
+		</Integer>
+
+		<!-- gs_3D_representation: PARAMETER BLOCK ===== PARAMETER BLOCK ===== PARAMETER BLOCK ===== PARAMETER BLOCK -->
+
+		<Title Name="gs_3D_representation">
+			<Description><![CDATA["3D Representation"]]></Description>
+			<Fix/>
+		</Title>
+		<String Name="gs_SashText_typ">
+			<Description><![CDATA["Frame Element Joinery"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA["Butt Joint"]]></Value>
+		</String>
+		<Integer Name="gs_SashText_typ_num">
+			<Description><![CDATA["Frame Element Joinery"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>2</Value>
+		</Integer>
+		<PenColor Name="gs_frame_pen">
+			<Description><![CDATA["Frame Pen"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>3</Value>
+		</PenColor>
+		<PenColor Name="gs_leaf_pen">
+			<Description><![CDATA["Leaf Contour Pen"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>3</Value>
+		</PenColor>
+		<PenColor Name="gs_glass_pen">
+			<Description><![CDATA["Sash Glass Pen"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>3</Value>
+		</PenColor>
+		<PenColor Name="gs_leaf_glass_pen">
+			<Description><![CDATA["Leaf Glass Pen"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>3</Value>
+		</PenColor>
+		<Integer Name="res">
+			<Description><![CDATA["Curve Resolution"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>12</Value>
+		</Integer>
+		<Boolean Name="gs_shadow">
+			<Description><![CDATA["Shadow"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>1</Value>
+		</Boolean>
+
+		<!-- gs_door_material: PARAMETER BLOCK ===== PARAMETER BLOCK ===== PARAMETER BLOCK ===== PARAMETER BLOCK -->
+
+		<Title Name="gs_door_material">
+			<Description><![CDATA["Surfaces"]]></Description>
+			<Fix/>
+		</Title>
+		<Boolean Name="bLinkSurfacesFrameSash">
+			<Description><![CDATA["Uniform Door Surfaces"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0</Value>
+		</Boolean>
+		<Integer Name="stored_material">
+			<Description><![CDATA[""]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<ArrayValues FirstDimension="4" SecondDimension="6">
+				<AVal Column="1" Row="1">45</AVal>
+				<AVal Column="2" Row="1">45</AVal>
+				<AVal Column="3" Row="1">45</AVal>
+				<AVal Column="4" Row="1">45</AVal>
+				<AVal Column="5" Row="1">45</AVal>
+				<AVal Column="6" Row="1">45</AVal>
+				<AVal Column="1" Row="2">0</AVal>
+				<AVal Column="2" Row="2">0</AVal>
+				<AVal Column="3" Row="2">0</AVal>
+				<AVal Column="4" Row="2">0</AVal>
+				<AVal Column="5" Row="2">0</AVal>
+				<AVal Column="6" Row="2">0</AVal>
+				<AVal Column="1" Row="3">-9999</AVal>
+				<AVal Column="2" Row="3">0</AVal>
+				<AVal Column="3" Row="3">0</AVal>
+				<AVal Column="4" Row="3">0</AVal>
+				<AVal Column="5" Row="3">0</AVal>
+				<AVal Column="6" Row="3">0</AVal>
+				<AVal Column="1" Row="4">0</AVal>
+				<AVal Column="2" Row="4">0</AVal>
+				<AVal Column="3" Row="4">0</AVal>
+				<AVal Column="4" Row="4">0</AVal>
+				<AVal Column="5" Row="4">0</AVal>
+				<AVal Column="6" Row="4">0</AVal>
+			</ArrayValues>
+		</Integer>
+		<Material Name="gs_frame_mat">
+			<Description><![CDATA["Frame"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>45</Value>
+		</Material>
+		<Material Name="gs_leaf_mat">
+			<Description><![CDATA["Leaf"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>45</Value>
+		</Material>
+		<Material Name="gs_leafMidrail_mat">
+			<Description><![CDATA["Leaf Middle Rail"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>45</Value>
+		</Material>
+		<Material Name="gs_midrail_mat">
+			<Description><![CDATA["Middle Rail"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>45</Value>
+		</Material>
+		<Material Name="gs_glass_mat">
+			<Description><![CDATA["Sash Glass"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>24</Value>
+		</Material>
+		<Material Name="gs_leaf_glass_mat">
+			<Description><![CDATA["Leaf Glass"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>24</Value>
+		</Material>
+		<Material Name="gs_sash_mat">
+			<Description><![CDATA["Horizontal Mullion"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>45</Value>
+		</Material>
+		<Material Name="gs_vertMull_mat">
+			<Description><![CDATA["Vertical Mullion"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>45</Value>
+		</Material>
+		<Material Name="gs_handle_mat">
+			<Description><![CDATA["Handle"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>47</Value>
+		</Material>
+		<Material Name="gs_lock_mat">
+			<Description><![CDATA["Floor Lock"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>40</Value>
+		</Material>
+		<Material Name="gs_handle_ac_mat">
+			<Description><![CDATA["Handle Accessories"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>40</Value>
+		</Material>
+		<Material Name="matKickBoardOut">
+			<Description><![CDATA["Kick Board Outside"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>11</Value>
+		</Material>
+		<Material Name="matKickBoardIn">
+			<Description><![CDATA["Kick Board Inside"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>11</Value>
+		</Material>
+		<Material Name="gs_ventProfile_mat">
+			<Description><![CDATA["Ventilation Profile"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>45</Value>
+		</Material>
+		<Integer Name="iFrameStyleMullion">
+			<Description><![CDATA[""]]></Description>
+			<Flags>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>1</Value>
+		</Integer>
+		<Integer Name="iFrameStyleLeft">
+			<Description><![CDATA[""]]></Description>
+			<Flags>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>1</Value>
+		</Integer>
+		<Integer Name="iFrameStyleRight">
+			<Description><![CDATA[""]]></Description>
+			<Flags>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>1</Value>
+		</Integer>
+		<Integer Name="gs_ui_current_page">
+			<Description><![CDATA[""]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Unique/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>2</Value>
+		</Integer>
+		<Integer Name="gs_ui_sub_tabpage_closure">
+			<Description><![CDATA[""]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Unique/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>1</Value>
+		</Integer>
+		<Length Name="gs_fthk">
+			<Description><![CDATA["Real Frame Thickness"]]></Description>
+			<Flags>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>0.08</Value>
+		</Length>
+		<Integer Name="ac_wido_hide_options">
+			<Description><![CDATA[""]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>2</Value>
+		</Integer>
+		<Length Name="gs_hor_d">
+			<Description><![CDATA["Bottom Vert. Mull. Distance"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<ArrayValues FirstDimension="1" SecondDimension="0">
+				<AVal Row="1">0.3525</AVal>
+			</ArrayValues>
+		</Length>
+		<Length Name="gs_ver_d">
+			<Description><![CDATA["Horizontal Mullion Distance"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<ArrayValues FirstDimension="5" SecondDimension="0">
+				<AVal Row="1">0.499533333333</AVal>
+				<AVal Row="2">0.999066666667</AVal>
+				<AVal Row="3">1.4986</AVal>
+				<AVal Row="4">1.99813333333</AVal>
+				<AVal Row="5">2.49766666667</AVal>
+			</ArrayValues>
+		</Length>
+
+		<!-- gs_list: PARAMETER BLOCK ===== PARAMETER BLOCK ===== PARAMETER BLOCK ===== PARAMETER BLOCK -->
+
+		<Title Name="gs_list">
+			<Description><![CDATA["Description"]]></Description>
+			<Fix/>
+		</Title>
+		<Boolean Name="gs_bOpeningToZone">
+			<Description><![CDATA["Door belongs to the Zone into which it opens"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>1</Value>
+		</Boolean>
+		<RealNum Name="gs_list_cost">
+			<Description><![CDATA["Cost"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0</Value>
+		</RealNum>
+		<String Name="gs_list_manufacturer">
+			<Description><![CDATA["Manufacturer"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<String Name="gs_list_note">
+			<Description><![CDATA["Note/Remarks"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<String Name="gs_list_location_as">
+			<Description><![CDATA["Location as"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA["Custom"]]></Value>
+		</String>
+		<String Name="gs_list_location">
+			<Description><![CDATA["Location"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<String Name="gs_list_accessories">
+			<Description><![CDATA["Accessories"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<String Name="gs_list_glazing">
+			<Description><![CDATA["Glazing"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<String Name="gs_list_headdet">
+			<Description><![CDATA["Header Detail"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<String Name="gs_list_jambdet">
+			<Description><![CDATA["Jamb Detail"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<String Name="gs_list_silldet">
+			<Description><![CDATA["Sill Detail"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<String Name="gs_list_hwsetno">
+			<Description><![CDATA["Hardware Set"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<String Name="gs_list_hwkeyside">
+			<Description><![CDATA["Hardware Key Side Room Number"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<String Name="gs_list_optype">
+			<Description><![CDATA["Operation Type"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<String Name="gs_list_finish">
+			<Description><![CDATA["Finish"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<String Name="gs_list_elevation">
+			<Description><![CDATA["Elevation"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<String Name="gs_list_hings">
+			<Description><![CDATA["Hinges"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<String Name="gs_list_lockset">
+			<Description><![CDATA["Lockset"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<RealNum Name="gs_list_glassarea_tmp">
+			<Description><![CDATA["Total Glazed Area"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Unique/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>0</Value>
+		</RealNum>
+		<Boolean Name="gs_list_glassarea_override">
+			<Description><![CDATA["Override Glazed Area"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0</Value>
+		</Boolean>
+		<RealNum Name="gs_list_glassarea">
+			<Description><![CDATA["Total Glazed Area"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Unique/>
+			</Flags>
+			<Value>3.3152</Value>
+		</RealNum>
+		<RealNum Name="gs_list_glassperimeter">
+			<Description><![CDATA["Total Glass Perimeter"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0</Value>
+		</RealNum>
+		<String Name="gs_list_heattransfer">
+			<Description><![CDATA["U-value"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<String Name="gs_list_firerating">
+			<Description><![CDATA["Fire Rating"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<Boolean Name="gs_list_FR_bSelfClosing">
+			<Description><![CDATA["Self-Closing"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0</Value>
+		</Boolean>
+		<Boolean Name="gs_list_bInsulation">
+			<Description><![CDATA["Insulation"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0</Value>
+		</Boolean>
+		<String Name="gs_list_FR_indexSelfClosing">
+			<Description><![CDATA["Insulation Index"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA["2"]]></Value>
+		</String>
+		<Boolean Name="gs_list_bSmokeProtection">
+			<Description><![CDATA["Smoke Protection Door"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0</Value>
+		</Boolean>
+		<String Name="gs_list_SmokeTestTemp">
+			<Description><![CDATA["Smoke Test Temperature"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA["200"]]></Value>
+		</String>
+		<String Name="gs_list_FR_expression">
+			<Description><![CDATA["Fire Rating Expression"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<Integer Name="iNEDFireRating">
+			<Description><![CDATA[""]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>0</Value>
+		</Integer>
+		<RealNum Name="gs_list_freeAirPerformance">
+			<Description><![CDATA["Free Air Performance (mm2/l/m)"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0</Value>
+		</RealNum>
+		<String Name="gs_list_acousticrating">
+			<Description><![CDATA["Acoustic Rating"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<String Name="gs_list_type">
+			<Description><![CDATA["Type"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<String Name="FM_Type">
+			<Description><![CDATA["Group Type"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA["Others"]]></Value>
+		</String>
+		<Integer Name="iFMType">
+			<Description><![CDATA["Group Type"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>25</Value>
+		</Integer>
+		<String Name="FM_InventoryNumber">
+			<Description><![CDATA["Inventory No."]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<String Name="FM_SerialNumber">
+			<Description><![CDATA["Serial No."]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<String Name="FM_ProductionYear">
+			<Description><![CDATA["Production Year"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<RealNum Name="FM_ObjectWeight">
+			<Description><![CDATA["Object Weight"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0</Value>
+		</RealNum>
+		<String Name="FM_ObjectWeightUnit">
+			<Description><![CDATA["Object Weight Unit"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA["kg"]]></Value>
+		</String>
+		<Integer Name="gs_list_orientationDef_m">
+			<Description><![CDATA["Door Orientation Definition"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0</Value>
+		</Integer>
+		<String Name="ac_OpeningSide">
+			<Description><![CDATA["Door Orientation"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Unique/>
+			</Flags>
+			<Value><![CDATA["L"]]></Value>
+		</String>
+		<Boolean Name="gs_show_UKListParams">
+			<Description><![CDATA[""]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>1</Value>
+		</Boolean>
+		<String Name="gs_list_NBSClause">
+			<Description><![CDATA["NBS Clause"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<Boolean Name="gs_list_doorcloser">
+			<Description><![CDATA["Door Closer"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0</Value>
+		</Boolean>
+		<String Name="gs_list_visionpanel_type">
+			<Description><![CDATA["Vision Panel Type"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA["No Vision Panel"]]></Value>
+		</String>
+		<String Name="gs_list_elevationtype">
+			<Description><![CDATA["Elevation Type"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<String Name="gs_list_frametype">
+			<Description><![CDATA["Frame Type"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<Boolean Name="gs_list_holddevice">
+			<Description><![CDATA["Hold Open Device"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0</Value>
+		</Boolean>
+		<String Name="gs_list_firesignage">
+			<Description><![CDATA["Fire Signage"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<String Name="gs_list_comment">
+			<Description><![CDATA["Comments"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<String Name="gs_list_doorleafwidths">
+			<Description><![CDATA["Door Leaf Widths"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Unique/>
+			</Flags>
+			<Value><![CDATA["86 / 86"]]></Value>
+		</String>
+		<String Name="ifc_optypestr">
+			<Description><![CDATA["IFC Operation"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Unique/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value><![CDATA["Double Door Single Swing"]]></Value>
+		</String>
+		<Integer Name="ifc_optype">
+			<Description><![CDATA["IFC Operation"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Unique/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>2</Value>
+		</Integer>
+		<Length Name="ifc_LiningDepth">
+			<Description><![CDATA[""]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Unique/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>0.08</Value>
+		</Length>
+		<Length Name="ifc_LiningThickness">
+			<Description><![CDATA[""]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Unique/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>0.04</Value>
+		</Length>
+		<Length Name="ifc_LiningOffset">
+			<Description><![CDATA[""]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Unique/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>0</Value>
+		</Length>
+		<Length Name="ifc_CasingDepth">
+			<Description><![CDATA[""]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Unique/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>0</Value>
+		</Length>
+		<Length Name="ifc_CasingThickness">
+			<Description><![CDATA[""]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Unique/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>0</Value>
+		</Length>
+		<Length Name="ifc_ThresholdDepth">
+			<Description><![CDATA[""]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Unique/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>0</Value>
+		</Length>
+		<Length Name="ifc_ThresholdThickness">
+			<Description><![CDATA[""]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Unique/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>0</Value>
+		</Length>
+		<Length Name="ifc_ThresholdOffset">
+			<Description><![CDATA[""]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Unique/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>0</Value>
+		</Length>
+		<Length Name="ifc_TransomOffset">
+			<Description><![CDATA[""]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Unique/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>2.06</Value>
+		</Length>
+		<Length Name="ifc_TransomThickness">
+			<Description><![CDATA[""]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Unique/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>0.04</Value>
+		</Length>
+		<Length Name="ifc_DoorPanel">
+			<Description><![CDATA[""]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Unique/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<ArrayValues FirstDimension="2" SecondDimension="4">
+				<AVal Column="1" Row="1">0.04</AVal>
+				<AVal Column="2" Row="1">0.505882352941176</AVal>
+				<AVal Column="3" Row="1">1</AVal>
+				<AVal Column="4" Row="1">1</AVal>
+				<AVal Column="1" Row="2">0.04</AVal>
+				<AVal Column="2" Row="2">0.505882352941176</AVal>
+				<AVal Column="3" Row="2">1</AVal>
+				<AVal Column="4" Row="2">3</AVal>
+			</ArrayValues>
+		</Length>
+
+		<!-- gs_onorm_Title: PARAMETER BLOCK ===== PARAMETER BLOCK ===== PARAMETER BLOCK ===== PARAMETER BLOCK -->
+
+		<Title Name="gs_onorm_Title">
+			<Description><![CDATA["Additional Listing Parameters"]]></Description>
+		</Title>
+		<String Name="gs_onorm_width_auto">
+			<Description><![CDATA["Additional Width Value"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<String Name="gs_onorm_width">
+			<Description><![CDATA["Additional Width"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Unique/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<String Name="gs_onorm_height_auto">
+			<Description><![CDATA["Additional Height Value"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<String Name="gs_onorm_height">
+			<Description><![CDATA["Additional Height"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<String Name="gs_onorm_firerating">
+			<Description><![CDATA["Additional Fire Rating"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<String Name="gs_transom_firerating">
+			<Description><![CDATA["Transoms"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<String Name="gs_onorm_doornum">
+			<Description><![CDATA["Door Number"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<String Name="gs_onorm_locking">
+			<Description><![CDATA["Locking Number"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<String Name="gs_onorm_mat1">
+			<Description><![CDATA["Additional Material 1"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<String Name="gs_onorm_mat2">
+			<Description><![CDATA["Additional Material 2"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<String Name="gs_onorm_col1">
+			<Description><![CDATA["Color 1"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<String Name="gs_onorm_col2">
+			<Description><![CDATA["Color 2"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<String Name="gs_onorm_surface">
+			<Description><![CDATA["Cleaning Surface"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<String Name="gs_onorm_reveal">
+			<Description><![CDATA["Additional Reveal"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<String Name="gs_onorm_frame">
+			<Description><![CDATA["Additional Frame"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<String Name="gs_onorm_manufacturer">
+			<Description><![CDATA["Additional Manufacturer"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<String Name="gs_onorm_id">
+			<Description><![CDATA["ID Number"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<String Name="gs_onorm_doortype">
+			<Description><![CDATA["Additional Door Type"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<String Name="gs_onorm_sashnumber">
+			<Description><![CDATA["Number of Sashes"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<String Name="gs_onorm_construction">
+			<Description><![CDATA["Construction"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<String Name="gs_onorm_glassarea">
+			<Description><![CDATA["Glass Area"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<String Name="gs_onorm_escape">
+			<Description><![CDATA["Escape"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<String Name="gs_onorm_aks">
+			<Description><![CDATA["AKS Number"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<String Name="gs_onorm_product">
+			<Description><![CDATA["Product"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<String Name="gs_onorm_leistungbuch">
+			<Description><![CDATA["Collection of Specifications ID"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<String Name="gs_onorm_description">
+			<Description><![CDATA["Additional Description"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<String Name="gs_onorm_customtext1">
+			<Description><![CDATA["Additional Information 1"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<String Name="gs_onorm_customtext2">
+			<Description><![CDATA["Additional Information 2"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<String Name="gs_onorm_acousticrating">
+			<Description><![CDATA["Additional Acoustic Rating"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<String Name="gs_onorm_heattransfer">
+			<Description><![CDATA["Additional Heat Transfer"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<String Name="gs_onorm_admission">
+			<Description><![CDATA["Admission Date"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<String Name="gs_onorm_modification">
+			<Description><![CDATA["Modification Date"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<String Name="gs_onorm_zoneinside_auto">
+			<Description><![CDATA["Zone Number Inside Value"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA["Custom"]]></Value>
+		</String>
+		<String Name="gs_onorm_zoneinside">
+			<Description><![CDATA["Zone Number Inside"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<String Name="gs_onorm_zoneoutside_auto">
+			<Description><![CDATA["Zone Number Outside Value"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA["Custom"]]></Value>
+		</String>
+		<String Name="gs_onorm_zoneoutside">
+			<Description><![CDATA["Zone Number Outside"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<String Name="LibraryLangCode">
+			<Description><![CDATA[""]]></Description>
+			<Flags>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value><![CDATA["INT"]]></Value>
+		</String>
+		<Integer Name="gs_optype_m_02">
+			<Description><![CDATA["Opening Type Transom"]]></Description>
+			<Flags>
+				<ParFlg_Unique/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>1</Value>
+		</Integer>
+		<Integer Name="gs_leaf_optype_m">
+			<Description><![CDATA["Leaf Opening Type"]]></Description>
+			<Flags>
+				<ParFlg_Unique/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>5</Value>
+		</Integer>
+		<Integer Name="casementIDForLabel">
+			<Description><![CDATA["Opening Type Label Order"]]></Description>
+			<Flags>
+				<ParFlg_Unique/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<ArrayValues FirstDimension="3" SecondDimension="4">
+				<AVal Column="1" Row="1">0</AVal>
+				<AVal Column="2" Row="1">2</AVal>
+				<AVal Column="3" Row="1">0</AVal>
+				<AVal Column="4" Row="1">0</AVal>
+				<AVal Column="1" Row="2">0</AVal>
+				<AVal Column="2" Row="2">-1</AVal>
+				<AVal Column="3" Row="2">0</AVal>
+				<AVal Column="4" Row="2">0</AVal>
+				<AVal Column="1" Row="3">0</AVal>
+				<AVal Column="2" Row="3">0</AVal>
+				<AVal Column="3" Row="3">0</AVal>
+				<AVal Column="4" Row="3">0</AVal>
+			</ArrayValues>
+		</Integer>
+		<Integer Name="gs_subHandle">
+			<Description><![CDATA[""]]></Description>
+			<Flags>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>1</Value>
+		</Integer>
+		<Integer Name="gs_subHandle2">
+			<Description><![CDATA[""]]></Description>
+			<Flags>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>1</Value>
+		</Integer>
+	</Parameters>
+	<WDFrameExpression>
+		<F><![CDATA["gs_fthk"]]></F>
+		<F><![CDATA["ac_left_oversize + gs_left_oversize"]]></F>
+		<F><![CDATA["ac_right_oversize + gs_right_oversize"]]></F>
+		<F><![CDATA["ac_upper_oversize + gs_upper_oversize"]]></F>
+		<F><![CDATA["ac_lower_oversize + gs_lower_oversize"]]></F>
+		<F><![CDATA["(pwi=0)*(-1) + (pwi=1)*0 + (pwi=2)*WIDO_SILL + (pwi=3)*(WALL_THICKNESS - gs_fthk - WIDO_SILL)"]]></F>
+	</WDFrameExpression>
+</ParamSection>
+
+<CalledMacros SectVersion="2" SectionFlags="0" SubIdent="0">
+	<Macro>
+		<MName><![CDATA["LIMA_general_storefront_door_macro"]]></MName>
+		<MainGUID>00000000-0000-0000-0000-000000000000</MainGUID>
+	</Macro>
+</CalledMacros>
+
+<Picture MIME="image/png" SectVersion="19" SectionFlags="0" SubIdent="0" length_in_bytes="9743" platform="Win">
+	<![CDATA[
+	696D6167652F706E670089504E470D0A1A0A0000000D49484452000000800000
+	008008020000004C5CF69C000025CC49444154785ECC7D5BAF654792D6CE5C7B
+	D7C5EEAA72BB7CAD9EB6CB9E6E18247819C64C37DD30C333F00448082440205E
+	79E3817FC303121212E20569FE00A019E899E132A86FBE8C5B76D96D77BBECEE
+	B2ABEA9C9511E48EEF8B88CCDE9CB62C3F9C95E79C7572E5CA5C7BAD888C7B64
+	EEA2AABB2F511E3E7CF8EFFEEDBFDF95B2B3FB945254457765B7D3723CEE4415
+	75ED57EDB4F741C5C61CFBDBA8E3F55A4B6BED58418BD54414A736EE7897634B
+	ADDA8B485D16E9C7DA2F1554F45876D5069672BC55938607586AEDF55A7D88EE
+	44C59EA7888A3D602FBD233E6EE7B0E9F5224D8ADFDC1EA4FC8B7FF94FAF3F71
+	7DF7E54AFD92E355F5C18307BFF8E4930F3EFCB0FF7E88A39D7C8086B8C0D3EC
+	98CDF3F167C7BF9FF57FFDD86B38E097D7B28A7A2F3FB7232A3FFFF9F1CC0E51
+	7092ED1C87D60FD11465EEC08F4183D51F3CF8F4B3CF3ED38EAA2F5DF65F72FC
+	D9D9F99B6FBDD961F01FFFD37FF8A2C46474820A88A1940BFBF1C0932C1C7E71
+	3B088F03BF7C0195FFB37FF2CFBF76E76BAA1B40C091639472F5EA957FF5AFFF
+	CDEFFCEEEF2E7539364A03649765E91D2E003D8ED972381CCECFCF6D881C0EFB
+	F57CF56BBC55F46CAD81BFCD1D6A6BF2EBC1BCD4A549EBC7FE4175A9533B9F39
+	9E2A3F345EA10F91267FFAC7DFFBE5071FD47AAC5F3A02C8335B932B57AEDCBA
+	752BE0A2C95075374F6E75F1E06C7D2E65AC5E74353BE44D3EBFE8E92D4E1F29
+	E84DF3F234E889279EF8A59D37D902022031CB045C005D837994E267A8B05B0E
+	F39E01851855D076313E7AB720A6F9FA694BC9F6B9141FCF0F25FF62312CE7E8
+	755D7BE76A727F2B14D0CB53B76E3D7BFB59DD6975B042B761CD69DB1A7B039B
+	71444F36E495BC49AD753C2DB5FF50C9C17D038001B9684751D152A301DD5407
+	A4AA9AAE3532C81324FEE4DDF73AEF2AFED1BA0504F407C2033EFDF4D3CFDCBE
+	AD0662CCEE7878CC15809E14736C5C4C012564A13E16BB663FB84B55D565A9C0
+	19EE50AB83D91189EE2A6A7D92E62A690C28E344AE85D31DC35DFC932C0C476C
+	61FB80807B3FFDF08800BB7F20FAF2D550C060BF3F90B11887198956ED6C2406
+	C540D2B65A2129044F2B4E3121EBCC2080F2DEAF48AD764FF4548C4AEC939B05
+	E77362033524474B2CCECC2929808D84BBD36CADD578D165228005564C0D2B49
+	53A029403DA2AA1837F02957F832183D72A4542EFB5560A4570C0C98E0557467
+	F403B9E2D3BFEC2A9EC119399E4284B75CD7A6A43163F62141F4380A10EF3D62
+	FE54DA8F3B0D527644E8466480720ADBFF149E56E3E95034C4E6C8F147495015
+	33DD9141101362B86542AD1434AA3AD2C460840E294F7C22EC0F8B1CC169C3F4
+	D8B992DBB067BFB854F657674A29700BF46041E70D50806A05CBC0EFC094700C
+	14EDF74B29C6C109564E5E60C961556705242BC4482DC0B34F76E8B25A17F01D
+	2563295A06864EBAE1A9A252958D8A09AE9CD44B0236E1EEAF9434BAD4BA0919
+	70767E2E2AC68559926B6A1AA4A59626A24E2C31DD965A952C8BEF463CB252D4
+	6013FA124545353ECE195A7B9B8A5103871273E253580520C40124B593321065
+	4D399CBAFDD82171C07FA2A2AA1BA000030138B46B2E108A09B55A2B4153EDE0
+	F4CC995817BB16EA3FFBA05A979A27AA05331A3DACD941627C034027BCEC9F6B
+	A7E4528101C7065ADADA44534575C0427280447047BED05297FEBBAE6D1308D0
+	9DB6260006E1189CC0D8A52BECA19E96D079E86B24F6C23C2632C619E8F4134C
+	9952C7E5BABACEEEE2D7C15E52F618CA062A1457879625FD12BC236DCC64903A
+	108648033A2E1F01C65D38C54505EF094E0D076F5DF012E4394113249652297B
+	1D23FD92B3237215322BAA42700068132DC09BD35293D0B88803E52F7A043288
+	43DA04C1523058D92DD98FFAF01298501101E16EC219977A0E940B8511545505
+	44117A39601EB870B339CC57C2C5CCDECA96829612DED28ACB95AC82E6421DAC
+	6D37A52AF98FF319C19D6934EC5C5A55AB84C44E884FC3951385EF53B7A20535
+	6950D341D83541EDCC9E1046434D2A37AAF1990F5A57D43160214C03FA044A20
+	10677EFF547BEC066C4A96422161F21668E6FBDBDC9F67BA92A5A10F095292AF
+	12FE22B2091664D03F3A936B2D347149E815E072553F9C8ED063309257C54EBD
+	27D48CC95F64D8757377325535BAAD4D3861F5575FB200D02294A4AE0589024D
+	D3F40787CCDB80D0D27D48F48B6C400B22B044F6FBBD2B9C35D865BA06D856C2
+	0EC84BECC9825B462FD75CE0298B00AA21C33F8F7CAA781832AD91949F0893D6
+	A5AA37B243FA42D32C48FCD940DE9E374DD7D66E03113146333AF4EFBEFA2A59
+	3D1F2FDC0695EF08964C6594805355F49426FB65213CE8021EF90FC01E0823A9
+	A531544A5C55BB79C58CE6C060F1388E71B2A29A8AE9801E46B041D6F805BA6E
+	DCB829AD4109BE7C0A58CF576842CBB2F88C360D9DB820AC5306044B1105B143
+	14F7E11A0CA77230CF3822ADBD348ED518313069F00BFED3447536A90260A492
+	3230FD34DB89365515134AEAF813A5FC7FFEC51702F45BA1007A78209C0AEB5E
+	4D07F3187241570670301C33AED4347DD197955DDC6E2C98EB02B529273619C5
+	690CB4F8185183A9B55337184CB771780A24BBEE2A5059DB16BCA1661776A85E
+	BD7A0D8F45DD8E2A23AD2B9CBA5663C6014181C2ABFD0A6E99C23B439C23E3D6
+	8A46752A192CA612EEFE51544F8FEC8EB6CA0E29519207E628F040DA2876A4A0
+	D32D186247EEB12FC778C0BE96EA4616F5CB000FE1024705A571C03A85709A3C
+	08A7C4A5AC13EC02D04DAE4A2A8F3561980E3868A261BE668441DD8111E27AA7
+	8969E369222A9A5CAAEB7BAA6A38DF800C90D6966A65A9E182A0810BC1181C7D
+	F69022ACAAE94C4D263323381A621A9293CC815F5A57A99A9451AE16919D4BEF
+	507061BF616C1ACD7B3E76DA107529359DEAD0B5A46EC410F3E8A8A65E1FCCDF
+	15BB10CE0E69B4D4216E9C0AD2EC0D4DD0E75C9EE02B6423A907254F17628854
+	22AB94E19DC36BAEDE4BCD3BD45CEF549D7C76E9D52B154F22979D1541D02CFB
+	E5B9679F7BFF9D770E873DA7BE5D0093E1697A1134ECF83906AFA1F88F34C016
+	F2F53CA2DD2AE6D056F8E70488B04E763AC420ABC11A7713D59A9151DE0C2506
+	FBA93A89E8473FFDA0A762AE6B7BFEB9E76BAD1B4140A97579F9A597DFFCFE0F
+	EA02DE43769008200BD22E2DC452338D27085C9091C7D98FFD526B2B88C3B591
+	DA5A438257AF137C9EDF69373956803C3AA6AC945AA40910DDA4157E505DDBBA
+	5FF6FD58CAA4D582AB78584F99D5CA1FC54D62C84B5F7FC97CE3E5D21140B6D1
+	B313DF79F79DF0B44D3A69E200C1134527D75C43A38F241FB4300A32851F598F
+	7CDEC82551B7DD64344F356771FAF20563258903606485BDF99F41846C65ED95
+	97EFDE7DF9AEEEB6E10DED2CA803E5FB3FFAA18BDEFC5F76F37FC07A6440332F
+	8A96597F9F0BA7E50CE6B97D061A5B355A70889F64F4A7EDD11C6D2A2237BEF2
+	95575F796513EE68A49EDFBAD9D3129F2A75810E8A234CE2A98C727A37FFCCE0
+	9F885BF330FFBBF08750E3D1AB9FDF9CC78B4F745D57D0E5BAB64B474006E85E
+	FB9DD75E78E145037E2D95B0CFCA0949CC78486A884A169D1111C0CBB93CB39B
+	B9FDA4D769EF6C3F1D3A235DFFF0BFFFD1DB3F793BBC165B4040ED32ADD67AE7
+	C53BDFF8C6377BE5FD9FBEFFF0F1C3DD30DF150E95E2BE68258C29062E4E3127
+	F3F77F68B97EEDFA375EF9CD5304BCFED61B0F1F7E96ED33444FE1CEC25B5C50
+	CFA29DCA7FE3CED77EF4E31F7704D45A96FDBED40D0861ED052A8497E75F7CF1
+	B7FECA5FB69053C85882391C6A73202C99FDC545E3AFAFEB689F3E42770C83B0
+	FED677FFFAE1EA15EF584640A6575433C2357C2C5B8631BCA6CA5CE3478F1EFD
+	EF3FFE9F3151CECF57694DF5F2650022014B2F807E29F5C9EBD76EDFBE4D7D28
+	394DBADD2B9BE9929B3266BD7198FFB3FBBEECFA7A155E98D1F6EC335F7DE2C9
+	274B19A14C6443A75C6AA136140106CD555331A496085EE2EA4E44EE7FFCB1CE
+	F0AE0B1288B661071CDD41850870ED7386BEBFE068C1D7CAD628644EACA52D9A
+	0ED111313312D882AA5F3004C336A67DE6BD810C4CF1F0392341911F083B803E
+	38DDB9C33C95BCD63690968252A19B572A4194AA64F9017CA2A6D4D1B5C06E24
+	886C57C67423831379162936709CA96774883A6F690ED195493E893446847C78
+	1B32885533A087014D5AAF5CBB7A155CED58B6E00B82D2292A3BAA3C4C86E0C3
+	7B61047ECEDC1F42369CFB8410A03CAEFA10C2E582A532016E0DFE433F158D2F
+	0FFEE8D8D93A54C03A101C2946BC9DA073708CFD3EE86E23CE3801415EBB7A0D
+	FA6798BEC59D6B007DF5D68CCB449C6FCEC62973927EB6CCA03F5D8A51C170C6
+	899C0EA5C1714D139A295D716711C1E35A8788241303D2243EB5AD4D37141133
+	297CEBD6CD4213203317A63491E412D3F2C8D3221A4C69D247F384E594021233
+	A3C186C751518DA07BF134939A280109C658B09FF3550E4BCD958749D37523B9
+	A191DF09E813F6E4ADCEF4773C1DD7B42434D99E71DAF4417A7716BFF3D43A2B
+	51F64BE9C22C60AB33B82C0163F6279EC0427197D6843740FA30634A49789001
+	9B10C248D4A642490CD44CB10AA9584398254CDDF396CE7769043C31E7975078
+	1AD09E2B7DC572A0D4815CA63B2B7DD158681754D8C48500B520E5EA17FF682A
+	0473B00765134B94F4F83EE70E7FB81BAB872EF0CE536A2B0560BE5E4E4688C4
+	10A1E81F042100EB05E570E5102BFD6A585BECCF3BD75270A9CBD278004A1A10
+	8A1B6D75D927391EC390FB91F9898ACA36D2D3457439963DBCFCBDACE7E71101
+	28919D902984438AC34807B4D168018186D2A225312191EDC2C2F99D4483E497
+	8C41BA9213C12CF42C89095FC3B01CEB4E7FEC939308C189B20D3594897C7D02
+	9204321839B16C012F38B1BC545C2F421F65FAACBA14F5E10C7F5EA40072A012
+	CA015C430B41992B73DC196589F55A2C7AA692EEF130017937A372A8A19C501B
+	31C40051BA40AD544B709B169046B661720550FDA4742A41933670421BF54A7B
+	010DA7F0CFE599240792D2287731F59117DCCC85A5BDAE454315A28990D6F47E
+	71769F561CCA6628409AB8EF998BA7002BBC71C96C9C792F00092B2C85B373AC
+	D92DC628B83A5E2F7C188F2E14495F73C21D81CF58291569DD7183DE22AA2E91
+	59CE57C1D54075385BB620848F4FDD548A170331A621DF497DF9EAB04C434F32
+	61C9DF250D84048DE01605950B8B682FA0214DA1A3A3BA904E06205D44492AEA
+	C670831DE2143085E839B84903F837A10541FFF12858797C765638ABE3EE29EB
+	0871D68903D64FC22FB8ACA3EB462E14C29496045E59D726CE25C663A3BC9D38
+	489378B4230B759C4032D0EC1A12E51436B36C400B22A4CED7F3C3952B4000E1
+	597C4A2602B2FF0CB5602C49E3A97EC0EEF73E17C640E63536104B99AD9BF885
+	5D961C0936D7B839162AEBAABD40156E6DADA59E9F9FC51D8886269B4000B51E
+	D60ACBBC914A9DAD30580138251590C9A7EEBFD851CD0FDC6B2A3B9917C09E52
+	C07C1D9C9A721B73967DAC40AE6347A0D041637CADCCE255DA04295102519BF0
+	0555E33E2A30BE087F8020FE95D3B91F90517ADEAB358DC9B0010D366502DE74
+	B3A419487EEF630705B861989B044EBC671244980FA54CF8753CD1769911BF6C
+	2437B435A9A532A81456EB20B37482238E9342117B3088CE71E064B81A489DCB
+	A82A71546B0D5986D8F241CC4DEE69B82A92BE263156EE3236C3C5418E3A5077
+	5C5D965A3CA9772B42187278D92FE031EB0A0D01443EF764ABBB1972511CEAE4
+	3C9A5A6C2C7A0D973531715A72458D41D13B9768079988888A0207D5038F836E
+	CAFFA1EECA80087569DCDAAAAA9BD82D85C697852507253D409CB3AAA453D837
+	85D02184E2147FB64A520329E67303F52CC23CF4501C35A6B2F37C66D2F9D257
+	C460B4357526C3FE6B6BD20BC76AEC1CB7D0CC2C1BC98E26C4F7FB432832D5F3
+	70EDE5D243905B0C84D7A158A836556E0E0C88523D8F935947D5B99A069C0B5B
+	71EF9D72ED0D9094F7488D2B8AADD568AD31F01B8C120BC4D32FB4151684D910
+	79C805DE92548A38B567673DD5152A362338D2280AFAE0C0CFA706A1AC06A7D7
+	EA9FAFBEA45224F9BB63484269F02714AC9A1AE584112E7586BAD4A0FB4D6841
+	4D98903C2F85A3EB3867DBE956A19494852CC887AB72D558DC73CA789BAC2AFE
+	8DC1B6603844992598B4865E547838967E4D29256362395634B6BE804B6E7FD8
+	2B85019312B7C18208A9B2D4C5B53BA159140C60863E2133706A1167B5734457
+	04C008D0E8C562803D2262E5EB73622AE4AE5AB55A0B4741EC4EC7E1CDB41892
+	4E04BE6C440873816ADFB815B4190F07F9657F934B0727DEA099AA9B1E50C38B
+	0D5C40EF435445659EFE13FB02BC183DA73CF612640AC98A8B91F598FC6496DB
+	0CD0F88DA638A0456137109457E4252E7E4E4B670E8BBB4B07072FA2DE0018D5
+	CAC9CCA6315B2EDFFC82E99FC023272F1512A5166A3B1003195F13EA97EA65BC
+	7FE0A0145AD116A4E44A2C93EAB2DB44444CC572C492185FFDCD5738BB091A88
+	67423FC91BB592B23C8304D91350601FBFE104F768C0EC0EDB2144B8A83611D8
+	0493AEC9AA8CA8152B0E7DAD95D0678B7F1AF33E3611139600240B0C02447DE1
+	9D607C83308DEEE971CBF669BF4B4FD191C45AC97EDE3420A3963A4B6C0AD05A
+	486580A0D8313D103924D51BF512D993CF3DFF3C516DCE47C8AE0DB0A092BB88
+	049751218C1B49FEC419346E80E19BF5A7F99F00E16A3F3B3BD5FD4FD7B7B09E
+	39D8EC530283AA32685C62BE0A5D6DB1EDACA6713F051FAE376FDE9C5C5320B8
+	8D1862B5A6F62ED282CA3D0D3D10A4AEA3AA684235F691093DA8410B441F6E9A
+	31F93D67AB8CC32C43D2C6480852498F52E8AA8E980855D6BCBBA2B4D65CA860
+	38674B12F0560CB194636940C948D6AC15112A794D8E681F363DE17A3EABE432
+	B21013BE32F2B84DB2C80875CDCF2028497CF869D63BF7AF66DD45AEDB59E1F9
+	99E9AE381AACCF8EE988CBB2F798E456BCA16DA747D0CC0253CB60064FCC2509
+	2119AF0821821B523F99E6247D67C1B44F89A00F64451AB873C5468BF0D089CA
+	80895992304B5D665D531167A5E8E2F09410386CC01B8A57C349D2B86A72EAF0
+	273314558A284034C4C4E99C408205D456E2032804A33859FDC8737722319BDD
+	A7762E6809C1D2CC7A0AC754301D4BFDD465CAF884FECA5700DB5AE80D6D30C4
+	362184418EF6B6B96B3400EA5DF2ADB0F01D6741FB95215A64D261E731920FC9
+	3C00CEE3ECB9F75351E16E8CF607433A010DCF8FADFCEE47F12930AE855F4146
+	566A22C3EA69A453C2F772F90828648758F80FBEB95AD54D532BAEA00363E904
+	0042C4350A5C0EEF3C6CE2A51639D6D992CC7AC28642AC4BE39EB14ACAE1B21C
+	C9201DE92EA6439ABB3CC515A6BFB9BA2CA7B36E133240A439FDA6C6B20E0BD8
+	DA5017CFA814CD022E144B58DD28D5B4F244ACCFCC734E8980E21B2A8D86118B
+	47E2375CD130F02282214B5DBC29EF3CED350D0F471223CB1610203B8586C009
+	8748777188CCFC87208EA54B9C5FF9A7EE839BCC81D6D094DE86D3E5F0A88A70
+	53E78C79F5A3E1B6ADC83ED1E13605FDD7750D43CC1D185535E11C42022868C0
+	AB6C0001F9F2565CD22A20963981A933B09FC83C6A90EAD0414DEE4D8A9473B6
+	53E813FEE263D5A8B097FC2CB0BBF034A4DF9027813F0EA7AC563F6A862407E6
+	B981AC088A00EA2DAE83CEC60137BFABB086E6176319272054788032F09C1430
+	43DF2BA92032A9A456E21FC6EEB4AC8568E67140BC737F415B462E45E37D9542
+	B86E440688784C0662004C3FE6991FAB8AEC326D659E7456508F204F49256A32
+	0A462464256094598EBCE30EEECCAE8C9E9DE1A184561827BBD381311933B876
+	256DE7B460666183057D9B4080B1D715EF00FE18300957BBA5B89E1B6E24C900
+	1C19C066C9B919D35F60350C234FA1AF7EC011DCAF2E0BBA01073DA485FB444C
+	9244660D411FFB65E196762C69C3EBBC49CF26E201AA64FA964659E7ACA932C2
+	A707EEE38A4A83BFDE11110920992D823A6D05674D0EE0590A0F420056DE61A9
+	676BCB5413862B4759A4B5546810B15F905A0F4C208B05E11A3ED0E2015776FD
+	FBEA5CF7DBF5966DB020956571358EC66400AAA80840458DD39EDE002A132293
+	D8318463D2782BB17FD31CC1E5292C094E80B5B552821C7C99462D843E752DE9
+	100C0E546AE6C678D4B79887434492EF99254C1FD116B62E66E9AE5A51AD22BB
+	5ACFCECE3AB7555577B14D0171D457E5DC09C53F5312E7897F2AA5696BCDC618
+	D6A93D7EFC18371C8FC0E4B4488D5F736B7689AD8F5F6AEDEE0AE200A80EA7B3
+	DB13A0508FFD41946D63B714A422C3A0AD22EFBFFD93F7DEFA73E637D412FA1F
+	83BB169F3AEC0FCDA6565D2AA40884C7B254A4172EEE2A00ADC0B30D2179B872
+	F5E6535F0DE8C7CFFFF91FDFEBB8F71DE8244C01DA16AD1577E344F0AB968AED
+	E46A47C0BA02A818924632B7473305F4C91BF392B5DD26BCA16ADFA77704B1AC
+	0A9E84E28C62DEE18A35FC928EBDA6CAF3E8C03B4567F66AF4CDA087ACFB7DE5
+	500E71DCCCB1035C88E2E238BBA0AE719D8FE27569B76EDE40E2134C942D5000
+	8D97F7DF7FF7F1A34FFB5676D7AE5D09CD07598BA8C402F3F4B1B09DBB2CA63A
+	AFF84941EE0E2529DC92427EF1C92F962BD73B35BCFFD37B0F7EF9F1CB2FBDF4
+	E493D7D6AB7B7E84B4706CE01856716CD0AE22D8215A4D2083324201330D8762
+	3FF2B74464B9BA7FF5EECB3FFCE18F404C5B400027DA7FFE833F382C7AFBE9FF
+	7BFBE9677A7BBC9867F808091F827A59441AA12383A4B55A9386FD15A7EDC3DC
+	B1F3E73F79FBDD7BEFBCF6DBBFFDEDEFFCFEA1739E3FFBB31FFFF8FB5F7BF1CE
+	73CF3EDF0931E40A863849E503A8C8180E1BB7BCCCB1BC843B08DEA67F13F70F
+	7EF883DFFA8BDFBCFFF1033ED61628A058F9ECB3875DCB7CF1C53BDFFED6B7D6
+	2E09ED120D77E49B88585F2AACCB7EDF5A535BA428E96350C0DD64C022AE2685
+	1A29267E7FF6D1FD6F7CF32FBD74F72F5CBB7AFDF1D9E377EFBD77F7EE37BFFB
+	9DEFCAF95917C22026119983FCBE2D280D17384268724306C0119DE4027C970C
+	667CF6D9FFFAFAD75F79EAABCFBDF1D63BBED951D9C4B7A9B6D6EEDFFFA86F9B
+	F8CC33CFBCFEC61B1FFDECC3C3914BC656B94000FD13488B828C15401C804EA1
+	6D30AA93FA1464D4BF3B5D44FFFEDFFB079000FFE5BFFDD7FEF5CA7DB3C0D7DF
+	78FDD1A79F767C2037425402A9A8CC084812C129A4741022F554A3481C3F7BF8
+	F0DE7BF7FED13FFCC7F73FF9F87B7FF22720E56DC80013006D6DF7EEDD7BEFBD
+	F74A2D670F1F9652E62F64AB99F16A10054AE8B8E7B625E1995156E0B69C131D
+	9E7BE6D9BFF57BBF1FF1E00F3EF8A0E3BE7FBD7FC86C7C50CC7C1BED70CCF6D1
+	7E4BEC966CE70384DFEDC6935FF9BDBFF137F78703EC008C6C1B8888113877EE
+	DCF96BDFFA3676AFFFF0938FFEEA6BAFCDC1D734FAD3A1C61F42225BC873F312
+	2E8737A09D9F3FFAE40186FEDDBFFD7742E979EAB9DB7B3353596697DF549955
+	33D6A78B51CFDA5BAFBF1EE85BD7752B2C28ACC76BD7AE61A5F6D76FFCC633B7
+	9F31B20695270EA2926F16133F63E614E1A6A4CBB0A089419BB7DE7A2B5077FD
+	FAF5486579E1F9179EBC7143A40D6075314B5D2A27F8B11AC4070A087D33B765
+	A134C6C2D5B78F9F3B966DA4A7C3C1DEA51FDEB3FF5CBBFA0434C9F1AB4C6AE6
+	0A2209456B46658D1D95A578084C2D2D775DA5F70126C6B0C1AC1D458D586468
+	7E29D2C0F48F1A9749D4E06FF002B5C3E1D0AD5F50A448E3C0549C380FE090D8
+	2F4BEE5E96F4BA896F533D6BD24A656829D48F4C1CD31DAE0410A1F11F6D37E5
+	6A5B64CE42FBF60C670094EED52691E11F369B433F6BE9FE138FC73BB815BBEE
+	61F8DA3ADC4B7F80782E409FA10B0FD701E96226051390758A1C89CA36B2A35B
+	0BD0238B18757EB12139410DB3786D74532F4B6DAD213FDC5F467D1551980BE2
+	792E42B17A4A013CD08C18EC6E59EA1221B0FDB26F6DC5DDD005B4C52C493B4A
+	1801AAE8562BE6FEE0DA1B42DC1B4080974000F2D74AC96881013D541982A82E
+	7576E772B646EE78AD884CA9B3E54C7949A0CF1575F759AA44ADA1B168E9C4DA
+	71404C9396AC2EF06581FE403A99AB8D7093B37CA2207C4A1B910112666AA1E9
+	C8B70E45DB174ABA8E672F106BF9F072C00C0054430B4C33590B50770A7D1C13
+	48EC4C922A7C9A5A2BA146614310AB05FD0D73AD9622F0A81BE8D50D02AE0F00
+	2A7341876EC319A7DA2D2FC426EDC828A3FD6F4492C672948411868B0ACF55DA
+	DAE60E91BAAB7E4349AEAFACA09388342B09A65AC6082662A2AAD26373D4D06A
+	9D7220DD3684A796010C7F38506F5DE8C5926DEC17C4F5B480328B0A60118D00
+	AE686F5CEDD2AAA290C3701689CAB8B5B78D48B6367A7E334F22388D2363FEFA
+	49F5E8B428110CCB982B1888633E1E8D3528CEA2C247828348797F5CED637361
+	FE26D2D355C06484C5E6B4CFEEF4066785F40BDDA33B0F543526AF5A891946FD
+	5DC714E88239CDF6A400AA598145E6EBF972A2A52E1CC788588DAC19F022C744
+	465B90C118B101BB1A4705EAB6B04C5503F4F866A283E124F7E0543A9F43FA95
+	A140CF29F392ECCCB1288A81F08E2905F14801B3C10AA8EDCA204862DBB45C6C
+	B15F9623155AB2DBB298B9A71AB67A655A8A3F93218FB00E590323710308E003
+	118EF4B5106AA1D2847C3EF507B0918004AC8AA89089C31B34E7F3B84278EA42
+	48FD13FD7547242264145FA2D5EB4C76AFC507E75AD666C8C6B2B2C361DF3BAF
+	ADF516AC4CF224C67E751BAE88C78F1E53616F522A6610A38CA172F0E827BF0A
+	7D01E0E90D159598FB03DBCAD0A65A09C0CDE12D01B664ECC360FA02335B9A40
+	FCA283CC01484C217135AC7F6B98317DC5B705A8042792266D2B0119727C6975
+	57C3F98E2CF198BC91DD013F3B4E630681D7133AF4F9A4A3186A901B632C27F0
+	4F5F9F310792607EC7A45AF618CDBA444C28D36C9D5734F8F7625A060AC53B19
+	19E87B138658F2194E8E700527FF1992419A087489295D62FC6EAF29A121E0E2
+	2BEA58F9D542490EA819F201AF93D5C6D6084F09E12BEAE910CC2C224A0C5708
+	7A435C05FED16113F100A6D6D8EEEE6A86E4ACC257BCE7802DBA2B8083E04998
+	73D5CE27F82A79BA247AF2FEC31FF789A3EB3F34222BA48C063B8B1416480DF4
+	903AA074FAA6E4F8CE3D95B43D30ACB75F3E05A8972602162456822600F96426
+	AA19CC0BA93AC889B3F3F3FDB204C5041EA610CDC514809825F8BB10888CFFD0
+	07CB6FB0A19A4466580A1083230A70D908654A685043F8422E7BA53CA73F73C1
+	C31036FF65331BB8D0249ECBBA36E0AC0F97CCC9A54F1808C4C078C9ECA32882
+	DFA14CE90E028BC9400692EA95D5B3D555F2CEE8DF68C30BC8884A57882B5EDA
+	F91D6CA04FA9CB764510F4A614D88BBCFCCA5DB8A0C9FD03645978A9D60238E2
+	3EC1BC82AA68F6BA712CADF970FC2626A664E7981C506684859C3017C9B8E7B5
+	44F06067F5866E61CC2793CB92C6E376B420A9CA3C321C6397F10C6E70444ADA
+	5C358F166BC2FC05A0D9984E3D7A10FE7FF688AFD7B49E20A6798B402278A9B5
+	0503540D2B0C240BB398C2CA6E84D3FE5DFEEFBDF976F851F16A9BF086229575
+	D9B75D0500429D698327A7AA8A4BD9C41C5D37E418184E81E9166FB8E6151571
+	B7DA54343700A1FB21452653B2B860CF1CE61DC10263CA3114E6556E52062A74
+	09F0951B37C361AE644B972E03CE5730EB26AD810FAD8D6C7DB67EAD1BF995D5
+	D12BC4B05D723531FD9F03D54405FEB2B948384A3DE74E4C7E32172F99A0E318
+	862EEABEDD4E19B7A251C6D4F0A7BE734A485FDDC45605E1195780DF64AF4A72
+	7CB8A301F5512400119A7CD6533E8D71AB9F27781D67C09348FEA608B0DB5A38
+	48726B3D617146A4508A38BB5D0D3509DD787F11040944B8CBD0B8C6A4D45838
+	C57CBACB440058612FABAC190D503BF85AA51EAFA712CD0BA9A1E314F065ECA9
+	56002B50987E7FFE9FA570D624F747B0127A0E3379806C75CD2D9CD2F8F51C2C
+	E009B7EC154885B535D0423E4FFA4337E08AA8A5D26F2C280A957D596AF00440
+	1554DC5B06E53A5910242DA141DA2AF45400FA03430B5E3DABC5E787FD415434
+	9DFBB9FA00D8C5F1888FDCB08941AE023CD79AEBCE54722DED5C2C0FF5D20DB1
+	5DE80FA141A645C98DC991AE55C73DCB1BE877CE1AA29D15DE1BC00103B974C0
+	C10087DD1CAA010A6BB39BA35B301D3CA8422C79437551CF359D928E219DD22C
+	5CAE938A43746D4006744F2DDE8A269550D8C6941FF77F8E82A6F1D489A70567
+	195C4CAAC254D958B7484223B7E36F72AC607921406D50199CD658E1C588855B
+	7DD60188704FDC4CEB73C120DDC0DED1A24D5AC849B71C057A4D32FAB478810E
+	71DC1002D699201C77CC70AB376D34001C4860B1CB1CEB38F03A91E0BE3CC142
+	36581F6056B8612322ACC03674D8635D020209101E20BDF5F20D31FFDEDA61BE
+	3172756AA9832DFB19EB83C70C430A53166C7724FBDA0472B03E2082C6B1A91F
+	A5043146DEC4A621B6C3A55EE699586A39EA33BB085EC60A11DA8B2A027B4DEC
+	6A87F89A0A348B552FDB1B5AA06394323969A931B89D93CE608763AE7B0C2F75
+	6C5022E8131B56591DFE796E2824831006E8880C17453129E8E9AC25B2A601E1
+	C00A92E6C17BA87D12A35C92865BADDA02A920203C1BB6B2BF4416041D5434F7
+	6362B16CCC325B61C3F5E924765F30280F7698CBD571353DA29E23FBC9FAEA39
+	00CA229E9AD5787FD5F09A124BCE6732DD68DE84249C51F0B386A31708E82210
+	032F8D029A483558F75512B1C2E4E38FEE97291F9AD538E2809348FC23C230CF
+	73BC6B47D154EBFD8FEE7B4C8DDC05F54F7FF940454766C77A128BAAA72332C2
+	8F365C1CF301E6F2E8E1A36BD7AF7DF2F17D38BA0F872BE767E750ED442E1501
+	8542C066B167BAFDE91FFE11AF5A992B85609D8BF718FFF2301D7946E8A72028
+	FAF61B6F0E0CE1A43A16FD9C938BFEDDBC7103F40D3D0182FD3211108006E143
+	ACCD7A1BA773546263AD53E867F5140B11C307DC3D470B95C4044F598D0FBCA8
+	7C2EE8FD24FF066FCABA01436C8C857B7D46C3989C30595EE9911E3070210276
+	231A72FA6725414F64243E78B8B868D62EC64A5E8ABD0C204A2E0D01B0BF4EB7
+	CDD1F4D1CD4898D1301C55F58BF0A144034FF5023AB056367D817231E81303A2
+	4EA7978900027B14B733CC7F1D1A4E8F89071B396FE23A1EA77F23F4BD6E701F
+	90311DBE0031E8698758B42FCC265E2F7DC7AC6A12F8223319F0989B2E2E2488
+	13043832130B898684FEB0CC7E12123A1F2E46C4E7134B7AE5E2692E17012A2A
+	8F1F3E5EF6FB5F47245F000D2008F639454062614643344C4480F66C99A1FCC5
+	4B1A3022E7EBDA9AA0E94B95FFD70E9C230100C1500075FFFB492C33E8D346A4
+	FB0EA150F070C06C31A592ABEAC44B448422F736DC1D6702AEFA36727A28FF7D
+	BAB0B70000000049454E44AE426082
+	]]>
+</Picture>
+
+<MigrationTable SectVersion="1" SectionFlags="0" SubIdent="0">
+	<MigrationTableElement>
+		<MainGUID>9A1478AA-261E-4DC6-A7BE-0433AC30DFF9</MainGUID>
+		<Version>23</Version>
+		<Name><![CDATA[""]]></Name>
+		<AutoMigration>true</AutoMigration>
+	</MigrationTableElement>
+	<MigrationTableElement>
+		<MainGUID>51829321-193F-4B74-A75E-F449F4AA11D1</MainGUID>
+		<Version>0</Version>
+		<Name><![CDATA[""]]></Name>
+		<AutoMigration>true</AutoMigration>
+	</MigrationTableElement>
+</MigrationTable>
+
+<Copyright SectVersion="1" SectionFlags="0" SubIdent="0">
+	<Author>GRAPHISOFT</Author>
+	<License>
+		<Type>CC BY</Type>
+		<Version>4.0</Version>
+	</License>
+</Copyright>
+
+<!-- GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT -->
+
+<Script_3D SectVersion="20" SectionFlags="0" SubIdent="0">
+<![CDATA[]]>
+</Script_3D>
+
+<!-- GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT -->
+
+<Script_2D SectVersion="20" SectionFlags="0" SubIdent="0">
+<![CDATA[]]>
+</Script_2D>
+
+<!-- GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT -->
+
+<Script_PR SectVersion="20" SectionFlags="0" SubIdent="0">
+<![CDATA[]]>
+</Script_PR>
+
+<!-- GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT -->
+
+<Script_UI SectVersion="20" SectionFlags="0" SubIdent="0">
+<![CDATA[]]>
+</Script_UI>
+
+<!-- GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT -->
+
+<Script_FWM SectVersion="20" SectionFlags="0" SubIdent="0">
+<![CDATA[]]>
+</Script_FWM>
+
+<!-- GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT -->
+
+<Script_BWM SectVersion="20" SectionFlags="0" SubIdent="0">
+<![CDATA[]]>
+</Script_BWM>
+
+</Symbol>
