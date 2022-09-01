@@ -1,0 +1,2197 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Symbol IsArchivable="false" IsPlaceable="true" MainGUID="FF71E1F8-63C5-435F-96A6-38D629C3378E" MigrationValue="Normal" Owner="1196638531" Signature="1196644685" Version="43">
+<Ancestry SectVersion="1" SectionFlags="0" SubIdent="0" Template="false">
+	<MainGUID>F938E33A-329D-4A36-BE3E-85E126820996</MainGUID>
+	<MainGUID>103E8D2C-8230-42E1-9597-46F84CCE28C0</MainGUID>
+	<MainGUID>9BCE6139-F733-4E13-B439-AAF1AF232B89</MainGUID>
+	<MainGUID>30E58E66-1DA9-4D20-9341-700170100E12</MainGUID>
+	<MainGUID>D39DF9D9-2191-4C4D-B004-2E8C1B298D7C</MainGUID>
+	<MainGUID>0D6515ED-B372-41C6-8291-C527CE94BA43</MainGUID>
+</Ancestry>
+
+<CalledMacros SectVersion="2" SectionFlags="0" SubIdent="0">
+	<Macro>
+		<MName><![CDATA["LibraryGlobals13"]]></MName>
+		<MainGUID>9137124A-DDF2-4A06-A532-5FC0CE873258</MainGUID>
+	</Macro>
+	<Macro>
+		<MName><![CDATA["ui_visualizationtab"]]></MName>
+		<MainGUID>D5E15A71-3DB2-4682-965F-558824B49920</MainGUID>
+	</Macro>
+	<Macro>
+		<MName><![CDATA["MEP_m_ConnectionsACL_4"]]></MName>
+		<MainGUID>87FC6A3E-82E1-47CF-8EB0-A818B9EC7B2F</MainGUID>
+	</Macro>
+	<Macro>
+		<MName><![CDATA["DetlevelFunctionMacro"]]></MName>
+		<MainGUID>A4CE1CDF-737C-4A6D-A878-2F805CD8073E</MainGUID>
+	</Macro>
+</CalledMacros>
+
+<!-- GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT -->
+
+<Script_3D SectVersion="20" SectionFlags="0" SubIdent="0">
+<![CDATA[
+resol gs_resol
+material gs_tap_mat
+
+hotspot 0, 0, 0,				unID, mountingHeight, 1			: unID = unID + 1
+hotspot 0, 0, mountingHeight,	unID, mountingHeight, 2 		: unID = unID + 1
+hotspot 0, 0, -1,				unID, mountingHeight, 3			: unID = unID + 1
+
+addz mountingHeight
+	if gs_tap_type_m = 24 then
+		tapHeight = 0.088
+		tapWidth = 0.162 + 2 * xTap
+		axisAngle = 71
+		axisLength = tapHeight / sin(axisAngle)
+		tapRadius = 0.022
+		hillAngle = 135
+		coneHeight = tapRadius * tan(hillAngle)
+		noseWidth = 0.048
+		noseHeight = 0.035
+		noseLength = 0.135
+		filletRadius = 0.003
+		openerWidth = 0.016
+		openerHeight = 0.009
+		openerLength = 0.053
+		openerRadius = 0.024
+		noseZPos = (tapHeight - openerRadius) / sin(axisAngle) + openerRadius - 0.002
+		
+		hotspot 0, 0, 0,				unID, xTap, 1 + 128	: unID = unID + 1
+		hotspot -xTap, 0, 0,			unID, xTap, 2		: unID = unID + 1
+		hotspot 1, 0, 0,				unID, xTap, 3		: unID = unID + 1
+
+		hotspot 0, 0, 0,				unID, xTap, 1 + 128	: unID = unID + 1
+		hotspot  xTap, 0, 0,			unID, xTap, 2		: unID = unID + 1
+		hotspot -1, 0, 0,				unID, xTap, 3		: unID = unID + 1
+
+		add -tapWidth/2 + openerLength + 0.002, 0, 0
+		roty 90
+		prism_ 5, tapWidth - 2*openerLength - 0.004,
+			-openerRadius, -0.044, 15,
+			-openerRadius, -0.06 - openerRadius, 15+64,
+			openerRadius, -0.06 - openerRadius, 1015+64,
+			openerRadius, -0.044, 15,
+			-openerRadius, -0.044, -1
+		del 2
+		
+		for ji = 1 to 2
+			addx -xTap
+			rotz -90
+				revolve 3, 360, 1+2+4+8+16+32,
+					0, 0.035, 0,
+					0.007, 0.035, 0,
+					0.027, 0.016, 0
+			del 2
+		
+			add -xTap, -0.027, 0
+			rotx 90
+				prism_ 7, 0.017,
+					0.019, 0, 15,
+					0.019*cos(60), 0.019*sin(60), 15,
+				   -0.019*cos(60), 0.019*sin(60), 15,
+				   -0.019, 0, 15,
+				   -0.019*cos(60), -0.019*sin(60), 15,
+					0.019*cos(60), -0.019*sin(60), 15,
+					0.019, 0, -1
+			del 2
+		
+			add tapWidth/2 - openerLength - 0.002, -0.084, 0
+			roty 90
+				cylind 0.002, openerRadius - 0.001
+			del 2
+		
+			add tapWidth/2 - openerLength, -0.084, 0
+			roty 90
+			gi = 55
+				hprism_ gs_tap_mat, gs_tap_mat, gs_tap_mat, gs_tap_mat,
+					6, openerLength, 0, filletRadius, 1,
+					openerRadius*cos(gi) - openerRadius*cos(90-gi)*0.6, -openerRadius*sin(gi) - openerRadius*sin(90-gi)*0.6, 11 + maskSection,
+					-openerRadius*cos(gi) + openerRadius*cos(90-gi)*0.6, -openerRadius*sin(gi) - openerRadius*sin(90-gi)*0.6, 11 + maskSection,
+					-openerRadius*cos(gi), -openerRadius*sin(gi), 11 + 64 + maskSection,
+					0, 0, 900,
+					openerRadius*cos(gi), -openerRadius*sin(gi), 1011 + 64 + maskSection,
+					openerRadius*cos(gi) - openerRadius*cos(90-gi)*0.6, -openerRadius*sin(gi) - openerRadius*sin(90-gi)*0.6, -1
+			del 2
+		mulx -1
+			next ji
+		del 2
+		
+		add 0, -0.07, openerRadius
+			cylind 0.001, 0.012
+		del 1
+	endif
+	
+	!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	
+	if gs_tap_type_m = 25 then
+		tapHeight = 0.088
+		tapWidth = 0.312
+		axisAngle = 71
+		axisLength = tapHeight / sin(axisAngle)
+		tapRadius = 0.022
+		hillAngle = 135
+		coneHeight = tapRadius * tan(hillAngle)
+		noseWidth = 0.048
+		noseHeight = 0.035
+		noseLength = 0.135
+		filletRadius = 0.003
+		openerWidth = 0.016
+		openerHeight = 0.009
+		openerLength = 0.053
+		openerRadius = 0.024
+		noseZPos = (tapHeight - openerRadius) / sin(axisAngle) + openerRadius - 0.002
+		
+		hotspot 0, 0, 0,				unID, xTap, 1 + 128	: unID = unID + 1
+		hotspot -xTap, 0, 0,			unID, xTap, 2		: unID = unID + 1
+		hotspot 1, 0, 0,				unID, xTap, 3		: unID = unID + 1
+
+		hotspot 0, 0, 0,				unID, xTap, 1 + 128	: unID = unID + 1
+		hotspot  xTap, 0, 0,			unID, xTap, 2		: unID = unID + 1
+		hotspot -1, 0, 0,				unID, xTap, 3		: unID = unID + 1
+		
+		for hi = 1 to 2
+			addx -xTap
+			rotx 90
+			cylind 0.026, 0.034
+			del 2
+		
+			add -xTap, -0.026, 0
+			rotx 90
+			prism_ 7, 0.014,
+				0.018, 0, 15,
+				0.018*cos(60), 0.018*sin(60), 15,
+			   -0.018*cos(60), 0.018*sin(60), 15,
+			   -0.018, 0, 15,
+			   -0.018*cos(60), -0.018*sin(60), 15,
+				0.018*cos(60), -0.018*sin(60), 15,
+				0.018, 0, -1
+			del 2
+		
+			add -0.075, -0.04, 0
+			rotx 90
+			cylind 0.008, 0.014
+			del 2
+		mulx -1
+		next hi
+		del 2
+		
+		szi = asn(10/26)
+		addy -0.048
+		rotx 90
+		prism_ 10, 0.04,
+			0, 0.018, 13,
+			-xTap, 0.018, 15 + 64,
+			-xTap, -0.018, 1015 + 64,
+			-0.026*cos(szi) - 0.00002, -0.018, 15,
+			-0.026*cos(szi), -0.018, 15 + 64,
+			0, -0.008, 915 + 64,
+			0, 180 - 2*szi, 4015,
+			xTap, -0.018, 15 + 64,
+			xTap, 0.018, 1015 + 64,
+			0, 0.018, -1
+		del 2
+		
+		add 0, -0.088, -0.008
+		rotx 90
+	
+		cylind 0.015, 0.025
+		del 2
+		
+		add 0, -0.105, -0.008
+		rotz 90
+		rotx 90
+		cutpolya 5, 1, 0,
+			0, 0, 7,
+			-0.007, 0.025, 7,
+			-0.02, 0.025, 7,
+			-0.02, -0.025, 7,
+			0, -0.025, 7
+		del 3
+		
+		add 0, -0.103, -0.008
+		rotx 90
+		prism_ 2, 0.01,
+			0, 0, 915 + 64,
+			0.0235, 360, 4015 + 64
+		del 2
+		
+		cutend
+		
+		add 0, -0.105, -0.008
+		rotz 90
+		rotx 90
+		cutpolya 3, 1, 0,
+			0, 0, 7,
+			-0.007, 0.025, 7,
+			0, 0.025, 7
+		del 3
+		
+		zzi = asn(4/26)
+		add 0, -0.105, -0.008
+		rotx 90
+		prism_ 4, 0.023,
+			0.025*sin(zzi), -0.025*cos(zzi), 11 + 64,
+			0, 0, 911,
+			0, 360 - 2*zzi, 4015 + 64,
+			0.025*sin(zzi), -0.025*cos(zzi), 1000
+		del 2
+		
+		cutend
+		
+		add 0, -0.128, -0.008
+		rotx 90
+		prism_ 7, 0.017,
+			0.025*sin(zzi), -0.025*cos(zzi), 14 + 64,
+			0, 0, 914,
+			0, 360 - 2*zzi, 4015,
+			-0.025*sin(zzi), -0.078, 15 + 64,
+			0.025*sin(zzi), -0.078, 1015 + 64,
+			0.025*sin(zzi), -0.025*cos(zzi) - 0.00002, 15,
+			0.025*sin(zzi), -0.025*cos(zzi), -1
+		del 2
+		
+		!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		
+		add yShowerOpenerPos - 0.0035, -0.07, 0.018
+		roty -90
+		revolve 4, 360, 1+2+4+8+16+32,
+			0, 0.007, 0,
+			0.006, 0.007, 0,
+			0.006, 0.009, 0,
+			0.024, 0.009, 0
+		del 2
+		
+		add yShowerOpenerPos, -0.07, -0.018 - 0.021
+		cylind 0.021, 0.008
+		del 1
+	endif
+	
+	!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	
+	if gs_tap_type_m = 26 then
+		hotspot 0, 0, 0,		unID, hPanel, 1 + 128	: unID = unID + 1
+		hotspot 0, 0, -hPanel,	unID, hPanel, 2			: unID = unID + 1
+		hotspot 0, 0, 1,		unID, hPanel, 3			: unID = unID + 1
+
+		hotspot 0, 0, 0,		unID, hPanel, 1 + 128	: unID = unID + 1
+		hotspot 0, 0, hPanel,	unID, hPanel, 2			: unID = unID + 1
+		hotspot 0, 0, -1,		unID, hPanel, 3			: unID = unID + 1
+	
+		panelWidth = 0.166
+		panelDepth = 0.015
+		openerRadius = 0.022
+		openerLength = 0.055
+		
+		rotx 90
+			prism_ 6, panelDepth,
+				-panelWidth/2, 0, 13,
+				-panelWidth/2, -hPanel + panelWidth/2, 15 + 64,
+				 panelWidth/2, -hPanel + panelWidth/2, 1015 + 64,
+				 panelWidth/2,  hPanel - panelWidth/2, 15 + 64,
+				-panelWidth/2,  hPanel - panelWidth/2, 1015 + 64,
+				-panelWidth/2, 0, -1
+		del 1
+		
+		for hi = -1 to 1 step 2
+			mulz hi
+			add 0, -panelDepth, hPanel - 0.083
+				rotz -90
+					revolve 2, 360, 1+2+4+8+16+32,
+						0, openerRadius - 0.002, 0,
+						0.03, openerRadius - 0.002, 0
+				del 1
+	
+				rotx 90
+				rotz 180
+				addz 0.03
+					gi = 45
+					openerResize = 0.8
+					prism_ 6, openerLength,
+						openerRadius*cos(gi) - openerRadius*cos(90-gi)*openerResize, -openerRadius*sin(gi) - openerRadius*sin(90-gi)*openerResize, 15,
+						-openerRadius*cos(gi) + openerRadius*cos(90-gi)*openerResize, -openerRadius*sin(gi) - openerRadius*sin(90-gi)*openerResize, 15,
+						-openerRadius*cos(gi), -openerRadius*sin(gi), 15+64,
+						0, 0, 900,
+						openerRadius*cos(gi), -openerRadius*sin(gi), 1015+64,
+						openerRadius*cos(gi) - openerRadius*cos(90-gi)*openerResize, -openerRadius*sin(gi) - openerRadius*sin(90-gi)*openerResize, -1
+				del 3
+			del 2
+		next hi
+	endif
+	
+	!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	
+	if gs_tap_type_m = 27 then
+	
+	endif
+del 1
+
+]]>
+</Script_3D>
+
+<!-- GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT -->
+
+<Script_2D SectVersion="20" SectionFlags="0" SubIdent="0">
+<![CDATA[
+_iTapSymbol	= TapSymbol_m
+
+! ==============================================================================
+! Wall Mounted Tap - Wall Mounted Thermostatic Shower
+! ==============================================================================
+if gs_tap_type_m = 24 then
+	if _iTapSymbol = TAPSYMBOL_DETAILED then
+		put \
+		  	-0.156,		  	-0.109,		   1,
+		  	-0.153,		  	-0.109,		 900,
+		   		 0,		  		90,		4001,
+		  	-0.103,		  	-0.112,		   1,
+		  	-0.103,		  	-0.107,		   1,
+		  	-0.101,		  	-0.107,		   1,
+		  	-0.101,		  	-0.107,		   1,
+		  	-0.101,		  	-0.108,		   1,
+		  	-0.101,		  	-0.108,		   1,
+		   	 0.101,		  	-0.108,		   1,
+		   	 0.101,		  	-0.108,		   1,
+		   	 0.101,		  	-0.107,		   1,
+		   	 0.101,		  	-0.107,		   1,
+		   	 0.103,		  	-0.107,		   1,
+		   	 0.103,		  	-0.112,		   1,
+		   	 0.153,		  	-0.112,		   1,
+		   	 0.153,		  	-0.109,		 900,
+		   	  	 0,		  		90,		4001,
+		   	0.156,		  	-0.063,		   1,
+		   	0.153,		  	-0.063,		 900,
+		   		0,		  		90,		4001,
+		   	0.103,		  	-0.06,		   1,
+		   	0.103,		  	-0.061,		   1,
+		   	0.101,		  	-0.061,		   1,
+		   	0.101,		  	-0.044,		   1,
+		   	0.094,		  	-0.044,		   1,
+		   	0.094,		  	-0.027,		   1,
+		   	0.091,		  	-0.027,		   1,
+		   	0.11,		  	-0.007,		   1,
+		   	0.11,		   		0,		   1,
+		   	0.04,		   		0,		   1,
+		   	0.04,		  	-0.007,		   1,
+		   	0.059,		  	-0.027,		   1,
+		   	0.056,		  	-0.027,		   1,
+		   	0.056,		  	-0.044,		   1,
+		  	-0.056,		  	-0.044,		   1,
+		  	-0.056,		  	-0.027,		   1,
+		  	-0.059,		  	-0.027,		   1,
+		  	-0.04,		  	-0.007,		   1,
+		  	-0.04,		   		0,		   1,
+		  	-0.11,		   		0,		   1,
+		  	-0.11,		  	-0.007,		   1,
+		  	-0.091,		  	-0.027,		   1,
+		  	-0.094,		  	-0.027,		   1,
+		  	-0.094,		  	-0.044,		   1,
+		  	-0.101,		  	-0.044,		   1,
+		  	-0.101,		  	-0.061,		   1,
+		  	-0.103,		  	-0.061,		   1,
+		  	-0.103,		  	-0.06,		   1,
+		  	-0.153,		  	-0.06,		   1,
+		  	-0.153,		  	-0.063,		 900,
+		   		0,		  		90,		4001,
+		  	-0.156,		  	-0.109,		   1
+
+	
+		poly2_b nsp/3, 1+2*bDrawFill+64, gs_fill_pen, gs_back_pen, get (nsp)
+
+!!		line2         -0.0655,       -0.027,      -0.0655,       -0.044
+!!		line2         -0.0845,       -0.027,      -0.0845,       -0.044
+!!		line2          0.0845,       -0.027,       0.0845,       -0.044
+!!		line2          0.0655,       -0.027,       0.0655,       -0.044
+!!		line2           0.227,       -0.044,        0.227,       -0.026
+!!		line2           0.205,       -0.026,        0.205,       -0.044
+!!		line2           0.227,       -0.044,        0.227,       -0.026
+!!		line2    0.2610109457545, -0.1092761631169,       0.2605, -0.09106763809896
+!!		line2    0.2591236981399, -0.1088277849046,         0.25, -0.1081388291817
+!!		line2            0.25, -0.1081388291817, 0.2408763018601, -0.1088277849046
+!!		line2    0.2676256313292, -0.1108477008792, 0.2709627191427, -0.1117275287929
+!!		line2    0.2676256313292, -0.1108477008792, 0.2591236981399, -0.1088277849046
+!!		line2    0.2323743686708, -0.1108477008792, 0.2271966991411, -0.1122128007611
+!!		line2    0.2408763018601, -0.1088277849046, 0.2323743686708, -0.1108477008792
+!!		line2    0.2271966991411, -0.1122128007611, 0.2177512626585, -0.1163699326819
+!!		line2    0.2389890542455, -0.1092761631169,       0.2395, -0.09106763809896
+!!		line2    0.2177512626585, -0.1163699326819, 0.2105035243321, -0.1217876124794
+!!		line2    0.2105035243321, -0.1217876124794, 0.2084391108675, -0.1236487517982
+!!		line2    0.2017037086855, -0.1616270698564, 0.2034147567704, -0.1639964197572
+!!		line2             0.2, -0.1542044445789, 0.2017037086855, -0.1616270698564
+!!		line2    0.2084391108675, -0.1236487517982, 0.2036448515238, -0.1302875353608
+!!		line2             0.2, -0.1435554680032,          0.2, -0.1542044445789
+!!		line2    0.2036448515238, -0.1302875353608, 0.2021974055515, -0.1330285364242
+!!		line2    0.2005111126057, -0.1403752857547,          0.2, -0.1435554680032
+!!		line2    0.2021974055515, -0.1330285364242, 0.2005111126057, -0.1403752857547
+!!		line2           0.245, -0.04276200345814, 0.2449851426973, -0.04277540515588
+!!		line2    0.247411809549, -0.04158762872345,        0.245, -0.04276200345814
+!!		line2            0.25, -0.04118707137136, 0.247411809549, -0.04158762872345
+!!		line2    0.252588190451, -0.04158762872345,         0.25, -0.04118707137136
+!!		line2           0.255, -0.04276200345814, 0.252588190451, -0.04158762872345
+!!		line2           0.255, -0.04276200345814, 0.2550148573027, -0.04277540515588
+!!		line2          0.2605, -0.09106763809896,         0.26, -0.04882713408667
+!!		line2    0.259761480784, -0.0471851460746,         0.26, -0.04882713408667
+!!		line2            0.24, -0.04882713408667, 0.240238519216, -0.0471851460746
+!!		line2    0.240238519216, -0.0471851460746, 0.2409378221735, -0.04565505683204
+!!		line2    0.2409378221735, -0.04565505683204, 0.2420502525317, -0.04434113941228
+!!		line2    0.2420502525317, -0.04434113941228,       0.2435, -0.04333293511612
+!!		line2          0.2435, -0.04333293511612, 0.2449851426973, -0.04277540515588
+!!		line2           0.245, -0.04276982765051, 0.2451882666843, -0.04269915140021
+!!		line2    0.2451882666843, -0.04269915140021,        0.247, -0.04248297957741
+!!		line2           0.247, -0.04248297957741,        0.253, -0.04248297957741
+!!		line2           0.253, -0.04248297957741, 0.2548117333157, -0.04269915140021
+!!		line2    0.2548117333157, -0.04269915140021,        0.255, -0.04276982765051
+!!		line2    0.2550148573027, -0.04277540515588,       0.2565, -0.04333293511612
+!!		line2          0.2565, -0.04333293511612, 0.2579497474683, -0.04434113941228
+!!		line2    0.2579497474683, -0.04434113941228, 0.2590621778265, -0.04565505683204
+!!		line2    0.2590621778265, -0.04565505683204, 0.259761480784, -0.0471851460746
+!!		line2          0.2395, -0.09106763809896,         0.24, -0.04882713408667
+		line2          -0.103,       -0.061,       -0.103,       -0.107
+		line2          -0.101,       -0.107,       -0.101,       -0.061
+		line2          -0.091,       -0.027,       -0.059,       -0.027
+		line2          -0.094,       -0.044,       -0.056,       -0.044
+		line2           -0.11,       -0.007,        -0.04,       -0.007
+		line2           0.059,       -0.027,        0.091,       -0.027
+		line2           0.056,       -0.044,        0.094,       -0.044
+		line2            0.04,       -0.007,         0.11,       -0.007
+!!		line2    0.1560000001015,      -0.0765, 0.1560000001015,      -0.0635
+		line2           0.101,       -0.061,        0.101, -0.1071822198309
+		line2           0.103,       -0.107,        0.103,       -0.061
+!!		line2    0.1899582757906,       -0.062, 0.23984407305,       -0.062
+!!		line2          0.2435,       -0.026,       0.2565,       -0.026
+!!		arc2 0.216, -0.044, 0.011, 180, 0
+!!		arc2 0.216, -0.1104501643007, 0.05500536174377, 121.3994123493, 141.8869173196
+		circle2 0, -0.07, 0.012
+	else
+		TempHandleDist=0.15
+		gosub "two half handles"
+	endif
+endif
+
+
+! ==============================================================================
+! Wall Mounted Tap - Shower Pipe
+! ==============================================================================
+if gs_tap_type_m = 25 then
+	if _iTapSymbol = TAPSYMBOL_DETAILED then
+		put \
+!!			-0.012, -0.3436015075472,      1,
+!!			0,       -0.463,    900,
+!!			0, 348.5216590455,   4001,
+!!			0.012, -0.1970410328235,      1,
+!!			0.02405904774488, -0.19990605924,      1,
+!!			0.037, -0.2008832663965,      1,
+!!			0.04994095225513, -0.19990605924,      1,
+!!			0.062, -0.1970410328235,      1,
+!!			0.07235533905933, -0.1924834339626,      1,
+!!			0.08030127018922, -0.1865438554877,      1,
+!!			0.08529629131445, -0.1796270698564,      1,
+!!			0.087, -0.1722044445789,      1,
+!!			0.087, -0.1615554680032,      1,
+!!			0.08648888739434, -0.1583752857547,      1,
+!!			0.0848025944485, -0.1510285364242,      1,
+!!			0.08335514847619, -0.1482875353608,      1,
+!!			0.07856088913246, -0.1416487517982,      1,
+!!			0.07649647566789, -0.1397876124794,      1,
+!!			0.06924873734153, -0.1343699326819,      1,
+!!			0.0598033008589, -0.1302128007611,      1,
+!!			0.05462563132923, -0.1288477008792,      1,
+!!			0.04801094575451, -0.1272761631169,      1,
+!!			0.0475, -0.109067638099,      1,
+!!			0.04725062278977,       -0.088,      1,
+!!			0.093,       -0.088,      1,
+!!			0.093,      -0.0765,      1,
+!!			0.169,      -0.0765,      1,
+!!			0.169,        -0.07,    900,
+!!			0, 161.9565879947,   4001,
+!!			0.1581637162698, -0.05964466413271,      1,
+!!			0.1389571127131, -0.05131059542881,      1,
+!!			0.1122933127777, -0.03613035159556,      1,
+!!			0.093, -0.02929268628812,      1,
+!!			0.093,       -0.026,      1,
+!!			0.109,       -0.026,      1,
+!!			0.109, 0,      1,
+!!			0.041, 0,      1,
+!!			0.041, -0.02321885416841,      1,
+!!			0.04037414890476, -0.02349357445119,      1,
+!!			0.03934606876699, -0.02421664450887,      1,
+!!			0.03848146482087, -0.02512930065141,      1,
+!!			0.03781356331118, -0.02619647001508,      1,
+!!			0.03044304119483,       -0.044,      1,
+
+		  	-0.093,		  	-0.088,		   1,
+		   	0.093,		  	-0.088,		   1,
+		   	0.093,		  	-0.048,		   1,
+		   	0.089,		  	-0.048,		   1,
+		   	0.089,		  	-0.04,		   1,
+		   	0.093,		  	-0.04,		   1,
+		   	0.093,		  	-0.026,		   1,
+		   	0.109,		  	-0.026,		   1,
+		   	0.109,		   		0,		   1,
+		   	0.041,		   		0,		   1,
+		   	0.041,		  	-0.026,		   1,
+		   	0.057,		  	-0.026,		   1,
+		   	0.057,		  	-0.04,		   1,
+		   	0.061,		  	-0.04,		   1,
+		   	0.061,		  	-0.048,		   1,
+		   	0.05,		  	-0.048,		   1,
+		   	0.05,		  	-0.044,		   1,
+		   	0.012,		  	-0.044,		   1,
+		   	0.012,		  	-0.008,		   1,
+		   	0.04,		  	-0.008,		   1,
+		   	0.04,		   		0,		   1,
+!---------------------------------------------------------------X
+		  	-0.04,		   		0,		   1,
+		  	-0.04,		  	-0.008,		   1,
+		  	-0.012,		  	-0.008,		   1,
+		  	-0.012,		  	-0.044,		   1,
+		  	-0.05,		  	-0.044,		   1,
+		  	-0.05,		  	-0.048,		   1,
+		  	-0.061,		  	-0.048,		   1,
+		  	-0.061,		  	-0.04,		   1,
+		  	-0.057,		  	-0.04,		   1,
+		  	-0.057,		  	-0.026,		   1,
+		  	-0.041,		  	-0.026,		   1,
+		  	-0.041,		   		0,		   1,
+		  	-0.109,		   		0,		   1,
+		  	-0.109,		  	-0.026,		   1,
+		  	-0.093,		  	-0.026,		   1,
+		  	-0.093,		  	-0.04,		   1,
+		  	-0.089,		  	-0.04,		   1,
+		  	-0.089,		  	-0.048,		   1,
+		  	-0.093,		  	-0.048,		   1,
+		  	-0.093,		  	-0.088,		  -1
+
+!!			-0.02499376108699,       -0.088,      1,
+!!			-0.02499376108699,       -0.145,      1,
+!!			-0.02438931576406,       -0.145,      1,
+!!			-0.02282084054541,       -0.145,      1,
+!!			-0.02035033212728,       -0.145,      1,
+!!			-0.01707544162855,       -0.145,      1,
+!!			-0.01312561476129,       -0.145,      1,
+!!			-0.012,       -0.145,      1,
+!!			-0.012, -0.3436015075472,     -1,
+
+!!			0.05,       -0.044,      1,
+!!			0.04445322285554,       -0.044,      1,
+!!			0.04816380265136, -0.03497860727857,      1,
+!!			0.05678382072386, -0.03358336244606,      1,
+!!			0.057, -0.03362231260965,      1,
+!!			0.057,        -0.04,      1,
+!!			0.061,        -0.04,      1,
+!!			0.061,       -0.048,      1,
+!!			0.05,       -0.048,      1,
+!!			0.05,       -0.044,     -1,
+!!			0.089,       -0.048,      1,
+!!			0.089, -0.04163529078489,      1,
+!!			0.1069066872223, -0.04796964840444,      1,
+!!			0.1330428872869, -0.06288940457119,      1,
+!!			0.1344473776027,      -0.0635,      1,
+!!			0.093,      -0.0635,      1,
+!!			0.093,       -0.048,      1,
+!!			0.089,       -0.048,     -1
+
+		poly2_b nsp/3, 1+2*bDrawFill+64, gs_fill_pen, gs_back_pen, get(nsp)
+	
+!!		line2          -0.066,       -0.026,       -0.066,        -0.04
+!!		line2          -0.084,       -0.026,       -0.084,        -0.04
+!!		line2    0.08370928108075,       -0.026,        0.093,       -0.026
+!!		line2           0.061,        -0.04,        0.066,        -0.04
+!!		line2           0.066,        -0.04,        0.084,        -0.04
+!!		line2           0.084,        -0.04, 0.08437717281509,        -0.04
+!!		line2           0.066, -0.03534208930694,        0.066,        -0.04
+!!		line2           0.084, -0.03986657791777,        0.084,        -0.04
+!!		line2           0.089,       -0.048,        0.061,       -0.048
+!!		line2    0.02674937721024,       -0.088,        0.012,       -0.088
+!!		line2           0.093,      -0.0635,        0.093,      -0.0765
+!!		line2    0.02499376108699,       -0.103,        0.012,       -0.103
+!!		line2    0.1669867062213, -0.07618034369276,        0.169,      -0.0765
+!!		line2    0.05717735310273, -0.02050654987679, 0.05593373521416, -0.0205594708412
+!!		line2    0.0616741591644, -0.02136268004216, 0.05717735310273, -0.02050654987679
+!!		line2    0.04275793957549, -0.02271898776516, 0.04152619669105, -0.0229878776552
+!!		line2    0.04152619669105, -0.0229878776552,        0.041, -0.02321885416841
+!!		line2           0.093, -0.02929268628812, 0.08101365892643, -0.02504465540475
+!!		line2    0.08101365892643, -0.02504465540475, 0.0616741591644, -0.02136268004216
+!!		line2    0.05835604908395, -0.03386663914546, 0.05678382072386, -0.03358336244606
+!!		line2    0.1669867062213, -0.07618034369276, 0.1534362837302, -0.0717553358673
+!!		line2    0.1534362837302, -0.0717553358673, 0.1344473776027,      -0.0635
+!!		line2    0.08213243353634, -0.0254917340082, 0.08211498468057, -0.02548824831481
+!!		line2    0.05593373521416, -0.0205594708412, 0.04275793957549, -0.02271898776516
+!!		line2    0.01205591163092, -0.1423864263705,        0.012, -0.142342219104
+!!		line2           0.012, -0.1283429860679, 0.01205591163092, -0.1282987788013
+		line2            0.05, -0.05848837420371,         0.05, -0.05511169821743
+		line2            0.05, -0.05199973580565,         0.05, -0.04927207793864
+		line2            0.05, -0.05511169821743,         0.05, -0.05199973580565
+!!		line2    0.04445322285554,       -0.044, 0.03059985501559,       -0.044
+!!		line2    0.07746634107357, -0.03755534459525, 0.05835604908395, -0.03386663914546
+!!		line2           0.089, -0.04163529078489, 0.07746634107357, -0.03755534459525
+!!		line2           0.032, -0.06076200345814, 0.03198514269732, -0.06077540515588
+!!		line2    0.03441180954898, -0.05958762872345,        0.032, -0.06076200345814
+!!		line2           0.037, -0.05918707137136, 0.03441180954898, -0.05958762872345
+!!		line2    0.03958819045103, -0.05958762872345,        0.037, -0.05918707137136
+!!		line2           0.042, -0.06076200345814, 0.03958819045103, -0.05958762872345
+!!		line2           0.042, -0.06076200345814, 0.04201485730268, -0.06077540515588
+!!		line2    0.04612369813992, -0.1268277849046,        0.037, -0.1261388291817
+!!		line2           0.037, -0.1261388291817, 0.02787630186008, -0.1268277849046
+!!		line2    0.04801094575451, -0.1272761631169, 0.04612369813992, -0.1268277849046
+!!		line2    0.01937436867077, -0.1288477008792, 0.0141966991411, -0.1302128007611
+!!		line2    0.02787630186008, -0.1268277849046, 0.01937436867077, -0.1288477008792
+!!		line2    0.04676148078402, -0.0651851460746,        0.047, -0.06682713408667
+!!		line2    0.0141966991411, -0.1302128007611,        0.012, -0.1311796134792
+!!		line2    0.02598905424549, -0.1272761631169,       0.0265, -0.109067638099
+!!		line2           0.027, -0.06682713408667, 0.02723851921598, -0.0651851460746
+!!		line2    0.02723851921598, -0.0651851460746, 0.02793782217351, -0.06365505683204
+!!		line2    0.02793782217351, -0.06365505683204, 0.02905025253169, -0.06234113941228
+!!		line2    0.02905025253169, -0.06234113941228,       0.0305, -0.06133293511612
+!!		line2          0.0305, -0.06133293511612, 0.03198514269732, -0.06077540515588
+!!		line2           0.032, -0.06076982765051, 0.03218826668428, -0.06069915140021
+!!		line2    0.03218826668428, -0.06069915140021,        0.034, -0.06048297957741
+!!		line2           0.034, -0.06048297957741,         0.04, -0.06048297957741
+!!		line2            0.04, -0.06048297957741, 0.04181173331572, -0.06069915140021
+!!		line2    0.04181173331572, -0.06069915140021,        0.042, -0.06076982765051
+!!		line2    0.04201485730268, -0.06077540515588,       0.0435, -0.06133293511612
+!!		line2          0.0435, -0.06133293511612, 0.04494974746831, -0.06234113941228
+!!		line2    0.04494974746831, -0.06234113941228, 0.04606217782649, -0.06365505683204
+!!		line2    0.04606217782649, -0.06365505683204, 0.04676148078402, -0.0651851460746
+!!		line2          0.0265, -0.109067638099,        0.027, -0.06682713408667
+!!		line2    0.04725062278977,       -0.088,        0.047, -0.06682713408667
+!!		line2            0.05,        -0.08, 0.04715592694999,        -0.08
+!!		line2    0.02684407305001,        -0.08,        0.012,        -0.08
+!!		line2          -0.012, -0.3436015075472,       -0.012,       -0.485
+!!		line2           0.012, -0.3436015075472,        0.012,       -0.485
+!!		line2          -0.012,       -0.485,        0.012,       -0.485
+		line2          -0.093,       -0.026,       -0.057,       -0.026
+
+		line2          0.093,       -0.026,       0.057,       -0.026
+
+		line2          -0.089,        -0.04,       -0.061,        -0.04
+		line2          -0.089,       -0.048,       -0.061,       -0.048
+		line2           -0.05,       -0.048,        -0.05,        -0.08
+		line2            0.05,        -0.08,         0.05,       -0.048
+
+		line2          0.089,        -0.04,       0.061,        -0.04
+		line2          0.089,       -0.048,       0.061,       -0.048
+
+		line2          -0.012, -0.008,        0.012, -0.008
+!!		line2          -0.012,       -0.044,       -0.012,       -0.145
+!!		line2           0.012, -0.1970410328235,        0.012,       -0.044
+		line2           -0.05,        -0.08,       0.05,        -0.08
+		line2    -0.02499376108699,       -0.088,       -0.012,       -0.088
+!!		line2    -0.02499376108699,       -0.103,       -0.012,       -0.103
+!!		line2    0.02499376108699,       -0.088, 0.02499376108699, -0.1275126279897
+!!		arc2     8.881784197001E-016,       -0.463,         0.05, 103.8865403626, 76.11345963737
+!!		arc2     -0.0545,        -0.07,        0.009,           60,          300
+	else
+		TempHandleDist=0.15
+		gosub "two half handles"
+	endif
+endif
+
+! ==============================================================================
+! Wall Mounted Tap - Overhead Shower Armature
+! ==============================================================================
+if gs_tap_type_m = 26 then
+	panelWidth = 0.166
+	panelDepth = 0.015
+	panelHeight = 0.266
+	openerRadius = 0.022
+	openerLength = 0.055
+	
+	if _iTapSymbol = TAPSYMBOL_DETAILED then
+		poly2_b 13, 1+2*bDrawFill+64, gs_fill_pen, gs_back_pen,
+			-panelWidth/2, 0, 1,
+			-panelWidth/2, -panelDepth, 1,
+			-openerRadius + 0.002, -panelDepth, 1,
+			-openerRadius + 0.002, -panelDepth - 0.03, 1,
+			-openerRadius, -panelDepth - 0.03, 1,
+			-openerRadius, -panelDepth - 0.03 - openerLength, 1,
+			 openerRadius, -panelDepth - 0.03 - openerLength, 1,
+			 openerRadius, -panelDepth - 0.03, 1,
+			 openerRadius - 0.002, -panelDepth - 0.03, 1,
+			 openerRadius - 0.002, -panelDepth, 1,
+			 panelWidth/2, -panelDepth, 1,
+			 panelWidth/2, 0, 1,
+			-panelWidth/2, 0, -1
+	
+		line2 -openerRadius + 0.002, -panelDepth, openerRadius - 0.002, -panelDepth
+		line2 -openerRadius + 0.002, -panelDepth - 0.03, openerRadius - 0.002, -panelDepth - 0.03
+	
+		line_type ltDashed
+!!		circle2 xShowerHeadPos, yShowerHeadPos, 0.12
+!!		circle2 xShowerHeadPos, yShowerHeadPos, 0.05
+!!		circle2 xShowerHeadPos, yShowerHeadPos, 0.012
+	
+		if bEnableShowerEdit then
+			hotspot2 0, yShowerHeadPos, unID, xShowerHeadPos, 1+128 : unID=unID+1
+			hotspot2 xShowerHeadPos, yShowerHeadPos, unID, xShowerHeadPos, 2 : unID=unID+1
+			hotspot2 -1, yShowerHeadPos, unID, xShowerHeadPos, 3 : unID=unID+1
+	
+			hotspot2 xShowerHeadPos, 0, unID, yShowerHeadPos, 1+128 : unID=unID+1
+			hotspot2 xShowerHeadPos, yShowerHeadPos, unID, yShowerHeadPos, 2 : unID=unID+1
+			hotspot2 xShowerHeadPos, -1, unID, yShowerHeadPos, 3 : unID=unID+1
+		endif
+	else
+		gosub "one handle"
+	endif
+endif
+
+! ==============================================================================
+! ==============================================================================
+end
+! ==============================================================================
+! ==============================================================================
+
+! --- Simple: two handles ------------------------------------------------------
+
+"two half handles":
+	TempLine=0.025
+	TempR=0.025
+
+	FOR k=-1 to 1 step 2
+		mul2 k,	1
+		
+		hotspot2 0,		0,			unID, xTap, 1 + 128	: unID = unID + 1
+		hotspot2 xTap,	0,			unID, xTap, 2		: unID = unID + 1
+		hotspot2 -1,	0,			unID, xTap, 3		: unID = unID + 1
+
+		ADD2 xTap,0
+			POLY2_b 4, 1+2*bDrawFill+64, gs_fill_pen, gs_back_pen,
+				TempR,0,1,
+				0, -1, 801,
+				-TempR, 0, 1001,
+				TempR, 0, -1
+	
+			LINE2 TempLine*0.5,0,TempLine*1.5,0
+			LINE2 -TempLine*0.5,0,-TempLine*1.5,0
+			LINE2 0,-TempLine*0.5,0,-TempLine*1.5
+		DEL 2
+	NEXT k
+
+	POLY2_b 4, 1+2*bDrawFill+64, gs_fill_pen, gs_back_pen,
+		TempR-0.002,0,1,
+		0, -1, 801,
+		-TempR+0.002, 0, 1001,
+		TempR-0.002, 0, -1
+RETURN
+
+"one handle":
+	TempLine=0.025
+	TempR=0.025
+
+	POLY2_b 2, 1+2*bDrawFill+64, gs_fill_pen,gs_back_pen,
+			0,0,901,
+			TempR,360,4001
+
+	LINE2 TempLine*0.5,0,TempLine*1.5,0
+	LINE2 -TempLine*0.5,0,-TempLine*1.5,0
+	LINE2 0,TempLine*0.5,0,TempLine*1.5
+	LINE2 0,-TempLine*0.5,0,-TempLine*1.5
+RETURN
+
+]]>
+</Script_2D>
+
+<!-- GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT -->
+
+<Script_1D SectVersion="20" SectionFlags="0" SubIdent="0">
+<![CDATA[
+! ==============================================================================
+! Shower Kit Tap
+! ==============================================================================
+
+! const values for iDetlevel3D
+DETLEVEL_3D_MVO			= 1
+DETLEVEL_3D_SCSENS		= 2
+DETLEVEL_3D_DETAILED	= 3
+DETLEVEL_3D_SIMPLE		= 4
+DETLEVEL_3D_DRAFT		= 5
+DETLEVEL_3D_OFF			= 6
+
+! const values for iDetlevel2D
+DETLEVEL_2D_MVO			= 1
+DETLEVEL_2D_SCSENS		= 2
+DETLEVEL_2D_DETAILED	= 3
+DETLEVEL_2D_SIMPLE		= 4
+DETLEVEL_2D_DRAFT		= 5
+DETLEVEL_2D_SYMBOLIC	= 6
+
+TAPSYMBOL_OFF			= 0
+TAPSYMBOL_SYMBOLIC_1	= 1
+TAPSYMBOL_DETAILED		= 2
+TAPSYMBOL_SYMBOLIC_2	= 3
+TAPSYMBOL_SYMBOLIC_3	= 4
+TAPSYMBOL_MVO			= 99
+
+TAPGROUP_SINGLE 		= 1
+TAPGROUP_TWOHANDLE 		= 2
+TAPGROUP_TRADITIONAL 	= 3
+TAPGROUP_SENSOR			= 4
+TAPGROUP_WALLMOUNTED	= 5
+TAPGROUP_NONE 			= 6
+TAPGROUP_CUSTOMTAPS		= 7
+
+if gs_tap_type_m > 25 then
+	if gs_tap_type_m = 26 then
+		widthTap	= 0.3
+		limit_X		= widthTap/2
+		limit_Y1	= 0.35
+		limit_Y2	= 1.04
+	endif
+	if gs_tap_type_m = 27 then
+		widthTap	= 0.16
+		limit_X		= widthTap/2
+		limit_Y1	= 0.13
+		limit_Y2	= 0.13
+	endif
+else
+	widthTap = 0.068
+	posTap = 0.041
+endif
+
+! Show MEP Connections -------------------------------------------------------------[
+
+isavailable = 0
+isInArchiCAD = APPLICATION_QUERY ("MEPMODELER", "IsAvailable()", isavailable)
+isMEPEnabled = 1				!!!		(isavailable OR isInArchiCAD = 0)
+if isMEPEnabled then
+	bShowMEP = 1
+	reqBMep = 0
+	success = LIBRARYGLOBAL ("LibraryGlobals13", "showMepConnect", reqBMep)
+	if success > 0 then
+		bShowMEP = reqBMep
+	endif
+else
+	bShowMEP = 0
+endif
+
+! Show MEP Connections -------------------------------------------------------------]
+
+
+EPS=0.0001
+unID = 0
+
+]]>
+</Script_1D>
+
+<!-- GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT -->
+
+<Script_PR SectVersion="20" SectionFlags="0" SubIdent="0">
+<![CDATA[]]>
+</Script_PR>
+
+<!-- GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT -->
+
+<Script_UI SectVersion="20" SectionFlags="0" SubIdent="0">
+<![CDATA[
+! ==============================================================================
+! Shower Kit Tap
+! ==============================================================================
+
+UI_CURRENT_PAGE gs_ui_current_page
+
+UI_DIALOG `Shower Kit Tap Settings`
+
+if isMEPEnabled then
+	DIM ui_matpar_names[2][2]
+		ui_matpar_names[1][1] = `Tap`
+		ui_matpar_names[2][1] = `Connection`
+
+		ui_matpar_names[1][2] = "gs_tap_mat"
+		ui_matpar_names[2][2] = "gs_con_mat"
+
+	DIM ui_matpar_locked[3]
+		ui_matpar_locked[1] = 0
+		ui_matpar_locked[2] = 0
+		ui_matpar_locked[3] = (NOT(ConStatus_1) AND NOT(ConStatus_2))
+else
+	DIM ui_matpar_names[1][2]
+		ui_matpar_names[1][1] = `Tap`
+		ui_matpar_names[1][2] = "gs_tap_mat"
+
+	DIM ui_matpar_locked[2]
+		ui_matpar_locked[1] = 0
+		ui_matpar_locked[2] = 0
+
+endif
+
+IF gs_tap_type_m=0 THEN ui_matpar_locked[2] = 1
+
+iPageIDRoot 			=-1
+iPageIDTap				= 1
+iPageIDRepAndSurface	= 2
+iPageIDConnections		= 3
+
+pageStartY = 5
+
+! ==============================================================================
+!UI_PAGES
+! ==============================================================================
+
+UI_PAGE iPageIDTap, iPageIDRoot, `Tap Styles`, "uiTab_Style_hl(1)"
+	gosub "tapPage"
+
+UI_PAGE iPageIDRepAndSurface, iPageIDRoot, `Representation and Surfaces`, "uiTab_2DRepr_hl(1)"
+	gosub "repAndSurfacePage"
+
+if isMEPEnabled then
+	UI_PAGE iPageIDConnections, iPageIDRoot, `Connections`, "uiTab_Connections_hl(1)"
+		gosub "connectionsPage"
+endif
+
+! ==============================================================================
+END
+! ==============================================================================
+
+
+! ==============================================================================
+!SUBROUTINES
+! ==============================================================================
+
+! ------------------------------------------------------------------------------
+"tapPage":
+! ------------------------------------------------------------------------------
+
+	dy = 40
+	y = yPageStart + 15
+
+	ui_infield{4} "gs_tap_type", 0, pageStartY + 15, 306, 25,
+		8, "", 
+		0, 0,
+		0, 0, 0, 0,
+		0, `Style 1`, `Style 1`,
+		0, `Style 2`, `Style 2`,
+		0, `Style 3`, `Style 3`,
+		0, `Style 4`, `Style 4`
+
+	UI_OUTFIELD `Mounting Height`, 		310, y, 		120, 15
+	ui_infield "mountingHeight", 	  	310, y + 17, 	100, 19
+
+	y = y + dy
+
+	UI_OUTFIELD `Tap width`, 			310, y, 		120, 15
+	ui_infield "xTap", 	  				310, y + 17, 	100, 19
+
+	y = y + dy
+
+	if gs_tap_type_m = 21 then
+		ui_infield{3} "bShower", 237, y-4, 200, 19,
+			7, "",
+			0, 0,
+			0, 0, 0, 0,
+			"", `Shower Kit`, 0,
+			"", `Shower Kit`, 1
+	endif
+return
+
+! ------------------------------------------------------------------------------
+"repAndSurfacePage":
+! ------------------------------------------------------------------------------
+
+	CALL "ui_visualizationtab" PARAMETERS ALL 	iObjectType = 101,
+												bEnableCenterlinePars = 0,
+												bEnable2dDetail = 1,
+												bEnable3dDetail = 1,
+												bEnableUseSystemMat = 0,
+												ui_matpar_names = ui_matpar_names,
+												ui_matpar_locked = ui_matpar_locked,
+												ui_3dviewpar_rowspace = 2
+return
+
+! ------------------------------------------------------------------------------
+"connectionsPage":
+! ------------------------------------------------------------------------------
+
+	DIM ui_con_type[2]
+		ui_con_type[1] = 0
+		ui_con_type[2] = 0
+
+	CALL "MEP_m_ConnectionsACL_4" PARAMETERS ALL ui_con_type = ui_con_type,
+												ui_system_var_pos = 2
+
+return
+
+]]>
+</Script_UI>
+
+<!-- GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT -->
+
+<Script_VL SectVersion="20" SectionFlags="0" SubIdent="0">
+<![CDATA[
+values "gs_tap_type" `Style 1`, `Style 2`, `Style 3`		!!, `Style 4`
+values "gs_tap_type_m" 24, 25, 26							!!, 27
+values "xTap" range [0.05, )
+values "hPanel" range [0.133, )
+
+if GLOB_MODPAR_NAME = "gs_tap_type" then
+	if gs_tap_type = `Style 1` then
+		gs_tap_type_m = 24
+	endif
+
+	if gs_tap_type = `Style 2` then
+		gs_tap_type_m = 25
+	endif
+
+	if gs_tap_type = `Style 3` then
+		gs_tap_type_m = 26
+	endif
+
+	if gs_tap_type = `Style 4` then
+		gs_tap_type_m = 27
+	endif
+endif
+
+! VALUES for iDetlevel3D and/or iDetlevel2D
+call "DetlevelFunctionMacro" parameters	bEnable3DFunction		= 1,
+										iFlagEnable3DSymbols	= 1 + 4 + 8 + 16 + 32,
+										bEnable2DFunction		= 0,
+										iFlagEnable2DSymbols	= 0
+
+parameters gs_tap_type_m  = gs_tap_type_m 
+]]>
+</Script_VL>
+
+<!-- GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT -->
+
+<Script_FWM SectVersion="20" SectionFlags="0" SubIdent="0">
+<![CDATA[]]>
+</Script_FWM>
+
+<!-- GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT -->
+
+<Script_BWM SectVersion="20" SectionFlags="0" SubIdent="0">
+<![CDATA[]]>
+</Script_BWM>
+
+<ParamSection SectVersion="27" SectionFlags="0" SubIdent="0">
+	<ParamSectHeader>
+		<AutoHotspots>false</AutoHotspots>
+		<StatBits>
+			<STBit_UIDefault/>
+			<STBit_FixSize/>
+			<STBit_UIUseHierarchicalPages/>
+		</StatBits>
+		<WDLeftFrame>0</WDLeftFrame>
+		<WDRightFrame>0</WDRightFrame>
+		<WDTopFrame>0</WDTopFrame>
+		<WDBotFrame>0</WDBotFrame>
+		<LayFlags>65535</LayFlags>
+		<WDMirrorThickness>0</WDMirrorThickness>
+		<WDWallInset>0</WDWallInset>
+	</ParamSectHeader>
+	<Parameters>
+		<Length Name="A">
+			<Description><![CDATA["Dimension 1"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>1</Value>
+		</Length>
+		<Length Name="B">
+			<Description><![CDATA["Dimension 2"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>1</Value>
+		</Length>
+		<Length Name="ZZYZX">
+			<Description><![CDATA["Height"]]></Description>
+			<Fix/>
+			<Value>0.115</Value>
+		</Length>
+		<Boolean Name="SetProgram">
+			<Description><![CDATA["Set Program"]]></Description>
+			<Flags>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>0</Value>
+		</Boolean>
+		<Length Name="mountingHeight">
+			<Description><![CDATA["Mounting Height"]]></Description>
+			<Value>1.2</Value>
+		</Length>
+		<Integer Name="iDetlevel3D">
+			<Description><![CDATA["3D Detail Level"]]></Description>
+			<Value>1</Value>
+		</Integer>
+		<String Name="gs_tap_type">
+			<Description><![CDATA["Tap Style"]]></Description>
+			<Value><![CDATA["Style 1"]]></Value>
+		</String>
+		<Integer Name="gs_tap_type_m">
+			<Description><![CDATA["Tap Style"]]></Description>
+			<Flags>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>24</Value>
+		</Integer>
+		<Length Name="xShowerHeadPos">
+			<Description><![CDATA["Shower Head X Position"]]></Description>
+			<Flags>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>0</Value>
+		</Length>
+		<Length Name="yShowerHeadPos">
+			<Description><![CDATA["Shower Head Y Position"]]></Description>
+			<Flags>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>-0.4</Value>
+		</Length>
+		<Length Name="zShowerHeadPos">
+			<Description><![CDATA["Shower Head Z Position"]]></Description>
+			<Flags>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>1.05</Value>
+		</Length>
+
+		<!-- gs_connection: PARAMETER BLOCK ===== PARAMETER BLOCK ===== PARAMETER BLOCK ===== PARAMETER BLOCK -->
+
+		<Title Name="gs_connection">
+			<Description><![CDATA["Connections"]]></Description>
+		</Title>
+		<Boolean Name="ConStatus_1">
+			<Description><![CDATA["Hot Water Connection"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_BoldName/>
+			</Flags>
+			<Value>1</Value>
+		</Boolean>
+		<Integer Name="ConToolType_1">
+			<Description><![CDATA[" Tool Type"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Unique/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>2</Value>
+		</Integer>
+		<String Name="ConSystem_1">
+			<Description><![CDATA[" MEP System"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA["Undefined"]]></Value>
+		</String>
+		<String Name="ConType_1">
+			<Description><![CDATA[" Shape Type"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Unique/>
+			</Flags>
+			<Value><![CDATA["Circle"]]></Value>
+		</String>
+		<String Name="ConConnectorType_1">
+			<Description><![CDATA[" Connection Type"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<String Name="ConNominalWidth_1">
+			<Description><![CDATA[" Nominal Size"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<Length Name="ConNominalDepth_1">
+			<Description><![CDATA[" Nominal Depth"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>0.025</Value>
+		</Length>
+		<Length Name="ConWidth_1">
+			<Description><![CDATA[" Outer Diameter"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0.027</Value>
+		</Length>
+		<Length Name="ConDepth_1">
+			<Description><![CDATA[" Outer Depth"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>0.027</Value>
+		</Length>
+		<Length Name="ConWallThickness_1">
+			<Description><![CDATA[" Wall Thickness"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0.001</Value>
+		</Length>
+		<Length Name="ConLength_1">
+			<Description><![CDATA[" Connection Length"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0.02</Value>
+		</Length>
+		<Length Name="ConConnectorWidth_1">
+			<Description><![CDATA[" Connector Diameter"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0.04</Value>
+		</Length>
+		<Length Name="ConConnectorDepth_1">
+			<Description><![CDATA[" Connector Depth"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>0</Value>
+		</Length>
+		<Length Name="ConConnectorWidth2_1">
+			<Description><![CDATA[" Connector Width"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0.005</Value>
+		</Length>
+		<Length Name="ConPosX_1">
+			<Description><![CDATA[" Connection Position X"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>-0.075</Value>
+		</Length>
+		<Length Name="ConPosY_1">
+			<Description><![CDATA[" Connection Position Y"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>0</Value>
+		</Length>
+		<Length Name="ConPosZ_1">
+			<Description><![CDATA[" Connection Position Z"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>1.2</Value>
+		</Length>
+		<Boolean Name="ConStatus_2">
+			<Description><![CDATA["Cold Water Connection"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_BoldName/>
+			</Flags>
+			<Value>1</Value>
+		</Boolean>
+		<Integer Name="ConToolType_2">
+			<Description><![CDATA[" Tool Type"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Unique/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>2</Value>
+		</Integer>
+		<String Name="ConSystem_2">
+			<Description><![CDATA[" MEP System"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA["Undefined"]]></Value>
+		</String>
+		<String Name="ConType_2">
+			<Description><![CDATA[" Shape Type"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Unique/>
+			</Flags>
+			<Value><![CDATA["Circle"]]></Value>
+		</String>
+		<String Name="ConConnectorType_2">
+			<Description><![CDATA[" Connection Type"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<String Name="ConNominalWidth_2">
+			<Description><![CDATA[" Nominal Size"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<Length Name="ConNominalDepth_2">
+			<Description><![CDATA[" Nominal Depth"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>0.025</Value>
+		</Length>
+		<Length Name="ConWidth_2">
+			<Description><![CDATA[" Outer Diameter"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0.027</Value>
+		</Length>
+		<Length Name="ConDepth_2">
+			<Description><![CDATA[" Outer Depth"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>0.027</Value>
+		</Length>
+		<Length Name="ConWallThickness_2">
+			<Description><![CDATA[" Wall Thickness"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0.001</Value>
+		</Length>
+		<Length Name="ConLength_2">
+			<Description><![CDATA[" Connection Length"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0.02</Value>
+		</Length>
+		<Length Name="ConConnectorWidth_2">
+			<Description><![CDATA[" Connector Diameter"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0.04</Value>
+		</Length>
+		<Length Name="ConConnectorDepth_2">
+			<Description><![CDATA[" Connector Depth"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>0</Value>
+		</Length>
+		<Length Name="ConConnectorWidth2_2">
+			<Description><![CDATA[" Connector Width"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0.005</Value>
+		</Length>
+		<Length Name="ConPosX_2">
+			<Description><![CDATA[" Connection Position X"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>0.075</Value>
+		</Length>
+		<Length Name="ConPosY_2">
+			<Description><![CDATA[" Connection Position Y"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>0</Value>
+		</Length>
+		<Length Name="ConPosZ_2">
+			<Description><![CDATA[" Connection Position Z"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>1.2</Value>
+		</Length>
+
+		<!-- gs_3D_representation: PARAMETER BLOCK ===== PARAMETER BLOCK ===== PARAMETER BLOCK ===== PARAMETER BLOCK -->
+
+		<Title Name="gs_3D_representation">
+			<Description><![CDATA["3D Representation"]]></Description>
+			<Fix/>
+		</Title>
+		<Integer Name="gs_resol">
+			<Description><![CDATA["Resolution"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>12</Value>
+		</Integer>
+		<Boolean Name="gs_shadow">
+			<Description><![CDATA["Shadow"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>1</Value>
+		</Boolean>
+		<Boolean Name="AC_show2DHotspotsIn3D">
+			<Description><![CDATA["Show 2D Hotspots in 3D"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>0</Value>
+		</Boolean>
+		<Length Name="ac_bottomlevel">
+			<Description><![CDATA["Bottom Level"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>1</Value>
+		</Length>
+		<Length Name="ac_toplevel">
+			<Description><![CDATA["Top Level"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>0</Value>
+		</Length>
+
+		<!-- gs_2D_representation: PARAMETER BLOCK ===== PARAMETER BLOCK ===== PARAMETER BLOCK ===== PARAMETER BLOCK -->
+
+		<Title Name="gs_2D_representation">
+			<Description><![CDATA["2D Representation"]]></Description>
+			<Fix/>
+		</Title>
+		<String Name="TapSymbol">
+			<Description><![CDATA["2D Symbol Type"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA["Detailed"]]></Value>
+		</String>
+		<Integer Name="TapSymbol_m">
+			<Description><![CDATA["2D Symbol Type"]]></Description>
+			<Flags>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>99</Value>
+		</Integer>
+		<PenColor Name="gs_cont_pen">
+			<Description><![CDATA["Contour Pen"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>75</Value>
+		</PenColor>
+		<FillPattern Name="gs_fill_type">
+			<Description><![CDATA["Fill Type"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>65</Value>
+		</FillPattern>
+		<PenColor Name="gs_fill_pen">
+			<Description><![CDATA["Fill Pen"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>19</Value>
+		</PenColor>
+		<PenColor Name="gs_back_pen">
+			<Description><![CDATA["Fill Background Pen"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>19</Value>
+		</PenColor>
+
+		<!-- gs_material: PARAMETER BLOCK ===== PARAMETER BLOCK ===== PARAMETER BLOCK ===== PARAMETER BLOCK -->
+
+		<Title Name="gs_material">
+			<Description><![CDATA["Surfaces"]]></Description>
+		</Title>
+		<Material Name="gs_tap_mat">
+			<Description><![CDATA["Tap"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>11</Value>
+		</Material>
+		<Material Name="gs_con_mat">
+			<Description><![CDATA["Connection"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>11</Value>
+		</Material>
+		<Boolean Name="useSysMat">
+			<Description><![CDATA["Use System Surface"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>0</Value>
+		</Boolean>
+		<Material Name="sMat">
+			<Description><![CDATA["System Surface"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>78</Value>
+		</Material>
+		<Integer Name="gs_ui_current_page">
+			<Description><![CDATA[""]]></Description>
+			<Flags>
+				<ParFlg_Unique/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>1</Value>
+		</Integer>
+		<Integer Name="ui_current_con">
+			<Description><![CDATA[""]]></Description>
+			<Flags>
+				<ParFlg_Unique/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>1</Value>
+		</Integer>
+		<Boolean Name="ac_mep_connectionpage_active">
+			<Description><![CDATA[""]]></Description>
+			<Flags>
+				<ParFlg_Unique/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>0</Value>
+		</Boolean>
+		<Integer Name="MEP_version">
+			<Description><![CDATA[""]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Unique/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>4</Value>
+		</Integer>
+		<String Name="MEP_ConInfo">
+			<Description><![CDATA[""]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Unique/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<ArrayValues FirstDimension="2" SecondDimension="3">
+				<AVal Column="1" Row="1"><![CDATA["2"]]></AVal>
+				<AVal Column="2" Row="1"><![CDATA["Hot Water Connection"]]></AVal>
+				<AVal Column="3" Row="1"><![CDATA["0"]]></AVal>
+				<AVal Column="1" Row="2"><![CDATA["2"]]></AVal>
+				<AVal Column="2" Row="2"><![CDATA["Cold Water Connection"]]></AVal>
+				<AVal Column="3" Row="2"><![CDATA["0"]]></AVal>
+			</ArrayValues>
+		</String>
+		<Length Name="gs_Connections">
+			<Description><![CDATA[""]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Unique/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<ArrayValues FirstDimension="2" SecondDimension="26">
+				<AVal Column="1" Row="1">-0.075</AVal>
+				<AVal Column="2" Row="1">0</AVal>
+				<AVal Column="3" Row="1">1.2</AVal>
+				<AVal Column="4" Row="1">0</AVal>
+				<AVal Column="5" Row="1">1</AVal>
+				<AVal Column="6" Row="1">0</AVal>
+				<AVal Column="7" Row="1">-1</AVal>
+				<AVal Column="8" Row="1">0</AVal>
+				<AVal Column="9" Row="1">0</AVal>
+				<AVal Column="10" Row="1">0</AVal>
+				<AVal Column="11" Row="1">0</AVal>
+				<AVal Column="12" Row="1">0.027</AVal>
+				<AVal Column="13" Row="1">0.027</AVal>
+				<AVal Column="14" Row="1">0.001</AVal>
+				<AVal Column="15" Row="1">0.04</AVal>
+				<AVal Column="16" Row="1">0</AVal>
+				<AVal Column="17" Row="1">0.005</AVal>
+				<AVal Column="18" Row="1">0</AVal>
+				<AVal Column="19" Row="1">2</AVal>
+				<AVal Column="20" Row="1">0</AVal>
+				<AVal Column="21" Row="1">2</AVal>
+				<AVal Column="22" Row="1">1</AVal>
+				<AVal Column="23" Row="1">0.02</AVal>
+				<AVal Column="24" Row="1">0</AVal>
+				<AVal Column="25" Row="1">0</AVal>
+				<AVal Column="26" Row="1">0</AVal>
+				<AVal Column="1" Row="2">0.075</AVal>
+				<AVal Column="2" Row="2">0</AVal>
+				<AVal Column="3" Row="2">1.2</AVal>
+				<AVal Column="4" Row="2">0</AVal>
+				<AVal Column="5" Row="2">1</AVal>
+				<AVal Column="6" Row="2">0</AVal>
+				<AVal Column="7" Row="2">-1</AVal>
+				<AVal Column="8" Row="2">0</AVal>
+				<AVal Column="9" Row="2">0</AVal>
+				<AVal Column="10" Row="2">0</AVal>
+				<AVal Column="11" Row="2">0</AVal>
+				<AVal Column="12" Row="2">0.027</AVal>
+				<AVal Column="13" Row="2">0.027</AVal>
+				<AVal Column="14" Row="2">0.001</AVal>
+				<AVal Column="15" Row="2">0.04</AVal>
+				<AVal Column="16" Row="2">0</AVal>
+				<AVal Column="17" Row="2">0.005</AVal>
+				<AVal Column="18" Row="2">0</AVal>
+				<AVal Column="19" Row="2">2</AVal>
+				<AVal Column="20" Row="2">0</AVal>
+				<AVal Column="21" Row="2">2</AVal>
+				<AVal Column="22" Row="2">1</AVal>
+				<AVal Column="23" Row="2">0.02</AVal>
+				<AVal Column="24" Row="2">0</AVal>
+				<AVal Column="25" Row="2">0</AVal>
+				<AVal Column="26" Row="2">0</AVal>
+			</ArrayValues>
+		</Length>
+		<Integer Name="MEP_NumberConnections">
+			<Description><![CDATA["Number of Connections"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Unique/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>2</Value>
+		</Integer>
+		<Length Name="MEP_NumConnectionData">
+			<Description><![CDATA[""]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Unique/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<ArrayValues FirstDimension="2" SecondDimension="26">
+				<AVal Column="1" Row="1">-0.075</AVal>
+				<AVal Column="2" Row="1">0.02</AVal>
+				<AVal Column="3" Row="1">1.2</AVal>
+				<AVal Column="4" Row="1">0</AVal>
+				<AVal Column="5" Row="1">1</AVal>
+				<AVal Column="6" Row="1">0</AVal>
+				<AVal Column="7" Row="1">-1</AVal>
+				<AVal Column="8" Row="1">0</AVal>
+				<AVal Column="9" Row="1">0</AVal>
+				<AVal Column="10" Row="1">0</AVal>
+				<AVal Column="11" Row="1">0</AVal>
+				<AVal Column="12" Row="1">0.027</AVal>
+				<AVal Column="13" Row="1">0.027</AVal>
+				<AVal Column="14" Row="1">0.001</AVal>
+				<AVal Column="15" Row="1">0.04</AVal>
+				<AVal Column="16" Row="1">0</AVal>
+				<AVal Column="17" Row="1">0.005</AVal>
+				<AVal Column="18" Row="1">0</AVal>
+				<AVal Column="19" Row="1">2</AVal>
+				<AVal Column="20" Row="1">0</AVal>
+				<AVal Column="21" Row="1">2</AVal>
+				<AVal Column="22" Row="1">1</AVal>
+				<AVal Column="23" Row="1">0.02</AVal>
+				<AVal Column="24" Row="1">0</AVal>
+				<AVal Column="25" Row="1">0</AVal>
+				<AVal Column="26" Row="1">0</AVal>
+				<AVal Column="1" Row="2">0.075</AVal>
+				<AVal Column="2" Row="2">0.02</AVal>
+				<AVal Column="3" Row="2">1.2</AVal>
+				<AVal Column="4" Row="2">0</AVal>
+				<AVal Column="5" Row="2">1</AVal>
+				<AVal Column="6" Row="2">0</AVal>
+				<AVal Column="7" Row="2">-1</AVal>
+				<AVal Column="8" Row="2">0</AVal>
+				<AVal Column="9" Row="2">0</AVal>
+				<AVal Column="10" Row="2">0</AVal>
+				<AVal Column="11" Row="2">0</AVal>
+				<AVal Column="12" Row="2">0.027</AVal>
+				<AVal Column="13" Row="2">0.027</AVal>
+				<AVal Column="14" Row="2">0.001</AVal>
+				<AVal Column="15" Row="2">0.04</AVal>
+				<AVal Column="16" Row="2">0</AVal>
+				<AVal Column="17" Row="2">0.005</AVal>
+				<AVal Column="18" Row="2">0</AVal>
+				<AVal Column="19" Row="2">2</AVal>
+				<AVal Column="20" Row="2">0</AVal>
+				<AVal Column="21" Row="2">2</AVal>
+				<AVal Column="22" Row="2">1</AVal>
+				<AVal Column="23" Row="2">0.02</AVal>
+				<AVal Column="24" Row="2">0</AVal>
+				<AVal Column="25" Row="2">0</AVal>
+				<AVal Column="26" Row="2">0</AVal>
+			</ArrayValues>
+		</Length>
+		<String Name="MEP_StrConnectionData">
+			<Description><![CDATA[""]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Unique/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<ArrayValues FirstDimension="2" SecondDimension="4">
+				<AVal Column="1" Row="1"><![CDATA["{B58525F9-A8D8-454D-A768-BF66DE95BC32}"]]></AVal>
+				<AVal Column="2" Row="1"><![CDATA["0"]]></AVal>
+				<AVal Column="3" Row="1"><![CDATA["Hot Water Connection"]]></AVal>
+				<AVal Column="4" Row="1"><![CDATA[""]]></AVal>
+				<AVal Column="1" Row="2"><![CDATA["{B58525F9-A8D8-454D-A768-BF66DE95BC32}"]]></AVal>
+				<AVal Column="2" Row="2"><![CDATA["0"]]></AVal>
+				<AVal Column="3" Row="2"><![CDATA["Cold Water Connection"]]></AVal>
+				<AVal Column="4" Row="2"><![CDATA[""]]></AVal>
+			</ArrayValues>
+		</String>
+		<Length Name="gs_AddConnections">
+			<Description><![CDATA[""]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Unique/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<ArrayValues FirstDimension="2" SecondDimension="2">
+				<AVal Column="1" Row="1">1</AVal>
+				<AVal Column="2" Row="1">0</AVal>
+				<AVal Column="1" Row="2">1</AVal>
+				<AVal Column="2" Row="2">0</AVal>
+			</ArrayValues>
+		</Length>
+		<Length Name="MEP_NumConnectedConnectionData">
+			<Description><![CDATA[""]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Unique/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<ArrayValues FirstDimension="1" SecondDimension="26">
+				<AVal Column="1" Row="1">0</AVal>
+				<AVal Column="2" Row="1">0</AVal>
+				<AVal Column="3" Row="1">0</AVal>
+				<AVal Column="4" Row="1">0</AVal>
+				<AVal Column="5" Row="1">0</AVal>
+				<AVal Column="6" Row="1">0</AVal>
+				<AVal Column="7" Row="1">0</AVal>
+				<AVal Column="8" Row="1">0</AVal>
+				<AVal Column="9" Row="1">0</AVal>
+				<AVal Column="10" Row="1">0</AVal>
+				<AVal Column="11" Row="1">0</AVal>
+				<AVal Column="12" Row="1">0</AVal>
+				<AVal Column="13" Row="1">0</AVal>
+				<AVal Column="14" Row="1">0</AVal>
+				<AVal Column="15" Row="1">0</AVal>
+				<AVal Column="16" Row="1">0</AVal>
+				<AVal Column="17" Row="1">0</AVal>
+				<AVal Column="18" Row="1">0</AVal>
+				<AVal Column="19" Row="1">0</AVal>
+				<AVal Column="20" Row="1">0</AVal>
+				<AVal Column="21" Row="1">0</AVal>
+				<AVal Column="22" Row="1">0</AVal>
+				<AVal Column="23" Row="1">0</AVal>
+				<AVal Column="24" Row="1">0</AVal>
+				<AVal Column="25" Row="1">0</AVal>
+				<AVal Column="26" Row="1">0</AVal>
+			</ArrayValues>
+		</Length>
+		<String Name="LibraryLangCode">
+			<Description><![CDATA[""]]></Description>
+			<Flags>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value><![CDATA["INT"]]></Value>
+		</String>
+
+		<!-- gs_list: PARAMETER BLOCK ===== PARAMETER BLOCK ===== PARAMETER BLOCK ===== PARAMETER BLOCK -->
+
+		<Title Name="gs_list">
+			<Description><![CDATA["Description"]]></Description>
+			<Fix/>
+		</Title>
+		<Integer Name="ifc_subtype">
+			<Description><![CDATA["IFC Subtype"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>33</Value>
+		</Integer>
+		<Integer Name="ifc_predefinedtype">
+			<Description><![CDATA["IFC Predefined Type"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>4</Value>
+		</Integer>
+		<RealNum Name="gs_list_cost">
+			<Description><![CDATA["Cost"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0</Value>
+		</RealNum>
+		<String Name="gs_list_manufacturer">
+			<Description><![CDATA["Manufacturer"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<String Name="FM_ProductName">
+			<Description><![CDATA["Product Name"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<String Name="gs_list_GUID">
+			<Description><![CDATA["Product ID"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<String Name="gs_list_material">
+			<Description><![CDATA["Material"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<String Name="gs_list_gauge">
+			<Description><![CDATA["Gauge Type"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<RealNum Name="gs_list_area">
+			<Description><![CDATA["Area"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0</Value>
+		</RealNum>
+		<RealNum Name="gs_list_volume">
+			<Description><![CDATA["Volume"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0</Value>
+		</RealNum>
+		<String Name="gs_list_note">
+			<Description><![CDATA["Note/Remarks"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<String Name="gs_list_location">
+			<Description><![CDATA["Location"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<String Name="gs_list_accessories">
+			<Description><![CDATA["Accessories"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<String Name="FM_Type">
+			<Description><![CDATA["Group Type"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA["Sanitation"]]></Value>
+		</String>
+		<Integer Name="iFMType">
+			<Description><![CDATA["Group Type"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>13</Value>
+		</Integer>
+		<String Name="FM_InventoryNumber">
+			<Description><![CDATA["Inventory Number"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<String Name="FM_SerialNumber">
+			<Description><![CDATA["Serial Number"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<String Name="FM_ProductionYear">
+			<Description><![CDATA["Production Year"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<RealNum Name="FM_ObjectWeight">
+			<Description><![CDATA["Object Weight"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0</Value>
+		</RealNum>
+		<String Name="FM_ObjectWeightUnit">
+			<Description><![CDATA["Object Weight Unit"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA["kg"]]></Value>
+		</String>
+		<String Name="gs_list_custom1">
+			<Description><![CDATA["User Defined 1"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<String Name="gs_list_custom2">
+			<Description><![CDATA["User Defined 2"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<String Name="gs_list_custom3">
+			<Description><![CDATA["User Defined 3"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<String Name="gs_list_custom4">
+			<Description><![CDATA["User Defined 4"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<String Name="gs_list_custom5">
+			<Description><![CDATA["User Defined 5"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+
+		<!-- gs_onorm_Title: PARAMETER BLOCK ===== PARAMETER BLOCK ===== PARAMETER BLOCK ===== PARAMETER BLOCK -->
+
+		<Title Name="gs_onorm_Title">
+			<Description><![CDATA["Additional Listing Parameters"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Hidden/>
+			</Flags>
+		</Title>
+		<String Name="gs_onorm_dimensions">
+			<Description><![CDATA["Dimensions W/D/H"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<String Name="gs_onorm_manufacturer">
+			<Description><![CDATA["Additional Manufacturer"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<String Name="gs_onorm_baseheight_value">
+			<Description><![CDATA["Base Height Value"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<String Name="gs_onorm_baseheight">
+			<Description><![CDATA["Additional Base Height"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<String Name="gs_onorm_assemblydate">
+			<Description><![CDATA["Assembly Date"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<String Name="gs_onorm_customtext1">
+			<Description><![CDATA["Additional Information 1"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<String Name="gs_onorm_customtext2">
+			<Description><![CDATA["Additional Information 2"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<String Name="gs_onorm_aks">
+			<Description><![CDATA["AKS Number"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<String Name="gs_onorm_product">
+			<Description><![CDATA["Product Name"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<String Name="gs_onorm_leistungbuch">
+			<Description><![CDATA["Collection of Specifications ID"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<String Name="gs_onorm_description">
+			<Description><![CDATA["Additional Description"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<String Name="gs_onorm_number">
+			<Description><![CDATA["Additional Number"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<String Name="gs_onorm_id">
+			<Description><![CDATA["ID Number"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<String Name="gs_onorm_admission">
+			<Description><![CDATA["Admission Date"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<String Name="gs_onorm_modification">
+			<Description><![CDATA["Modification Date"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+		<String Name="gs_onorm_tozonenumber">
+			<Description><![CDATA["To Zone Number"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
+
+		<!-- l_custom: PARAMETER BLOCK ===== PARAMETER BLOCK ===== PARAMETER BLOCK ===== PARAMETER BLOCK -->
+
+		<Title Name="l_custom">
+			<Description><![CDATA["Lima Custom"]]></Description>
+		</Title>
+		<Length Name="xTap">
+			<Description><![CDATA["Tap Distance"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0.05</Value>
+		</Length>
+		<Boolean Name="bDrawFill">
+			<Description><![CDATA["Draw Fillings"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0</Value>
+		</Boolean>
+		<Boolean Name="maskSection">
+			<Description><![CDATA[""]]></Description>
+			<Value>0</Value>
+		</Boolean>
+	</Parameters>
+</ParamSection>
+
+<Copyright SectVersion="1" SectionFlags="0" SubIdent="0">
+	<Author></Author>
+	<License>
+		<Type>CC BY</Type>
+		<Version>4.0</Version>
+	</License>
+</Copyright>
+
+<Keywords SectVersion="1" SectionFlags="0" SubIdent="0">
+<![CDATA[]]>
+</Keywords>
+
+<Comment SectVersion="20" SectionFlags="0" SubIdent="0">
+<![CDATA[]]>
+</Comment>
+
+</Symbol>
