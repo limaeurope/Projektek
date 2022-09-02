@@ -767,7 +767,7 @@ return
 		next _i
 
 		pen pText
-			text2 0, 0, _str
+			text2 0, 0, sPreFix + _str
 		pen gs_cont_pen
 
 		if typeTextRotation_m = TEXT_READABLE & bNeedTextRotation then del 1
@@ -2090,6 +2090,13 @@ endif
 			</Flags>
 			<Value>4</Value>
 		</PenColor>
+		<String Name="sPreFix">
+			<Description><![CDATA["Prefix"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
 		<String Name="fontType">
 			<Description><![CDATA["Font Type"]]></Description>
 			<Flags>
