@@ -44,7 +44,8 @@ drawindex      10
 pen     penAttribute_1
 fill fillAttribute_1
 
-mul2 A/0.5298195131242,B/0.8933904949848
+mul2 A/xScale, B/yScale 
+
 poly2_b{5}       5,      2,      2,      8, penAttribute_1, penAttribute_2, 
         -29.02873666122, -24.74640796973,            1, -5.877379086394E-16, -2.02128619923E-15,            1,            0, 
                -0.04,        0.015,      1, 
@@ -164,11 +165,17 @@ else
 
 endif
 
-IF SwitchType = "Kétpólusú Kapcsoló" THEN
+IF	SwitchType = "Kétpólusú Kapcsoló" \
+|	SwitchType = "Húzózsinóros Kapcsoló" \
+THEN
+	gosub "alapjel"
+	gosub "felsőficak"
+else
+endif
 
-gosub "alapjel"
-gosub "felsőficak"
-
+IF	SwitchType = "Húzózsinóros Kapcsoló" \
+THEN
+	gosub "DrawString"
 else
 endif
 
@@ -513,25 +520,38 @@ return
 
 
 "duplaalternatív":
-
-line_property       0
-add2 0, 0.015
-line2            0.05, 0.1061366681461, 0.1517296236379, 0.1821046750783
-line2    0.1517296236379, 0.1821046750783, 0.1802115570311, 0.1367274961203
-line2    -0.03435189997468, 0.01366892558526, -0.1517296236379, -0.07398451700161
-line2    -0.1517296236379, -0.07398451700161, -0.1802115570311, -0.02860733804363
-line2    0.03435189997468, 0.1863310744147, 0.1517296236379, 0.2739845170016
-line2    0.1517296236379, 0.2739845170016, 0.1802115570311, 0.2286073380436
-line2           -0.05, 0.09386333185389, -0.1517296236379, 0.01789532492173
-line2    -0.1517296236379, 0.01789532492173, -0.1802115570311, 0.06327250387971
-arc2     1.387778780781E-17,         0.15,         0.05,            0,          180
-arc2     1.387778780781E-17,         0.05,         0.05,          180,            0
-line2           -0.05,         0.15,        -0.05,         0.05
-line2            0.05,         0.15,         0.05,         0.05
-arc2     1.387778780781E-17,         0.15,         0.05,            0,          180
-
+	line_property       0
+	add2 0, 0.015
+	line2            0.05, 0.1061366681461, 0.1517296236379, 0.1821046750783
+	line2    0.1517296236379, 0.1821046750783, 0.1802115570311, 0.1367274961203
+	line2    -0.03435189997468, 0.01366892558526, -0.1517296236379, -0.07398451700161
+	line2    -0.1517296236379, -0.07398451700161, -0.1802115570311, -0.02860733804363
+	line2    0.03435189997468, 0.1863310744147, 0.1517296236379, 0.2739845170016
+	line2    0.1517296236379, 0.2739845170016, 0.1802115570311, 0.2286073380436
+	line2           -0.05, 0.09386333185389, -0.1517296236379, 0.01789532492173
+	line2    -0.1517296236379, 0.01789532492173, -0.1802115570311, 0.06327250387971
+	arc2     1.387778780781E-17,         0.15,         0.05,            0,          180
+	arc2     1.387778780781E-17,         0.05,         0.05,          180,            0
+	line2           -0.05,         0.15,        -0.05,         0.05
+	line2            0.05,         0.15,         0.05,         0.05
+	arc2     1.387778780781E-17,         0.15,         0.05,            0,          180
 return
 
+
+"DrawString":
+	line_property       0
+
+	add2 0.098795, 0.2361179595338
+		line2 0, 0, 0, -0.06279
+		add2 0, -0.06279
+			poly2_b 4, 1+2, gs_fill_pen, gs_back_pen,
+					 0,			-0.0226, 1,
+					 0.01256,	 0,      1,
+					-0.01256,	 0,		 1,
+					 0,			-0.0226,-1
+		del 1
+	del 1
+return
 
 ]]>
 </Script_2D>
@@ -581,9 +601,9 @@ bms_buildingMatAttribute_1 = 0
 r = REQUEST{2} ("Building_Material_info", buildingMatAttribute_1, "gs_bmat_surface", bms_buildingMatAttribute_1)
 
 
-mulx	A/0.5298195131242
-muly	B/0.8933904949848
-mulz	ZZYZX/        0.08
+mulx	A/		xScale 
+muly	B/		yScale 
+mulz	ZZYZX/	zScale 
 
 addZ -0.04
 
@@ -884,30 +904,43 @@ group 	"group_5303B7C7_1F6B_47B4_B35C_B36777D59878"
 endgroup
 
 
-IF SwitchType = "Csillárkapcsoló" OR SwitchType = "Dupla Alternatív Kapcsoló" THEN
-
-
-hotspot 0,0.015,0.04, 1001
-placegroup ("group_CE837BCE_4C33_4CEA_99DA_B7D9ECB859D0")
-
+IF	SwitchType = "Csillárkapcsoló" \
+|	SwitchType = "Dupla Alternatív Kapcsoló" \
+THEN
+	hotspot 0,0.015,0.04, 1001
+	placegroup ("group_CE837BCE_4C33_4CEA_99DA_B7D9ECB859D0")
 ELSE
 ENDIF
 
 
-IF SwitchType = "Egypólusú Kapcsoló" OR SwitchType = "Kétpólusú Kapcsoló" OR SwitchType = "Kereszt Kapcsoló" OR SwitchType = "Alternatív Kapcsoló" OR SwitchType = "Alternatív Kapcsoló Nedvestéri" THEN
-
-!hotspot 0,0.015,0.04, 1001
-placegroup ("group_FF7EB92A_1E83_42FC_A40F_E167DAAD302E")
-hotspot 0,   0.015,   0.04, UnID : UnID = UnID + 1
+IF	SwitchType = "Egypólusú Kapcsoló" \
+|	SwitchType = "Kétpólusú Kapcsoló" \
+|	SwitchType = "Kereszt Kapcsoló" \
+|	SwitchType = "Alternatív Kapcsoló" \
+|	SwitchType = "Alternatív Kapcsoló Nedvestéri" \
+|	SwitchType = "Húzózsinóros Kapcsoló" \
+THEN
+	!hotspot 0,0.015,0.04, 1001
+	placegroup ("group_FF7EB92A_1E83_42FC_A40F_E167DAAD302E")
+	hotspot 0,   0.015,   0.04, UnID : UnID = UnID + 1
 ELSE
 ENDIF
 
-IF SwitchType = "Külső Redőny vagy Belső Roló Kapcsoló" THEN
+IF	SwitchType = "Külső Redőny vagy Belső Roló Kapcsoló" \
+THEN
+	!hotspot 0,0.015,0.04, 1001
+	placegroup ("group_5303B7C7_1F6B_47B4_B35C_B36777D59878")
+	hotspot 0,   0.015,   0.04, UnID : UnID = UnID + 1
+ELSE
+ENDIF
 
+IF	SwitchType = "Húzózsinóros Kapcsoló" \
+THEN
+	lin_ 0,	ySocket*yScale/B,	xSocket,	0, ySocket*yScale/B		 , -lString
 
-!hotspot 0,0.015,0.04, 1001
-placegroup ("group_5303B7C7_1F6B_47B4_B35C_B36777D59878")
-hotspot 0,   0.015,   0.04, UnID : UnID = UnID + 1
+	hotspot	 0,     	 ySocket*yScale/B,	 0,			UnID, lString, 1 + 128	: UnID = UnID + 1
+	hotspot	 0,			 ySocket*yScale/B,	-lString,	UnID, lString, 2		: UnID = UnID + 1
+	hotspot	 0,     	 ySocket*yScale/B,	 1,			UnID, lString, 3		: UnID = UnID + 1
 ELSE
 ENDIF
 
@@ -1409,11 +1442,21 @@ killgroup ("group_E83A34D1_0603_434F_9A7A_55E51664BF6B")
 		</BuildingMaterial>
 		<Length Name="xSocket">
 			<Description><![CDATA[""]]></Description>
+			<Flags>
+				<ParFlg_Hidden/>
+			</Flags>
 			<Value>0.04</Value>
 		</Length>
 		<Length Name="ySocket">
 			<Description><![CDATA[""]]></Description>
+			<Flags>
+				<ParFlg_Hidden/>
+			</Flags>
 			<Value>0.015</Value>
+		</Length>
+		<Length Name="lString">
+			<Description><![CDATA["Hűzózsinór hossza"]]></Description>
+			<Value>0.3</Value>
 		</Length>
 	</Parameters>
 </ParamSection>
@@ -1433,6 +1476,10 @@ killgroup ("group_E83A34D1_0603_434F_9A7A_55E51664BF6B")
 
 <Script_1D SectVersion="20" SectionFlags="0" SubIdent="0">
 <![CDATA[
+xScale = 0.5298195131242
+yScale = 0.8933904949848
+zScale = 0.08
+
 UnID = 0
 ]]>
 </Script_1D>
@@ -1453,27 +1500,40 @@ UnID = 0
 
 <Script_VL SectVersion="20" SectionFlags="0" SubIdent="0">
 <![CDATA[
-VALUES "SwitchType" "Egypólusú Kapcsoló", "Kétpólusú Kapcsoló", "Csillárkapcsoló", "Alternatív Kapcsoló", "Alternatív Kapcsoló Nedvestéri", "Dupla Alternatív Kapcsoló", "Kereszt Kapcsoló", "Külső Redőny vagy Belső Roló Kapcsoló"
+VALUES "SwitchType" "Egypólusú Kapcsoló", 
+					"Kétpólusú Kapcsoló", 
+					"Csillárkapcsoló",
+					"Alternatív Kapcsoló",
+					"Alternatív Kapcsoló Nedvestéri",
+					"Dupla Alternatív Kapcsoló",
+					"Kereszt Kapcsoló", 
+					"Külső Redőny vagy Belső Roló Kapcsoló",
+					"Húzózsinóros Kapcsoló"
 
-IF SwitchType = "Egypólusú Kapcsoló" OR SwitchType = "Kétpólusú Kapcsoló" OR SwitchType = "Alternatív Kapcsoló" OR SwitchType = "Alternatív Kapcsoló Nedvestéri" OR SwitchType = "Kereszt Kapcsoló" OR SwitchType = "Külső Redőny vagy Belső Roló Kapcsoló" THEN
+IF	SwitchType = "Egypólusú Kapcsoló" \
+|	SwitchType = "Kétpólusú Kapcsoló" \
+|	SwitchType = "Alternatív Kapcsoló" \
+|	SwitchType = "Alternatív Kapcsoló Nedvestéri" \
+|	SwitchType = "Kereszt Kapcsoló" \
+|	SwitchType = "Külső Redőny vagy Belső Roló Kapcsoló" \
+THEN
+	VALUES "LabelCount" 1 
 
-VALUES "LabelCount" 1 
-
-HIDEPARAMETER "Label2"
-HIDEPARAMETER "LabelCount"
-
-
+	HIDEPARAMETER "Label2"
+	HIDEPARAMETER "LabelCount"
 ELSE
 ENDIF
 
 IF SwitchType = "Dupla Alternatív Kapcsoló" OR SwitchType = "Csillárkapcsoló" THEN
-
-VALUES "LabelCount" 2 
-
-HIDEPARAMETER "LabelCount"
-
+	VALUES "LabelCount" 2 
+	HIDEPARAMETER "LabelCount"
 ELSE
 ENDIF
+
+if	SwitchType = "Húzózsinóros Kapcsoló" \
+then
+	hideparameter "lString"
+endif
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
