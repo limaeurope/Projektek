@@ -14,7 +14,11 @@
 PAPER_TO_MODEL		= GLOB_SCALE / 1000	! Convert paper size to model size
 MODEL_TO_PAPER		= 1000 / GLOB_SCALE	! Convert model size to paper size
 
-scale~ = 0
+if bFirstZoneHotspots then
+	scale~ = 1
+else
+	scale~ = 0
+endif
 
 for _i = 2 to vardim1(iBreakpointS)
 	if	iBreakpointS[_i] >= GLOB_SCALE \
@@ -2681,13 +2685,13 @@ if GLOB_MODPAR_NAME = "bDeleteBreakpointS" then
 	next _i
 endif
 
-!!if GLOB_UI_BUTTON_ID = PAR_BUTTON_MINUS then
-!!	parameters iStart = iStart - 1
-!!endif
-!!
-!!if GLOB_UI_BUTTON_ID = PAR_BUTTON_PLUS  then
-!!	parameters iStart = iStart + 1
-!!endif
+if GLOB_UI_BUTTON_ID = PAR_BUTTON_MINUS then
+	parameters iStart = iStart - 1
+endif
+
+if GLOB_UI_BUTTON_ID = PAR_BUTTON_PLUS  then
+	parameters iStart = iStart + 1
+endif
 
 ! ==============================================================================
 end ! end ! end ! end ! end ! end ! end ! end ! end ! end ! end ! end ! end ! end
@@ -5631,13 +5635,11 @@ return
 		</Integer>
 		<Length Name="xScaleOffsetS">
 			<Description><![CDATA["Scale Sensitive offsets of stamp"]]></Description>
-			<ArrayValues FirstDimension="3" SecondDimension="2">
+			<ArrayValues FirstDimension="2" SecondDimension="2">
 				<AVal Column="1" Row="1">0</AVal>
 				<AVal Column="2" Row="1">0</AVal>
 				<AVal Column="1" Row="2">0</AVal>
 				<AVal Column="2" Row="2">0</AVal>
-				<AVal Column="1" Row="3">0</AVal>
-				<AVal Column="2" Row="3">0</AVal>
 			</ArrayValues>
 		</Length>
 		<Integer Name="currentScale~">
@@ -5646,32 +5648,33 @@ return
 		</Integer>
 		<Integer Name="iBreakpointS">
 			<Description><![CDATA["Scale Breaktpoints"]]></Description>
-			<ArrayValues FirstDimension="3" SecondDimension="0">
+			<ArrayValues FirstDimension="2" SecondDimension="0">
 				<AVal Row="1">0</AVal>
 				<AVal Row="2">75</AVal>
-				<AVal Row="3">37</AVal>
 			</ArrayValues>
 		</Integer>
 		<Integer Name="iAddBreakpointS">
 			<Description><![CDATA[""]]></Description>
-			<ArrayValues FirstDimension="3" SecondDimension="0">
+			<ArrayValues FirstDimension="2" SecondDimension="0">
 				<AVal Row="1">0</AVal>
 				<AVal Row="2">0</AVal>
-				<AVal Row="3">0</AVal>
 			</ArrayValues>
 		</Integer>
 		<Boolean Name="bDeleteBreakpointS">
 			<Description><![CDATA[""]]></Description>
-			<ArrayValues FirstDimension="3" SecondDimension="0">
+			<ArrayValues FirstDimension="2" SecondDimension="0">
 				<AVal Row="1">0</AVal>
 				<AVal Row="2">0</AVal>
-				<AVal Row="3">0</AVal>
 			</ArrayValues>
 		</Boolean>
 		<Integer Name="iStart">
-			<Description><![CDATA[""]]></Description>
+			<Description><![CDATA["UI Start position"]]></Description>
 			<Value>2</Value>
 		</Integer>
+		<Boolean Name="bFirstZoneHotspots">
+			<Description><![CDATA["First zone hotspots"]]></Description>
+			<Value>0</Value>
+		</Boolean>
 	</Parameters>
 </ParamSection>
 
@@ -8405,22 +8408,30 @@ end
 	_sep = 5
 	_yCurr = _yCurr + _dy - _sep
 	_xCurr = 0
-	wCheckBox = 13
+	wCheckBox = 17
 	wWindow = 444
 	wButton = 20
 
 	ui_outfield `Scale range for scale dependent offset`, _xCurr, _yCurr, _w2, _outfHeight
 
+	_xCurr2 = _xCurr + _w2 + 50
+	ui_infield{3} bFirstZoneHotspots, _xCurr2,	_yCurr,	wButton,	InfieldHgt \
+		ui_tooltip `Enable hotspots for the highest scale`
+
+	_xCurr2 = _xCurr2 + wCheckBox + _sep
+	ui_outfield `Hotspots for the highest scale`, _xCurr2, _yCurr, wWindow - _xCurr2, _outfHeight
+
 	_nInfields = 2 * (vardim1(iBreakpointS) - 1) + 1
 	_nIterMax = int(((wWindow - _sep) / (_wMin + _sep) - 1 )/ 2 )
 	_nInfieldsMax = _nIterMax * 2 + 1
 
-!ui_outfield int(_nIterMax ), 210, 150, 50,20
+!!ui_outfield int(_nIterMax ), 210, 150, 50,20
 
 	if _nInfields <= _nInfieldsMax then
 		iEnd = vardim1(iBreakpointS)
 	else
 		_nInfields = _nInfieldsMax
+
 		iEnd = iStart + _nIterMax - 1
 	endif
 
@@ -8428,8 +8439,8 @@ end
 
 	_xCorrChckBx = int ((_wInField - wCheckBox) / 2)
 	_xCorrStart = (wWindow - (_nInfields * (_sep + _wInfield) + _sep)) / 2
-!!ui_outfield iStart , 150, 150, 50,20
-	_xCurr = _xCurr + max(int(_xCorrStart), 0)
+!ui_outfield istart , 150, 150, 50,20
+	_xCurr = _xCurr + _Sep + max(int(_xCorrStart), 0)
 	_xBtn = _xCurr
 
 	_yCurr  = _yCurr + _dy
@@ -8438,10 +8449,10 @@ end
 	ui_infield{3} iAddBreakpointS[1],	_xCurr,	_yCurr,	_wInfield,	InfieldHgt \
 		ui_tooltip `Add a breakpoint`
 
-!!	if iStart > 2 then \
-!!		UI_BUTTON UI_FUNCTION, "<", _xBtn,						_yCurr2, wButton, InfieldHgt, PAR_BUTTON_MINUS 
-!!	if iEnd < vardim1(iBreakpointS) then \
-!!		UI_BUTTON UI_FUNCTION, ">", wWindow - wButton - _xBtn,	_yCurr2, wButton, InfieldHgt, PAR_BUTTON_PLUS 
+	if iStart > 2 then \
+		UI_BUTTON UI_FUNCTION, "<", _xBtn,						_yCurr2, wButton, InfieldHgt, PAR_BUTTON_MINUS 
+	if iEnd < vardim1(iBreakpointS) then \
+		UI_BUTTON UI_FUNCTION, ">", wWindow - wButton - _xBtn,	_yCurr2, wButton, InfieldHgt, PAR_BUTTON_PLUS 
 
 	for _i = iStart to iEnd
 		_xCurr = _xCurr + _Sep + _wInfield
