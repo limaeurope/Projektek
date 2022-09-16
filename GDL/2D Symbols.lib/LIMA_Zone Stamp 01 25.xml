@@ -9472,6 +9472,12 @@ return
 		<Name><![CDATA[""]]></Name>
 		<AutoMigration>true</AutoMigration>
 	</MigrationTableElement>
+	<MigrationTableElement>
+		<MainGUID>B4957998-11E3-4AAD-B5D1-6CF8D0EBD7D8</MainGUID>
+		<Version>0</Version>
+		<Name><![CDATA[""]]></Name>
+		<AutoMigration>true</AutoMigration>
+	</MigrationTableElement>
 </MigrationTable>
 
 <Keywords SectVersion="1" SectionFlags="0" SubIdent="0">
