@@ -98,7 +98,7 @@
 			<Flags>
 				<ParFlg_Child/>
 			</Flags>
-			<Value>19</Value>
+			<Value>0</Value>
 		</PenColor>
 		<PenColor Name="gs_back_pen">
 			<Description><![CDATA["Fill Background Pen"]]></Description>
@@ -106,7 +106,7 @@
 			<Flags>
 				<ParFlg_Child/>
 			</Flags>
-			<Value>19</Value>
+			<Value>0</Value>
 		</PenColor>
 
 		<!-- gs_3D_representation: PARAMETER BLOCK ===== PARAMETER BLOCK ===== PARAMETER BLOCK ===== PARAMETER BLOCK -->
@@ -29102,9 +29102,10 @@ return
 
 <Script_2D SectVersion="20" SectionFlags="0" SubIdent="0">
 <![CDATA[
-pen          4
+pen          gs_cont_pen
 set line_type "Solid Line"
 line_property       0
+FILL gs_fill_type
 
 hotspot2 0,0
 
@@ -29344,7 +29345,7 @@ put \
    0.016,  0.202,  1,
    0.004,  0.141,  1
 
-	POLY2_B nsp/3, 0,
+	POLY2_B nsp/3, 2,
 	gs_fill_pen, gs_back_pen,
 	get(nsp)
 return
