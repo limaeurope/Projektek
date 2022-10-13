@@ -36,6 +36,9 @@ hotspot2 	 0,			 0,			UnID, xSocket, 1 + 128	: UnID = UnID + 1
 hotspot2 	-xSocket,	 0,			UnID, xSocket, 2		: UnID = UnID + 1
 hotspot2	-1,			 0,			UnID, xSocket, 3		: UnID = UnID + 1
 
+hotspot2 	 0,			 ySocket,			UnID: UnID = UnID + 1
+
+
 drawindex      10
 
 !!!!!!!!!!!	FELÜLNÉZETI VETÜLET !!!!!!!!!!!
@@ -45,34 +48,40 @@ pen     penAttribute_1
 fill fillAttribute_1
 
 mul2 A/xScale, B/yScale 
-
-poly2_b{5}       5,      2,      2,      8, penAttribute_1, penAttribute_2, 
-        -29.02873666122, -24.74640796973,            1, -5.877379086394E-16, -2.02128619923E-15,            1,            0, 
-               -0.04,        0.015,      1, 
-               -0.04, -9.797174393179E-18,      1, 
-                0.04, 9.797174393179E-18,      1, 
-                0.04,        0.015,      1, 
-               -0.04,        0.015,      1
-pen     penAttribute_3
-set line_type lineTypeAttribute_1
-poly2_b{5}       2,      1,      0,      3,      1,      0, 
-                   0,            0,            1,            0,            0,            1,            0, 
-               -0.04, -1.040834085586E-17,      1, 
-               -0.04,        0.015,      1
-poly2_b{5}       2,      1,      0,      3,      1,      0, 
-                   0,            0,            1,            0,            0,            1,            0, 
-                0.04, 9.797174393179E-18,      1, 
-               -0.04, -1.040834085586E-17,      1
-poly2_b{5}       2,      1,      0,      3,      1,      0, 
-                   0,            0,            1,            0,            0,            1,            0, 
-               -0.04,        0.015,      1, 
-                0.04,        0.015,      1
-poly2_b{5}       2,      1,      0,      3,      1,      0, 
-                   0,            0,            1,            0,            0,            1,            0, 
-                0.04,        0.015,      1, 
-                0.04, 9.797174393179E-18,      1
+	poly2_b{5}       5,      2,      2,      8, penAttribute_1, penAttribute_2, 
+			-29.02873666122, -24.74640796973,            1, -5.877379086394E-16, -2.02128619923E-15,            1,            0, 
+				   -0.04,        0.015,      1, 
+				   -0.04, -9.797174393179E-18,      1, 
+					0.04, 9.797174393179E-18,      1, 
+					0.04,        0.015,      1, 
+				   -0.04,        0.015,      1
+	pen     penAttribute_3
+	set line_type lineTypeAttribute_1
+	poly2_b{5}       2,      1,      0,      3,      1,      0, 
+					   0,            0,            1,            0,            0,            1,            0, 
+				   -0.04, -1.040834085586E-17,      1, 
+				   -0.04,        0.015,      1
+	poly2_b{5}       2,      1,      0,      3,      1,      0, 
+					   0,            0,            1,            0,            0,            1,            0, 
+					0.04, 9.797174393179E-18,      1, 
+				   -0.04, -1.040834085586E-17,      1
+	poly2_b{5}       2,      1,      0,      3,      1,      0, 
+					   0,            0,            1,            0,            0,            1,            0, 
+				   -0.04,        0.015,      1, 
+					0.04,        0.015,      1
+	poly2_b{5}       2,      1,      0,      3,      1,      0, 
+					   0,            0,            1,            0,            0,            1,            0, 
+					0.04,        0.015,      1, 
+					0.04, 9.797174393179E-18,      1
 del 1
 
+hotspot2 	xSymbol,	 ySocket,			UnID, ySymbol, 1 + 128	: UnID = UnID + 1
+hotspot2 	xSymbol,	 ySocket + ySymbol,	UnID, ySymbol, 2		: UnID = UnID + 1
+hotspot2	xSymbol,	 ySocket -1,			UnID, ySymbol, 3		: UnID = UnID + 1
+
+hotspot2 	0,	 ySocket + ySymbol,			UnID, xSymbol, 1 + 128	: UnID = UnID + 1
+hotspot2 	xSymbol,	 ySocket + ySymbol,	UnID, xSymbol, 2		: UnID = UnID + 1
+hotspot2	-1,	   ySocket + ySymbol,			UnID, xSymbol, 3		: UnID = UnID + 1
 
 !!!!!!!!!! HOTSPOTOK !!!!!!!!!!!!!!
 
@@ -157,109 +166,106 @@ IF SymVis = 1 THEN
 
 ADD2 0, B * 0.015 / 0.8933904949848	- 0.015
 
+
 IF SwitchType = "Egypólusú Kapcsoló" THEN
-
-gosub "alapjel"
-
-else
-
+	add2 xSymbol, ySymbol
+		gosub "alapjel"
+	del 1
 endif
 
 IF	SwitchType = "Kétpólusú Kapcsoló" \
 |	SwitchType = "Húzózsinóros Kapcsoló" \
 THEN
-	gosub "alapjel"
-	gosub "felsőficak"
-else
+	add2 xSymbol, ySymbol
+		gosub "alapjel"
+		gosub "felsőficak"
+	del 1
 endif
 
 IF	SwitchType = "Húzózsinóros Kapcsoló" \
 THEN
-	gosub "DrawString"
-else
+	add2 xSymbol, ySymbol
+		gosub "DrawString"
+	del 1
 endif
 
-IF SwitchType = "Alternatív Kapcsoló Nedvestéri" THEN
-
-gosub "alapjel"
-gosub "felsőficak"
-gosub "balalsópipa"
-gosub "alsóficak"
-
-else
+IF SwitchType = "Alternatív Kapcsoló Nedvestéri"\
+THEN
+	add2 xSymbol, ySymbol
+		gosub "alapjel"
+		gosub "felsőficak"
+		gosub "balalsópipa"
+		gosub "alsóficak"
+	del 1
 endif
 
-IF SwitchType = "Csillárkapcsoló" THEN
-
-gosub "alapjel"
-gosub "balfelsőpipa"
-
-ELSE
+IF SwitchType = "Csillárkapcsoló"\
+THEN
+	add2 xSymbol, ySymbol
+		gosub "alapjel"
+		gosub "balfelsőpipa"
+	del 1
 ENDIF
 
-IF SwitchType = "Alternatív Kapcsoló" THEN
-
-gosub "alapjel"
-gosub "balalsópipa"
-
-ELSE
+IF SwitchType = "Alternatív Kapcsoló"\
+THEN
+	add2 xSymbol, ySymbol
+		gosub "alapjel"
+		gosub "balalsópipa"
+	del 1
 ENDIF
 
-IF SwitchType = "Kereszt Kapcsoló" THEN
-
-gosub "alapjel"
-gosub "balfelsőpipa"
-gosub "balalsópipa"
-gosub "jobbalsópipa"
-
-ELSE
+IF SwitchType = "Kereszt Kapcsoló"\
+THEN
+	add2 xSymbol, ySymbol
+		gosub "alapjel"
+		gosub "balfelsőpipa"
+		gosub "balalsópipa"
+		gosub "jobbalsópipa"
+	del 1
 ENDIF
 
-
-IF SwitchType = "Dupla Alternatív Kapcsoló" THEN
-
-gosub "duplaalternatív"
-
-else
-
+IF SwitchType = "Dupla Alternatív Kapcsoló"\
+THEN
+	add2 xSymbol, ySymbol
+		gosub "duplaalternatív"
+	del 1
 endif
 
-if SwitchType = "Külső Redőny vagy Belső Roló Kapcsoló" then
+if SwitchType = "Külső Redőny vagy Belső Roló Kapcsoló"\
+then
+	add2 xSymbol, ySymbol
+		gosub "alapjel"
+		gosub "felsőficak"
 
-gosub "alapjel"
-gosub "felsőficak"
-
-!!! R betű a körben !!!
-
-add2 0, 0.0675
-mul2 0.013, 0.013
-
-paragraph		"AC_PRG_5"      1,            0,            0,            0,            1
-    pen     SymbolPen
-    set style "AC_STYLE_2"
-        "R"
-endparagraph
-textblock		"AC_TEXTBLOCK_5"            0,      5,            0,            1,            1,            0, 
-        "AC_PRG_5"
-richtext2		0, 0, "AC_TEXTBLOCK_5"
-
-del 1
-
-else
-
+		!!! R betű a körben !!!
+		
+		add2 0, 0.0675
+		mul2 0.013, 0.013
+		
+		paragraph		"AC_PRG_5"      1,            0,            0,            0,            1
+			pen     SymbolPen
+			set style "AC_STYLE_2"
+				"R"
+		endparagraph
+		textblock		"AC_TEXTBLOCK_5"            0,      5,            0,            1,            1,            0, 
+				"AC_PRG_5"
+		richtext2		0, 0, "AC_TEXTBLOCK_5"
+		
+		del 1
+	del 1
 endif
 
 
-IF SwitchType = "Alternatív Kapcsoló" OR SwitchType= "Dupla Alternatív Kapcsoló" OR SwitchType = "Kereszt Kapcsoló" THEN
-
+IF SwitchType = "Alternatív Kapcsoló" \
+OR SwitchType= "Dupla Alternatív Kapcsoló" \
+OR SwitchType = "Kereszt Kapcsoló" \
+THEN
 !!!!!!!!!!!	BAL ALSÓ PIPA !!!!!!!!!!!
 
 
 
 !!!!!!!!!!!	BAL ALSÓ FICAK !!!!!!!!!!!
-
-
-
 ELSE
 ENDIF
 
@@ -457,10 +463,8 @@ end
 !!!!!!!!!!!!!!!!!!!!!!!!!!
 
 "alapjel":
-
-gosub "jobbfelsőpipa"
-gosub "alapkör"
-
+	gosub "jobbfelsőpipa"
+	gosub "alapkör"
 return
 
 "jobbfelsőpipa":
@@ -472,10 +476,10 @@ line2           0.107, 0.2503294364099, 0.1510807565621, 0.2198795464115
 return
 
 "alapkör":
+	hotspot2 0, 0.115
 
-line_property       0
-circle2  0,        0.065,         0.05
-
+	line_property       0
+	circle2  0,        0.065,         0.05
 return
 
 
@@ -1457,6 +1461,20 @@ killgroup ("group_E83A34D1_0603_434F_9A7A_55E51664BF6B")
 		<Length Name="lString">
 			<Description><![CDATA["Hűzózsinór hossza"]]></Description>
 			<Value>0.3</Value>
+		</Length>
+		<Length Name="xSymbol">
+			<Description><![CDATA[""]]></Description>
+			<Flags>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>0</Value>
+		</Length>
+		<Length Name="ySymbol">
+			<Description><![CDATA[""]]></Description>
+			<Flags>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>0</Value>
 		</Length>
 	</Parameters>
 </ParamSection>
