@@ -12,6 +12,7 @@
 
 <Script_3D SectVersion="20" SectionFlags="0" SubIdent="0">
 <![CDATA[
+material gb_mat_torzs
 CONE zzyzx, gb_r_torzs, 0, 90, 90
 
 HOTSPOT	0,	0,	0,			hsID,	zzyzx, 		1	: hsID = hsID+1
@@ -22,6 +23,7 @@ HOTSPOT	0,	0,	0,			hsID,	gb_h_torzs, 1	: hsID = hsID+1
 HOTSPOT	0,	0,	gb_h_torzs,	hsID,	gb_h_torzs, 2	: hsID = hsID+1
 HOTSPOT	0,	0,	-1,			hsID,	gb_h_torzs, 3	: hsID = hsID+1
 
+material gb_mat_lomb
 addz gb_h_torzs
 	if isEvergreen then
 		HOTSPOT	0,			0,	0,	hsID,	gb_r_lomb, 1	: hsID = hsID+1
@@ -42,6 +44,7 @@ addz gb_h_torzs
 	endif
 del 1
 
+material gb_mat_torzs
 for i = 1 to iAdditionalTrunks
 	HOTSPOT	 0,							additionalTrunkS[i][_Y_],	0, hsID, additionalTrunkS[i][_X_],	1 + 128	: hsID = hsID+1
 	HOTSPOT	additionalTrunkS[i][_X_],	additionalTrunkS[i][_Y_],	0, hsID, additionalTrunkS[i][_X_],	2		: hsID = hsID+1
@@ -86,9 +89,6 @@ hsID = 1
 
 ! ___________________________________Lombkorona Be/Ki
 IF gb_lombYN = 1 THEN
-	renoStatus = ""
-	_r = APPLICATION_QUERY ("OwnCustomParameters", "GetParameter(Renovation.RenovationStatus)", renoStatus)
-
 	IF	renoStatus = "New" THEN
 		if isEvergreen then
 			gosub "NewEvergreenTree"
@@ -227,7 +227,7 @@ return
 	mul2 gb_d_lomb/1, gb_d_lomb/1
 		gosub "EvergreenFill"
 
-		if gb_lombContYN then
+!!		if gb_lombContYN then
 			line2  -0.4934,	  -0.0081,	   0.4927,	  -0.0081
 			line2  -0.0184,	   0.4829,	  -0.0184,	  -0.4831
 			line2  -0.3686,	   0.3259,	   0.3519,	  -0.3261
@@ -283,7 +283,7 @@ return
 			line2   0.054,	   0.1327,	   0.1949,	   0.4306
 			line2  -0.0184,	   0.0965,	  -0.0546,	   0.4668
 			line2   0.0339,	   0.4829,	   0.0017,	   0.1327
-		endif
+!!		endif
 	del 1
 
 	if renoStatus = "To Be Demolished" then 
@@ -298,7 +298,7 @@ return
 	mul2 gb_d_lomb/1, gb_d_lomb/1
 		gosub "EvergreenFill"
 
-		if gb_lombContYN then
+!!		if gb_lombContYN then
 			line2  -0.4934,	  -0.0081,	  -0.4454,	  -0.0081
 			line2  -0.0184,	   0.4829,	  -0.0184,	   0.4451
 			line2  -0.3686,	   0.3259,	  -0.3341,	   0.2947
@@ -362,7 +362,7 @@ return
 			line2   0.4237,	  -0.1377,	   0.4565,	  -0.149
 			line2   0.176,	  -0.4092,	   0.1949,	  -0.4509
 			line2   0.3265,	  -0.3031,	   0.3519,	  -0.3261
-		endif
+!!		endif
 	del 1
 return
 
@@ -403,7 +403,9 @@ return
 return
 
 "DemolishSign":
-	gosub "SignResizer"
+	drawindex 50
+
+!!	gosub "SignResizer"
 
 	put \
 		0.5,         0.05,		1, 
@@ -503,15 +505,13 @@ return
 		  -0.336,	  -0.362,	   1,
 		  -0.3,		  -0.378,	  -1
 
-put		   0,		   0,				 900,
+	put	   0,		   0,				 900,
 		gb_r_torzs / gb_d_lomb,360,		4000+1
 
 		for i = 1 to iAdditionalTrunks
 			put additionalTrunkS[i][_X_] / gb_d_lomb,	additionalTrunkS[i][_Y_] / gb_d_lomb,	900,
 				additionalTrunkS[i][_R_] / gb_d_lomb,	360,						4000+1
 		next i
-
-
 
 		POLY2_B nsp/3, 1 * gb_lombContYN + 2 + 4,
 			gb_fillPen_lomb,
@@ -529,6 +529,9 @@ _X_ = 1
 _Y_ = 2
 _R_ = 3
 rMinTrunk = 0.01
+
+renoStatus = ""
+_r = APPLICATION_QUERY ("OwnCustomParameters", "GetParameter(Renovation.RenovationStatus)", renoStatus)
 
 goto "EndMaster"
 
@@ -1148,6 +1151,7 @@ LOCK "gb_titleLomb"
 LOCK "gb_titleTorzs"
 LOCK "gb_titleFavedelmiKor"
 LOCK "gb_titleStatikaiKor"
+LOCK "gb_titleSign"
 !LOCK "gb_titleArnyek"
 
 ! _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
@@ -1253,6 +1257,24 @@ endif
 
 if _setAdditionalTrunkS then
 	parameters additionalTrunkS = additionalTrunkS
+endif
+
+if iAdditionalTrunks = 0 then
+	hideparameter "additionalTrunkS"
+endif
+
+if	renoStatus = "To Be Demolished" \
+!!|	renoStatus = "New" \
+then
+	hideparameter "tobeReplanted"
+	hideparameter "tobeStocked"
+endif
+
+if	not(tobeReplanted) \
+&	not(tobeStocked) \
+&	renoStatus <> "To Be Demolished" \
+then
+	hideparameter "gb_titleSign", "xSign", "ySign", "aSign", "lSign", "fSign", "pSignContour", "pSignFillForeGround", "pSignFillBackground"
 endif
 
 ]]>
@@ -1463,11 +1485,11 @@ endif
 			<Value>6</Value>
 		</FillPattern>
 		<PenColor Name="gb_contPen_torzs">
-			<Description><![CDATA["törzs kontúr tolla"]]></Description>
+			<Description><![CDATA["Törzs kontúr tolla"]]></Description>
 			<Flags>
 				<ParFlg_Child/>
 			</Flags>
-			<Value>13</Value>
+			<Value>0</Value>
 		</PenColor>
 		<PenColor Name="gb_fillPen_torzs">
 			<Description><![CDATA["Törzs kitöltés-minta tolla"]]></Description>
@@ -1570,8 +1592,16 @@ endif
 			</Flags>
 			<Value>135</Value>
 		</PenColor>
+		<String Name="gb_titleSign">
+			<Description><![CDATA["Kiegészítő alaprajzi jel"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+				<ParFlg_BoldName/>
+			</Flags>
+			<Value><![CDATA[""]]></Value>
+		</String>
 		<Length Name="xSign">
-			<Description><![CDATA["Kiegészítő alaprajzi jel X mérete"]]></Description>
+			<Description><![CDATA["Kiegészítő alaprajzi jel mérete"]]></Description>
 			<Flags>
 				<ParFlg_Child/>
 			</Flags>
@@ -1581,6 +1611,7 @@ endif
 			<Description><![CDATA["Kiegészítő alaprajzi jel Y mérete"]]></Description>
 			<Flags>
 				<ParFlg_Child/>
+				<ParFlg_Hidden/>
 			</Flags>
 			<Value>0</Value>
 		</Length>
@@ -1639,6 +1670,7 @@ endif
 			<Description><![CDATA["Árnyék kitöltés típusa"]]></Description>
 			<Flags>
 				<ParFlg_Child/>
+				<ParFlg_Hidden/>
 			</Flags>
 			<Value>3</Value>
 		</FillPattern>
@@ -1646,6 +1678,7 @@ endif
 			<Description><![CDATA["Árnyék kitöltés-minta tolla"]]></Description>
 			<Flags>
 				<ParFlg_Child/>
+				<ParFlg_Hidden/>
 			</Flags>
 			<Value>72</Value>
 		</PenColor>
@@ -1653,6 +1686,7 @@ endif
 			<Description><![CDATA["Árnyék kitöltés-háttér tolla "]]></Description>
 			<Flags>
 				<ParFlg_Child/>
+				<ParFlg_Hidden/>
 			</Flags>
 			<Value>0</Value>
 		</PenColor>
@@ -1696,13 +1730,6 @@ endif
 			</Flags>
 			<Value>0</Value>
 		</Boolean>
-		<Boolean Name="bProtect">
-			<Description><![CDATA["Favédelmi kör felülírása"]]></Description>
-			<Flags>
-				<ParFlg_Child/>
-			</Flags>
-			<Value>0</Value>
-		</Boolean>
 		<Length Name="rStatic">
 			<Description><![CDATA["Statikai kör sugara"]]></Description>
 			<Flags>
@@ -1710,6 +1737,13 @@ endif
 			</Flags>
 			<Value>1.35</Value>
 		</Length>
+		<Boolean Name="bProtect">
+			<Description><![CDATA["Favédelmi kör felülírása"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0</Value>
+		</Boolean>
 		<Length Name="rProtect">
 			<Description><![CDATA["Favédelmi kör sugara"]]></Description>
 			<Flags>
@@ -1731,6 +1765,9 @@ endif
 		</Length>
 		<Length Name="xxx">
 			<Description><![CDATA[""]]></Description>
+			<Flags>
+				<ParFlg_Hidden/>
+			</Flags>
 			<Value>0</Value>
 		</Length>
 	</Parameters>
