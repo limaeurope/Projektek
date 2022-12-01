@@ -7,7 +7,7 @@
 
 <CalledMacros SectVersion="2" SectionFlags="0" SubIdent="0">
 	<Macro>
-		<MName><![CDATA["LIMA_DWSymbSettings"]]></MName>
+		<MName><![CDATA["LIMA_SymbSettings"]]></MName>
 		<MainGUID>69D08CDE-7BAE-48D8-97EA-88BEB230A958</MainGUID>
 	</Macro>
 </CalledMacros>
@@ -129,7 +129,7 @@ typ2n = (typ2="Tompa") + (typ2="Feles")*2 + (typ2="Hegyes")*3
 
 nx = ny*((typ2n=1)/2 + (typ2n=2) + (typ2n=3)*2) : ! ***** NYÍLHEGY HOSSZA
 
-success = LIBRARYGLOBAL ("LIMA_DWSymbSettings", "iPatternStartDisplayed", temp_iPatternStartDisplayed)
+success = LIBRARYGLOBAL ("LIMA_SymbSettings", "iPatternStartDisplayed", temp_iPatternStartDisplayed)
 
 if success > 0 then iPatternStartDisplayed = temp_iPatternStartDisplayed
 ]]>

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<Symbol IsArchivable="true" IsPlaceable="false" MainGUID="C9628D00-2666-4913-9ECD-9325E98ED958" MigrationValue="Normal" Owner="1196638531" Signature="1196644685" Version="43">
+<Symbol IsArchivable="true" IsPlaceable="false" MainGUID="C9628D00-2666-4913-9ECD-9325E98ED958" MigrationValue="Normal" Owner="1196638531" Signature="1196644685" Version="44">
 <Ancestry SectVersion="1" SectionFlags="0" SubIdent="0" Template="false">
 	<MainGUID>F938E33A-329D-4A36-BE3E-85E126820996</MainGUID>
 	<MainGUID>B176ABF1-5813-478F-926B-28EE7C5DC1F7</MainGUID>
@@ -4605,7 +4605,7 @@ endif
 		<MainGUID>EEDF5B3C-D4C1-40DC-88F8-A8399D8569D5</MainGUID>
 	</Macro>
 	<Macro>
-		<MName><![CDATA["LIMA_DWSymbSettings"]]></MName>
+		<MName><![CDATA["LIMA_SymbSettings"]]></MName>
 		<MainGUID>69D08CDE-7BAE-48D8-97EA-88BEB230A958</MainGUID>
 	</Macro>
 	<Macro>
@@ -4623,7 +4623,7 @@ SHOWMODE_OFF	= 0
 SHOWMODE_MVO	= 1
 SHOWMODE_ON		= 2
 
-success = LIBRARYGLOBAL ("LIMA_DWSymbSettings", "iScaleDependentIDShow", reqScaleDependentIDShow)
+success = LIBRARYGLOBAL ("LIMA_SymbSettings", "iScaleDependentIDShow", reqScaleDependentIDShow)
 if success > 0 then
 	iMVODetlevelSE = reqScaleDependentIDShow
 

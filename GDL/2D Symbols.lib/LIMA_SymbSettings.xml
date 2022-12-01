@@ -134,11 +134,11 @@ yCurr = yCurr + yDiff
 		</Length>
 		<Integer Name="iScaleDependentIDShow">
 			<Description><![CDATA["ID Scale Dependency Mode"]]></Description>
-			<Value>0</Value>
+			<Value>1</Value>
 		</Integer>
 		<Integer Name="iPatternStartDisplayed">
 			<Description><![CDATA[""]]></Description>
-			<Value>0</Value>
+			<Value>2</Value>
 		</Integer>
 	</Parameters>
 </ParamSection>
