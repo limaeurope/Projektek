@@ -1,0 +1,382 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Symbol IsArchivable="false" IsPlaceable="true" MainGUID="6E26E0BD-7E8D-4626-AFB4-F794388BAFF4" MigrationValue="Normal" Owner="1196638531" Signature="1196644685" Version="43">
+<Ancestry SectVersion="1" SectionFlags="0" SubIdent="0" Template="false">
+	<MainGUID>F938E33A-329D-4A36-BE3E-85E126820996</MainGUID>
+	<MainGUID>103E8D2C-8230-42E1-9597-46F84CCE28C0</MainGUID>
+</Ancestry>
+
+<CalledMacros SectVersion="2" SectionFlags="0" SubIdent="0">
+</CalledMacros>
+
+<!-- GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT -->
+
+<Script_3D SectVersion="20" SectionFlags="0" SubIdent="0">
+<![CDATA[
+!hotspot 0,0,0:sphere .01:lin_ 0,0,0,1,0,0:lin_ 0,0,0,0,.5,0:lin_ 0,0,0,0,0,2
+
+if	iPatternStartDisplayed = SHOW_PATTERN_NO \
+then end
+
+m=xArrow[4]-nx
+n=xArrow[1]-nx
+
+HOTSPOT  0,		0, 				1, 				unID, aVertical, 4 		: unID=unID+1
+HOTSPOT  0, 	-sin(aVertical)*m, cos(aVertical)*m, unID, aVertical, 5 	: unID=unID+1
+HOTSPOT  0,		0,				0, 				unID, aVertical, 6		: unID=unID+1
+HOTSPOT  1, 	0, 				0, 				unID, aVertical, 7 		: unID=unID+1
+
+rotx 90 + aVertical
+
+!hotspot 0,0,0:sphere .01:lin_ 0,0,0,1,0,0:lin_ 0,0,0,0,.5,0:lin_ 0,0,0,0,0,2
+
+	HOTSPOT  1,						0, 					0, 				unID, aHorizontal, 4 		: unID=unID+1
+	HOTSPOT  cos(aHorizontal)*n, 	-sin(aHorizontal)*n, 0, 				unID, aHorizontal, 5 		: unID=unID+1
+	HOTSPOT  0,						0,					0, 				unID, aHorizontal, 6		: unID=unID+1
+	HOTSPOT  0, 					0, 					1, 				unID, aHorizontal, 7 		: unID=unID+1
+
+	rotz aHorizontal
+		circle kd/2
+		
+		FOR jj=1 TO vardim1(xArrow)
+			IF xArrow[jj] > kd/2 THEN
+				LIN_ kd/2, 0, 0, xArrow[jj]-nx, 0, 0
+		
+				HOTSPOT  0,				0,	0, unID, xArrow[jj], 1+128 	: unID=unID+1
+				HOTSPOT  xArrow[jj],	0, 	0, unID, xArrow[jj], 2 		: unID=unID+1
+				HOTSPOT -1, 			0, 	0, unID, xArrow[jj], 3 		: unID=unID+1
+			
+				ADD xArrow[jj], 0, 0
+					POLY 3, 
+						0, 0,
+						-nx, ny/2,
+						-nx, -ny/2
+				DEL 1
+			ENDIF
+		ROTZ -90
+		NEXT jj
+	del 1
+del 1
+]]>
+</Script_3D>
+
+<!-- GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT -->
+
+<Script_2D SectVersion="20" SectionFlags="0" SubIdent="0">
+<![CDATA[
+if	iPatternStartDisplayed = SHOW_PATTERN_NO \
+|	iPatternStartDisplayed = SHOW_PATTERN_3D \
+then end
+
+DIM dd[][]
+pen toll
+fill kit
+line_type vonal
+
+put 	0, 0, 900,
+		kd/2, 360, 4001
+POLY2_B nsp/3, 1+2+4, kit_toll, kit_hatt, get (nsp)
+
+HOTSPOT2 0, 0
+
+IF lay THEN MUL2 1/(laym*1000), 1/(laym*1000)
+	
+	FOR jj=1 TO vardim1(xArrow)
+		IF xArrow[jj] > kd/2 THEN		
+	
+			HOTSPOT2  0,	 		0, unID, xArrow[jj], 1 : unID=unID+1
+			HOTSPOT2 -1, 			0, unID, xArrow[jj], 3 	: unID=unID+1
+			HOTSPOT2 xArrow[jj], 	0, unID, xArrow[jj], 2 	: unID=unID+1
+
+if jj % 2 then l=1 else l=0.2
+
+m=(xArrow[jj]-kd/2-nx)*l+kd/2+nx
+					LINE2 kd/2, 0, m-nx, 0
+
+				ADD2 m, 0
+					POLY2_B 3, 1+2+4, kit_toll, kit_hatt,
+							0, 0, 1,
+							-nx, ny/2, 1,
+							-nx, -ny/2, 1
+						DEL 1
+		ENDIF
+	ROT2 -90
+	NEXT jj
+]]>
+</Script_2D>
+
+<!-- GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT -->
+
+<Script_1D SectVersion="20" SectionFlags="0" SubIdent="0">
+<![CDATA[
+! iPatternStartDisplayed
+SHOW_PATTERN_NO			= 0
+SHOW_PATTERN_3D			= 1
+SHOW_PATTERN_ALWAYS		= 2
+
+unID = 0
+
+typ1n = (typ1="Kör")
+typ2n = (typ2="Tompa") + (typ2="Feles")*2 + (typ2="Hegyes")*3
+
+nx = ny*((typ2n=1)/2 + (typ2n=2) + (typ2n=3)*2) : ! ***** NYÍLHEGY HOSSZA
+
+	iPatternStartDisplayed = 0
+	succ1 = REQUEST ("ASSOCLP_PARVALUE", "iPatternStartDisplayed", Dummy, Dummy, Dummy, Dummy, Dummy, temp_iPatternStartDisplayed)
+	if succ1 then iPatternStartDisplayed = temp_iPatternStartDisplayed
+text2 0,0,succ1
+]]>
+</Script_1D>
+
+<!-- GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT -->
+
+<Script_PR SectVersion="20" SectionFlags="0" SubIdent="0">
+<![CDATA[]]>
+</Script_PR>
+
+<!-- GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT -->
+
+<Script_UI SectVersion="20" SectionFlags="0" SubIdent="0">
+<![CDATA[]]>
+</Script_UI>
+
+<!-- GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT -->
+
+<Script_VL SectVersion="20" SectionFlags="0" SubIdent="0">
+<![CDATA[
+VALUES "typ1" "Kör"
+VALUES "typ2" "Tompa", "Feles", "Hegyes"
+
+IF kfix THEN
+	VALUES "k1" kd/2, kf
+	VALUES "k2" kd/2, kf
+	VALUES "k3" kd/2, kf
+	VALUES "k4" kd/2, kf
+ENDIF
+
+IF k1<kd/2 THEN PARAMETERS k1=kd/2
+IF k2<kd/2 THEN PARAMETERS k2=kd/2
+IF k3<kd/2 THEN PARAMETERS k3=kd/2
+IF k4<kd/2 THEN PARAMETERS k4=kd/2
+]]>
+</Script_VL>
+
+<!-- GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT -->
+
+<Script_FWM SectVersion="20" SectionFlags="0" SubIdent="0">
+<![CDATA[]]>
+</Script_FWM>
+
+<!-- GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT -->
+
+<Script_BWM SectVersion="20" SectionFlags="0" SubIdent="0">
+<![CDATA[]]>
+</Script_BWM>
+
+<ParamSection SectVersion="27" SectionFlags="0" SubIdent="0">
+	<ParamSectHeader>
+		<AutoHotspots>false</AutoHotspots>
+		<StatBits>
+			<STBit_FixSize/>
+		</StatBits>
+		<WDLeftFrame>0</WDLeftFrame>
+		<WDRightFrame>0</WDRightFrame>
+		<WDTopFrame>0</WDTopFrame>
+		<WDBotFrame>0</WDBotFrame>
+		<LayFlags>65535</LayFlags>
+		<WDMirrorThickness>0</WDMirrorThickness>
+		<WDWallInset>0</WDWallInset>
+	</ParamSectHeader>
+	<Parameters>
+		<Length Name="A">
+			<Description><![CDATA["Méret 1"]]></Description>
+			<Fix/>
+			<Value>1</Value>
+		</Length>
+		<Length Name="B">
+			<Description><![CDATA["Méret 2"]]></Description>
+			<Fix/>
+			<Value>1</Value>
+		</Length>
+		<Length Name="ZZYZX">
+			<Description><![CDATA["Magasság"]]></Description>
+			<Fix/>
+			<Value>1</Value>
+		</Length>
+		<Boolean Name="AC_show2DHotspotsIn3D">
+			<Description><![CDATA["2D fogópontok 3D-ben"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>1</Value>
+		</Boolean>
+		<Length Name="ac_bottomlevel">
+			<Description><![CDATA["Alsó szint"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>1</Value>
+		</Length>
+		<Length Name="ac_toplevel">
+			<Description><![CDATA["Felső szint"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>0</Value>
+		</Length>
+		<Boolean Name="lay">
+			<Description><![CDATA["tervlapra?"]]></Description>
+			<Value>0</Value>
+		</Boolean>
+		<Length Name="laym">
+			<Description><![CDATA["    Lépték M=1:?"]]></Description>
+			<Value>0.5</Value>
+		</Length>
+		<Boolean Name="kfix">
+			<Description><![CDATA["Fix méret"]]></Description>
+			<Flags>
+				<ParFlg_BoldName/>
+			</Flags>
+			<Value>0</Value>
+		</Boolean>
+		<Length Name="kf">
+			<Description><![CDATA["     Fix karméret"]]></Description>
+			<Value>0.3</Value>
+		</Length>
+		<String Name="typ1">
+			<Description><![CDATA["Jel mag típusa"]]></Description>
+			<Flags>
+				<ParFlg_BoldName/>
+			</Flags>
+			<Value><![CDATA["Kör"]]></Value>
+		</String>
+		<Length Name="kd">
+			<Description><![CDATA["     Mag átmérője"]]></Description>
+			<Value>0.1</Value>
+		</Length>
+		<String Name="typ2">
+			<Description><![CDATA["Jel nyílhegy típusa"]]></Description>
+			<Flags>
+				<ParFlg_BoldName/>
+			</Flags>
+			<Value><![CDATA["Feles"]]></Value>
+		</String>
+		<Length Name="ny">
+			<Description><![CDATA["     Nyílhegy magassága"]]></Description>
+			<Value>0.1</Value>
+		</Length>
+
+		<!-- Burkolatin_A: PARAMETER BLOCK ===== PARAMETER BLOCK ===== PARAMETER BLOCK ===== PARAMETER BLOCK -->
+
+		<Title Name="Burkolatin_A">
+			<Description><![CDATA["2D megjelenítés"]]></Description>
+		</Title>
+		<PenColor Name="toll">
+			<Description><![CDATA["Jel tolla"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>3</Value>
+		</PenColor>
+		<LineType Name="vonal">
+			<Description><![CDATA["Jel vonaltípusa"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>1</Value>
+		</LineType>
+		<FillPattern Name="kit">
+			<Description><![CDATA["Mag és nyíl kitöltése"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>64</Value>
+		</FillPattern>
+		<PenColor Name="kit_toll">
+			<Description><![CDATA["    Kitöltés tolla"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>3</Value>
+		</PenColor>
+		<PenColor Name="kit_hatt">
+			<Description><![CDATA["    Kitöltés háttértolla"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>-1</Value>
+		</PenColor>
+		<Length Name="sw">
+			<Description><![CDATA["Kar"]]></Description>
+			<Flags>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>0.3</Value>
+		</Length>
+		<Length Name="k1">
+			<Description><![CDATA["Karméret 1"]]></Description>
+			<Flags>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>0.3</Value>
+		</Length>
+		<Length Name="k2">
+			<Description><![CDATA["Karméret 2"]]></Description>
+			<Flags>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>0.3</Value>
+		</Length>
+		<Length Name="k3">
+			<Description><![CDATA["Karméret 3"]]></Description>
+			<Flags>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>0.3</Value>
+		</Length>
+		<Length Name="k4">
+			<Description><![CDATA["Karméret 4"]]></Description>
+			<Flags>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>0.3</Value>
+		</Length>
+		<Length Name="xArrow">
+			<Description><![CDATA[""]]></Description>
+			<ArrayValues FirstDimension="4" SecondDimension="0">
+				<AVal Row="1">0.3</AVal>
+				<AVal Row="2">0.3</AVal>
+				<AVal Row="3">0.3</AVal>
+				<AVal Row="4">0.3</AVal>
+			</ArrayValues>
+		</Length>
+		<Angle Name="aVertical">
+			<Description><![CDATA[""]]></Description>
+			<Value>0</Value>
+		</Angle>
+		<Angle Name="aHorizontal">
+			<Description><![CDATA[""]]></Description>
+			<Value>0</Value>
+		</Angle>
+	</Parameters>
+</ParamSection>
+
+<Copyright SectVersion="1" SectionFlags="0" SubIdent="0">
+	<Author></Author>
+	<License>
+		<Type>CC0</Type>
+		<Version>1.0</Version>
+	</License>
+</Copyright>
+
+<Keywords SectVersion="1" SectionFlags="0" SubIdent="0">
+<![CDATA[]]>
+</Keywords>
+
+<Comment SectVersion="20" SectionFlags="0" SubIdent="0">
+<![CDATA[]]>
+</Comment>
+
+</Symbol>

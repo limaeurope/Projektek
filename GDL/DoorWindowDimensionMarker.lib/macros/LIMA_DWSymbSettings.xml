@@ -19,6 +19,11 @@ SHOWMODE_OFF	= 0
 SHOWMODE_MVO	= 1
 SHOWMODE_ON		= 2
 
+! iPatternStartDisplayed
+SHOW_PATTERN_NO			= 0
+SHOW_PATTERN_3D			= 1
+SHOW_PATTERN_ALWAYS		= 2
+
 
 ]]>
 </Script_1D>
@@ -43,16 +48,16 @@ outFldWdt3		= outFldWdt1 / 3 - 1
 outFldWdt4		= 2 * outFldWdt3 + 2
 
 hOutField		= 15
-hInFied			= 19
+hInField			= 19
 hOffsetRow		= 5
 
 yDiff			= hOutField + hOffsetRow
 
 xPosMiddle	= totalWidth / 2
 xPos1		= offsetLeft
-xPos2		= xPos1 + outFldWdt2 + 2
-xPos3		= xPos1 + xPosMiddle
-xPos4		= xPos3 + outFldWdt2 + 2
+xPos2		= xPos1 + 250 + 10
+xPos3		= xPos2 + 1 + 10
+
 
 yCurr		= offsetTop
 		
@@ -64,16 +69,34 @@ ui_dialog		stDialogTitle,	totalWidth,		totalHeight
 
 xSize = 200
 
-ui_outfield `Show Door/Window IDs Depending on Scale`, xPos1, yCurr, 400, hOutField
+ui_outfield `Show Door/Window IDs Depending on Scale`, xPos1, yCurr, 250, hOutField
 yCurr = yCurr + yDiff
 
-UI_RADIOBUTTON "iScaleDependentIDShow", SHOWMODE_OFF, `Always off`, xPos1, yCurr, xSize, hInFied
+UI_RADIOBUTTON "iScaleDependentIDShow", SHOWMODE_OFF, `Always off`, xPos1, yCurr, xSize, hInField
 yCurr = yCurr + yDiff
 
-UI_RADIOBUTTON "iScaleDependentIDShow", SHOWMODE_MVO, `Scale dependent`, xPos1, yCurr, xSize, hInFied
+UI_RADIOBUTTON "iScaleDependentIDShow", SHOWMODE_MVO, `Scale dependent`, xPos1, yCurr, xSize, hInField
 yCurr = yCurr + yDiff
 
-UI_RADIOBUTTON "iScaleDependentIDShow", SHOWMODE_ON, `Always on`, xPos1, yCurr, xSize, hInFied
+UI_RADIOBUTTON "iScaleDependentIDShow", SHOWMODE_ON, `Always on`, xPos1, yCurr, xSize, hInField
+yCurr = yCurr + yDiff
+
+! ==============================================================================
+UI_SEPARATOR xPos2, offsetTop, 1, yCurr-offsetTop
+! ==============================================================================
+
+yCurr		= offsetTop
+
+ui_outfield `Show Pattern Start Symbol`, xPos3, yCurr, 250, hOutField
+yCurr = yCurr + yDiff
+
+UI_RADIOBUTTON "iPatternStartDisplayed", SHOW_PATTERN_NO, `Always off`, xPos3, yCurr, xSize, hInField
+yCurr = yCurr + yDiff
+
+UI_RADIOBUTTON "iPatternStartDisplayed", SHOW_PATTERN_3D, `Only in 3D`, xPos3, yCurr, xSize, hInField
+yCurr = yCurr + yDiff
+
+UI_RADIOBUTTON "iPatternStartDisplayed", SHOW_PATTERN_ALWAYS, `Always on`, xPos3, yCurr, xSize, hInField
 yCurr = yCurr + yDiff
 ]]>
 </Script_UI>
@@ -111,6 +134,10 @@ yCurr = yCurr + yDiff
 		</Length>
 		<Integer Name="iScaleDependentIDShow">
 			<Description><![CDATA["ID Scale Dependency Mode"]]></Description>
+			<Value>0</Value>
+		</Integer>
+		<Integer Name="iPatternStartDisplayed">
+			<Description><![CDATA[""]]></Description>
 			<Value>0</Value>
 		</Integer>
 	</Parameters>
