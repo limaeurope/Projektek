@@ -321,6 +321,10 @@ PARAMETERS xArrow=xArrow
 			</Flags>
 			<Value>0</Value>
 		</Length>
+		<String Name="helpPage">
+			<Description><![CDATA["Wiki oldal"]]></Description>
+			<Value><![CDATA["https://limadesignkft.sharepoint.com/sites/bim/BIM%20developer%20wiki/LIMA_Pattern%20Start%20Symbol.aspx"]]></Value>
+		</String>
 		<Boolean Name="isHorizontal">
 			<Description><![CDATA["Vízszintes"]]></Description>
 			<Value>1</Value>
