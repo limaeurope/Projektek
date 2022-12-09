@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<Symbol IsArchivable="false" IsPlaceable="false" MainGUID="69D08CDE-7BAE-48D8-97EA-88BEB230A958" MigrationValue="Normal" Owner="1196638531" Signature="1196644685" Version="44">
+<Symbol IsArchivable="false" IsPlaceable="false" MainGUID="69D08CDE-7BAE-48D8-97EA-88BEB230A958" MigrationValue="Normal" Owner="1196638531" Signature="1196644685" Version="43">
 <Ancestry SectVersion="1" SectionFlags="0" SubIdent="0" Template="false">
 	<MainGUID>F938E33A-329D-4A36-BE3E-85E126820996</MainGUID>
 	<MainGUID>B176ABF1-5813-478F-926B-28EE7C5DC1F7</MainGUID>
@@ -87,16 +87,21 @@ UI_SEPARATOR xPos2, offsetTop, 1, yCurr-offsetTop
 
 yCurr		= offsetTop
 
+xSize = 250
+
 ui_outfield `Show Pattern Start Symbol`, xPos3, yCurr, 250, hOutField
 yCurr = yCurr + yDiff
 
-UI_RADIOBUTTON "iPatternStartDisplayed", SHOW_PATTERN_NO, `Always off`, xPos3, yCurr, xSize, hInField
+UI_RADIOBUTTON "iPatternStartDisplayed", SHOW_PATTERN_NO, `Show only on horizontal surfaces and in 2D`, xPos3, yCurr, xSize, hInField \
+ui_tooltip `Show only the horizontal/floor/ceiling starter, and it will be shown only in 2D. Vertical/wall will not be shown at all.`
 yCurr = yCurr + yDiff
 
-UI_RADIOBUTTON "iPatternStartDisplayed", SHOW_PATTERN_3D, `Only in 3D`, xPos3, yCurr, xSize, hInField
+UI_RADIOBUTTON "iPatternStartDisplayed", SHOW_PATTERN_3D, `Show wall starter in 3D`, xPos3, yCurr, xSize, hInField \
+ui_tooltip `Show vertical/wall symbol only in 3D, and show horizontal/floor/ceiling symbol only in 2D.`
 yCurr = yCurr + yDiff
 
-UI_RADIOBUTTON "iPatternStartDisplayed", SHOW_PATTERN_ALWAYS, `Always on`, xPos3, yCurr, xSize, hInField
+UI_RADIOBUTTON "iPatternStartDisplayed", SHOW_PATTERN_ALWAYS, `Always on`, xPos3, yCurr, xSize, hInField \
+ui_tooltip `Show vertical/wall symbol both 2D and in 3D and horizontal/floor/ceiling symbol only in 2D.`
 yCurr = yCurr + yDiff
 ]]>
 </Script_UI>

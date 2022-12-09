@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<Symbol IsArchivable="false" IsPlaceable="true" MainGUID="6E26E0BD-7E8D-4626-AFB4-F794388BAFF4" MigrationValue="Normal" Owner="1196638531" Signature="1196644685" Version="44">
+<Symbol IsArchivable="false" IsPlaceable="true" MainGUID="6E26E0BD-7E8D-4626-AFB4-F794388BAFF4" MigrationValue="Normal" Owner="1196638531" Signature="1196644685" Version="43">
 <Ancestry SectVersion="1" SectionFlags="0" SubIdent="0" Template="false">
 	<MainGUID>F938E33A-329D-4A36-BE3E-85E126820996</MainGUID>
 	<MainGUID>103E8D2C-8230-42E1-9597-46F84CCE28C0</MainGUID>
@@ -19,17 +19,26 @@
 !hotspot 0,0,0:sphere .01:lin_ 0,0,0,1,0,0:lin_ 0,0,0,0,.5,0:lin_ 0,0,0,0,0,2
 
 if	iPatternStartDisplayed = SHOW_PATTERN_NO \
+|	isHorizontal \
 then end
+
+HOTSPOT  0,		 0, 				0, 					unID : unID=unID+1
+
+addy -0.01
 
 m=xArrow[4]-nx
 if m < -kd/2 + EPS then m = 3 * kd/2
 n=xArrow[1]-nx
 if n < -kd/2 + EPS then n = 3 * kd/2
 
-HOTSPOT  0,		 0, 				1, 					unID, aVertical, 4+128 	: unID=unID+1
-HOTSPOT  0, 	-sin(aVertical)*m,  cos(aVertical)*m,	unID, aVertical, 5 		: unID=unID+1
-HOTSPOT  0,		 0,					0, 					unID, aVertical, 6		: unID=unID+1
-HOTSPOT  1, 	 0, 				0, 					unID, aVertical, 7 		: unID=unID+1
+if	GLOB_VIEW_TYPE <> 4 \
+&	GLOB_VIEW_TYPE <> 5 \
+then
+	HOTSPOT  0,		 0, 				1, 					unID, aVertical, 4+128 	: unID=unID+1
+	HOTSPOT  0, 	-sin(aVertical)*m,  cos(aVertical)*m,	unID, aVertical, 5 		: unID=unID+1
+	HOTSPOT  0,		 0,					0, 					unID, aVertical, 6		: unID=unID+1
+	HOTSPOT  1, 	 0, 				0, 					unID, aVertical, 7 		: unID=unID+1
+endif
 
 rotx 90 + aVertical
 	HOTSPOT  1,						 0, 					0, 	unID, aHorizontal, 4+128 	: unID=unID+1
@@ -38,14 +47,44 @@ rotx 90 + aVertical
 	HOTSPOT  0, 					 0, 					1, 	unID, aHorizontal, 7 		: unID=unID+1
 
 	rotz aHorizontal
+		if hasStarter then
+			HOTSPOT  0,				 yStarter,		0, unID, xStarterLeft, 1	: unID=unID+1
+			HOTSPOT -xStarterLeft,	 yStarter,		0, unID, xStarterLeft, 2 	: unID=unID+1
+			HOTSPOT  1, 			 yStarter,		0, unID, xStarterLeft, 3	: unID=unID+1
+		
+			HOTSPOT  0,				 yStarter, 		0, unID, xStarterRight, 1	: unID=unID+1
+			HOTSPOT  xStarterRight,	 yStarter, 		0, unID, xStarterRight, 2 	: unID=unID+1
+			HOTSPOT -1, 			 yStarter, 		0, unID, xStarterRight, 3	: unID=unID+1
+		
+			HOTSPOT -xStarterLeft,	 0, 			0, unID, yStarter, 1	: unID=unID+1
+			HOTSPOT -xStarterLeft,	 yStarter,		0, unID, yStarter, 2 	: unID=unID+1
+			HOTSPOT -xStarterLeft, 	-1,				0, unID, yStarter, 3	: unID=unID+1
+		
+			HOTSPOT  xStarterRight,	 0, 			0, unID, yStarter, 1	: unID=unID+1
+			HOTSPOT  xStarterRight,	 yStarter,		0, unID, yStarter, 2 	: unID=unID+1
+			HOTSPOT  xStarterRight, -1,				0, unID, yStarter, 3	: unID=unID+1
+		
+			put \
+				-xStarterLeft,	yStarter,	1,
+				 xStarterRight,	yStarter,	1,
+				 xStarterRight, yRight, 	1,
+				-xStarterLeft,  0, 			1
+
+			material sStarter
+
+			POLY_ nsp/3,
+				get(nsp)
+		addz 0.001
+		endif
+
+		material sSurface
+
 		circle kd/2
 		
 		FOR jj=1 TO vardim1(xArrow)
-			IF not(kfix) THEN
-				HOTSPOT  0,				0,	0, unID, xArrow[jj], 1+128 	: unID=unID+1
-				HOTSPOT  xArrow[jj],	0, 	0, unID, xArrow[jj], 2 		: unID=unID+1
-				HOTSPOT -1, 			0, 	0, unID, xArrow[jj], 3 		: unID=unID+1
-			endif
+			HOTSPOT  0,				0,	0, unID, xArrow[jj], 1+128 	: unID=unID+1
+			HOTSPOT  xArrow[jj],	0, 	0, unID, xArrow[jj], 2 		: unID=unID+1
+			HOTSPOT -1, 			0, 	0, unID, xArrow[jj], 3 		: unID=unID+1
 
 			IF xArrow[jj] > kd/2 + EPS THEN
 				LIN_ kd/2, 0, 0, xArrow[jj]-nx, 0, 0
@@ -68,9 +107,40 @@ del 1
 
 <Script_2D SectVersion="20" SectionFlags="0" SubIdent="0">
 <![CDATA[
-if	iPatternStartDisplayed = SHOW_PATTERN_NO \
-|	iPatternStartDisplayed = SHOW_PATTERN_3D \
+if	not(isHorizontal) \
+&	(	iPatternStartDisplayed = SHOW_PATTERN_NO \
+	|	iPatternStartDisplayed = SHOW_PATTERN_3D) \
 then end
+
+if hasStarter then
+	HOTSPOT2  0,				yStarter, unID, xStarterLeft, 1	: unID=unID+1
+	HOTSPOT2 -xStarterLeft,		yStarter, unID, xStarterLeft, 2 : unID=unID+1
+	HOTSPOT2  1, 				yStarter, unID, xStarterLeft, 3	: unID=unID+1
+
+	HOTSPOT2  0,				yStarter, unID, xStarterRight, 1	: unID=unID+1
+	HOTSPOT2  xStarterRight,	yStarter, unID, xStarterRight, 2 	: unID=unID+1
+	HOTSPOT2 -1, 				yStarter, unID, xStarterRight, 3	: unID=unID+1
+
+	HOTSPOT2 -xStarterLeft,	 0, 		unID, yStarter, 1	: unID=unID+1
+	HOTSPOT2 -xStarterLeft,	 yStarter,	unID, yStarter, 2 	: unID=unID+1
+	HOTSPOT2 -xStarterLeft, 	-1,			unID, yStarter, 3	: unID=unID+1
+
+	HOTSPOT2  xStarterRight,	 0, 		unID, yStarter, 1	: unID=unID+1
+	HOTSPOT2  xStarterRight,	 yStarter,	unID, yStarter, 2 	: unID=unID+1
+	HOTSPOT2  xStarterRight, 	-1,			unID, yStarter, 3	: unID=unID+1
+
+	put \
+		-xStarterLeft,	yStarter,	1,
+		 xStarterRight,	yStarter,	1,
+		 xStarterRight,	0,			1,
+		-xStarterLeft,	0,			1
+
+	fill fStarter
+
+	POLY2_B nsp/3, 1+2+4, pStarterFg, pStarterBg,
+		get(nsp)
+endif
+
 
 DIM dd[][]
 pen toll
@@ -86,14 +156,12 @@ HOTSPOT2 0, 0
 IF lay THEN MUL2 1/(laym*1000), 1/(laym*1000)
 	
 FOR jj=1 TO vardim1(xArrow)
-	if jj % 2 then l=1 else l=0.2
+	if isHorizontal or jj % 2 then l=1 else l=0.2
 	m = (xArrow[jj]-kd/2-nx)*l+kd/2+nx
 
-	IF not(kfix) THEN
-		HOTSPOT2  0,	0, unID, xArrow[jj], 1	: unID=unID+1
-		HOTSPOT2  m,	0, unID, xArrow[jj], 2 	: unID=unID+1
-		HOTSPOT2 -1, 	0, unID, xArrow[jj], 3	: unID=unID+1
-	endif
+	HOTSPOT2  0,	0, unID, xArrow[jj], 1	: unID=unID+1
+	HOTSPOT2  m,	0, unID, xArrow[jj], 2 	: unID=unID+1
+	HOTSPOT2 -1, 	0, unID, xArrow[jj], 3	: unID=unID+1
 
 	IF xArrow[jj] > kd/2 + EPS THEN
 		LINE2 kd/2, 0, m-nx, 0
@@ -108,6 +176,9 @@ FOR jj=1 TO vardim1(xArrow)
 
 	ROT2 -90
 NEXT jj
+
+
+
 ]]>
 </Script_2D>
 
@@ -132,6 +203,10 @@ nx = ny*((typ2n=1)/2 + (typ2n=2) + (typ2n=3)*2) : ! ***** NYÍLHEGY HOSSZA
 success = LIBRARYGLOBAL ("LIMA_SymbSettings", "iPatternStartDisplayed", temp_iPatternStartDisplayed)
 
 if success > 0 then iPatternStartDisplayed = temp_iPatternStartDisplayed
+
+rK = kd / 2
+
+
 ]]>
 </Script_1D>
 
@@ -153,12 +228,18 @@ if success > 0 then iPatternStartDisplayed = temp_iPatternStartDisplayed
 <![CDATA[
 VALUES "typ1" "Kör"
 VALUES "typ2" "Tompa", "Feles", "Hegyes"
+values "xStarterRight" range [0,]
+values "xStarterLeft" range [0,]
 
 IF kfix THEN
 	VALUES "xArrow" kd/2, kf
 else
 	hideparameter "kf"
 ENDIF
+
+if not(hasStarter) then
+	hideparameter "xStarterLeft", "xStarterRight", "yStarter", "pStarterFg", "pStarterBg", "fStarter", "sStarter"
+endif
 
 for i = 1 to vardim1(xArrow)
 	IF xArrow[i] < kd/2 + EPS THEN xArrow[i] = kd/2
@@ -236,6 +317,14 @@ PARAMETERS xArrow=xArrow
 			</Flags>
 			<Value>0</Value>
 		</Length>
+		<Boolean Name="isHorizontal">
+			<Description><![CDATA["Vízszintes"]]></Description>
+			<Value>1</Value>
+		</Boolean>
+		<Material Name="sSurface">
+			<Description><![CDATA[""]]></Description>
+			<Value>76</Value>
+		</Material>
 		<Boolean Name="lay">
 			<Description><![CDATA["tervlapra?"]]></Description>
 			<Flags>
@@ -291,7 +380,7 @@ PARAMETERS xArrow=xArrow
 			<Flags>
 				<ParFlg_Child/>
 			</Flags>
-			<Value>3</Value>
+			<Value>86</Value>
 		</PenColor>
 		<LineType Name="vonal">
 			<Description><![CDATA["Jel vonaltípusa"]]></Description>
@@ -312,7 +401,7 @@ PARAMETERS xArrow=xArrow
 			<Flags>
 				<ParFlg_Child/>
 			</Flags>
-			<Value>3</Value>
+			<Value>86</Value>
 		</PenColor>
 		<PenColor Name="kit_hatt">
 			<Description><![CDATA["    Kitöltés háttértolla"]]></Description>
@@ -358,6 +447,9 @@ PARAMETERS xArrow=xArrow
 		</Length>
 		<Length Name="xArrow">
 			<Description><![CDATA[""]]></Description>
+			<Flags>
+				<ParFlg_Hidden/>
+			</Flags>
 			<ArrayValues FirstDimension="4" SecondDimension="0">
 				<AVal Row="1">0.3</AVal>
 				<AVal Row="2">0.3</AVal>
@@ -367,12 +459,77 @@ PARAMETERS xArrow=xArrow
 		</Length>
 		<Angle Name="aVertical">
 			<Description><![CDATA["Fal dőlésszöge a függőlegeshez képest"]]></Description>
+			<Flags>
+				<ParFlg_Hidden/>
+			</Flags>
 			<Value>0</Value>
 		</Angle>
 		<Angle Name="aHorizontal">
 			<Description><![CDATA["Minta elforgatása"]]></Description>
+			<Flags>
+				<ParFlg_Hidden/>
+			</Flags>
 			<Value>0</Value>
 		</Angle>
+
+		<!-- hasStarter: PARAMETER BLOCK ===== PARAMETER BLOCK ===== PARAMETER BLOCK ===== PARAMETER BLOCK -->
+
+		<Boolean Name="hasStarter">
+			<Description><![CDATA["Burkolatindító sáv"]]></Description>
+			<Flags>
+				<ParFlg_BoldName/>
+			</Flags>
+			<Value>0</Value>
+		</Boolean>
+		<Length Name="xStarterLeft">
+			<Description><![CDATA["Burkolatindító sáv, bal szélesség"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0.1</Value>
+		</Length>
+		<Length Name="xStarterRight">
+			<Description><![CDATA["Burkolatindító sáv, jobb szélesség"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0.1</Value>
+		</Length>
+		<Length Name="yStarter">
+			<Description><![CDATA["Burkolatindító sáv magasság"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0.3</Value>
+		</Length>
+		<PenColor Name="pStarterFg">
+			<Description><![CDATA["Burkolatindító sáv tolla"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>86</Value>
+		</PenColor>
+		<PenColor Name="pStarterBg">
+			<Description><![CDATA["Burkolatindító sáv háttér tolla"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0</Value>
+		</PenColor>
+		<FillPattern Name="fStarter">
+			<Description><![CDATA["Burkolatindító sáv kitöltés"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>24</Value>
+		</FillPattern>
+		<Material Name="sStarter">
+			<Description><![CDATA["Burkolatindító sáv 3D anyag"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>19</Value>
+		</Material>
 	</Parameters>
 </ParamSection>
 
