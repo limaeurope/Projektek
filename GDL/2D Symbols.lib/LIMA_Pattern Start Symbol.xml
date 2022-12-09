@@ -19,8 +19,12 @@
 !hotspot 0,0,0:sphere .01:lin_ 0,0,0,1,0,0:lin_ 0,0,0,0,.5,0:lin_ 0,0,0,0,0,2
 
 if	iPatternStartDisplayed = SHOW_PATTERN_NO \
-|	isHorizontal \
+!!|	isHorizontal \
 then end
+
+if	isHorizontal then
+	aVertical = -90
+endif
 
 HOTSPOT  0,		 0, 				0, 					unID : unID=unID+1
 

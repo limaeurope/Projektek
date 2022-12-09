@@ -97,11 +97,11 @@ ui_tooltip `Show only the horizontal/floor/ceiling starter, and it will be shown
 yCurr = yCurr + yDiff
 
 UI_RADIOBUTTON "iPatternStartDisplayed", SHOW_PATTERN_3D, `Show wall starter in 3D`, xPos3, yCurr, xSize, hInField \
-ui_tooltip `Show vertical/wall symbol only in 3D, and show horizontal/floor/ceiling symbol only in 2D.`
+ui_tooltip `Show vertical/wall symbol only in 3D, and show horizontal/floor/ceiling symbol in 2D and 3D.`
 yCurr = yCurr + yDiff
 
 UI_RADIOBUTTON "iPatternStartDisplayed", SHOW_PATTERN_ALWAYS, `Always on`, xPos3, yCurr, xSize, hInField \
-ui_tooltip `Show vertical/wall symbol both 2D and in 3D and horizontal/floor/ceiling symbol only in 2D.`
+ui_tooltip `Show vertical/wall symbol both 2D and in 3D and horizontal/floor/ceiling symbol in 2D and 3D.`
 yCurr = yCurr + yDiff
 ]]>
 </Script_UI>
