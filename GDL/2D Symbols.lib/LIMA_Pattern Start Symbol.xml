@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<Symbol IsArchivable="false" IsPlaceable="true" MainGUID="6E26E0BD-7E8D-4626-AFB4-F794388BAFF4" MigrationValue="Normal" Owner="1196638531" Signature="1196644685" Version="43">
+<Symbol IsArchivable="false" IsPlaceable="true" MainGUID="6E26E0BD-7E8D-4626-AFB4-F794388BAFF4" MigrationValue="Normal" Owner="1196638531" Signature="1196644685" Version="44">
 <Ancestry SectVersion="1" SectionFlags="0" SubIdent="0" Template="false">
 	<MainGUID>F938E33A-329D-4A36-BE3E-85E126820996</MainGUID>
 	<MainGUID>103E8D2C-8230-42E1-9597-46F84CCE28C0</MainGUID>
@@ -140,8 +140,9 @@ if hasStarter then
 		-xStarterLeft,	0,			1
 
 	fill fStarter
+	pen pStarter
 
-	POLY2_B nsp/3, 1+2+4, pStarterFg, pStarterBg,
+	POLY2_B nsp/3, (pStarter > 0)+2+4, pStarterFg, pStarterBg,
 		get(nsp)
 endif
 
@@ -242,7 +243,7 @@ else
 ENDIF
 
 if not(hasStarter) then
-	hideparameter "xStarterLeft", "xStarterRight", "yStarter", "pStarterFg", "pStarterBg", "fStarter", "sStarter"
+	hideparameter "xStarterLeft", "xStarterRight", "yStarter", "pStarterFg", "pStarterBg", "fStarter", "sStarter", "pStarter"
 endif
 
 for i = 1 to vardim1(xArrow)
@@ -511,14 +512,14 @@ PARAMETERS xArrow=xArrow
 			<Value>0.3</Value>
 		</Length>
 		<PenColor Name="pStarterFg">
-			<Description><![CDATA["Burkolatindító sáv tolla"]]></Description>
+			<Description><![CDATA["Burkolatindító sáv minta előtér tolla"]]></Description>
 			<Flags>
 				<ParFlg_Child/>
 			</Flags>
 			<Value>86</Value>
 		</PenColor>
 		<PenColor Name="pStarterBg">
-			<Description><![CDATA["Burkolatindító sáv háttér tolla"]]></Description>
+			<Description><![CDATA["Burkolatindító sáv minta háttér tolla"]]></Description>
 			<Flags>
 				<ParFlg_Child/>
 			</Flags>
@@ -538,6 +539,13 @@ PARAMETERS xArrow=xArrow
 			</Flags>
 			<Value>19</Value>
 		</Material>
+		<PenColor Name="pStarter">
+			<Description><![CDATA["Burkolatindító sáv 3D kontúr tolla"]]></Description>
+			<Flags>
+				<ParFlg_Child/>
+			</Flags>
+			<Value>0</Value>
+		</PenColor>
 	</Parameters>
 </ParamSection>
 
