@@ -111,8 +111,7 @@ if GLOB_MODPAR_NAME = "sFileName" then
 		next _i
 	
 		parameters 	pointS	= pointS,
-					textS	= textS,
-					b_		= 0
+					textS	= textS
 	else
 		print "File read error: ", sFileName
 	endif
@@ -198,7 +197,7 @@ endif
 		</String>
 		<Integer Name="nRowsMax">
 			<Description><![CDATA["Maximum row number"]]></Description>
-			<Value>20</Value>
+			<Value>100</Value>
 		</Integer>
 		<Boolean Name="bDebug">
 			<Description><![CDATA["Debug mode"]]></Description>
