@@ -10,7 +10,7 @@ EPS = 0.0001
 
 if GLOB_SCRIPT_TYPE <> 7 & GLOB_SCRIPT_TYPE <> 8 then
  
-	call "LIMA_general_window_macro" parameters all	iWindowClass	= 1,	! WINCLASS_NORMAL
+	call "gs_general_window_macro" parameters all	iWindowClass	= 1,	! WINCLASS_NORMAL
 													iWindowType		= 1		! WIN_W1
 
 endif
@@ -486,7 +486,7 @@ endif
 			<Flags>
 				<ParFlg_Child/>
 			</Flags>
-			<Value>8</Value>
+			<Value>4</Value>
 		</Integer>
 
 		<!-- gs_window_sizes: PARAMETER BLOCK ===== PARAMETER BLOCK ===== PARAMETER BLOCK ===== PARAMETER BLOCK -->
@@ -595,7 +595,7 @@ endif
 				<ParFlg_Child/>
 				<ParFlg_Unique/>
 			</Flags>
-			<Value>1.5</Value>
+			<Value>1.435</Value>
 		</Length>
 		<Integer Name="gs_nominal_size">
 			<Description><![CDATA["Nominal Size"]]></Description>
@@ -896,7 +896,7 @@ endif
 			<Flags>
 				<ParFlg_Child/>
 			</Flags>
-			<Value><![CDATA["No Grid"]]></Value>
+			<Value><![CDATA["No Mullions"]]></Value>
 		</String>
 		<Integer Name="iMullionStyle_00">
 			<Description><![CDATA["Sash Type"]]></Description>
@@ -911,7 +911,7 @@ endif
 			<Flags>
 				<ParFlg_Child/>
 			</Flags>
-			<Value><![CDATA["No Grid"]]></Value>
+			<Value><![CDATA["No Mullions"]]></Value>
 		</String>
 		<Integer Name="iMullionStyle_01">
 			<Description><![CDATA["Sash Type"]]></Description>
@@ -1671,7 +1671,7 @@ endif
 			<Flags>
 				<ParFlg_Child/>
 			</Flags>
-			<Value><![CDATA["Simple"]]></Value>
+			<Value><![CDATA["Rectangular"]]></Value>
 		</String>
 		<Integer Name="gs_trimtype_out_int">
 			<Description><![CDATA["Casing Type Outside"]]></Description>
@@ -1849,7 +1849,7 @@ endif
 			<Flags>
 				<ParFlg_Child/>
 			</Flags>
-			<Value><![CDATA["Simple"]]></Value>
+			<Value><![CDATA["Rectangular"]]></Value>
 		</String>
 		<Integer Name="gs_trimtype_in_int">
 			<Description><![CDATA["Casing Type Inside"]]></Description>
@@ -2182,7 +2182,7 @@ endif
 				<ParFlg_Child/>
 				<ParFlg_Unique/>
 			</Flags>
-			<Value>0.28</Value>
+			<Value>0.084</Value>
 		</Length>
 		<Length Name="gs_board_thk">
 			<Description><![CDATA["Board Thickness"]]></Description>
@@ -2332,7 +2332,7 @@ endif
 				<ParFlg_Child/>
 				<ParFlg_Hidden/>
 			</Flags>
-			<Value>126</Value>
+			<Value>127</Value>
 		</Integer>
 		<Integer Name="gs_sunShade_iCashedEnableTypes">
 			<Description><![CDATA[""]]></Description>
@@ -2341,13 +2341,14 @@ endif
 				<ParFlg_Child/>
 				<ParFlg_Hidden/>
 			</Flags>
-			<ArrayValues FirstDimension="6" SecondDimension="0">
-				<AVal Row="1">1</AVal>
-				<AVal Row="2">2</AVal>
-				<AVal Row="3">3</AVal>
-				<AVal Row="4">4</AVal>
-				<AVal Row="5">5</AVal>
-				<AVal Row="6">6</AVal>
+			<ArrayValues FirstDimension="7" SecondDimension="0">
+				<AVal Row="1">0</AVal>
+				<AVal Row="2">1</AVal>
+				<AVal Row="3">2</AVal>
+				<AVal Row="4">3</AVal>
+				<AVal Row="5">4</AVal>
+				<AVal Row="6">5</AVal>
+				<AVal Row="7">6</AVal>
 			</ArrayValues>
 		</Integer>
 		<Integer Name="gs_shutter_nPanels">
@@ -2372,7 +2373,7 @@ endif
 			<Flags>
 				<ParFlg_Child/>
 			</Flags>
-			<Value><![CDATA["Symmetric"]]></Value>
+			<Value><![CDATA["Symmetrical"]]></Value>
 		</String>
 		<Integer Name="gs_shutter_iPanelPos">
 			<Description><![CDATA["Panel Position"]]></Description>
@@ -2678,7 +2679,7 @@ endif
 				<ParFlg_Child/>
 				<ParFlg_Unique/>
 			</Flags>
-			<Value>0</Value>
+			<Value>0.45</Value>
 		</Length>
 		<Length Name="gs_shutPanel_fieldThk">
 			<Description><![CDATA["Panel Fill Thickness"]]></Description>
@@ -5658,7 +5659,7 @@ endif
 				<ParFlg_Child/>
 				<ParFlg_Unique/>
 			</Flags>
-			<Value>1.0125</Value>
+			<Value>0.96375</Value>
 		</RealNum>
 		<RealNum Name="gs_list_glassperimeter">
 			<Description><![CDATA["Total Glass Perimeter"]]></Description>
@@ -6240,8 +6241,8 @@ endif
 
 <CalledMacros SectVersion="2" SectionFlags="0" SubIdent="0">
 	<Macro>
-		<MName><![CDATA["LIMA_general_window_macro"]]></MName>
-		<MainGUID>3C2F279E-49C6-4890-93ED-438D7B0C8B7A</MainGUID>
+		<MName><![CDATA["gs_general_window_macro"]]></MName>
+		<MainGUID>7F0B62DC-CD68-4F79-9CC7-A31E56508316</MainGUID>
 	</Macro>
 </CalledMacros>
 

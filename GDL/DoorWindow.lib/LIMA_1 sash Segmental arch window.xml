@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<Symbol IsArchivable="true" IsPlaceable="true" MainGUID="42E5398A-7876-400E-BB7E-DA84B5612AA3" MigrationValue="Normal" Owner="1196638531" Signature="1146313037" Version="41">
+<Symbol IsArchivable="true" IsPlaceable="true" MainGUID="42E5398A-7876-400E-BB7E-DA84B5612AA3" MigrationValue="Normal" Owner="1196638531" Signature="1146313037" Version="43">
 <Ancestry SectVersion="1" SectionFlags="0" SubIdent="0" Template="false">
 	<MainGUID>F938E33A-329D-4A36-BE3E-85E126820996</MainGUID>
 	<MainGUID>103E8D2C-8230-42E1-9597-46F84CCE28C0</MainGUID>
@@ -37,56 +37,6 @@
 <Script_1D SectVersion="20" SectionFlags="0" SubIdent="0">
 <![CDATA[
 eps = 0.0001
-
-!!!! =============================================================================
-!!!! Versioning
-!!!! =============================================================================
-!!!
-!!!dim iVersionNumber[][2]
-!!!iVersionNumber[1][1]	= 20170918
-!!!iVersionNumber[1][2]	= 0
-!!!
-!!!iLastVersion	= vardim1(iVersionNumber)
-!!!
-!!!
-!!!
-!!!! ==============================================================================
-!!!! ========== Forward or Backward Migration
-!!!! ==============================================================================
-!!!
-!!!if GLOB_SCRIPT_TYPE = 7 or GLOB_SCRIPT_TYPE = 8 then goto "masterEnd"
-!!!
-!!!! ==============================================================================
-!!!
-!!!
-!!!! =============================================================================
-!!!! Library Check
-!!!! =============================================================================
-!!!LIBERR_NONE			= 0
-!!!LIBERR_OLDMACRO		= 1
-!!!LIBERR_OLDOBJECT	= 2
-!!!LIBERR_DIFFLANG		= 3
-!!!LIBERR_MISSING		= -1
-!!!
-!!!iMacroLibVersion	= 0
-!!!success	= LIBRARYGLOBAL ("Library_version_Siegenia_Titan", "iVersionLibrary", iMacroLibVersion)
-!!!
-!!!iLibError	= 0
-!!!if success < eps then
-!!!	iLibError = -1
-!!!else
-!!!	langID	= `_lang:_INT`
-!!!	call "Library_version_Siegenia_Titan" parameters \
-!!!		bUsAsMacro		= 1,
-!!!		iObjectVersion	= iVersionNumber[iLastVersion][1],
-!!!		stLangString	= langID \
-!!!		returned_parameters iLibError
-!!!endif
-!!!if abs (iLibError) > eps then goto "masterEnd"
-!!!
-!!!
-!!!! ==============================================================================
-
 
 ! gs_leaf_optype_m:
 	LEAF_1L_SIDE_HUNG			= 1

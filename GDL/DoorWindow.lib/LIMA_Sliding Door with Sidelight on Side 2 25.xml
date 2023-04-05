@@ -11,8 +11,8 @@
 
 <CalledMacros SectVersion="2" SectionFlags="0" SubIdent="0">
 	<Macro>
-		<MName><![CDATA["LIMA_general_lt_door_macro"]]></MName>
-		<MainGUID>02A27ABD-62CA-4875-9E5A-03654DAA29FC</MainGUID>
+		<MName><![CDATA["gs_general_lt_door_macro"]]></MName>
+		<MainGUID>B6C3AB50-B1C3-4118-857D-B61B08D39515</MainGUID>
 	</Macro>
 </CalledMacros>
 
@@ -31,7 +31,7 @@ bMetalDoor			= 0
 
 if GLOB_SCRIPT_TYPE <> 7 & GLOB_SCRIPT_TYPE <> 8 then
 
-	call "LIMA_general_lt_door_macro" parameters all A=A,
+	call "gs_general_lt_door_macro" parameters all A=A,
 !bMirrorFixSigns = WIDO_REVEAL_SIDE,
 		gs_door_transom		= gs_door_transom,
 		gs_sidelight_right	= gs_sidelight_right,
@@ -7801,7 +7801,7 @@ endif
 				<ParFlg_Child/>
 				<ParFlg_Unique/>
 			</Flags>
-			<Value><![CDATA["73 / 73"]]></Value>
+			<Value><![CDATA["0,730 / 0,730"]]></Value>
 		</String>
 		<String Name="ifc_optypestr">
 			<Description><![CDATA["IFC Operation"]]></Description>
