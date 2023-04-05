@@ -48,7 +48,7 @@
 			<Flags>
 				<ParFlg_Child/>
 			</Flags>
-			<Value>1</Value>
+			<Value>0</Value>
 		</Boolean>
 		<Boolean Name="AC_WidHei_On">
 			<Description><![CDATA["Show Sizes"]]></Description>
@@ -185,7 +185,7 @@
 		</Title>
 		<Boolean Name="bMarkerHead">
 			<Description><![CDATA["Marker Head"]]></Description>
-			<Value>1</Value>
+			<Value>0</Value>
 		</Boolean>
 		<Integer Name="iMarkerShape">
 			<Description><![CDATA["Marker Polygon Shape"]]></Description>
@@ -262,21 +262,21 @@
 			<Flags>
 				<ParFlg_Child/>
 			</Flags>
-			<Value>20</Value>
+			<Value>10</Value>
 		</RealNum>
 		<RealNum Name="headDistCm">
 			<Description><![CDATA["Marker Position (Paper Size - cm)"]]></Description>
 			<Flags>
 				<ParFlg_Child/>
 			</Flags>
-			<Value>2</Value>
+			<Value>1</Value>
 		</RealNum>
 		<RealNum Name="headDistPoint">
 			<Description><![CDATA["Marker Position (Paper Size - Point)"]]></Description>
 			<Flags>
 				<ParFlg_Child/>
 			</Flags>
-			<Value>56.6929133858268</Value>
+			<Value>28.3464566929134</Value>
 		</RealNum>
 		<RealNum Name="headDistM">
 			<Description><![CDATA["Marker Position (Paper Size - m)"]]></Description>
@@ -284,7 +284,7 @@
 				<ParFlg_Child/>
 				<ParFlg_Hidden/>
 			</Flags>
-			<Value>0.02</Value>
+			<Value>0.01</Value>
 		</RealNum>
 		<RealNum Name="markerOffsetMm">
 			<Description><![CDATA["Marker Offset (Paper Size - mm)"]]></Description>
@@ -349,21 +349,21 @@
 			<Flags>
 				<ParFlg_Child/>
 			</Flags>
-			<Value>12</Value>
+			<Value>6</Value>
 		</RealNum>
 		<RealNum Name="whDistCm">
 			<Description><![CDATA["Dimension Text Position (Paper Size - cm)"]]></Description>
 			<Flags>
 				<ParFlg_Child/>
 			</Flags>
-			<Value>1.2</Value>
+			<Value>0.6</Value>
 		</RealNum>
 		<RealNum Name="whDistPoint">
 			<Description><![CDATA["Dimension Text Position (Paper Size - Point)"]]></Description>
 			<Flags>
 				<ParFlg_Child/>
 			</Flags>
-			<Value>34.0157480314961</Value>
+			<Value>17.007874015748</Value>
 		</RealNum>
 		<RealNum Name="whDistM">
 			<Description><![CDATA["Dimension Text Position (Paper Size - m)"]]></Description>
@@ -371,7 +371,7 @@
 				<ParFlg_Child/>
 				<ParFlg_Hidden/>
 			</Flags>
-			<Value>0.012</Value>
+			<Value>0.006</Value>
 		</RealNum>
 		<RealNum Name="sillOffsetMm">
 			<Description><![CDATA["Sill Text Position X (Paper Size - mm)"]]></Description>
@@ -730,7 +730,7 @@
 			<Flags>
 				<ParFlg_Child/>
 			</Flags>
-			<Value><![CDATA["Sill 0,000"]]></Value>
+			<Value><![CDATA["Pm. 0,000"]]></Value>
 		</String>
 		<Boolean Name="AC_SillNominal">
 			<Description><![CDATA["Nominal Sill Height"]]></Description>
@@ -744,7 +744,7 @@
 			<Flags>
 				<ParFlg_Child/>
 			</Flags>
-			<Value><![CDATA["Sill"]]></Value>
+			<Value><![CDATA["Pm."]]></Value>
 		</String>
 		<Integer Name="GS_iCustomText_5">
 			<Description><![CDATA["Fire Rating Text"]]></Description>
@@ -1604,7 +1604,7 @@
 		</String>
 		<Integer Name="iContentToOverride">
 			<Description><![CDATA[""]]></Description>
-			<Value>1</Value>
+			<Value>2</Value>
 		</Integer>
 		<Boolean Name="bScaleDependentIDShow">
 			<Description><![CDATA["Show ID Dependent on Scale"]]></Description>
