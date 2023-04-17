@@ -262,21 +262,21 @@
 			<Flags>
 				<ParFlg_Child/>
 			</Flags>
-			<Value>10</Value>
+			<Value>6</Value>
 		</RealNum>
 		<RealNum Name="headDistCm">
 			<Description><![CDATA["Marker Position (Paper Size - cm)"]]></Description>
 			<Flags>
 				<ParFlg_Child/>
 			</Flags>
-			<Value>1</Value>
+			<Value>0.6</Value>
 		</RealNum>
 		<RealNum Name="headDistPoint">
 			<Description><![CDATA["Marker Position (Paper Size - Point)"]]></Description>
 			<Flags>
 				<ParFlg_Child/>
 			</Flags>
-			<Value>28.3464566929134</Value>
+			<Value>17.00878</Value>
 		</RealNum>
 		<RealNum Name="headDistM">
 			<Description><![CDATA["Marker Position (Paper Size - m)"]]></Description>
@@ -284,7 +284,7 @@
 				<ParFlg_Child/>
 				<ParFlg_Hidden/>
 			</Flags>
-			<Value>0.01</Value>
+			<Value>0.006</Value>
 		</RealNum>
 		<RealNum Name="markerOffsetMm">
 			<Description><![CDATA["Marker Offset (Paper Size - mm)"]]></Description>
@@ -320,21 +320,21 @@
 			<Flags>
 				<ParFlg_Child/>
 			</Flags>
-			<Value>6</Value>
+			<Value>0</Value>
 		</RealNum>
 		<RealNum Name="footLengthCm">
 			<Description><![CDATA["Centerline Length (Paper Size - cm)"]]></Description>
 			<Flags>
 				<ParFlg_Child/>
 			</Flags>
-			<Value>0.6</Value>
+			<Value>0.0</Value>
 		</RealNum>
 		<RealNum Name="footLengthPoint">
 			<Description><![CDATA["Centerline Length (Paper Size - Point)"]]></Description>
 			<Flags>
 				<ParFlg_Child/>
 			</Flags>
-			<Value>17.007874015748</Value>
+			<Value>0</Value>
 		</RealNum>
 		<RealNum Name="footLengthM">
 			<Description><![CDATA["Centerline Length (Paper Size - m)"]]></Description>
@@ -342,7 +342,7 @@
 				<ParFlg_Child/>
 				<ParFlg_Hidden/>
 			</Flags>
-			<Value>0.006</Value>
+			<Value>0.00</Value>
 		</RealNum>
 		<RealNum Name="whDistMm">
 			<Description><![CDATA["Dimension Text Position (Paper Size - mm)"]]></Description>
@@ -407,21 +407,21 @@
 			<Flags>
 				<ParFlg_Child/>
 			</Flags>
-			<Value>4</Value>
+			<Value>2</Value>
 		</RealNum>
 		<RealNum Name="sillDistCm">
 			<Description><![CDATA["Sill Text Position Y (Paper Size - cm)"]]></Description>
 			<Flags>
 				<ParFlg_Child/>
 			</Flags>
-			<Value>0.4</Value>
+			<Value>0.2</Value>
 		</RealNum>
 		<RealNum Name="sillDistPoint">
 			<Description><![CDATA["Sill Text Position Y (Paper Size - Point)"]]></Description>
 			<Flags>
 				<ParFlg_Child/>
 			</Flags>
-			<Value>11.3385826771654</Value>
+			<Value>5.669</Value>
 		</RealNum>
 		<RealNum Name="sillDistM">
 			<Description><![CDATA["Sill Text Position Y (Paper Size - m)"]]></Description>
@@ -429,7 +429,7 @@
 				<ParFlg_Child/>
 				<ParFlg_Hidden/>
 			</Flags>
-			<Value>0.004</Value>
+			<Value>0.002</Value>
 		</RealNum>
 		<RealNum Name="fireOffsetMm">
 			<Description><![CDATA["Fire Rating Text Position X (Paper Size - mm)"]]></Description>
