@@ -1,0 +1,430 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Symbol IsArchivable="false" IsPlaceable="true" MainGUID="911C2A2D-CA1A-426E-82F1-1690AFA2A335" MigrationValue="Normal" Owner="1196638531" Signature="1196644685" Version="44">
+<Ancestry SectVersion="1" SectionFlags="0" SubIdent="0" Template="false">
+	<MainGUID>F938E33A-329D-4A36-BE3E-85E126820996</MainGUID>
+	<MainGUID>103E8D2C-8230-42E1-9597-46F84CCE28C0</MainGUID>
+</Ancestry>
+
+<CalledMacros SectVersion="2" SectionFlags="0" SubIdent="0">
+	<Macro>
+		<MName><![CDATA["LIMA_STAIRTHREAD"]]></MName>
+		<MainGUID>A90FBA35-5204-4007-A8D1-A49F31AD8790</MainGUID>
+	</Macro>
+</CalledMacros>
+
+<!-- GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT -->
+
+<Script_3D SectVersion="20" SectionFlags="0" SubIdent="0">
+<![CDATA[
+!hotspot 0,0,0:sphere .01:lin_ 0,0,0,1,0,0:lin_ 0,0,0,0,.5,0:lin_ 0,0,0,0,0,2
+
+hotspot  0, 		yStairEnd / 2,		 zStairEnd, UnID, xStairEnd, 1 + 128	: UnID = UnID + 1
+hotspot  xStairEnd,	yStairEnd / 2,		 zStairEnd, UnID, xStairEnd, 2			: UnID = UnID + 1
+hotspot -1, 		yStairEnd / 2,		 zStairEnd, UnID, xStairEnd, 3			: UnID = UnID + 1
+
+hotspot 0, 	 0,				 0, UnID, yStairEnd, 1 + 256	: UnID = UnID + 1
+hotspot 0,	 yStairEnd, 	 0, UnID, yStairEnd, 2			: UnID = UnID + 1
+hotspot 0, 	-1,				 0, UnID, yStairEnd, 3			: UnID = UnID + 1
+
+hotspot xStairEnd,	 0,		 0, 		UnID, zStairEnd, 1 + 128	: UnID = UnID + 1
+hotspot xStairEnd,	 0, 	 zStairEnd,	UnID, zStairEnd, 2			: UnID = UnID + 1
+hotspot xStairEnd, 	 0,		-1, 		UnID, zStairEnd, 3			: UnID = UnID + 1
+
+
+for _i = -hasStart to nRisers - 1 - not(hasEnd)
+	add _i * xRiser, 0, (_i+1) * zRiser
+		_isFirst = (_i = -hasStart)
+		_isLast  = (_i = nRisers - 1) & hasEnd | (_i = nRisers - 2) & not(hasEnd)
+
+		if _isLast and hasExt then
+			hotspot  0, 	0,	 zExt,	UnID, xExt, 1 + 128	: UnID = UnID + 1
+			hotspot  xExt,	0,	 zExt,	UnID, xExt, 2		: UnID = UnID + 1
+			hotspot -1, 	0,	 zExt,	UnID, xExt, 3		: UnID = UnID + 1
+		
+			hotspot xExt,	0,	 0, 	UnID, zExt, 1 + 128	: UnID = UnID + 1
+			hotspot xExt,	0, 	 zExt,	UnID, zExt, 2		: UnID = UnID + 1
+			hotspot xExt, 	0,	-1, 	UnID, zExt, 3		: UnID = UnID + 1
+
+			CornerS[5][_X_] = xExt
+			CornerS[5][_Z_] = zExt
+	
+			CornerS[6][_X_] = xExt
+			CornerS[6][_Z_] = zExt
+
+		else
+			CornerS[5][_X_] = xRiser
+			CornerS[5][_Z_] = -zSlab
+			
+			CornerS[6][_X_] = xRiser
+			CornerS[6][_Z_] = -zSlab
+		endif
+	
+		if _isFirst and hasCutIn then
+			hotspot  0, 	0,	 zCut,	UnID, xCut, 1 + 128	: UnID = UnID + 1
+			hotspot  xCut,	0,	 zCut,	UnID, xCut, 2		: UnID = UnID + 1
+			hotspot -1, 	0,	 zCut,	UnID, xCut, 3		: UnID = UnID + 1
+		
+			hotspot xCut,	0,	 0, 	UnID, zCut, 1 + 128	: UnID = UnID + 1
+			hotspot xCut,	0, 	 zCut,	UnID, zCut, 2		: UnID = UnID + 1
+			hotspot xCut, 	0,	-1, 	UnID, zCut, 3		: UnID = UnID + 1
+
+			CutInS[1][_X_] = xCut
+			CutInS[1][_Z_] = zCut
+	
+			CutInS[2][_X_] = xCut
+			CutInS[2][_Z_] = zCut
+		else
+			CutInS[1][_X_] = 0
+			CutInS[1][_Z_] = -zRiser - zSlab
+	
+			CutInS[2][_X_] = 0
+			CutInS[2][_Z_] = -zRiser - zSlab
+		endif
+
+
+
+		call LIMA_StairThread parameters all \
+		CornerS		= CornerS,
+		CutInS		= CutInS,
+		zPos		= (_i+1) * zRiser,
+		hasCutIn	= _isFirst & hasCutIn,
+		hasExt		= _isLast  & hasExt,
+		isHiddenEdge1	= not(_i = 0),
+		isHiddenEdge2	= not(_isLast & not(hasExt))
+	del 1
+next _i
+]]>
+</Script_3D>
+
+<!-- GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT -->
+
+<Script_2D SectVersion="20" SectionFlags="0" SubIdent="0">
+<![CDATA[
+xFont = .1
+iDivider = 4
+define style "test" "arial", xFont, 7, 0
+style "test"
+
+hotspot2  0, 			yStairEnd / 2,	UnID, xStairEnd, 1 + 128	: UnID = UnID + 1
+hotspot2  xStairEnd,	yStairEnd / 2,	UnID, xStairEnd, 2			: UnID = UnID + 1
+hotspot2 -1, 			yStairEnd / 2,	UnID, xStairEnd, 3			: UnID = UnID + 1
+
+hotspot2 0, 	 0,		UnID, yStairEnd, 1 + 256	: UnID = UnID + 1
+hotspot2 0,	 yStairEnd, UnID, yStairEnd, 2			: UnID = UnID + 1
+hotspot2 0, 	-1,		UnID, yStairEnd, 3			: UnID = UnID + 1
+
+if not(doDraw2D) then end
+
+bCutLine = 0
+
+for _i = -hasStart to nRisers - 1 - not(hasEnd)
+	add2 _i * xRiser, 0
+if bDebug then text2 0,0, _i
+
+		call LIMA_StairThread parameters all \
+		CornerS			= CornerS,
+		zPos			= (_i+1) * zRiser,
+		doDrawCutLine	= doDrawCutLine & not(bCutLine),
+		hasCutIn		= 0,
+		hasExt			= 0
+
+		if doDrawCutLine then bCutLine = 1
+	del 1
+next _i
+]]>
+</Script_2D>
+
+<!-- GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT -->
+
+<Script_1D SectVersion="20" SectionFlags="0" SubIdent="0">
+<![CDATA[
+_X_ = 1
+_Y_ = 2
+_Z_ = 3
+
+UnID = 1
+
+EPS = 0.0001
+
+if isGPus2R60 then 
+	iMax = 100
+
+	for _i = 2 to iMax
+		_r = zStairEnd / _i
+		_g = xStairEnd / (_i - 1)
+		if	2 * _r + _g > xMin \
+		&	2 * _r + _g < xMax \
+		then
+			nRisers = _i
+			_i = iMax
+		endif
+	next _i
+endif
+
+zRiser = zStairEnd / nRisers
+xRiser = xStairEnd / (nRisers - 1)
+
+aFly = atn(zRiser / xRiser)
+zSlab = xSlabThk / cos (aFly)
+
+dim CornerS[6][3]
+
+CornerS[1][_X_] = 0
+CornerS[1][_Y_] = 0
+CornerS[1][_Z_] = -zRiser - zSlab
+
+CornerS[2][_X_] = 0
+CornerS[2][_Y_] = yStairEnd
+CornerS[2][_Z_] = -zRiser - zSlab
+
+CornerS[3][_X_] = xRiser
+CornerS[3][_Y_] = 0
+CornerS[3][_Z_] = -zSlab
+
+CornerS[4][_X_] = xRiser
+CornerS[4][_Y_] = yStairEnd
+CornerS[4][_Z_] = -zSlab
+
+CornerS[5][_X_] = xRiser
+CornerS[5][_Y_] = 0
+CornerS[5][_Z_] = -zSlab
+
+CornerS[6][_X_] = xRiser
+CornerS[6][_Y_] = yStairEnd
+CornerS[6][_Z_] = -zSlab
+
+dim CutInS[2][3]
+CutInS[1][_X_] = 0
+CutInS[1][_Y_] = 0
+CutInS[1][_Z_] = -zRiser - zSlab
+
+CutInS[2][_X_] = 0
+CutInS[2][_Y_] = yStairEnd
+CutInS[2][_Z_] = -zRiser - zSlab
+]]>
+</Script_1D>
+
+<!-- GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT -->
+
+<Script_PR SectVersion="20" SectionFlags="0" SubIdent="0">
+<![CDATA[]]>
+</Script_PR>
+
+<!-- GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT -->
+
+<Script_UI SectVersion="20" SectionFlags="0" SubIdent="0">
+<![CDATA[]]>
+</Script_UI>
+
+<!-- GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT -->
+
+<Script_VL SectVersion="20" SectionFlags="0" SubIdent="0">
+<![CDATA[
+if isGPus2R60 then
+	hideparameter "nRisers"
+	parameters	nRisers = nRisers
+else
+	hideparameter "xMin", "xMax"
+endif
+
+if not(hasCutIn) then
+	hideparameter "xCut", "zCut"
+endif
+
+if not(hasExt) then
+	hideparameter "xExt", "zExt"
+endif
+
+]]>
+</Script_VL>
+
+<!-- GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT -->
+
+<Script_FWM SectVersion="20" SectionFlags="0" SubIdent="0">
+<![CDATA[]]>
+</Script_FWM>
+
+<!-- GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT -->
+
+<Script_BWM SectVersion="20" SectionFlags="0" SubIdent="0">
+<![CDATA[]]>
+</Script_BWM>
+
+<ParamSection SectVersion="27" SectionFlags="0" SubIdent="0">
+	<ParamSectHeader>
+		<AutoHotspots>false</AutoHotspots>
+		<StatBits>
+			<STBit_FixSize/>
+		</StatBits>
+		<WDLeftFrame>0</WDLeftFrame>
+		<WDRightFrame>0</WDRightFrame>
+		<WDTopFrame>0</WDTopFrame>
+		<WDBotFrame>0</WDBotFrame>
+		<LayFlags>65535</LayFlags>
+		<WDMirrorThickness>0</WDMirrorThickness>
+		<WDWallInset>0</WDWallInset>
+	</ParamSectHeader>
+	<Parameters>
+		<Length Name="A">
+			<Description><![CDATA["Dimension 1"]]></Description>
+			<Fix/>
+			<Value>1</Value>
+		</Length>
+		<Length Name="B">
+			<Description><![CDATA["Dimension 2"]]></Description>
+			<Fix/>
+			<Value>1</Value>
+		</Length>
+		<Length Name="ZZYZX">
+			<Description><![CDATA["Height"]]></Description>
+			<Fix/>
+			<Value>1</Value>
+		</Length>
+		<Boolean Name="AC_show2DHotspotsIn3D">
+			<Description><![CDATA["Show 2D Hotspots in 3D"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>0</Value>
+		</Boolean>
+		<Length Name="ac_bottomlevel">
+			<Description><![CDATA["Bottom Level"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>1</Value>
+		</Length>
+		<Length Name="ac_toplevel">
+			<Description><![CDATA["Top Level"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>0</Value>
+		</Length>
+		<Length Name="xStairEnd">
+			<Description><![CDATA[""]]></Description>
+			<Value>2</Value>
+		</Length>
+		<Length Name="yStairEnd">
+			<Description><![CDATA[""]]></Description>
+			<Value>1</Value>
+		</Length>
+		<Length Name="zStairEnd">
+			<Description><![CDATA[""]]></Description>
+			<Value>1</Value>
+		</Length>
+		<Boolean Name="isGPus2R60">
+			<Description><![CDATA[""]]></Description>
+			<Value>0</Value>
+		</Boolean>
+		<Length Name="xMin">
+			<Description><![CDATA[""]]></Description>
+			<Value>0.6</Value>
+		</Length>
+		<Length Name="xMax">
+			<Description><![CDATA[""]]></Description>
+			<Value>0.64</Value>
+		</Length>
+		<Integer Name="nRisers">
+			<Description><![CDATA[""]]></Description>
+			<Value>2</Value>
+		</Integer>
+		<Boolean Name="hasStart">
+			<Description><![CDATA[""]]></Description>
+			<Value>0</Value>
+		</Boolean>
+		<Boolean Name="hasEnd">
+			<Description><![CDATA[""]]></Description>
+			<Value>0</Value>
+		</Boolean>
+		<Boolean Name="hasCutIn">
+			<Description><![CDATA[""]]></Description>
+			<Value>0</Value>
+		</Boolean>
+		<Boolean Name="hasExt">
+			<Description><![CDATA[""]]></Description>
+			<Value>0</Value>
+		</Boolean>
+		<Length Name="xCut">
+			<Description><![CDATA[""]]></Description>
+			<Value>0</Value>
+		</Length>
+		<Length Name="zCut">
+			<Description><![CDATA[""]]></Description>
+			<Value>-0.45</Value>
+		</Length>
+		<Length Name="xExt">
+			<Description><![CDATA[""]]></Description>
+			<Value>0.45</Value>
+		</Length>
+		<Length Name="zExt">
+			<Description><![CDATA[""]]></Description>
+			<Value>0</Value>
+		</Length>
+		<Length Name="xSlabThk">
+			<Description><![CDATA[""]]></Description>
+			<Value>0.15</Value>
+		</Length>
+		<Material Name="mTread">
+			<Description><![CDATA[""]]></Description>
+			<Value>3</Value>
+		</Material>
+		<PenColor Name="pVisible">
+			<Description><![CDATA[""]]></Description>
+			<Value>1</Value>
+		</PenColor>
+		<PenColor Name="pHidden">
+			<Description><![CDATA[""]]></Description>
+			<Value>61</Value>
+		</PenColor>
+		<LineType Name="lVisible">
+			<Description><![CDATA[""]]></Description>
+			<Value>1</Value>
+		</LineType>
+		<LineType Name="lHidden">
+			<Description><![CDATA[""]]></Description>
+			<Value>2</Value>
+		</LineType>
+		<FillPattern Name="fVisible">
+			<Description><![CDATA[""]]></Description>
+			<Value>64</Value>
+		</FillPattern>
+		<FillPattern Name="fHidden">
+			<Description><![CDATA[""]]></Description>
+			<Value>65</Value>
+		</FillPattern>
+		<Boolean Name="bDebug">
+			<Description><![CDATA[""]]></Description>
+			<Value>0</Value>
+		</Boolean>
+		<Boolean Name="doDrawCutLine">
+			<Description><![CDATA[""]]></Description>
+			<Value>0</Value>
+		</Boolean>
+		<Boolean Name="doDraw2D">
+			<Description><![CDATA[""]]></Description>
+			<Value>1</Value>
+		</Boolean>
+	</Parameters>
+</ParamSection>
+
+<Copyright SectVersion="1" SectionFlags="0" SubIdent="0">
+	<Author></Author>
+	<License>
+		<Type>CC BY</Type>
+		<Version>4.0</Version>
+	</License>
+</Copyright>
+
+<Keywords SectVersion="1" SectionFlags="0" SubIdent="0">
+<![CDATA[]]>
+</Keywords>
+
+<Comment SectVersion="20" SectionFlags="0" SubIdent="0">
+<![CDATA[]]>
+</Comment>
+
+</Symbol>

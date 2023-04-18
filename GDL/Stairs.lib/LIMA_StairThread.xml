@@ -1,0 +1,657 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Symbol IsArchivable="false" IsPlaceable="true" MainGUID="A90FBA35-5204-4007-A8D1-A49F31AD8790" MigrationValue="Normal" Owner="1196638531" Signature="1196644685" Version="44">
+<Ancestry SectVersion="1" SectionFlags="0" SubIdent="0" Template="false">
+	<MainGUID>F938E33A-329D-4A36-BE3E-85E126820996</MainGUID>
+	<MainGUID>103E8D2C-8230-42E1-9597-46F84CCE28C0</MainGUID>
+</Ancestry>
+
+<CalledMacros SectVersion="2" SectionFlags="0" SubIdent="0">
+</CalledMacros>
+
+<!-- GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT -->
+
+<Script_3D SectVersion="20" SectionFlags="0" SubIdent="0">
+<![CDATA[
+!hotspot 0,0,0:sphere .01:lin_ 0,0,0,1,0,0:lin_ 0,0,0,0,.5,0:lin_ 0,0,0,0,0,2
+
+material mTread
+sect_attrs fCut, pBackground, pForeground, pContour, lContour
+pen p3D
+
+if not(hasCutIn) then
+	CutIns[1][_X_] =  CornerS[1][_X_]
+	CutIns[1][_Y_] =  CornerS[1][_Y_]
+	CutIns[1][_Z_] =  CornerS[1][_Z_]
+
+	CutIns[2][_X_] =  CornerS[2][_X_]
+	CutIns[2][_Y_] =  CornerS[2][_Y_]
+	CutIns[2][_Z_] =  CornerS[2][_Z_]
+endif
+
+if not(hasExt) then
+	CornerS[5][_X_] =  CornerS[3][_X_]
+	CornerS[5][_Y_] =  CornerS[3][_Y_]
+	CornerS[5][_Z_] =  CornerS[3][_Z_]
+
+	CornerS[6][_X_] =  CornerS[4][_X_]
+	CornerS[6][_Y_] =  CornerS[4][_Y_]
+	CornerS[6][_Z_] =  CornerS[4][_Z_]
+endif
+
+for _i = 1 to nHotspots
+	if isWinder | _i % 2 then
+		hotspot  0, 				CornerS[_i][_Y_],	0, UnID, CornerS[_i][_X_], 1 + 128	: UnID = UnID + 1
+		hotspot  CornerS[_i][_X_],	CornerS[_i][_Y_],	0, UnID, CornerS[_i][_X_], 2		: UnID = UnID + 1
+		hotspot -1, 				CornerS[_i][_Y_],	0, UnID, CornerS[_i][_X_], 3		: UnID = UnID + 1
+	
+		hotspot CornerS[_i][_X_], 	 0,					0, UnID, CornerS[_i][_Y_], 1 + 128	: UnID = UnID + 1
+		hotspot CornerS[_i][_X_],	 CornerS[_i][_Y_], 	0, UnID, CornerS[_i][_Y_], 2		: UnID = UnID + 1
+		hotspot CornerS[_i][_X_], 	-1,					0, UnID, CornerS[_i][_Y_], 3		: UnID = UnID + 1
+	
+		hotspot CornerS[_i][_X_],	 CornerS[_i][_Y_],	 0, 				UnID, CornerS[_i][_Z_], 1 + 128	: UnID = UnID + 1
+		hotspot CornerS[_i][_X_],	 CornerS[_i][_Y_], 	 CornerS[_i][_Z_],	UnID, CornerS[_i][_Z_], 2		: UnID = UnID + 1
+		hotspot CornerS[_i][_X_], 	 CornerS[_i][_Y_],	-1, 				UnID, CornerS[_i][_Z_], 3		: UnID = UnID + 1
+	endif
+next _i
+
+if hasCutIn then
+	for _i = 1 to vardim1(CutInS)
+		if isWinder | _i % 2 then
+			hotspot  0, 				CutInS[_i][_Y_],	 CutInS[_i][_Z_],	UnID, CutInS[_i][_X_], 1 + 128	: UnID = UnID + 1
+			hotspot  CutInS[_i][_X_],	CutInS[_i][_Y_],	 CutInS[_i][_Z_],	UnID, CutInS[_i][_X_], 2		: UnID = UnID + 1
+			hotspot -1, 				CutInS[_i][_Y_],	 CutInS[_i][_Z_],	UnID, CutInS[_i][_X_], 3		: UnID = UnID + 1
+
+			hotspot CutInS[_i][_X_],	 CutInS[_i][_Y_],	 0, 				UnID, CutInS[_i][_Z_], 1 + 128	: UnID = UnID + 1
+			hotspot CutInS[_i][_X_],	 CutInS[_i][_Y_], 	 CutInS[_i][_Z_],	UnID, CutInS[_i][_Z_], 2		: UnID = UnID + 1
+			hotspot CutInS[_i][_X_], 	 CutInS[_i][_Y_],	-1, 				UnID, CutInS[_i][_Z_], 3		: UnID = UnID + 1
+		endif
+	next _i
+
+	hotline CornerS[1][_X_], CornerS[1][_Y_], CornerS[1][_Z_], 2 * CornerS[3][_X_] - CornerS[1][_X_], 2 * CornerS[3][_Y_] - CornerS[1][_Y_], 2 * CornerS[3][_Z_] - CornerS[1][_Z_], UnID : UnID = UnID + 1
+	hotline CornerS[2][_X_], CornerS[2][_Y_], CornerS[2][_Z_], 2 * CornerS[4][_X_] - CornerS[2][_X_], 2 * CornerS[4][_Y_] - CornerS[2][_Y_], 2 * CornerS[4][_Z_] - CornerS[2][_Z_], UnID : UnID = UnID + 1
+endif
+
+
+hotspot CornerS[1][_X_],	 CornerS[1][_Y_],	 CutInS[1][_Z_]
+hotspot CornerS[2][_X_],	 CornerS[2][_Y_],	 CutInS[2][_Z_]
+
+hotspot CornerS[1][_X_],	 CornerS[1][_Y_],	 z3
+hotspot CornerS[2][_X_],	 CornerS[2][_Y_],	 z4
+
+hotspot CornerS[3][_X_],	 CornerS[3][_Y_],	 CornerS[5][_Z_]
+hotspot CornerS[4][_X_],	 CornerS[4][_Y_],	 CornerS[6][_Z_]
+
+hotspot CutInS[1][_X_],	 CutInS[1][_Y_],	 z1
+hotspot CutInS[2][_X_],	 CutInS[2][_Y_],	 z2
+
+hotspot CornerS[1][_X_],	 CornerS[1][_Y_],	 CornerS[1][_Z_] - CornerS[5][_Z_]
+hotspot CornerS[2][_X_],	 CornerS[2][_Y_],	 CornerS[2][_Z_] - CornerS[6][_Z_]
+
+
+vert CornerS[1][_X_], CornerS[1][_Y_], 0				!1
+vert CornerS[2][_X_], CornerS[2][_Y_], 0
+vert CornerS[4][_X_], CornerS[4][_Y_], 0
+vert CornerS[3][_X_], CornerS[3][_Y_], 0
+
+vert CornerS[1][_X_], CornerS[1][_Y_], CutInS[1][_Z_]	!5
+vert CornerS[2][_X_], CornerS[2][_Y_], CutInS[2][_Z_]
+vert CornerS[4][_X_], CornerS[4][_Y_], CornerS[4][_Z_]
+vert CornerS[3][_X_], CornerS[3][_Y_], CornerS[3][_Z_]
+
+vert CornerS[3][_X_], CornerS[3][_Y_], CornerS[5][_Z_]	!9
+vert CornerS[4][_X_], CornerS[4][_Y_], CornerS[6][_Z_]
+vert CornerS[5][_X_], CornerS[5][_Y_], CornerS[5][_Z_]
+vert CornerS[6][_X_], CornerS[6][_Y_], CornerS[6][_Z_]
+
+vert CutInS[1][_X_], CutInS[1][_Y_], z1					!13
+vert CutInS[1][_X_], CutInS[1][_Y_], CutInS[1][_Z_]
+vert CutInS[2][_X_], CutInS[2][_Y_], z2					
+vert CutInS[2][_X_], CutInS[2][_Y_], CutInS[2][_Z_]
+
+vert CornerS[1][_X_],	 CornerS[1][_Y_],	 z3			!17
+vert CornerS[2][_X_],	 CornerS[2][_Y_],	 z4
+
+
+EDGE 1, 2, -1, -1, 0				! 1
+EDGE 2, 3, -1, -1, 0
+EDGE 3, 4, -1, -1, 0
+EDGE 4, 1, -1, -1, 0
+
+EDGE  5,  6, -1, -1, isHiddenEdge1	! 5
+EDGE  6, 16, -1, -1, 1
+EDGE 16, 14, -1, -1, isHiddenEdge1
+EDGE 14,  5, -1, -1, 1
+
+EDGE  1,  5, -1, -1, 1				! 9
+EDGE  2,  6, -1, -1, 1				!10
+EDGE  4,  9, -1, -1, 1				!11
+EDGE  9,  8, -1, -1, 1				!12
+EDGE  3, 10, -1, -1, 1				!13
+EDGE 10,  7, -1, -1, 1				!14
+
+EDGE  9, 11, -1, -1, 1				!15
+EDGE 10, 12, -1, -1, 1				!16
+EDGE  8, 11, -1, -1, not(hasExt)	!17
+EDGE  7, 12, -1, -1, not(hasExt)	!18
+
+EDGE  9, 10, -1, -1, not(hasExt)	!19
+EDGE 11, 12, -1, -1, not(hasExt)	!20
+
+EDGE  7,  8, -1, -1, isHiddenEdge2				!21
+EDGE  8, 13, -1, -1, 0
+EDGE 13, 15, -1, -1, isHiddenEdge1
+EDGE 15,  7, -1, -1, 0
+
+EDGE 13, 14, -1, -1, 1				!25
+EDGE 15, 16, -1, -1, 1
+
+EDGE  8, 12, -1, -1, 1				!27
+EDGE  8, 15, -1, -1, 1				!28
+
+EDGE 1, 17, -1, -1, 0				!29
+EDGE 17, 5, -1, -1, 1
+EDGE 2, 18, -1, -1, 0
+EDGE 18, 6, -1, -1, 1
+
+!X
+PGON 4, 0, -1, 3, 11, 19, -13
+!!PGON 4, 0, -1, 1, 10, -5, -9
+PGON 6, 0, -1, 1, 31, 32, -5, -30, -29
+PGON 4, 0, -1, -26, -23, 25, -7
+
+!Y
+!!PGON 7, 0, -1, 9, -8, -25, -22, -12, -11, 4
+!!PGON 7, 0, -1, 2, 13, 14, -24, 26, -6, -10
+PGON 8, 0, -1, 29, 30, -8, -25, -22, -12, -11, 4
+PGON 8, 0, -1, 2, 13, 14, -24, 26, -6, -32, -31
+PGON 3, 0, -1, 12, 17, -15
+PGON 3, 0, -1, 16, -18, -14
+
+!Z
+!!PGON 4,  3, 0, 1, 2, 3, 4
+!!PGON 4, -3, 0, 22, 23, 24, 21
+PGON 4, 0, -1, 5, 6, 7, 8
+PGON 4, 0, -1, 15, 20, -16, -19
+!!PGON 4, -3, 0, 17, 20, -18, 21
+!FIXME
+PGON 3, 0, -1, 27, -20, -17
+PGON 3, 0, -1, 18, -27, -21
+PGON 3, 0, -1, 21, 28, 24
+PGON 3, 0, -1, 22, 23, -28
+
+PGON 4, 0, -1, -4, -3, -2, -1
+
+if hasCutIn then
+endif
+
+if hasExt then
+endif
+
+BODY 1
+]]>
+</Script_3D>
+
+<!-- GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT -->
+
+<Script_2D SectVersion="20" SectionFlags="0" SubIdent="0">
+<![CDATA[
+if bDebug then
+	xFont = .1
+	iDivider = 4
+	define style "test" "arial", xFont, 7, 0
+	style "test"
+	rot2 90
+		text2 0, 5 * xFont / iDivider, "Current story: " 					+ str(GLOB_CSTORY_ELEV,10, 2)
+		text2 0, 4 * xFont / iDivider, "Home story: " 						+ str(GLOB_HSTORY_ELEV,10, 2)
+		text2 0, 3 * xFont / iDivider, "Absolute display limit (local): "	+ str(GLOB_CUTPLANES_INFO[4] - zPos,10, 2)	!absolute display limit
+		text2 0, 2 * xFont / iDivider, "Cutplane top level  (local): "		+ str(GLOB_CUTPLANES_INFO[2] - zPos,10, 2)	!cutplane top level
+		text2 0, 1 * xFont / iDivider, "Cutplane height  (local): "			+ str(GLOB_CUTPLANES_INFO[1] - zPos,10, 2)	!cutplane height
+		text2 0, 0, "Elevation: " 											+ str(GLOB_ELEVATION + zPos,10, 2)
+	del 1
+endif
+
+if not(bDisplay) then end
+
+if doDrawCutLine then
+	yD = CornerS[4][_Y_] - CornerS[1][_Y_]
+
+	hotspot2  0, 		CornerS[1][_Y_],	UnID, XHidden1, 1 + 128	: UnID = UnID + 1
+	hotspot2 XHidden1,	CornerS[1][_Y_],	UnID, XHidden1, 2		: UnID = UnID + 1
+	hotspot2 -1, 		CornerS[1][_Y_],	UnID, XHidden1, 3		: UnID = UnID + 1
+
+	hotspot2  0, 		CornerS[4][_Y_],	UnID, XHidden2, 1 + 128	: UnID = UnID + 1
+	hotspot2 XHidden2,	CornerS[4][_Y_],	UnID, XHidden2, 2		: UnID = UnID + 1
+	hotspot2 -1, 		CornerS[4][_Y_],	UnID, XHidden2, 3		: UnID = UnID + 1
+
+	xLineLength = sqr(yD**2 + (XHidden2 - xHiddenOffset)**2)
+	aRot = atn( yD / (xHidden2 - xHidden1 - xHiddenOffset))
+
+	pen pHidden
+	line_type lHidden
+
+	add2 CornerS[1][_X_] + xHidden1, CornerS[1][_Y_]
+	rot2 aRot
+		line2 -xHiddenOffset/ sin(aRot), 0, xLineLength + xHiddenOffset/ sin(aRot), 0
+		line2 -xHiddenOffset/ sin(aRot), -yHiddenOffset * sin(aRot), xLineLength + xHiddenOffset/ sin(aRot), -yHiddenOffset * sin(aRot)
+		hotline2 -xHiddenOffset/ sin(aRot), 0, xLineLength + xHiddenOffset/ sin(aRot), 0
+	del 2
+endif
+
+for _i = 1 to nHotspots
+	if not(isWinder) | _i % 2 then
+		hotspot2  0, 				CornerS[_i][_Y_],	UnID, CornerS[_i][_X_], 1 + 128	: UnID = UnID + 1
+		hotspot2 CornerS[_i][_X_],	CornerS[_i][_Y_],	UnID, CornerS[_i][_X_], 2	: UnID = UnID + 1
+		hotspot2 -1, 				CornerS[_i][_Y_],	UnID, CornerS[_i][_X_], 3	: UnID = UnID + 1
+	endif
+
+	hotspot2 CornerS[_i][_X_], 	 0,					UnID, CornerS[_i][_Y_], 1 + 128	: UnID = UnID + 1
+	hotspot2 CornerS[_i][_X_],	CornerS[_i][_Y_], 	UnID, CornerS[_i][_Y_], 2	: UnID = UnID + 1
+	hotspot2 CornerS[_i][_X_], 	-1,					UnID, CornerS[_i][_Y_], 3	: UnID = UnID + 1
+next _i
+
+iStatusCode = 1
+
+if isSeen then
+	pen pVisible
+	line_type lVisible
+	if doDrawCutLine then iStatusCode = 0
+endif
+
+if isOverCuttingPlane then
+	pen pHidden
+	line_type lHidden
+	iStatusCode = 0
+endif
+
+put  CornerS[1][_X_] + XHidden1,					CornerS[1][_Y_],  1
+put  CornerS[1][_X_],								CornerS[1][_Y_],  1
+put  CornerS[2][_X_],								CornerS[2][_Y_],  1
+put  CornerS[2][_X_] + XHidden2 - yHiddenOffset,	CornerS[2][_Y_],  iStatusCode 
+put  CornerS[4][_X_], 								CornerS[4][_Y_],  iStatusCode 
+put  CornerS[3][_X_], 								CornerS[3][_Y_],  iStatusCode 
+put  CornerS[1][_X_] + XHidden1, 					CornerS[1][_Y_],  iStatusCode 
+
+POLY2_ nsp/3, 1+2+4, get(nsp)
+
+pen pHidden
+line_type lHidden
+
+line2 CornerS[2][_X_] + XHidden2,	CornerS[2][_Y_],  CornerS[4][_X_], 								CornerS[4][_Y_]
+line2 CornerS[4][_X_], 				CornerS[4][_Y_],  CornerS[3][_X_], 								CornerS[3][_Y_]
+line2 CornerS[3][_X_], 				CornerS[3][_Y_],  CornerS[1][_X_] + XHidden1 + xHiddenOffset, 	CornerS[1][_Y_]
+
+if doShowExt then
+	line2 CornerS[4][_X_], CornerS[4][_Y_],  CornerS[6][_X_], CornerS[6][_Y_]
+	line2 CornerS[6][_X_], CornerS[6][_Y_],  CornerS[5][_X_], CornerS[5][_Y_]
+	line2 CornerS[5][_X_], CornerS[5][_Y_],  CornerS[3][_X_], CornerS[3][_Y_]
+endif
+]]>
+</Script_2D>
+
+<!-- GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT -->
+
+<Script_1D SectVersion="20" SectionFlags="0" SubIdent="0">
+<![CDATA[
+_X_ = 1
+_Y_ = 2
+_Z_ = 3
+
+unID = 1
+
+EPS = 0.0001
+
+!FIXME
+!hasCutIn = CutInS[1][_X_] >  EPS | CutInS[2][_X_] >  EPS
+!hasExt = CornerS[3][_X_] - CornerS[5][_X_] > 0 | CornerS[4][_X_] - CornerS[6][_X_] > 0
+
+zCurStory = GLOB_CSTORY_ELEV - GLOB_HSTORY_ELEV
+isOwnStory = abs(zCurStory) < EPS
+
+zRelCutPlane = GLOB_CUTPLANES_INFO[1] - zPos 
+zRelCutTop = GLOB_CUTPLANES_INFO[2] - zPos 
+zRelCutBot = GLOB_CUTPLANES_INFO[3] - zPos 
+zRelCutAbs = GLOB_CUTPLANES_INFO[4] - zPos
+
+isOverCuttingPlane = zRelCutPlane <= zCurStory & zCurStory < zRelCutTop
+isSeen = zRelCutAbs < zCurStory & zCurStory < zRelCutPlane
+bDisplay = zRelCutBot < zCurStory & zCurStory < zRelCutTop & isOwnStory | zRelCutAbs < zCurStory
+!doDrawCutLine = (GLOB_CSTORY_ELEV = GLOB_HSTORY_ELEV - zPos) & doDrawCutLine
+
+nHotspots = vardim1(CornerS)
+if not(hasExt) then nHotspots = 4
+
+z1 = CornerS[1][_Z_] + (CornerS[3][_Z_] - CornerS[1][_Z_]) * (CutInS[1][_X_] - CornerS[1][_X_]) / (CornerS[3][_X_] - CornerS[1][_X_])
+z2 = CornerS[2][_Z_] + (CornerS[4][_Z_] - CornerS[2][_Z_]) * (CutInS[2][_X_] - CornerS[2][_X_]) / (CornerS[4][_X_] - CornerS[2][_X_])
+
+z3 = max(CornerS[1][_Z_] - CornerS[3][_Z_], CutIns[1][_Z_])
+z4 = max(CornerS[2][_Z_] - CornerS[4][_Z_], CutIns[2][_Z_])
+
+if	not(CornerS[1][_X_] < CutIns[1][_X_] & CutIns[1][_X_] < CornerS[3][_X_]) \
+&	not(CornerS[1][_X_] > CutIns[1][_X_] & CutIns[1][_X_] > CornerS[3][_X_]) \
+then
+	CutIns[1][_X_] = CornerS[1][_X_] + 0.1
+	CutIns[1][_Y_] = CornerS[1][_Y_]
+endif
+
+if	not(CornerS[2][_X_] < CutIns[2][_X_] & CutIns[2][_X_] < CornerS[4][_X_]) \
+&	not(CornerS[2][_X_] > CutIns[2][_X_] & CutIns[2][_X_] > CornerS[4][_X_]) \
+then
+	CutIns[2][_X_] = CornerS[2][_X_] + 0.1
+	CutIns[2][_Y_] = CornerS[2][_Y_]
+endif
+
+CutInS[1][_Y_] = CornerS[1][_Y_] + (CornerS[3][_Y_] - CornerS[1][_Y_]) * (CutInS[1][_X_] - CornerS[1][_X_]) / (CornerS[4][_X_] - CornerS[1][_X_])
+CutInS[2][_Y_] = CornerS[2][_Y_] + (CornerS[4][_Y_] - CornerS[2][_Y_]) * (CutInS[2][_X_] - CornerS[2][_X_]) / (CornerS[3][_X_] - CornerS[2][_X_])
+
+
+
+
+
+]]>
+</Script_1D>
+
+<!-- GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT -->
+
+<Script_PR SectVersion="20" SectionFlags="0" SubIdent="0">
+<![CDATA[]]>
+</Script_PR>
+
+<!-- GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT -->
+
+<Script_UI SectVersion="20" SectionFlags="0" SubIdent="0">
+<![CDATA[]]>
+</Script_UI>
+
+<!-- GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT -->
+
+<Script_VL SectVersion="20" SectionFlags="0" SubIdent="0">
+<![CDATA[
+isCornersChanged = 0
+isCutInChanged = 0
+
+if	GLOB_MODPAR_NAME = "hasCutIn" \
+&	hasCutIn \
+then
+	CutIns[1][_X_] =  CornerS[1][_X_] + 0.1
+	CutIns[1][_Y_] =  CornerS[1][_Y_]
+	CutIns[1][_Z_] =  CornerS[1][_Z_] + 0.1
+
+	CutIns[2][_X_] =  CornerS[2][_X_] + 0.1
+	CutIns[2][_Y_] =  CornerS[2][_Y_]
+	CutIns[2][_Z_] =  CornerS[2][_Z_] + 0.1
+
+	isCutInChanged = 1
+else
+
+endif
+
+if	GLOB_MODPAR_NAME = "hasExt" \
+&	hasExt \
+then
+	CornerS[5][_X_] =  CornerS[3][_X_] + 0.1
+	CornerS[5][_Y_] =  CornerS[3][_Y_]
+	CornerS[5][_Z_] =  CornerS[3][_Z_] + 0.1
+
+	CornerS[6][_X_] =  CornerS[4][_X_] + 0.1
+	CornerS[6][_Y_] =  CornerS[4][_Y_]
+	CornerS[6][_Z_] =  CornerS[4][_Z_] + 0.1
+
+	isCornersChanged = 1
+endif
+
+if not(isWinder) then
+	CutIns[2][_X_] =  CutIns[1][_X_]
+	CutIns[2][_Y_] =  CornerS[2][_Y_]
+	CutIns[2][_Z_] =  CutIns[1][_Z_]
+
+	CornerS[2][_X_] =  CornerS[1][_X_]
+	CornerS[2][_Z_] =  CornerS[1][_Z_]
+
+	CornerS[4][_X_] =  CornerS[3][_X_]
+	CornerS[4][_Z_] =  CornerS[3][_Z_]
+
+	CornerS[6][_X_] =  CornerS[5][_X_]
+	CornerS[6][_Z_] =  CornerS[5][_Z_]	
+
+	isCutInChanged = 1
+	isCornersChanged = 1
+endif
+
+if isCornersChanged	then parameters CornerS	= CornerS
+if isCutInChanged	then parameters CutInS = CutInS
+
+]]>
+</Script_VL>
+
+<!-- GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT -->
+
+<Script_FWM SectVersion="20" SectionFlags="0" SubIdent="0">
+<![CDATA[]]>
+</Script_FWM>
+
+<!-- GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT ===== GDL SCRIPT -->
+
+<Script_BWM SectVersion="20" SectionFlags="0" SubIdent="0">
+<![CDATA[]]>
+</Script_BWM>
+
+<ParamSection SectVersion="27" SectionFlags="0" SubIdent="0">
+	<ParamSectHeader>
+		<AutoHotspots>false</AutoHotspots>
+		<StatBits>
+			<STBit_FixSize/>
+		</StatBits>
+		<WDLeftFrame>0</WDLeftFrame>
+		<WDRightFrame>0</WDRightFrame>
+		<WDTopFrame>0</WDTopFrame>
+		<WDBotFrame>0</WDBotFrame>
+		<LayFlags>65535</LayFlags>
+		<WDMirrorThickness>0</WDMirrorThickness>
+		<WDWallInset>0</WDWallInset>
+	</ParamSectHeader>
+	<Parameters>
+		<Length Name="A">
+			<Description><![CDATA["Dimension 1"]]></Description>
+			<Fix/>
+			<Value>1</Value>
+		</Length>
+		<Length Name="B">
+			<Description><![CDATA["Dimension 2"]]></Description>
+			<Fix/>
+			<Value>1</Value>
+		</Length>
+		<Length Name="ZZYZX">
+			<Description><![CDATA["Height"]]></Description>
+			<Fix/>
+			<Value>1</Value>
+		</Length>
+		<Boolean Name="AC_show2DHotspotsIn3D">
+			<Description><![CDATA["Show 2D Hotspots in 3D"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>0</Value>
+		</Boolean>
+		<Length Name="ac_bottomlevel">
+			<Description><![CDATA["Bottom Level"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>1</Value>
+		</Length>
+		<Length Name="ac_toplevel">
+			<Description><![CDATA["Top Level"]]></Description>
+			<Fix/>
+			<Flags>
+				<ParFlg_Hidden/>
+			</Flags>
+			<Value>0</Value>
+		</Length>
+		<Length Name="CornerS">
+			<Description><![CDATA[""]]></Description>
+			<ArrayValues FirstDimension="6" SecondDimension="3">
+				<AVal Column="1" Row="1">0</AVal>
+				<AVal Column="2" Row="1">0</AVal>
+				<AVal Column="3" Row="1">-0.45</AVal>
+				<AVal Column="1" Row="2">0</AVal>
+				<AVal Column="2" Row="2">1</AVal>
+				<AVal Column="3" Row="2">-0.45</AVal>
+				<AVal Column="1" Row="3">0.3</AVal>
+				<AVal Column="2" Row="3">0</AVal>
+				<AVal Column="3" Row="3">-0.3</AVal>
+				<AVal Column="1" Row="4">0.3</AVal>
+				<AVal Column="2" Row="4">1</AVal>
+				<AVal Column="3" Row="4">-0.3</AVal>
+				<AVal Column="1" Row="5">0.3</AVal>
+				<AVal Column="2" Row="5">0</AVal>
+				<AVal Column="3" Row="5">-0.3</AVal>
+				<AVal Column="1" Row="6">0.3</AVal>
+				<AVal Column="2" Row="6">1</AVal>
+				<AVal Column="3" Row="6">-0.3</AVal>
+			</ArrayValues>
+		</Length>
+		<Length Name="CutInS">
+			<Description><![CDATA[""]]></Description>
+			<ArrayValues FirstDimension="2" SecondDimension="3">
+				<AVal Column="1" Row="1">0.1</AVal>
+				<AVal Column="2" Row="1">0</AVal>
+				<AVal Column="3" Row="1">-0.45</AVal>
+				<AVal Column="1" Row="2">0.1</AVal>
+				<AVal Column="2" Row="2">1</AVal>
+				<AVal Column="3" Row="2">-0.45</AVal>
+			</ArrayValues>
+		</Length>
+		<Material Name="mTread">
+			<Description><![CDATA["Material"]]></Description>
+			<Value>3</Value>
+		</Material>
+		<PenColor Name="pVisible">
+			<Description><![CDATA["Visible pen"]]></Description>
+			<Value>1</Value>
+		</PenColor>
+		<LineType Name="lVisible">
+			<Description><![CDATA["Visible linetype"]]></Description>
+			<Value>1</Value>
+		</LineType>
+		<FillPattern Name="fVisible">
+			<Description><![CDATA["Visible fill type"]]></Description>
+			<Value>64</Value>
+		</FillPattern>
+		<PenColor Name="pHidden">
+			<Description><![CDATA["Hidden pen"]]></Description>
+			<Value>61</Value>
+		</PenColor>
+		<LineType Name="lHidden">
+			<Description><![CDATA["Hidden linetype"]]></Description>
+			<Value>2</Value>
+		</LineType>
+		<FillPattern Name="fHidden">
+			<Description><![CDATA["Hidden fill type"]]></Description>
+			<Value>65</Value>
+		</FillPattern>
+		<FillPattern Name="fCut">
+			<Description><![CDATA["Cut pen"]]></Description>
+			<Value>5</Value>
+		</FillPattern>
+		<PenColor Name="pForeground">
+			<Description><![CDATA["Cut fill foreground pen"]]></Description>
+			<Value>98</Value>
+		</PenColor>
+		<PenColor Name="pBackground">
+			<Description><![CDATA["Cut fill background pen"]]></Description>
+			<Value>-1</Value>
+		</PenColor>
+		<PenColor Name="pContour">
+			<Description><![CDATA["Cut contour pen"]]></Description>
+			<Value>41</Value>
+		</PenColor>
+		<LineType Name="lContour">
+			<Description><![CDATA["Cut contour linetype"]]></Description>
+			<Value>1</Value>
+		</LineType>
+		<PenColor Name="p3D">
+			<Description><![CDATA["3D edge pen"]]></Description>
+			<Value>1</Value>
+		</PenColor>
+		<Boolean Name="doDrawCutLine">
+			<Description><![CDATA["Draw cut line"]]></Description>
+			<Value>0</Value>
+		</Boolean>
+		<Length Name="xBreakMark1">
+			<Description><![CDATA["Cut line dist 1"]]></Description>
+			<Value>0</Value>
+		</Length>
+		<Length Name="xBreakMark2">
+			<Description><![CDATA["Cut line dist 2"]]></Description>
+			<Value>0.6</Value>
+		</Length>
+		<Length Name="xHiddenOffset">
+			<Description><![CDATA["Cut line overhang"]]></Description>
+			<Value>0.05</Value>
+		</Length>
+		<Length Name="yHiddenOffset">
+			<Description><![CDATA["Cut line line distance"]]></Description>
+			<Value>0.05</Value>
+		</Length>
+		<Length Name="XHidden1">
+			<Description><![CDATA[""]]></Description>
+			<Value>0</Value>
+		</Length>
+		<Length Name="XHidden2">
+			<Description><![CDATA[""]]></Description>
+			<Value>0.3</Value>
+		</Length>
+		<Boolean Name="doShowExt">
+			<Description><![CDATA[""]]></Description>
+			<Value>0</Value>
+		</Boolean>
+		<Boolean Name="bDebug">
+			<Description><![CDATA["Debugging output"]]></Description>
+			<Value>0</Value>
+		</Boolean>
+		<Boolean Name="hasCutIn">
+			<Description><![CDATA["Cut in"]]></Description>
+			<Value>0</Value>
+		</Boolean>
+		<Boolean Name="hasExt">
+			<Description><![CDATA["Extension"]]></Description>
+			<Value>0</Value>
+		</Boolean>
+		<Boolean Name="isWinder">
+			<Description><![CDATA["Winder"]]></Description>
+			<Value>0</Value>
+		</Boolean>
+		<Length Name="zPos">
+			<Description><![CDATA[""]]></Description>
+			<Value>0</Value>
+		</Length>
+		<Boolean Name="isHiddenEdge1">
+			<Description><![CDATA[""]]></Description>
+			<Value>0</Value>
+		</Boolean>
+		<Boolean Name="isHiddenEdge2">
+			<Description><![CDATA[""]]></Description>
+			<Value>0</Value>
+		</Boolean>
+	</Parameters>
+</ParamSection>
+
+<Copyright SectVersion="1" SectionFlags="0" SubIdent="0">
+	<Author></Author>
+	<License>
+		<Type>CC BY</Type>
+		<Version>4.0</Version>
+	</License>
+</Copyright>
+
+<Keywords SectVersion="1" SectionFlags="0" SubIdent="0">
+<![CDATA[]]>
+</Keywords>
+
+<Comment SectVersion="20" SectionFlags="0" SubIdent="0">
+<![CDATA[]]>
+</Comment>
+
+</Symbol>
